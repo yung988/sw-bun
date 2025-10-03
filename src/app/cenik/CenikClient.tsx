@@ -1,5 +1,4 @@
 'use client'
-import Navbar from '@/components/Navbar'
 import PriceCard from '@/components/PriceCard'
 import SectionTitle from '@/components/SectionTitle'
 import type { PriceItem } from '@/types'
@@ -42,10 +41,8 @@ export default function CenikClient() {
   const { order, groups } = groupByCategory(filteredItems)
 
   return (
-    <main className="min-h-screen bg-white pb-24">
-      <Navbar />
-
-      <section className="mx-auto max-w-6xl px-6 pt-12 pb-10">
+    <main className="min-h-screen bg-white dark:bg-slate-900 pb-24">
+      <section className="site-container pt-12 pb-10">
         <SectionTitle
           center={false}
           eyebrow="Ceník"
@@ -55,15 +52,15 @@ export default function CenikClient() {
       </section>
 
       {/* Filter Tabs */}
-      <section className="mx-auto max-w-6xl px-6 pb-8">
+      <section className="site-container pb-8">
         <div className="flex flex-wrap gap-3">
           <button
             type="button"
             onClick={() => setSelectedCategory('all')}
-            className={`rounded-full px-5 py-2.5 text-sm font-medium transition ${
+            className={`rounded-full px-4 py-2 text-[13px] font-medium transition ${
               selectedCategory === 'all'
-                ? 'bg-slate-900 text-white'
-                : 'border border-faint bg-white text-slate-600 hover:bg-slate-50'
+                ? 'bg-black text-white shadow-sm ring-1 ring-black/10 dark:bg-white dark:text-graphite'
+                : 'text-slate-600 dark:text-slate-300 border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 hover:bg-slate-50 dark:hover:bg-slate-700'
             }`}
           >
             Vše
@@ -73,10 +70,10 @@ export default function CenikClient() {
               type="button"
               key={cat}
               onClick={() => setSelectedCategory(cat)}
-              className={`rounded-full px-5 py-2.5 text-sm font-medium transition ${
+              className={`rounded-full px-4 py-2 text-[13px] font-medium transition ${
                 selectedCategory === cat
-                  ? 'bg-slate-900 text-white'
-                  : 'border border-faint bg-white text-slate-600 hover:bg-slate-50'
+                  ? 'bg-black text-white shadow-sm ring-1 ring-black/10 dark:bg-white dark:text-graphite'
+                  : 'text-slate-600 dark:text-slate-300 border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 hover:bg-slate-50 dark:hover:bg-slate-700'
               }`}
             >
               {cat}
@@ -86,8 +83,8 @@ export default function CenikClient() {
       </section>
 
       {order.map((category) => (
-        <section key={category} className="mx-auto max-w-6xl px-6 py-8">
-          <h3 className="mb-6 font-display text-xl text-slate-900 md:text-2xl">{category}</h3>
+        <section key={category} className="site-container py-8">
+          <h3 className="mb-6 font-display text-xl text-slate-900 dark:text-white md:text-2xl">{category}</h3>
           <div className="grid gap-6 md:grid-cols-2">
             {groups[category].map((it) => (
               <PriceCard
@@ -102,8 +99,8 @@ export default function CenikClient() {
         </section>
       ))}
 
-      <section className="mx-auto max-w-6xl px-6 pt-8">
-        <p className="text-xs text-slate-500">
+      <section className="site-container pt-8">
+        <p className="text-xs text-slate-500 dark:text-slate-400">
           Uvedené ceny jsou orientační. Finální doporučení a počet sezení stanovíme při konzultaci dle cíle a stavu
           pleti/těla.
         </p>

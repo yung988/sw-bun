@@ -1,0 +1,17 @@
+{
+  "pages": {
+    "/blog/jak-funguje-endos-roller/page": [
+      "static/chunks/ff1a16fafef87110.js",
+      "static/chunks/7dd66bdf8a7e5707.js",
+      "static/chunks/4f550f2cab05a880.css",
+      "static/chunks/d602a5a3b7d7ad63.js",
+      "static/chunks/a86fe800fee051c7.js",
+      "static/chunks/7cd89debf6655a24.js",
+      "static/chunks/2e175d805581124f.js",
+      "static/chunks/47f477e3d2ef265b.js",
+      "static/chunks/150316a471952cee.js",
+      "static/chunks/50162aed73a107b5.js",
+      "static/chunks/turbopack-04921d6dd2dd455b.js"
+    ]
+  }
+}

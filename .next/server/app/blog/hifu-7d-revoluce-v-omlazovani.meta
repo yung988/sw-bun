@@ -1,0 +1,7 @@
+{
+  "headers": {
+    "x-nextjs-stale-time": "300",
+    "x-nextjs-prerender": "1",
+    "x-next-cache-tags": "_N_T_/layout,_N_T_/blog/layout,_N_T_/blog/hifu-7d-revoluce-v-omlazovani/layout,_N_T_/blog/hifu-7d-revoluce-v-omlazovani/page,_N_T_/blog/hifu-7d-revoluce-v-omlazovani"
+  }
+}

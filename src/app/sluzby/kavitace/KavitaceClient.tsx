@@ -1,5 +1,4 @@
 'use client'
-import Navbar from '@/components/Navbar'
 import PriceCard from '@/components/PriceCard'
 import SectionTitle from '@/components/SectionTitle'
 import type { PriceItem } from '@/types'
@@ -21,10 +20,8 @@ export default function KavitaceClient() {
 
   return (
     <main className="min-h-screen bg-white pb-24">
-      <Navbar />
-
       {/* Hero Section */}
-      <section className="mx-auto max-w-6xl px-6 pt-12 pb-8">
+      <section className="site-container section-y">
         <div className="space-y-4">
           <span className="inline-block rounded-full border border-slate-200 bg-slate-50 px-4 py-1.5 text-xs uppercase tracking-[0.4em] text-slate-500">
             Zeštíhlení
@@ -38,7 +35,7 @@ export default function KavitaceClient() {
       </section>
 
       {/* Featured Image */}
-      <section className="mx-auto max-w-6xl px-6 pb-12">
+      <section className="site-container section-y">
         <div className="relative aspect-[16/9] overflow-hidden rounded-[2rem] bg-slate-100">
           <Image
             src="/images/cavitace.png"
@@ -51,7 +48,7 @@ export default function KavitaceClient() {
       </section>
 
       {/* About Section */}
-      <section className="mx-auto max-w-6xl px-6 py-12">
+      <section className="site-container section-y">
         <div className="grid gap-12 lg:grid-cols-2">
           <div>
             <h2 className="font-display text-2xl md:text-3xl font-light text-slate-900 mb-6">Co je kavitace?</h2>
@@ -99,7 +96,7 @@ export default function KavitaceClient() {
       </section>
 
       {/* Treated Areas */}
-      <section className="mx-auto max-w-6xl px-6 py-12">
+      <section className="site-container section-y">
         <h2 className="font-display text-2xl md:text-3xl font-light text-slate-900 mb-8 text-center">
           Které partie lze ošetřit?
         </h2>
@@ -112,7 +109,7 @@ export default function KavitaceClient() {
             { title: 'Paže', desc: 'Redukce tuku na pažích' },
             { title: 'Nohy', desc: 'Celkové zeštíhlení nohou' },
           ].map((area) => (
-            <div key={area.title} className="rounded-2xl border border-faint bg-white p-6 shadow-sm">
+            <div key={area.title} className="card-soft p-6">
               <h4 className="font-medium text-slate-900 mb-2">{area.title}</h4>
               <p className="text-sm text-slate-600">{area.desc}</p>
             </div>
@@ -121,7 +118,7 @@ export default function KavitaceClient() {
       </section>
 
       {/* How it works */}
-      <section className="mx-auto max-w-6xl px-6 py-12">
+      <section className="site-container section-y">
         <h2 className="font-display text-2xl md:text-3xl font-light text-slate-900 mb-8 text-center">
           Jak probíhá ošetření?
         </h2>
@@ -152,7 +149,7 @@ export default function KavitaceClient() {
 
       {/* Pricing Section */}
       {prices.length > 0 && (
-        <section className="mx-auto max-w-6xl px-6 py-12">
+        <section className="site-container section-y">
           <SectionTitle
             center={false}
             eyebrow="Ceník"
@@ -172,25 +169,18 @@ export default function KavitaceClient() {
           </div>
         </section>
       )}
-
       {/* CTA Section */}
-      <section className="mx-auto max-w-6xl px-6 py-12">
+      <section className="site-container section-y">
         <div className="rounded-[2rem] border border-faint bg-gradient-to-br from-slate-900 to-slate-800 p-12 text-center">
           <h3 className="font-display text-2xl md:text-3xl text-white mb-4">Vyzkoušejte kavitaci</h3>
           <p className="text-white/80 mb-8 max-w-2xl mx-auto">
             Objednejte si první sezení a poznejte účinnou metodu pro redukci tuku.
           </p>
           <div className="flex flex-wrap items-center justify-center gap-4">
-            <Link
-              href="mailto:info@swbeauty.cz"
-              className="rounded-full bg-white px-8 py-3.5 text-sm font-medium text-slate-900 transition hover:bg-slate-50"
-            >
+            <Link href="mailto:info@swbeauty.cz" className="btn bg-white px-8 py-3.5 text-slate-900 hover:bg-slate-50">
               Objednat sezení
             </Link>
-            <Link
-              href="/cenik"
-              className="rounded-full border border-white/30 bg-white/10 px-8 py-3.5 text-sm font-medium text-white backdrop-blur-sm transition hover:bg-white/20"
-            >
+            <Link href="/cenik" className="btn-ghost-dark px-8 py-3.5">
               Celý ceník
             </Link>
           </div>

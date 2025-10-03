@@ -60,5 +60,13 @@
       "semicolons": "asNeeded",
       "arrowParentheses": "always"
     }
-  }
+  },
+  "overrides": [
+    {
+      "include": ["**/*.css"],
+      "linter": {
+        "enabled": false
+      }
+    }
+  ]
 }

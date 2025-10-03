@@ -14,11 +14,15 @@ const config: Config = {
         graphite: "#0f172a",
       },
       fontFamily: {
-        sans: ["var(--font-sans)", "sans-serif"],
-        display: ["var(--font-display)", "serif"],
+        sans: ["var(--font-inter)", "-apple-system", "BlinkMacSystemFont", "SF Pro Text", "Helvetica Neue", "Arial", "sans-serif"],
+        serif: ["var(--font-instrument-serif)", "Georgia", "Times New Roman", "serif"],
+      },
+      maxWidth: {
+        container: '1250px',
       },
       boxShadow: {
-        soft: "0 24px 48px -24px rgba(15, 23, 42, 0.25)",
+        'soft': '0 10px 20px -10px rgba(15, 23, 42, 0.15)',
+        'card': '0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px -1px rgba(0, 0, 0, 0.1)',
       },
       borderRadius: {
         xl: "var(--radius-xl)",

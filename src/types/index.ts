@@ -49,3 +49,11 @@ export type PriceItem = {
   Sessions: string
   Description: string
 }
+
+export type InstagramPost = {
+  id: number
+  image: string
+  alt: string
+  likes: number
+  comments?: number
+}

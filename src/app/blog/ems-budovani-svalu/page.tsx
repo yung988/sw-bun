@@ -20,17 +20,14 @@ export const metadata: Metadata = {
   },
 }
 
-import Navbar from '@/components/Navbar'
 import Image from 'next/image'
 import Link from 'next/link'
 
 export default function BlogPost() {
   return (
     <main className="min-h-screen bg-white">
-      <Navbar />
-
       {/* Hero Section */}
-      <section className="mx-auto max-w-4xl px-6 pt-12 pb-8">
+      <section className="site-container pt-12 pb-8">
         <div className="space-y-4 text-center">
           <div className="text-sm text-slate-500">Leden 5, 2025</div>
           <h1 className="font-display text-4xl md:text-5xl font-light text-slate-900">EMS budování svalů</h1>
@@ -39,7 +36,7 @@ export default function BlogPost() {
       </section>
 
       {/* Featured Image */}
-      <section className="mx-auto max-w-4xl px-6 pb-12">
+      <section className="site-container pb-12">
         <div className="relative aspect-[16/9] overflow-hidden rounded-[2rem] bg-slate-100">
           <Image
             src="/images/ems.png"
@@ -220,7 +217,7 @@ export default function BlogPost() {
               <p className="text-xs text-slate-500 mt-1">Jednoduché nápady o designu, jasnosti a dynamice</p>
             </div>
             <Link
-              href="https://instagram.com"
+              href="https://www.instagram.com/swbeautysalons/"
               target="_blank"
               className="text-slate-400 transition hover:text-slate-900"
             >
@@ -232,20 +229,6 @@ export default function BlogPost() {
           </div>
         </div>
       </article>
-
-      {/* Footer */}
-      <footer className="border-t border-faint bg-slate-50/50 py-16">
-        <div className="mx-auto max-w-6xl px-6">
-          <div className="text-center">
-            <p className="text-xs text-slate-400">
-              Všechna práva vyhrazena. © {new Date().getFullYear()} SW Beauty ·
-              <Link href="/" className="ml-2 underline-offset-4 hover:underline">
-                Zpět na hlavní stránku
-              </Link>
-            </p>
-          </div>
-        </div>
-      </footer>
     </main>
   )
 }

@@ -20,13 +20,29 @@
       "type": "local",
       "command": ["npx", "chrome-devtools-mcp@latest"],
       "enabled": true
+    },
+    "serena": {
+      "type": "local",
+      "command": [
+        "uvx",
+        "--from",
+        "git+https://github.com/oraios/serena",
+        "serena",
+        "start-mcp-server",
+        "--context",
+        "ide-assistant",
+        "--project",
+        "/Users/jangajdos/Desktop/swbeauty3/swbeauty-bun"
+      ],
+      "enabled": true
     }
   },
   "tools": {
     "ref*": false,
     "exa*": false,
     "playwright*": false,
-    "chrome-devtools*": false
+    "chrome-devtools*": false,
+    "serena*": true
   },
   "agent": {
     "plan-analyse": {
@@ -34,7 +50,8 @@
         "ref*": true,
         "exa*": true,
         "playwright*": true,
-        "chrome-devtools*": true
+        "chrome-devtools*": true,
+        "serena*": true
       }
     },
     "plan-project": {
@@ -42,7 +59,8 @@
         "ref*": true,
         "exa*": true,
         "playwright*": true,
-        "chrome-devtools*": true
+        "chrome-devtools*": true,
+        "serena*": true
       }
     },
     "mastra": {
@@ -50,7 +68,8 @@
         "ref*": true,
         "exa*": true,
         "playwright*": true,
-        "chrome-devtools*": true
+        "chrome-devtools*": true,
+        "serena*": true
       }
     },
     "documentation": {
@@ -58,7 +77,8 @@
         "ref*": true,
         "exa*": true,
         "playwright*": true,
-        "chrome-devtools*": true
+        "chrome-devtools*": true,
+        "serena*": true
       }
     },
     "write-test": {
@@ -66,7 +86,8 @@
         "ref*": true,
         "exa*": true,
         "playwright*": true,
-        "chrome-devtools*": true
+        "chrome-devtools*": true,
+        "serena*": true
       }
     },
     "tester": {
@@ -74,7 +95,8 @@
         "ref*": true,
         "exa*": true,
         "playwright*": true,
-        "chrome-devtools*": true
+        "chrome-devtools*": true,
+        "serena*": true
       }
     },
     "reviewer": {
@@ -82,7 +104,8 @@
         "ref*": true,
         "exa*": true,
         "playwright*": true,
-        "chrome-devtools*": true
+        "chrome-devtools*": true,
+        "serena*": true
       }
     }
   }

@@ -9,11 +9,11 @@ export default function BlogCard({ image, title, excerpt, category, href = '#' }
   return (
     <Link href={href}>
       <motion.article
-        className="group overflow-hidden rounded-2xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 shadow-sm"
+        className="group overflow-hidden rounded-2xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 shadow-card"
         whileHover={{
-          y: -12,
-          scale: 1.02,
-          boxShadow: '0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04)',
+          y: -8,
+          scale: 1.01,
+          boxShadow: '0 10px 15px -3px rgba(0, 0, 0, 0.08), 0 4px 6px -2px rgba(0, 0, 0, 0.03)',
         }}
         transition={{ duration: 0.4, ease: [0.25, 0.1, 0.25, 1] }}
       >
@@ -24,6 +24,25 @@ export default function BlogCard({ image, title, excerpt, category, href = '#' }
             className="relative w-full h-full"
           >
             <Image src={image} alt={title} fill sizes="(min-width: 768px) 33vw, 100vw" className="object-cover" />
+            {/* Hover overlay s ikonou */}
+            <div className="absolute inset-0 bg-black/0 group-hover:bg-black/20 transition-colors duration-300 flex items-center justify-center">
+              <motion.div
+                initial={{ scale: 0, opacity: 0 }}
+                whileHover={{ scale: 1, opacity: 1 }}
+                transition={{ duration: 0.3 }}
+                className="bg-white/90 dark:bg-slate-800/90 rounded-full p-3 backdrop-blur-sm shadow-lg"
+              >
+                <svg
+                  className="h-5 w-5 text-slate-900 dark:text-white"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                  strokeWidth={2}
+                >
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M14 5l7 7m0 0l-7 7m7-7H3" />
+                </svg>
+              </motion.div>
+            </div>
           </motion.div>
         </div>
         <div className="space-y-2 p-5">

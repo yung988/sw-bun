@@ -3,12 +3,12 @@ import type { Testimonial } from '@/types'
 export const testimonials: Testimonial[] = [
   {
     quote:
-      '„HIFU facelift překonal má očekávání! Okamžitě vidín lifting a po měsíci ještě lepší výsledky. Konečně vypadám mladší bez operace."',
+      '„HIFU facelift překonal má očekávání! Okamžitě vidím lifting a po měsíci ještě lepší výsledky. Konečně vypadám mladší bez operace."',
     name: 'Petra • Praha',
   },
   {
     quote:
-      '„Endos-roller je zázrak! Po 6 ošetřeních mám viditelně štíhle jší stehna a žádné otékaní. Nejlepší investice do sebe."',
+      '„Endos-roller je zázrak! Po 6 ošetřeních mám viditelně štíhlejší stehna a žádné otékaní. Nejlepší investice do sebe."',
     name: 'Lucie • Brno',
   },
   {
@@ -23,7 +23,7 @@ export const testimonials: Testimonial[] = [
   },
   {
     quote:
-      '„Kavitace mi pomohla zbavit se tuku na břiše, který nechce jit pryč ani s cvičením. Po 8 ošetřeních vidím obrovský rozdíl!"',
+      '„Kavitace mi pomohla zbavit se tuku na břiše, který nechce jít pryč ani s cvičením. Po 8 ošetřeních vidím obrovský rozdíl!"',
     name: 'Veronika • Liberec',
   },
   {

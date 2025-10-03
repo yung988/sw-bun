@@ -6,32 +6,56 @@ type Item = { q: string; a: string }
 export default function FAQ({ items }: { items: Item[] }) {
   const [open, setOpen] = useState<number | null>(0)
   return (
-    <div className="divide-y rounded-2xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 shadow-sm">
+    <div className="space-y-3">
       {items.map((it, idx) => (
-        <div key={it.q} className="p-5 transition-colors hover:bg-slate-50 dark:hover:bg-slate-700">
+        <div
+          key={it.q}
+          className={`rounded-2xl border transition-all duration-500 ${
+            open === idx
+              ? 'border-slate-300 dark:border-slate-600 bg-white dark:bg-slate-800 shadow-lg'
+              : 'border-slate-200/50 dark:border-slate-700/50 bg-white/50 dark:bg-slate-800/50 hover:border-slate-300 dark:hover:border-slate-600 hover:bg-white dark:hover:bg-slate-800'
+          }`}
+        >
           <button
             type="button"
-            className="w-full text-left flex items-center justify-between gap-4 group"
             onClick={() => setOpen(open === idx ? null : idx)}
+            aria-expanded={open === idx}
+            aria-controls={`faq-answer-${idx}`}
+            className="w-full text-left flex items-start justify-between gap-4 p-6 lg:p-7 group"
           >
-            <span className="font-medium tracking-tight text-slate-900 dark:text-white group-hover:text-slate-700 dark:group-hover:text-slate-200">
+            <span
+              id={`faq-question-${idx}`}
+              className="font-medium text-base lg:text-lg tracking-tight text-slate-900 dark:text-white transition-colors pr-4"
+            >
               {it.q}
             </span>
-            <span
-              className="text-xl text-slate-400 dark:text-slate-300 transition-transform duration-200"
-              style={{ transform: open === idx ? 'rotate(45deg)' : 'rotate(0deg)' }}
-            >
-              +
+            <span className="flex-shrink-0 mt-0.5">
+              <svg
+                className={`w-5 h-5 text-slate-400 dark:text-slate-500 transition-all duration-500 ${
+                  open === idx
+                    ? 'rotate-180 text-slate-700 dark:text-slate-300'
+                    : 'group-hover:text-slate-600 dark:group-hover:text-slate-400'
+                }`}
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+              >
+                <title>Rozbalit</title>
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+              </svg>
             </span>
           </button>
           <div
-            className="overflow-hidden transition-all duration-300 ease-in-out"
-            style={{
-              maxHeight: open === idx ? '500px' : '0',
-              opacity: open === idx ? 1 : 0,
-            }}
+            id={`faq-answer-${idx}`}
+            role="region"
+            aria-labelledby={`faq-question-${idx}`}
+            className={`overflow-hidden transition-all duration-500 ease-in-out ${
+              open === idx ? 'max-h-[500px] opacity-100' : 'max-h-0 opacity-0'
+            }`}
           >
-            <p className="pt-3 text-sm leading-relaxed text-slate-600 dark:text-slate-400">{it.a}</p>
+            <div className="px-6 lg:px-7 pb-6 lg:pb-7">
+              <p className="text-sm lg:text-base leading-relaxed text-slate-600 dark:text-slate-400 pt-2">{it.a}</p>
+            </div>
           </div>
         </div>
       ))}

@@ -1,8 +1,9 @@
 'use client'
-import Navbar from '@/components/Navbar'
+import BookingForm from '@/components/BookingForm'
 import PriceCard from '@/components/PriceCard'
 import SectionTitle from '@/components/SectionTitle'
 import type { PriceItem } from '@/types'
+import { motion } from 'framer-motion'
 import Image from 'next/image'
 import Link from 'next/link'
 import { useEffect, useState } from 'react'
@@ -26,10 +27,8 @@ export default function HifuFaceliftClient() {
 
   return (
     <main className="min-h-screen bg-white pb-24">
-      <Navbar />
-
       {/* Hero Section */}
-      <section className="mx-auto max-w-6xl px-6 pt-12 pb-8">
+      <section className="site-container pt-12 pb-8">
         <div className="space-y-4">
           <span className="inline-block rounded-full border border-slate-200 bg-slate-50 px-4 py-1.5 text-xs uppercase tracking-[0.4em] text-slate-500">
             Omlazení
@@ -43,7 +42,7 @@ export default function HifuFaceliftClient() {
       </section>
 
       {/* Featured Image */}
-      <section className="mx-auto max-w-6xl px-6 pb-12">
+      <section className="site-container pb-12">
         <div className="relative aspect-[16/9] overflow-hidden rounded-[2rem] bg-slate-100">
           <Image
             src="/images/service-hifu.jpg"
@@ -56,7 +55,7 @@ export default function HifuFaceliftClient() {
       </section>
 
       {/* About Section */}
-      <section className="mx-auto max-w-6xl px-6 py-12">
+      <section className="site-container py-12">
         <div className="grid gap-12 lg:grid-cols-2">
           <div>
             <h2 className="font-display text-2xl md:text-3xl font-light text-slate-900 mb-6">Co je HIFU 7D?</h2>
@@ -102,7 +101,7 @@ export default function HifuFaceliftClient() {
 
       {/* Pricing Section */}
       {facelifts.length > 0 && (
-        <section className="mx-auto max-w-6xl px-6 py-12">
+        <section className="site-container py-12">
           <SectionTitle
             center={false}
             eyebrow="Ceník"
@@ -197,6 +196,18 @@ export default function HifuFaceliftClient() {
             </div>
           </div>
         </Link>
+      </section>
+
+      {/* Booking Section */}
+      <section id="rezervace" className="mx-auto max-w-4xl px-6 py-[90px]">
+        <BookingForm
+          preselectedService={{
+            id: 'hifu-facelift-cely-oblicej',
+            name: 'HIFU facelift celý obličej',
+            price: '5 500 Kč',
+            duration: 60,
+          }}
+        />
       </section>
     </main>
   )

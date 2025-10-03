@@ -6,7 +6,7 @@ export default function SectionTitle({ eyebrow, title, subtitle, center = true }
   return (
     <div className={`space-y-3 ${center ? 'text-center' : 'text-left'}`}>
       {eyebrow && (
-        <span className="text-xs uppercase tracking-[0.35em] text-slate-400 dark:text-slate-300">{eyebrow}</span>
+        <span className="text-xs uppercase tracking-[0.4em] text-slate-500 dark:text-slate-400">{eyebrow}</span>
       )}
       <h2 className="font-display text-[40px] leading-[48px] font-light tracking-tight text-slate-900 dark:text-white">
         {title}

@@ -1,0 +1,109 @@
+{
+  "app": {
+    "[project]/src/app/_not-found/page": [
+      "static/media/1bffadaabf893a1e-s.p.7cd81963.woff2",
+      "static/media/83afe278b6a6bb3c-s.p.3a6ba036.woff2",
+      "static/media/7ebf22b5a21034f8-s.p.d8bad3ab.woff2",
+      "static/media/e41d5df559864f9e-s.p.380d09ea.woff2"
+    ],
+    "[project]/src/app/blog/ems-budovani-svalu/page": [
+      "static/media/1bffadaabf893a1e-s.p.7cd81963.woff2",
+      "static/media/83afe278b6a6bb3c-s.p.3a6ba036.woff2",
+      "static/media/7ebf22b5a21034f8-s.p.d8bad3ab.woff2",
+      "static/media/e41d5df559864f9e-s.p.380d09ea.woff2"
+    ],
+    "[project]/src/app/blog/hifu-7d-revoluce-v-omlazovani/page": [
+      "static/media/1bffadaabf893a1e-s.p.7cd81963.woff2",
+      "static/media/83afe278b6a6bb3c-s.p.3a6ba036.woff2",
+      "static/media/7ebf22b5a21034f8-s.p.d8bad3ab.woff2",
+      "static/media/e41d5df559864f9e-s.p.380d09ea.woff2"
+    ],
+    "[project]/src/app/blog/jak-funguje-endos-roller/page": [
+      "static/media/1bffadaabf893a1e-s.p.7cd81963.woff2",
+      "static/media/83afe278b6a6bb3c-s.p.3a6ba036.woff2",
+      "static/media/7ebf22b5a21034f8-s.p.d8bad3ab.woff2",
+      "static/media/e41d5df559864f9e-s.p.380d09ea.woff2"
+    ],
+    "[project]/src/app/cenik/page": [
+      "static/media/1bffadaabf893a1e-s.p.7cd81963.woff2",
+      "static/media/83afe278b6a6bb3c-s.p.3a6ba036.woff2",
+      "static/media/7ebf22b5a21034f8-s.p.d8bad3ab.woff2",
+      "static/media/e41d5df559864f9e-s.p.380d09ea.woff2"
+    ],
+    "[project]/src/app/kontakt/page": [
+      "static/media/1bffadaabf893a1e-s.p.7cd81963.woff2",
+      "static/media/83afe278b6a6bb3c-s.p.3a6ba036.woff2",
+      "static/media/7ebf22b5a21034f8-s.p.d8bad3ab.woff2",
+      "static/media/e41d5df559864f9e-s.p.380d09ea.woff2"
+    ],
+    "[project]/src/app/o-salonu/page": [
+      "static/media/1bffadaabf893a1e-s.p.7cd81963.woff2",
+      "static/media/83afe278b6a6bb3c-s.p.3a6ba036.woff2",
+      "static/media/7ebf22b5a21034f8-s.p.d8bad3ab.woff2",
+      "static/media/e41d5df559864f9e-s.p.380d09ea.woff2"
+    ],
+    "[project]/src/app/page": [
+      "static/media/1bffadaabf893a1e-s.p.7cd81963.woff2",
+      "static/media/83afe278b6a6bb3c-s.p.3a6ba036.woff2",
+      "static/media/7ebf22b5a21034f8-s.p.d8bad3ab.woff2",
+      "static/media/e41d5df559864f9e-s.p.380d09ea.woff2"
+    ],
+    "[project]/src/app/poukazy/page": [
+      "static/media/1bffadaabf893a1e-s.p.7cd81963.woff2",
+      "static/media/83afe278b6a6bb3c-s.p.3a6ba036.woff2",
+      "static/media/7ebf22b5a21034f8-s.p.d8bad3ab.woff2",
+      "static/media/e41d5df559864f9e-s.p.380d09ea.woff2"
+    ],
+    "[project]/src/app/rezervace/page": [
+      "static/media/1bffadaabf893a1e-s.p.7cd81963.woff2",
+      "static/media/83afe278b6a6bb3c-s.p.3a6ba036.woff2",
+      "static/media/7ebf22b5a21034f8-s.p.d8bad3ab.woff2",
+      "static/media/e41d5df559864f9e-s.p.380d09ea.woff2"
+    ],
+    "[project]/src/app/sluzby/[slug]/page": [
+      "static/media/1bffadaabf893a1e-s.p.7cd81963.woff2",
+      "static/media/83afe278b6a6bb3c-s.p.3a6ba036.woff2",
+      "static/media/7ebf22b5a21034f8-s.p.d8bad3ab.woff2",
+      "static/media/e41d5df559864f9e-s.p.380d09ea.woff2"
+    ],
+    "[project]/src/app/sluzby/ems-budovani-svalu/page": [
+      "static/media/1bffadaabf893a1e-s.p.7cd81963.woff2",
+      "static/media/83afe278b6a6bb3c-s.p.3a6ba036.woff2",
+      "static/media/7ebf22b5a21034f8-s.p.d8bad3ab.woff2",
+      "static/media/e41d5df559864f9e-s.p.380d09ea.woff2"
+    ],
+    "[project]/src/app/sluzby/endos-roller/page": [
+      "static/media/1bffadaabf893a1e-s.p.7cd81963.woff2",
+      "static/media/83afe278b6a6bb3c-s.p.3a6ba036.woff2",
+      "static/media/7ebf22b5a21034f8-s.p.d8bad3ab.woff2",
+      "static/media/e41d5df559864f9e-s.p.380d09ea.woff2"
+    ],
+    "[project]/src/app/sluzby/hifu-facelift/page": [
+      "static/media/1bffadaabf893a1e-s.p.7cd81963.woff2",
+      "static/media/83afe278b6a6bb3c-s.p.3a6ba036.woff2",
+      "static/media/7ebf22b5a21034f8-s.p.d8bad3ab.woff2",
+      "static/media/e41d5df559864f9e-s.p.380d09ea.woff2"
+    ],
+    "[project]/src/app/sluzby/kavitace/page": [
+      "static/media/1bffadaabf893a1e-s.p.7cd81963.woff2",
+      "static/media/83afe278b6a6bb3c-s.p.3a6ba036.woff2",
+      "static/media/7ebf22b5a21034f8-s.p.d8bad3ab.woff2",
+      "static/media/e41d5df559864f9e-s.p.380d09ea.woff2"
+    ],
+    "[project]/src/app/sluzby/kosmetika/page": [
+      "static/media/1bffadaabf893a1e-s.p.7cd81963.woff2",
+      "static/media/83afe278b6a6bb3c-s.p.3a6ba036.woff2",
+      "static/media/7ebf22b5a21034f8-s.p.d8bad3ab.woff2",
+      "static/media/e41d5df559864f9e-s.p.380d09ea.woff2"
+    ],
+    "[project]/src/app/sluzby/page": [
+      "static/media/1bffadaabf893a1e-s.p.7cd81963.woff2",
+      "static/media/83afe278b6a6bb3c-s.p.3a6ba036.woff2",
+      "static/media/7ebf22b5a21034f8-s.p.d8bad3ab.woff2",
+      "static/media/e41d5df559864f9e-s.p.380d09ea.woff2"
+    ]
+  },
+  "appUsingSizeAdjust": true,
+  "pages": {},
+  "pagesUsingSizeAdjust": false
+}

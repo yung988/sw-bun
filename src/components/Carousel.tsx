@@ -35,6 +35,16 @@ export default function Carousel({ children, auto = false, autoSpeed = 30, showA
     el.scrollBy({ left: direction === 'left' ? -scrollAmount : scrollAmount, behavior: 'smooth' })
   }
 
+  const handleKeyDown = (e: React.KeyboardEvent) => {
+    if (e.key === 'ArrowLeft') {
+      e.preventDefault()
+      scroll('left')
+    } else if (e.key === 'ArrowRight') {
+      e.preventDefault()
+      scroll('right')
+    }
+  }
+
   useEffect(() => {
     const el = ref.current
     if (!el) return
@@ -138,14 +148,13 @@ export default function Carousel({ children, auto = false, autoSpeed = 30, showA
       )}
       <div
         ref={ref}
-        className={`${auto ? 'flex gap-6 overflow-x-auto py-2 scrollbar-hide' : 'flex gap-6 overflow-x-auto snap-x snap-mandatory py-2 scrollbar-hide'}`}
+        aria-label="Carousel"
+        onKeyDown={handleKeyDown}
+        className={`${auto ? 'flex gap-6 overflow-x-auto py-2 scrollbar-hide [&::-webkit-scrollbar]:hidden' : 'flex gap-6 overflow-x-auto snap-x snap-mandatory py-2 scrollbar-hide [&::-webkit-scrollbar]:hidden'}`}
         style={{ scrollbarWidth: 'none' }}
       >
         {renderItems}
       </div>
-      <style jsx>{`
-        .scrollbar-hide::-webkit-scrollbar { display: none; }
-      `}</style>
     </div>
   )
 }

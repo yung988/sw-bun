@@ -11,7 +11,7 @@ type Props = {
 export default function PriceCard({ title, price, sessions, description }: Props) {
   return (
     <motion.div
-      className="group relative h-full rounded-2xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 p-6 shadow-sm"
+      className="group relative h-full card-soft p-6"
       whileHover={{ y: -8, scale: 1.01 }}
       transition={{ duration: 0.4, ease: [0.25, 0.1, 0.25, 1] }}
     >

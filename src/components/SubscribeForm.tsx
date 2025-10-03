@@ -12,7 +12,7 @@ export default function SubscribeForm() {
   }
 
   return (
-    <div className="mx-auto max-w-6xl rounded-[2rem] border border-slate-200 dark:border-slate-700 bg-gradient-to-br from-slate-50 dark:from-slate-800 to-white dark:to-slate-800 p-10 md:p-12 shadow-soft">
+    <div className="rounded-[2rem] border border-slate-200 dark:border-slate-700 bg-gradient-to-br from-slate-50 dark:from-slate-800 to-white dark:to-slate-800 p-10 md:p-12 shadow-soft">
       <div className="grid gap-8 md:grid-cols-[1.2fr_0.8fr] items-center">
         <div>
           <div className="inline-flex items-center gap-2 rounded-full bg-white dark:bg-slate-800 px-4 py-1.5 text-xs uppercase tracking-[0.35em] text-slate-500 dark:text-slate-400 shadow-sm">

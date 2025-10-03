@@ -1,5 +1,4 @@
 'use client'
-import Navbar from '@/components/Navbar'
 import PriceCard from '@/components/PriceCard'
 import SectionTitle from '@/components/SectionTitle'
 import type { PriceItem } from '@/types'
@@ -21,10 +20,8 @@ export default function EMSClient() {
 
   return (
     <main className="min-h-screen bg-white pb-24">
-      <Navbar />
-
       {/* Hero Section */}
-      <section className="mx-auto max-w-6xl px-6 pt-12 pb-8">
+      <section className="site-container section-y">
         <div className="space-y-4">
           <span className="inline-block rounded-full border border-slate-200 bg-slate-50 px-4 py-1.5 text-xs uppercase tracking-[0.4em] text-slate-500">
             Fitness
@@ -38,7 +35,7 @@ export default function EMSClient() {
       </section>
 
       {/* Featured Image */}
-      <section className="mx-auto max-w-6xl px-6 pb-12">
+      <section className="site-container section-y">
         <div className="relative aspect-[16/9] overflow-hidden rounded-[2rem] bg-slate-100">
           <Image
             src="/images/ems.png"
@@ -51,7 +48,7 @@ export default function EMSClient() {
       </section>
 
       {/* About Section */}
-      <section className="mx-auto max-w-6xl px-6 py-12">
+      <section className="site-container section-y">
         <div className="grid gap-12 lg:grid-cols-2">
           <div>
             <h2 className="font-display text-2xl md:text-3xl font-light text-slate-900 mb-6">Co je EMS technologie?</h2>
@@ -100,7 +97,7 @@ export default function EMSClient() {
       </section>
 
       {/* Treated Areas */}
-      <section className="mx-auto max-w-6xl px-6 py-12">
+      <section className="site-container py-12">
         <h2 className="font-display text-2xl md:text-3xl font-light text-slate-900 mb-8 text-center">
           Které partie lze ošetřit?
         </h2>
@@ -123,7 +120,7 @@ export default function EMSClient() {
 
       {/* Pricing Section */}
       {prices.length > 0 && (
-        <section className="mx-auto max-w-6xl px-6 py-12">
+        <section className="site-container section-y">
           <SectionTitle
             center={false}
             eyebrow="Ceník"
@@ -145,7 +142,7 @@ export default function EMSClient() {
       )}
 
       {/* CTA Section */}
-      <section className="mx-auto max-w-6xl px-6 py-12">
+      <section className="site-container py-12">
         <div className="rounded-[2rem] border border-faint bg-gradient-to-br from-slate-900 to-slate-800 p-12 text-center">
           <h3 className="font-display text-2xl md:text-3xl text-white mb-4">Vyzkoušejte EMS budování svalů</h3>
           <p className="text-white/80 mb-8 max-w-2xl mx-auto">
@@ -169,7 +166,7 @@ export default function EMSClient() {
       </section>
 
       {/* Related Article */}
-      <section className="mx-auto max-w-6xl px-6 py-12">
+      <section className="site-container py-12">
         <h3 className="font-display text-xl text-slate-900 mb-6">Více informací</h3>
         <Link
           href="/blog/ems-budovani-svalu"

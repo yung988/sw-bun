@@ -1,0 +1,164 @@
+{
+  "version": 3,
+  "pages404": true,
+  "caseSensitive": false,
+  "basePath": "",
+  "redirects": [
+    {
+      "source": "/:path+/",
+      "destination": "/:path+",
+      "internal": true,
+      "statusCode": 308,
+      "regex": "^(?:/((?:[^/]+?)(?:/(?:[^/]+?))*))/$"
+    }
+  ],
+  "headers": [],
+  "rewrites": {
+    "beforeFiles": [],
+    "afterFiles": [],
+    "fallback": []
+  },
+  "dynamicRoutes": [
+    {
+      "page": "/sluzby/[slug]",
+      "regex": "^/sluzby/([^/]+?)(?:/)?$",
+      "routeKeys": {
+        "nxtPslug": "nxtPslug"
+      },
+      "namedRegex": "^/sluzby/(?<nxtPslug>[^/]+?)(?:/)?$"
+    }
+  ],
+  "staticRoutes": [
+    {
+      "page": "/",
+      "regex": "^/(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/(?:/)?$"
+    },
+    {
+      "page": "/_not-found",
+      "regex": "^/_not\\-found(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/_not\\-found(?:/)?$"
+    },
+    {
+      "page": "/blog/ems-budovani-svalu",
+      "regex": "^/blog/ems\\-budovani\\-svalu(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/blog/ems\\-budovani\\-svalu(?:/)?$"
+    },
+    {
+      "page": "/blog/hifu-7d-revoluce-v-omlazovani",
+      "regex": "^/blog/hifu\\-7d\\-revoluce\\-v\\-omlazovani(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/blog/hifu\\-7d\\-revoluce\\-v\\-omlazovani(?:/)?$"
+    },
+    {
+      "page": "/blog/jak-funguje-endos-roller",
+      "regex": "^/blog/jak\\-funguje\\-endos\\-roller(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/blog/jak\\-funguje\\-endos\\-roller(?:/)?$"
+    },
+    {
+      "page": "/cenik",
+      "regex": "^/cenik(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/cenik(?:/)?$"
+    },
+    {
+      "page": "/favicon.ico",
+      "regex": "^/favicon\\.ico(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/favicon\\.ico(?:/)?$"
+    },
+    {
+      "page": "/kontakt",
+      "regex": "^/kontakt(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/kontakt(?:/)?$"
+    },
+    {
+      "page": "/o-salonu",
+      "regex": "^/o\\-salonu(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/o\\-salonu(?:/)?$"
+    },
+    {
+      "page": "/poukazy",
+      "regex": "^/poukazy(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/poukazy(?:/)?$"
+    },
+    {
+      "page": "/rezervace",
+      "regex": "^/rezervace(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/rezervace(?:/)?$"
+    },
+    {
+      "page": "/robots.txt",
+      "regex": "^/robots\\.txt(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/robots\\.txt(?:/)?$"
+    },
+    {
+      "page": "/sitemap.xml",
+      "regex": "^/sitemap\\.xml(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/sitemap\\.xml(?:/)?$"
+    },
+    {
+      "page": "/sluzby",
+      "regex": "^/sluzby(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/sluzby(?:/)?$"
+    },
+    {
+      "page": "/sluzby/ems-budovani-svalu",
+      "regex": "^/sluzby/ems\\-budovani\\-svalu(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/sluzby/ems\\-budovani\\-svalu(?:/)?$"
+    },
+    {
+      "page": "/sluzby/endos-roller",
+      "regex": "^/sluzby/endos\\-roller(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/sluzby/endos\\-roller(?:/)?$"
+    },
+    {
+      "page": "/sluzby/hifu-facelift",
+      "regex": "^/sluzby/hifu\\-facelift(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/sluzby/hifu\\-facelift(?:/)?$"
+    },
+    {
+      "page": "/sluzby/kavitace",
+      "regex": "^/sluzby/kavitace(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/sluzby/kavitace(?:/)?$"
+    },
+    {
+      "page": "/sluzby/kosmetika",
+      "regex": "^/sluzby/kosmetika(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/sluzby/kosmetika(?:/)?$"
+    }
+  ],
+  "dataRoutes": [],
+  "rsc": {
+    "header": "rsc",
+    "varyHeader": "rsc, next-router-state-tree, next-router-prefetch, next-router-segment-prefetch",
+    "prefetchHeader": "next-router-prefetch",
+    "didPostponeHeader": "x-nextjs-postponed",
+    "contentTypeHeader": "text/x-component",
+    "suffix": ".rsc",
+    "prefetchSuffix": ".prefetch.rsc",
+    "prefetchSegmentHeader": "next-router-segment-prefetch",
+    "prefetchSegmentSuffix": ".segment.rsc",
+    "prefetchSegmentDirSuffix": ".segments"
+  },
+  "rewriteHeaders": {
+    "pathHeader": "x-nextjs-rewritten-path",
+    "queryHeader": "x-nextjs-rewritten-query"
+  }
+}
