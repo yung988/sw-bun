@@ -12,7 +12,8 @@ export default function ServiceCard({ title, description, price, category, href 
   return (
     <Link
       href={href}
-      className="block overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-sm transition-all duration-300 hover:shadow-lg hover:-translate-y-2 group"
+      className="ui-card ui-card-hover block overflow-hidden group"
+      aria-label={`Zobrazit detail služby ${title}`}
     >
       <div className="p-6">
         <div className="mb-4">

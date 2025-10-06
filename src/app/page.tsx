@@ -40,7 +40,7 @@ import { faqs } from '@/data/faq'
 import { highlights } from '@/data/highlights'
 import { testimonials } from '@/data/testimonials'
 import { whyLeft, whyRight } from '@/data/why'
-import { getMainServices } from '@/lib/services'
+import { getServiceCategories } from '@/lib/services'
 import Image from 'next/image'
 import Link from 'next/link'
 import OpenVoucherButton from '@/components/OpenVoucherButton'
@@ -50,10 +50,13 @@ const faqsLeft = faqs.slice(0, 3)
 const faqsRight = faqs.slice(3, 6)
 
 export default function Home() {
-  const mainServices = getMainServices()
-  
-  console.log('🔍 Main services count:', mainServices.length)
-  console.log('🔍 Main services:', mainServices.map(s => s.name))
+  const categories = getServiceCategories()
+
+  console.log('🔍 Categories count:', categories.length)
+  console.log(
+    '🔍 Categories:',
+    categories.map((c) => c.name)
+  )
 
   return (
     <main id="main-content" className="min-h-screen bg-white pb-24">
@@ -218,7 +221,7 @@ export default function Home() {
 
       {/* Services section */}
       <FadeInSection delay={0.2}>
-        <section id="sluzby" className="mx-auto max-w-[1250px] px-6 py-24 md:py-32">
+        <section id="sluzby" className="ui-container py-16 lg:py-24">
           <div className="flex flex-wrap items-center justify-between gap-6 mb-12">
             <SectionTitle center={false} eyebrow="Naše služby" title="Objevte naši nabídku ošetření" />
             <Link
@@ -228,34 +231,20 @@ export default function Home() {
               Všechny služby
             </Link>
           </div>
-          {/* Desktop: Grid layout, Mobile: Carousel */}
-          <div className="hidden lg:grid lg:grid-cols-4 gap-6">
-            {mainServices.slice(0, 8).map((service) => (
-              <ServiceCard
-                key={service.slug}
-                title={service.name}
-                description={service.description}
-                price={service.price}
-                category={service.category}
-                href={`/sluzby/${service.categoryId}/${service.slug}`}
-              />
+          {/* Carousel - 9 služeb, ukáže 4 najednou */}
+          <Carousel auto autoSpeed={20}>
+            {categories.map((category) => (
+              <div key={category.id} className="w-[320px] shrink-0 snap-start">
+                <ServiceCard
+                  title={category.name}
+                  description={category.description}
+                  price={category.priceRange}
+                  category={`${category.serviceCount} služeb`}
+                  href={`/sluzby/${category.slug}`}
+                />
+              </div>
             ))}
-          </div>
-          <div className="lg:hidden">
-            <Carousel>
-              {mainServices.slice(0, 8).map((service) => (
-                <div key={service.slug} className="w-72 shrink-0 snap-start">
-                  <ServiceCard
-                    title={service.name}
-                    description={service.description}
-                    price={service.price}
-                    category={service.category}
-                    href={`/sluzby/${service.categoryId}/${service.slug}`}
-                  />
-                </div>
-              ))}
-            </Carousel>
-          </div>
+          </Carousel>
         </section>
       </FadeInSection>
 
