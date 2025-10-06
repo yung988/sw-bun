@@ -23,15 +23,15 @@ export const metadata: Metadata = {
 
 export default function PoukazyPage() {
   return (
-    <main className="min-h-screen bg-white dark:bg-slate-900">
+    <main className="min-h-screen bg-white">
       {/* Hero Section */}
-      <section className="relative bg-gradient-to-br from-slate-50 to-white dark:from-slate-900 dark:to-slate-800 py-20">
+      <section className="relative bg-gradient-to-br from-slate-50 to-white   py-20">
         <div className="site-container">
           <div className="text-center">
-            <h1 className="font-display text-4xl md:text-5xl font-light text-slate-900 dark:text-white mb-6">
+            <h1 className="font-display text-4xl md:text-5xl font-light text-slate-900  mb-6">
               Dárkové <em className="italic">poukazy</em>
             </h1>
-            <p className="text-lg text-slate-600 dark:text-slate-400 max-w-2xl mx-auto">
+            <p className="text-lg text-slate-600  max-w-2xl mx-auto">
               Darujte svým blízkým relaxaci a krásu. Dárkový poukaz je perfektní dárek, který potěší každého milovníka
               péče o sebe.
             </p>
@@ -42,9 +42,9 @@ export default function PoukazyPage() {
       {/* Voucher Section */}
       <section className="site-container py-[90px]">
         <div className="mb-12 flex items-center gap-4">
-          <div className="flex h-12 w-12 items-center justify-center rounded-full border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-800">
+          <div className="flex h-12 w-12 items-center justify-center rounded-full border border-slate-200  bg-white">
             <svg
-              className="h-5 w-5 text-slate-900 dark:text-white"
+              className="h-5 w-5 text-slate-900"
               fill="none"
               viewBox="0 0 24 24"
               stroke="currentColor"
@@ -60,14 +60,14 @@ export default function PoukazyPage() {
           </div>
           <div>
             <div className="text-xs uppercase tracking-[0.3em] text-slate-500 mb-1">Dárkové poukazy</div>
-            <h2 className="font-display text-3xl md:text-4xl font-light text-slate-900 dark:text-white">
+            <h2 className="font-display text-3xl md:text-4xl font-light text-slate-900">
               Darujte <em className="italic">relaxaci a krásu</em>
             </h2>
           </div>
         </div>
         <div className="grid gap-12 lg:grid-cols-2">
           <div className="space-y-6">
-            <p className="text-slate-600 dark:text-slate-400 leading-relaxed">
+            <p className="text-slate-600  leading-relaxed">
               Dárkový poukaz je perfektní dárek pro vaše blízké. Můžete si vybrat konkrétní hodnotu nebo nechat
               obdarovaného vybrat si ošetření podle vlastního výběru.
             </p>
@@ -84,8 +84,8 @@ export default function PoukazyPage() {
                   <path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" />
                 </svg>
                 <div>
-                  <strong className="text-slate-900 dark:text-white">Platnost 12 měsíců</strong>
-                  <p className="text-sm text-slate-600 dark:text-slate-400">Poukaz je platný rok od data vystavení</p>
+                  <strong className="text-slate-900">Platnost 12 měsíců</strong>
+                  <p className="text-sm text-slate-600">Poukaz je platný rok od data vystavení</p>
                 </div>
               </div>
               <div className="flex items-start gap-3">
@@ -100,8 +100,8 @@ export default function PoukazyPage() {
                   <path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" />
                 </svg>
                 <div>
-                  <strong className="text-slate-900 dark:text-white">Elegantní provedení</strong>
-                  <p className="text-sm text-slate-600 dark:text-slate-400">Vytiskneme poukaz v krásném designu</p>
+                  <strong className="text-slate-900">Elegantní provedení</strong>
+                  <p className="text-sm text-slate-600">Vytiskneme poukaz v krásném designu</p>
                 </div>
               </div>
               <div className="flex items-start gap-3">
@@ -116,13 +116,13 @@ export default function PoukazyPage() {
                   <path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" />
                 </svg>
                 <div>
-                  <strong className="text-slate-900 dark:text-white">Osobní věnování</strong>
-                  <p className="text-sm text-slate-600 dark:text-slate-400">Můžete přidat vlastní text</p>
+                  <strong className="text-slate-900">Osobní věnování</strong>
+                  <p className="text-sm text-slate-600">Můžete přidat vlastní text</p>
                 </div>
               </div>
             </div>
           </div>
-          <div className="rounded-2xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 p-8 shadow-sm">
+          <div className="rounded-2xl border border-slate-200  bg-white  p-8 shadow-sm">
             <VoucherForm />
           </div>
         </div>

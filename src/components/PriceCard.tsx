@@ -16,17 +16,13 @@ export default function PriceCard({ title, price, sessions, description }: Props
       transition={{ duration: 0.4, ease: [0.25, 0.1, 0.25, 1] }}
     >
       <div className="flex items-start justify-between gap-4">
-        <h4 className="text-sm font-medium text-slate-900 dark:text-white">{title}</h4>
-        <div className="shrink-0 rounded-full bg-white dark:bg-slate-800 px-3 py-1 text-xs font-medium text-slate-900 dark:text-white shadow-soft">
+        <h4 className="text-sm font-medium text-slate-900">{title}</h4>
+        <div className="shrink-0 rounded-full bg-white  px-3 py-1 text-xs font-medium text-slate-900  shadow-soft">
           {price}
         </div>
       </div>
-      {sessions && (
-        <div className="mt-2 text-[11px] uppercase tracking-[0.2em] text-slate-400 dark:text-slate-300">
-          {sessions} sezení
-        </div>
-      )}
-      {description && <p className="mt-3 text-xs leading-relaxed text-slate-600 dark:text-slate-400">{description}</p>}
+      {sessions && <div className="mt-2 text-[11px] uppercase tracking-[0.2em] text-slate-400">{sessions} sezení</div>}
+      {description && <p className="mt-3 text-xs leading-relaxed text-slate-600">{description}</p>}
     </motion.div>
   )
 }

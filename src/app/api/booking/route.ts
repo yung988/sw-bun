@@ -1,5 +1,7 @@
 import { NextResponse } from 'next/server'
 import { Resend } from 'resend'
+import { checkRateLimit, getClientIp, formatResetTime } from '@/lib/rateLimit'
+import { sanitizeHtml, sanitizeEmail, sanitizePhone } from '@/lib/sanitize'
 
 // Initialize Resend only if API key exists (runtime check)
 const getResend = () => {
@@ -13,6 +15,31 @@ const getResend = () => {
 
 export async function POST(request: Request) {
   try {
+    // Rate limiting check (5 requests per hour per IP)
+    const clientIp = getClientIp(request)
+    const rateLimitResult = checkRateLimit(clientIp, 5, 60 * 60 * 1000)
+
+    if (!rateLimitResult.success) {
+      const resetTimeStr = rateLimitResult.resetTime
+        ? formatResetTime(rateLimitResult.resetTime)
+        : 'za chvíli'
+
+      console.warn(`Rate limit exceeded for IP: ${clientIp}`)
+
+      return NextResponse.json(
+        {
+          error: `Příliš mnoho požadavků. Zkuste to prosím za ${resetTimeStr}.`,
+        },
+        {
+          status: 429,
+          headers: {
+            'X-RateLimit-Remaining': '0',
+            'Retry-After': '3600',
+          },
+        }
+      )
+    }
+
     const resend = getResend()
     if (!resend) {
       return NextResponse.json({ error: 'Email service not configured' }, { status: 500 })
@@ -21,32 +48,44 @@ export async function POST(request: Request) {
     const body = await request.json()
     const { service, name, email, phone, preferredDate, preferredTime, message } = body
 
-    // Email pro klientku (majitelku)
+    // Sanitize all inputs
+    const sanitizedService = sanitizeHtml(service || '')
+    const sanitizedName = sanitizeHtml(name || '')
+    const sanitizedEmail = sanitizeEmail(email)
+    const sanitizedPhone = phone ? sanitizePhone(phone) : null
+    const sanitizedMessage = message ? sanitizeHtml(message) : ''
+
+    // Validate required fields after sanitization
+    if (!sanitizedService || !sanitizedName || !sanitizedEmail) {
+      return NextResponse.json({ error: 'Chybí povinné údaje' }, { status: 400 })
+    }
+
+    // Email pro klientku (majitelku) - používáme sanitizované hodnoty
     const { error: ownerError } = await resend.emails.send({
       from: 'SW Beauty Rezervace <rezervace@swbeauty.cz>',
       to: 'info@swbeauty.cz',
-      subject: `🗓️ Nová rezervace - ${name}`,
+      subject: `🗓️ Nová rezervace - ${sanitizedName}`,
       html: `
         <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto;">
           <h2 style="color: #0f172a;">Nová rezervace</h2>
           
           <div style="background: #f8f9fa; border-radius: 8px; padding: 20px; margin: 20px 0;">
             <h3 style="margin-top: 0; color: #334155;">Služba</h3>
-            <p style="margin: 5px 0;"><strong>${service}</strong></p>
+            <p style="margin: 5px 0;"><strong>${sanitizedService}</strong></p>
             
             <h3 style="color: #334155;">Preferovaný termín</h3>
             <p style="margin: 5px 0;"><strong>${new Date(preferredDate).toLocaleDateString('cs-CZ')} v ${preferredTime}</strong></p>
             
             <h3 style="color: #334155;">Kontaktní údaje</h3>
-            <p style="margin: 5px 0;">Jméno: <strong>${name}</strong></p>
-            <p style="margin: 5px 0;">Email: <strong>${email}</strong></p>
-            <p style="margin: 5px 0;">Telefon: <strong>${phone}</strong></p>
+            <p style="margin: 5px 0;">Jméno: <strong>${sanitizedName}</strong></p>
+            <p style="margin: 5px 0;">Email: <strong>${sanitizedEmail}</strong></p>
+            <p style="margin: 5px 0;">Telefon: <strong>${sanitizedPhone || 'Neuvedeno'}</strong></p>
             
             ${
-              message
+              sanitizedMessage
                 ? `
             <h3 style="color: #334155;">Poznámka</h3>
-            <p style="margin: 5px 0;">${message}</p>
+            <p style="margin: 5px 0;">${sanitizedMessage}</p>
             `
                 : ''
             }
@@ -64,22 +103,22 @@ export async function POST(request: Request) {
       throw ownerError
     }
 
-    // Potvrzovací email pro klienta
+    // Potvrzovací email pro klienta - používáme sanitizované hodnoty
     const { error: clientError } = await resend.emails.send({
       from: 'SW Beauty <rezervace@swbeauty.cz>',
-      to: email,
+      to: sanitizedEmail,
       subject: '✅ Potvrzení rezervace - SW Beauty',
       html: `
         <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto;">
           <h2 style="color: #0f172a;">Děkujeme za Vaši rezervaci!</h2>
           
-          <p>Dobrý den ${name},</p>
+          <p>Dobrý den ${sanitizedName},</p>
           
           <p>Vaše nezávazná poptávka na ošetření byla úspěšně odeslána.</p>
           
           <div style="background: #f8f9fa; border-radius: 8px; padding: 20px; margin: 20px 0;">
             <h3 style="margin-top: 0; color: #334155;">Shrnutí rezervace</h3>
-            <p style="margin: 5px 0;"><strong>Služba:</strong> ${service}</p>
+            <p style="margin: 5px 0;"><strong>Služba:</strong> ${sanitizedService}</p>
             <p style="margin: 5px 0;"><strong>Preferovaný termín:</strong> ${new Date(preferredDate).toLocaleDateString('cs-CZ')} v ${preferredTime}</p>
           </div>
           
@@ -90,8 +129,9 @@ export async function POST(request: Request) {
           <hr style="border: none; border-top: 1px solid #e2e8f0; margin: 30px 0;">
           
           <p style="color: #64748b; font-size: 12px;">
-            SW Beauty Salon<br>
-            Telefon: +420 123 456 789<br>
+            SW Beauty s.r.o.<br>
+            U Cihelny 1326/2, 695 01 Hodonín<br>
+            Telefon: +420 773 577 899<br>
             Email: info@swbeauty.cz<br>
             Web: swbeauty.cz
           </p>

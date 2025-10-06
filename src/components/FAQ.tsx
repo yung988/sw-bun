@@ -6,14 +6,14 @@ type Item = { q: string; a: string }
 export default function FAQ({ items }: { items: Item[] }) {
   const [open, setOpen] = useState<number | null>(0)
   return (
-    <div className="space-y-3">
+    <div className="space-y-2">
       {items.map((it, idx) => (
         <div
           key={it.q}
-          className={`rounded-2xl border transition-all duration-500 ${
+          className={`rounded-xl border transition-all duration-300 ${
             open === idx
-              ? 'border-slate-300 dark:border-slate-600 bg-white dark:bg-slate-800 shadow-lg'
-              : 'border-slate-200/50 dark:border-slate-700/50 bg-white/50 dark:bg-slate-800/50 hover:border-slate-300 dark:hover:border-slate-600 hover:bg-white dark:hover:bg-slate-800'
+              ? 'border-slate-300 bg-white shadow-md'
+              : 'border-slate-200/50 bg-white/50 hover:border-slate-300 hover:bg-white'
           }`}
         >
           <button
@@ -21,20 +21,18 @@ export default function FAQ({ items }: { items: Item[] }) {
             onClick={() => setOpen(open === idx ? null : idx)}
             aria-expanded={open === idx}
             aria-controls={`faq-answer-${idx}`}
-            className="w-full text-left flex items-start justify-between gap-4 p-6 lg:p-7 group"
+            className="w-full text-left flex items-start justify-between gap-4 p-4 lg:p-5 group"
           >
             <span
               id={`faq-question-${idx}`}
-              className="font-medium text-base lg:text-lg tracking-tight text-slate-900 dark:text-white transition-colors pr-4"
+              className="font-medium text-sm lg:text-base tracking-tight text-slate-900 transition-colors pr-2"
             >
               {it.q}
             </span>
             <span className="flex-shrink-0 mt-0.5">
               <svg
-                className={`w-5 h-5 text-slate-400 dark:text-slate-500 transition-all duration-500 ${
-                  open === idx
-                    ? 'rotate-180 text-slate-700 dark:text-slate-300'
-                    : 'group-hover:text-slate-600 dark:group-hover:text-slate-400'
+                className={`w-4 h-4 text-slate-400 transition-all duration-300 ${
+                  open === idx ? 'rotate-180 text-slate-700' : 'group-hover:text-slate-600'
                 }`}
                 fill="none"
                 viewBox="0 0 24 24"
@@ -45,18 +43,17 @@ export default function FAQ({ items }: { items: Item[] }) {
               </svg>
             </span>
           </button>
-          <div
+          <section
             id={`faq-answer-${idx}`}
-            role="region"
             aria-labelledby={`faq-question-${idx}`}
-            className={`overflow-hidden transition-all duration-500 ease-in-out ${
-              open === idx ? 'max-h-[500px] opacity-100' : 'max-h-0 opacity-0'
+            className={`overflow-hidden transition-all duration-300 ease-in-out ${
+              open === idx ? 'max-h-[400px] opacity-100' : 'max-h-0 opacity-0'
             }`}
           >
-            <div className="px-6 lg:px-7 pb-6 lg:pb-7">
-              <p className="text-sm lg:text-base leading-relaxed text-slate-600 dark:text-slate-400 pt-2">{it.a}</p>
+            <div className="px-4 lg:px-5 pb-4 lg:pb-5">
+              <p className="text-sm leading-relaxed text-slate-600 pt-1">{it.a}</p>
             </div>
-          </div>
+          </section>
         </div>
       ))}
     </div>

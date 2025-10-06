@@ -9,7 +9,7 @@ export default function BlogCard({ image, title, excerpt, category, href = '#' }
   return (
     <Link href={href}>
       <motion.article
-        className="group overflow-hidden rounded-2xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 shadow-card"
+        className="group overflow-hidden rounded-2xl border border-slate-200  bg-white  shadow-card"
         whileHover={{
           y: -8,
           scale: 1.01,
@@ -17,7 +17,7 @@ export default function BlogCard({ image, title, excerpt, category, href = '#' }
         }}
         transition={{ duration: 0.4, ease: [0.25, 0.1, 0.25, 1] }}
       >
-        <div className="relative aspect-[16/10] w-full overflow-hidden bg-slate-100 dark:bg-slate-700">
+        <div className="relative aspect-[16/10] w-full overflow-hidden bg-slate-100">
           <motion.div
             whileHover={{ scale: 1.05 }}
             transition={{ duration: 0.8, ease: 'easeOut' }}
@@ -30,15 +30,16 @@ export default function BlogCard({ image, title, excerpt, category, href = '#' }
                 initial={{ scale: 0, opacity: 0 }}
                 whileHover={{ scale: 1, opacity: 1 }}
                 transition={{ duration: 0.3 }}
-                className="bg-white/90 dark:bg-slate-800/90 rounded-full p-3 backdrop-blur-sm shadow-lg"
+                className="bg-white/90  rounded-full p-3 backdrop-blur-sm shadow-lg"
               >
                 <svg
-                  className="h-5 w-5 text-slate-900 dark:text-white"
+                  className="h-5 w-5 text-slate-900"
                   fill="none"
                   viewBox="0 0 24 24"
                   stroke="currentColor"
                   strokeWidth={2}
                 >
+                  <title>Číst více</title>
                   <path strokeLinecap="round" strokeLinejoin="round" d="M14 5l7 7m0 0l-7 7m7-7H3" />
                 </svg>
               </motion.div>
@@ -48,12 +49,12 @@ export default function BlogCard({ image, title, excerpt, category, href = '#' }
         <div className="space-y-2 p-5">
           <div className="flex items-center justify-between">
             {category && (
-              <span className="inline-block rounded-full bg-slate-100 dark:bg-slate-200 px-3 py-1 text-xs font-medium text-slate-600 dark:text-slate-400">
+              <span className="inline-block rounded-full bg-slate-100  px-3 py-1 text-xs font-medium text-slate-600">
                 {category}
               </span>
             )}
             <motion.svg
-              className="h-4 w-4 text-slate-400 dark:text-slate-300"
+              className="h-4 w-4 text-slate-400"
               fill="none"
               viewBox="0 0 24 24"
               stroke="currentColor"
@@ -65,10 +66,10 @@ export default function BlogCard({ image, title, excerpt, category, href = '#' }
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
             </motion.svg>
           </div>
-          <h3 className="font-medium text-slate-900 dark:text-white tracking-tight transition-colors group-hover:text-slate-700 dark:group-hover:text-slate-200">
+          <h3 className="font-medium text-slate-900  tracking-tight transition-colors group-hover:text-slate-700">
             {title}
           </h3>
-          {excerpt && <p className="text-sm leading-relaxed text-slate-600 dark:text-slate-400">{excerpt}</p>}
+          {excerpt && <p className="text-sm leading-relaxed text-slate-600">{excerpt}</p>}
         </div>
       </motion.article>
     </Link>

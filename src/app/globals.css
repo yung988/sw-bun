@@ -1,6 +1,24 @@
 /* stylelint-disable at-rule-no-unknown */
 @import "tailwindcss";
 
+@theme {
+  /* Vlastní barevné schéma - černo-bílo-šedé */
+  --color-slate-50: #fbfbfb;
+  --color-slate-100: #f5f5f5;
+  --color-slate-200: #e5e5e5;
+  --color-slate-300: #d4d4d4;
+  --color-slate-400: #a3a3a3;
+  --color-slate-500: #737373;
+  --color-slate-600: #525252;
+  --color-slate-700: #404040;
+  --color-slate-800: #4c4c4c;
+  --color-slate-900: #000000;
+
+  /* Černá a bílá */
+  --color-black: #000000;
+  --color-white: #ffffff;
+}
+
 :root {
   color-scheme: light;
   --font-sans: var(--font-inter);
@@ -8,13 +26,6 @@
   --font-serif: var(--font-instrument-serif);
   --radius-xl: 2.5rem;
   --radius-lg: 1.75rem;
-  --background: #ffffff;
-  --foreground: #111111;
-}
-
-.dark {
-  --background: #0f172a;
-  --foreground: #f8f6f2;
 }
 
 @layer base {
@@ -22,10 +33,7 @@
     @apply scroll-smooth;
   }
   body {
-    @apply bg-white text-[#111] font-sans text-base leading-7 antialiased;
-  }
-  .dark body {
-    @apply bg-[#0f172a] text-[#f8f6f2];
+    @apply bg-white text-black font-sans text-base leading-7 antialiased;
   }
 
   h1 {
@@ -54,11 +62,27 @@
   h3 em {
     @apply font-serif italic;
   }
+
+  /* Accessibility: Focus states for keyboard navigation */
+  *:focus-visible {
+    @apply outline outline-2 outline-offset-2 outline-slate-900 ring-0;
+  }
+  
+  button:focus-visible,
+  a:focus-visible,
+  input:focus-visible,
+  textarea:focus-visible,
+  select:focus-visible {
+    @apply outline outline-2 outline-offset-2 outline-slate-900;
+  }
 }
 
 @layer utilities {
   .site-container {
-    @apply mx-auto max-w-container px-3;
+    @apply mx-auto max-w-[1250px] px-3;
+  }
+  .max-w-container {
+    max-width: 1250px;
   }
   /* Consistent vertical spacing for sections */
   .section-y {
@@ -67,18 +91,15 @@
 
   /* Reusable card surface */
   .card-soft {
-    @apply rounded-2xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 shadow-sm;
+    @apply rounded-2xl border border-slate-200 bg-white shadow-sm;
   }
 
   /* Buttons */
   .btn {
-    @apply inline-flex items-center justify-center rounded-full text-sm font-medium transition;
+    @apply inline-flex items-center justify-center rounded-full px-6 py-3 text-sm font-medium transition;
   }
   .btn-primary {
-    @apply btn bg-black text-white shadow-sm ring-1 ring-black/10 hover:bg-black/90 dark:bg-white dark:text-graphite;
-  }
-  .btn-ghost-dark {
-    @apply btn border border-white/30 bg-white/10 text-white backdrop-blur-sm hover:bg-white/20;
+    @apply inline-flex items-center justify-center rounded-full px-6 py-3 text-sm font-medium transition bg-black text-white shadow-sm hover:bg-[#4C4C4C];
   }
   .scrollbar-hide {
     scrollbar-width: none;

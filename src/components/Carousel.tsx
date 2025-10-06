@@ -109,13 +109,13 @@ export default function Carousel({ children, auto = false, autoSpeed = 30, showA
           <button
             type="button"
             onClick={() => scroll('left')}
-            className={`absolute left-0 top-1/2 z-10 -translate-y-1/2 rounded-full bg-white dark:bg-slate-800 p-3 shadow-lg transition-all hover:scale-110 ${
+            className={`absolute left-0 top-1/2 z-10 -translate-y-1/2 rounded-full bg-white  p-3 shadow-lg transition-all hover:scale-110 ${
               canScrollLeft ? 'opacity-100' : 'opacity-0 pointer-events-none'
             }`}
             aria-label="Scroll left"
           >
             <svg
-              className="h-5 w-5 text-slate-900 dark:text-white"
+              className="h-5 w-5 text-slate-900"
               fill="none"
               viewBox="0 0 24 24"
               stroke="currentColor"
@@ -128,13 +128,13 @@ export default function Carousel({ children, auto = false, autoSpeed = 30, showA
           <button
             type="button"
             onClick={() => scroll('right')}
-            className={`absolute right-0 top-1/2 z-10 -translate-y-1/2 rounded-full bg-white dark:bg-slate-800 p-3 shadow-lg transition-all hover:scale-110 ${
+            className={`absolute right-0 top-1/2 z-10 -translate-y-1/2 rounded-full bg-white  p-3 shadow-lg transition-all hover:scale-110 ${
               canScrollRight ? 'opacity-100' : 'opacity-0 pointer-events-none'
             }`}
             aria-label="Scroll right"
           >
             <svg
-              className="h-5 w-5 text-slate-900 dark:text-white"
+              className="h-5 w-5 text-slate-900"
               fill="none"
               viewBox="0 0 24 24"
               stroke="currentColor"
@@ -150,7 +150,7 @@ export default function Carousel({ children, auto = false, autoSpeed = 30, showA
         ref={ref}
         aria-label="Carousel"
         onKeyDown={handleKeyDown}
-        className={`${auto ? 'flex gap-6 overflow-x-auto py-2 scrollbar-hide [&::-webkit-scrollbar]:hidden' : 'flex gap-6 overflow-x-auto snap-x snap-mandatory py-2 scrollbar-hide [&::-webkit-scrollbar]:hidden'}`}
+        className={`${auto ? 'flex gap-[30px] overflow-x-auto py-2 scrollbar-hide [&::-webkit-scrollbar]:hidden' : 'flex gap-6 overflow-x-auto snap-x snap-mandatory py-2 scrollbar-hide [&::-webkit-scrollbar]:hidden'}`}
         style={{ scrollbarWidth: 'none' }}
       >
         {renderItems}

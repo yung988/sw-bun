@@ -1,66 +1,73 @@
 import type { MetadataRoute } from 'next'
+import { getAllServices, getCategories } from '@/lib/services'
 
 export default function sitemap(): MetadataRoute.Sitemap {
-  return [
+  const baseUrl = 'https://swbeauty.cz'
+
+  // Static pages
+  const staticPages: MetadataRoute.Sitemap = [
     {
-      url: 'https://swbeauty.cz',
+      url: baseUrl,
       lastModified: new Date(),
-      changeFrequency: 'monthly',
+      changeFrequency: 'weekly',
       priority: 1,
     },
     {
-      url: 'https://swbeauty.cz/cenik',
+      url: `${baseUrl}/sluzby`,
+      lastModified: new Date(),
+      changeFrequency: 'weekly',
+      priority: 0.9,
+    },
+    {
+      url: `${baseUrl}/cenik`,
       lastModified: new Date(),
       changeFrequency: 'monthly',
       priority: 0.8,
     },
     {
-      url: 'https://swbeauty.cz/sluzby/hifu-facelift',
+      url: `${baseUrl}/rezervace`,
       lastModified: new Date(),
       changeFrequency: 'monthly',
-      priority: 0.8,
+      priority: 0.9,
     },
     {
-      url: 'https://swbeauty.cz/sluzby/endos-roller',
-      lastModified: new Date(),
-      changeFrequency: 'monthly',
-      priority: 0.8,
-    },
-    {
-      url: 'https://swbeauty.cz/sluzby/ems-budovani-svalu',
-      lastModified: new Date(),
-      changeFrequency: 'monthly',
-      priority: 0.8,
-    },
-    {
-      url: 'https://swbeauty.cz/sluzby/kavitace',
-      lastModified: new Date(),
-      changeFrequency: 'monthly',
-      priority: 0.8,
-    },
-    {
-      url: 'https://swbeauty.cz/sluzby/kosmetika',
-      lastModified: new Date(),
-      changeFrequency: 'monthly',
-      priority: 0.8,
-    },
-    {
-      url: 'https://swbeauty.cz/blog/hifu-7d-revoluce-v-omlazovani',
+      url: `${baseUrl}/kontakt`,
       lastModified: new Date(),
       changeFrequency: 'monthly',
       priority: 0.7,
     },
     {
-      url: 'https://swbeauty.cz/blog/jak-funguje-endos-roller',
+      url: `${baseUrl}/o-salonu`,
       lastModified: new Date(),
       changeFrequency: 'monthly',
       priority: 0.7,
     },
     {
-      url: 'https://swbeauty.cz/blog/ems-budovani-svalu',
+      url: `${baseUrl}/poukazy`,
       lastModified: new Date(),
       changeFrequency: 'monthly',
-      priority: 0.7,
+      priority: 0.8,
     },
   ]
+
+  // Dynamic service category pages
+  const categories = getCategories()
+  const categoryPages: MetadataRoute.Sitemap = categories.map((categoryId) => ({
+    url: `${baseUrl}/sluzby/${categoryId}`,
+    lastModified: new Date(),
+    changeFrequency: 'monthly' as const,
+    priority: 0.8,
+  }))
+
+  // Dynamic service detail pages
+  const services = getAllServices()
+  const servicePages: MetadataRoute.Sitemap = services.map((service) => ({
+    url: `${baseUrl}/sluzby/${service.categoryId}/${service.slug}`,
+    lastModified: new Date(),
+    changeFrequency: 'monthly' as const,
+    priority: 0.7,
+  }))
+
+  // Combine all pages
+  return [...staticPages, ...categoryPages, ...servicePages]
 }

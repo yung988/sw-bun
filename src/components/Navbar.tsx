@@ -1,12 +1,25 @@
 'use client'
-import Image from 'next/image'
+
 import Link from 'next/link'
+import Image from 'next/image'
+import { useState, useEffect } from 'react'
 import { usePathname } from 'next/navigation'
-import { useEffect, useState } from 'react'
+
+// Skip to main content link for accessibility
+function SkipLink() {
+  return (
+    <a
+      href="#main-content"
+      className="sr-only focus:not-sr-only focus:absolute focus:top-4 focus:left-4 focus:z-[100] focus:px-6 focus:py-3 focus:bg-slate-900 focus:text-white focus:rounded-full focus:font-medium focus:shadow-lg"
+    >
+      Přejít na hlavní obsah
+    </a>
+  )
+}
 
 export default function Navbar() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
-  const [scrolled, setScrolled] = useState(false)
+  const [_scrolled, setScrolled] = useState(false)
   const [activeSection, setActiveSection] = useState('/')
   const pathname = usePathname()
 
@@ -46,8 +59,10 @@ export default function Navbar() {
   }, [pathname])
 
   return (
-    <header className="sticky top-0 z-50 mt-5 bg-white/90 dark:bg-graphite/80 backdrop-blur-md backdrop-saturate-150 border-b border-white/30 dark:border-slate-700/40 py-4">
-      <div className="mx-auto flex max-w-container items-center justify-between px-3">
+    <>
+      <SkipLink />
+      <header className="sticky top-0 z-50 mt-5 bg-white/90 backdrop-blur-md backdrop-saturate-150 border-b border-slate-200/50 py-4">
+        <div className="mx-auto flex max-w-[1250px] items-center justify-between px-3">
         <Link href="/" className="relative h-14 w-28 transition-transform hover:scale-105">
           <Image src="/logo.svg" alt="SW Beauty" fill className="object-contain" priority />
         </Link>
@@ -58,38 +73,28 @@ export default function Navbar() {
             href="/"
             className={`rounded-full px-4 py-2 transition-all duration-300 ${
               activeSection === '/'
-                ? 'bg-black text-white shadow-sm ring-1 ring-black/10 dark:bg-white dark:text-graphite'
-                : 'text-slate-600 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white'
+                ? 'bg-black text-white shadow-sm ring-1 ring-black/10'
+                : 'text-slate-600 hover:text-slate-900'
             }`}
           >
             Domů
           </Link>
-          <a
-            href="#products"
-            className={`rounded-full px-4 py-2 transition-all duration-300 ${
-              activeSection === '#products'
-                ? 'bg-black text-white shadow-sm ring-1 ring-black/10 dark:bg-white dark:text-graphite'
-                : 'text-slate-600 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white'
-            }`}
-          >
-            Služby
-          </a>
           <Link
-            href="/cenik"
+            href="/sluzby"
             className={`rounded-full px-4 py-2 transition-all duration-300 ${
-              activeSection === '/cenik'
-                ? 'bg-black text-white shadow-sm ring-1 ring-black/10 dark:bg-white dark:text-graphite'
-                : 'text-slate-600 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white'
+              activeSection === '/sluzby' || pathname?.startsWith('/sluzby')
+                ? 'bg-black text-white shadow-sm ring-1 ring-black/10'
+                : 'text-slate-600 hover:text-slate-900'
             }`}
           >
-            Ceník
+            Služby & Ceny
           </Link>
           <Link
             href="/o-salonu"
             className={`rounded-full px-4 py-2 transition-all duration-300 ${
               activeSection === '/o-salonu'
-                ? 'bg-black text-white shadow-sm ring-1 ring-black/10 dark:bg-white dark:text-graphite'
-                : 'text-slate-600 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white'
+                ? 'bg-black text-white shadow-sm ring-1 ring-black/10'
+                : 'text-slate-600 hover:text-slate-900'
             }`}
           >
             O salonu
@@ -98,8 +103,8 @@ export default function Navbar() {
             href="/kontakt"
             className={`rounded-full px-4 py-2 transition-all duration-300 ${
               activeSection === '/kontakt'
-                ? 'bg-black text-white shadow-sm ring-1 ring-black/10 dark:bg-white dark:text-graphite'
-                : 'text-slate-600 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white'
+                ? 'bg-black text-white shadow-sm ring-1 ring-black/10'
+                : 'text-slate-600 hover:text-slate-900'
             }`}
           >
             Kontakt
@@ -108,11 +113,17 @@ export default function Navbar() {
 
         {/* Desktop Right Side */}
         <div className="hidden lg:flex items-center gap-4">
+          <Link
+            href="/rezervace"
+            className="rounded-full bg-black text-white px-5 py-2.5 text-[13px] font-medium transition hover:bg-slate-800 hover:shadow-sm"
+          >
+            Rezervace
+          </Link>
           <a
             href="https://www.instagram.com/swbeautysalons/"
             target="_blank"
             rel="noopener noreferrer"
-            className="rounded-full border border-slate-300/80 bg-white/70 backdrop-blur px-2.5 py-2 text-slate-700 transition-all duration-300 hover:bg-white hover:shadow-sm dark:border-slate-700/60 dark:bg-slate-800/50 dark:text-slate-300"
+            className="rounded-full border border-slate-300/80 bg-white/70 backdrop-blur px-2.5 py-2 text-slate-700 transition-all duration-300 hover:bg-white hover:shadow-sm"
             aria-label="Sledujte nás na Instagramu"
           >
             <svg className="h-5 w-5" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
@@ -127,17 +138,17 @@ export default function Navbar() {
         <button
           type="button"
           onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-          className="lg:hidden flex flex-col gap-1.5 p-2 rounded-lg hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors"
+          className="lg:hidden flex flex-col gap-1.5 p-2 rounded-lg hover:bg-slate-100  transition-colors"
           aria-label="Toggle menu"
         >
           <span
-            className={`h-0.5 w-6 bg-slate-900 dark:bg-slate-100 transition-all duration-300 ${mobileMenuOpen ? 'rotate-45 translate-y-2' : ''}`}
+            className={`h-0.5 w-6 bg-slate-900  transition-all duration-300 ${mobileMenuOpen ? 'rotate-45 translate-y-2' : ''}`}
           />
           <span
-            className={`h-0.5 w-6 bg-slate-900 dark:bg-slate-100 transition-all duration-300 ${mobileMenuOpen ? 'opacity-0' : ''}`}
+            className={`h-0.5 w-6 bg-slate-900  transition-all duration-300 ${mobileMenuOpen ? 'opacity-0' : ''}`}
           />
           <span
-            className={`h-0.5 w-6 bg-slate-900 dark:bg-slate-100 transition-all duration-300 ${mobileMenuOpen ? '-rotate-45 -translate-y-2' : ''}`}
+            className={`h-0.5 w-6 bg-slate-900  transition-all duration-300 ${mobileMenuOpen ? '-rotate-45 -translate-y-2' : ''}`}
           />
         </button>
       </div>
@@ -148,11 +159,15 @@ export default function Navbar() {
           mobileMenuOpen ? 'opacity-100' : 'opacity-0 pointer-events-none'
         }`}
         onClick={() => setMobileMenuOpen(false)}
+        onKeyDown={(e) => {
+          if (e.key === 'Escape') setMobileMenuOpen(false)
+        }}
+        tabIndex={-1}
       />
 
       {/* Mobile Menu Drawer */}
       <div
-        className={`fixed top-0 right-0 h-full w-80 bg-white/80 dark:bg-graphite/80 backdrop-blur-2xl border-l border-slate-200/50 dark:border-slate-800/50 shadow-2xl lg:hidden z-50 transition-transform duration-500 ease-in-out ${
+        className={`fixed top-0 right-0 h-full w-80 bg-white backdrop-blur-2xl border-l border-slate-200 shadow-2xl lg:hidden z-50 transition-transform duration-500 ease-in-out ${
           mobileMenuOpen ? 'translate-x-0' : 'translate-x-full'
         }`}
       >
@@ -162,15 +177,11 @@ export default function Navbar() {
             <button
               type="button"
               onClick={() => setMobileMenuOpen(false)}
-              className="p-2 rounded-lg hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors"
+              className="p-2 rounded-lg hover:bg-slate-100  transition-colors"
               aria-label="Zavřít menu"
             >
-              <svg
-                className="w-6 h-6 text-slate-900 dark:text-slate-100"
-                fill="none"
-                viewBox="0 0 24 24"
-                stroke="currentColor"
-              >
+              <svg className="w-6 h-6 text-slate-900" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <title>Zavřít menu</title>
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
               </svg>
             </button>
@@ -181,50 +192,47 @@ export default function Navbar() {
             <Link
               href="/"
               onClick={() => setMobileMenuOpen(false)}
-              className="text-slate-700 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white transition-colors font-medium py-4 px-4 rounded-xl hover:bg-slate-100 dark:hover:bg-slate-800"
+              className="text-slate-700 hover:text-slate-900 transition-colors font-medium py-4 px-4 rounded-xl hover:bg-slate-100"
             >
               Domů
             </Link>
-            <button
-              type="button"
-              onClick={() => {
-                setMobileMenuOpen(false)
-                document.getElementById('products')?.scrollIntoView({ behavior: 'smooth' })
-              }}
-              className="text-slate-700 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white transition-colors font-medium py-4 px-4 rounded-xl hover:bg-slate-100 dark:hover:bg-slate-800 text-left"
-            >
-              Služby
-            </button>
             <Link
-              href="/cenik"
+              href="/sluzby"
               onClick={() => setMobileMenuOpen(false)}
-              className="text-slate-700 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white transition-colors font-medium py-4 px-4 rounded-xl hover:bg-slate-100 dark:hover:bg-slate-800"
+              className="text-slate-700 hover:text-slate-900 transition-colors font-medium py-4 px-4 rounded-xl hover:bg-slate-100"
             >
-              Ceník
+              Služby & Ceny
             </Link>
             <Link
               href="/o-salonu"
               onClick={() => setMobileMenuOpen(false)}
-              className="text-slate-700 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white transition-colors font-medium py-4 px-4 rounded-xl hover:bg-slate-100 dark:hover:bg-slate-800"
+              className="text-slate-700 hover:text-slate-900 transition-colors font-medium py-4 px-4 rounded-xl hover:bg-slate-100"
             >
               O salonu
             </Link>
             <Link
               href="/kontakt"
               onClick={() => setMobileMenuOpen(false)}
-              className="text-slate-700 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white transition-colors font-medium py-4 px-4 rounded-xl hover:bg-slate-100 dark:hover:bg-slate-800"
+              className="text-slate-700 hover:text-slate-900 transition-colors font-medium py-4 px-4 rounded-xl hover:bg-slate-100"
             >
               Kontakt
+            </Link>
+            <Link
+              href="/rezervace"
+              onClick={() => setMobileMenuOpen(false)}
+              className="bg-black text-white hover:bg-slate-800 transition-colors font-medium py-4 px-4 rounded-xl mt-2"
+            >
+              Rezervace
             </Link>
           </div>
 
           {/* Social Link at Bottom */}
-          <div className="pt-6 border-t border-slate-200/50 dark:border-slate-800/50">
+          <div className="pt-6 border-t border-slate-200/50">
             <a
               href="https://www.instagram.com/swbeautysalons/"
               target="_blank"
               rel="noopener noreferrer"
-              className="text-slate-600 dark:text-slate-400 transition-colors hover:text-slate-900 dark:hover:text-white flex items-center gap-3 py-4 px-4 rounded-xl hover:bg-slate-100 dark:hover:bg-slate-800"
+              className="text-slate-600  transition-colors hover:text-slate-900  flex items-center gap-3 py-4 px-4 rounded-xl hover:bg-slate-100"
               aria-label="Sledujte nás na Instagramu"
             >
               <svg className="h-5 w-5" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
@@ -237,5 +245,6 @@ export default function Navbar() {
         </nav>
       </div>
     </header>
+    </>
   )
 }

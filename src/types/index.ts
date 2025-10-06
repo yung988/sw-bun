@@ -39,6 +39,7 @@ export type Service = {
 export type Highlight = {
   t: string
   d: string
+  icon?: string
 }
 
 export type PriceItem = {

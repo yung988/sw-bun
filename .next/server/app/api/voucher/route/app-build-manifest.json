@@ -1,0 +1,11 @@
+{
+  "pages": {
+    "/api/voucher/route": [
+      "static/chunks/2e175d805581124f.js",
+      "static/chunks/47f477e3d2ef265b.js",
+      "static/chunks/150316a471952cee.js",
+      "static/chunks/50162aed73a107b5.js",
+      "static/chunks/turbopack-04921d6dd2dd455b.js"
+    ]
+  }
+}

@@ -3,8 +3,8 @@ import type { Testimonial } from '@/types'
 export const testimonials: Testimonial[] = [
   {
     quote:
-      '„HIFU facelift překonal má očekávání! Okamžitě vidím lifting a po měsíci ještě lepší výsledky. Konečně vypadám mladší bez operace."',
-    name: 'Petra • Praha',
+      '„HIFU 7D facelift překonal má očekávání! Okamžitě vidím lifting obličeje a krku, pleť je pevnější a mladší. Po měsíci se výsledky ještě zlepšily - žádné vrásky kolem očí. Konečně vypadám mladší bez operace a injekcí."',
+    name: 'Petra • Hodonín',
   },
   {
     quote:
@@ -13,7 +13,7 @@ export const testimonials: Testimonial[] = [
   },
   {
     quote:
-      '„Budování svalů EMS je neuvěřitelné - 30 minut a cítím se jako po hodinách v posilovně. Konečně vidím výsledky!"',
+      '„EMS budování svalů je neuvěřitelné - jen 20 minut a cítím se jako po 4 hodinách v posilovně. Svaly na břiše a stehnech jsou pevnější, spálil se tuk. Konečně vidím výsledky, které jsem chtěla po letech cvičení!"',
     name: 'Martina • Ostrava',
   },
   {

@@ -2,36 +2,36 @@ import ContactForm from '@/components/ContactForm'
 import type { Metadata } from 'next'
 
 export const metadata: Metadata = {
-  title: 'Kontakt - SW Beauty | Kosmetický salon v Praze',
+  title: 'Kontakt - SW Beauty | Kosmetický salon Hodonín',
   description:
-    'Kontaktujte nás. SW Beauty kosmetický salon v Praze. Adresa: Vaše ulice 123, 110 00 Praha 1. Otevírací doba: Po-Pá 9:00-19:00, So 9:00-15:00.',
-  keywords: ['kontakt', 'SW Beauty', 'kosmetický salon', 'Praha', 'adresa', 'otevírací doba'],
+    'Kontaktujte nás. SW Beauty kosmetický salon v Hodoníně. Adresa: U Cihelny 1326/2, 695 01 Hodonín. Otevírací doba: Po-Pá 9:00-20:00, So 10:00-18:00.',
+  keywords: ['kontakt', 'SW Beauty', 'kosmetický salon', 'Hodonín', 'adresa', 'otevírací doba'],
   openGraph: {
-    title: 'Kontakt - SW Beauty | Kosmetický salon v Praze',
-    description: 'Kontaktujte nás. SW Beauty kosmetický salon v Praze. Adresa a otevírací doba.',
+    title: 'Kontakt - SW Beauty | Kosmetický salon Hodonín',
+    description: 'Kontaktujte nás. SW Beauty kosmetický salon v Hodoníně. Adresa a otevírací doba.',
     images: ['/images/hero-image.jpg'],
     url: 'https://swbeauty.cz/kontakt',
     type: 'website',
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'Kontakt - SW Beauty | Kosmetický salon v Praze',
-    description: 'Kontaktujte nás. SW Beauty kosmetický salon v Praze. Adresa a otevírací doba.',
+    title: 'Kontakt - SW Beauty | Kosmetický salon Hodonín',
+    description: 'Kontaktujte nás. SW Beauty kosmetický salon v Hodoníně. Adresa a otevírací doba.',
     images: ['/images/hero-image.jpg'],
   },
 }
 
 export default function KontaktPage() {
   return (
-    <main className="min-h-screen bg-white dark:bg-slate-900">
+    <main className="min-h-screen bg-white">
       {/* Hero Section */}
-      <section className="relative bg-gradient-to-br from-slate-50 to-white dark:from-slate-900 dark:to-slate-800 py-20">
+      <section className="relative bg-gradient-to-br from-slate-50 to-white   py-20">
         <div className="site-container">
           <div className="text-center">
-            <h1 className="font-display text-4xl md:text-5xl font-light text-slate-900 dark:text-white mb-6">
+            <h1 className="font-display text-4xl md:text-5xl font-light text-slate-900  mb-6">
               Kontaktujte <em className="italic">nás</em>
             </h1>
-            <p className="text-lg text-slate-600 dark:text-slate-400 max-w-2xl mx-auto">
+            <p className="text-lg text-slate-600  max-w-2xl mx-auto">
               Máte otázky nebo chcete domluvit konzultaci? Neváhejte nás kontaktovat. Rádi vám pomůžeme najít to pravé
               ošetření pro vás.
             </p>
@@ -42,9 +42,9 @@ export default function KontaktPage() {
       {/* Contact & Map Section */}
       <section className="site-container py-[90px]">
         <div className="mb-12 flex items-center gap-4">
-          <div className="flex h-12 w-12 items-center justify-center rounded-full border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-800">
+          <div className="flex h-12 w-12 items-center justify-center rounded-full border border-slate-200  bg-white">
             <svg
-              className="h-5 w-5 text-slate-900 dark:text-white"
+              className="h-5 w-5 text-slate-900"
               fill="none"
               viewBox="0 0 24 24"
               stroke="currentColor"
@@ -61,35 +61,36 @@ export default function KontaktPage() {
           </div>
           <div>
             <div className="text-xs uppercase tracking-[0.3em] text-slate-500 mb-1">Kontakt</div>
-            <h2 className="font-display text-3xl md:text-4xl font-light text-slate-900 dark:text-white">
+            <h2 className="font-display text-3xl md:text-4xl font-light text-slate-900">
               Navštivte nás <em className="italic">v salonu</em>
             </h2>
           </div>
         </div>
         <div className="grid gap-12 lg:grid-cols-2">
           <div className="space-y-8">
-            <div className="rounded-2xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 p-8 shadow-sm">
+            <div className="rounded-2xl border border-slate-200  bg-white  p-8 shadow-sm">
               <ContactForm />
             </div>
             <div className="space-y-6">
               <div>
-                <h3 className="font-medium text-slate-900 dark:text-white mb-2">Adresa</h3>
-                <p className="text-slate-600 dark:text-slate-400">
-                  Vaše ulice 123
+                <h3 className="font-medium text-slate-900  mb-2">Adresa</h3>
+                <p className="text-slate-600">
+                  SW Beauty s.r.o.
+                  <br />U Cihelny 1326/2
                   <br />
-                  110 00 Praha 1
+                  695 01 Hodonín
                 </p>
               </div>
               <div>
-                <h3 className="font-medium text-slate-900 dark:text-white mb-2">Otevírací doba</h3>
+                <h3 className="font-medium text-slate-900  mb-2">Otevírací doba</h3>
                 <div className="space-y-1 text-sm text-slate-600">
                   <div className="flex justify-between">
                     <span>Pondělí - Pátek:</span>
-                    <span className="font-medium">9:00 - 19:00</span>
+                    <span className="font-medium">9:00 - 20:00</span>
                   </div>
                   <div className="flex justify-between">
                     <span>Sobota:</span>
-                    <span className="font-medium">9:00 - 15:00</span>
+                    <span className="font-medium">10:00 - 18:00</span>
                   </div>
                   <div className="flex justify-between">
                     <span>Neděle:</span>
@@ -98,8 +99,8 @@ export default function KontaktPage() {
                 </div>
               </div>
               <div>
-                <h3 className="font-medium text-slate-900 dark:text-white mb-2">Kontakt</h3>
-                <div className="space-y-1 text-slate-600 dark:text-slate-400">
+                <h3 className="font-medium text-slate-900  mb-2">Kontakt</h3>
+                <div className="space-y-1 text-slate-600">
                   <p className="flex items-center gap-2">
                     <svg
                       className="h-4 w-4 flex-shrink-0"
@@ -115,7 +116,7 @@ export default function KontaktPage() {
                         d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"
                       />
                     </svg>
-                    <a href="mailto:info@swbeauty.cz" className="hover:text-slate-900 dark:hover:text-white transition">
+                    <a href="mailto:info@swbeauty.cz" className="hover:text-slate-900  transition">
                       info@swbeauty.cz
                     </a>
                   </p>
@@ -134,8 +135,8 @@ export default function KontaktPage() {
                         d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"
                       />
                     </svg>
-                    <a href="tel:+420123456789" className="hover:text-slate-900 dark:hover:text-white transition">
-                      +420 123 456 789
+                    <a href="tel:+420773577899" className="hover:text-slate-900  transition">
+                      +420 773 577 899
                     </a>
                   </p>
                 </div>

@@ -1,8 +1,345 @@
-module.exports=[18806,a=>{"use strict";a.s(["default",()=>d]);var b=a.i(87924),c=a.i(72131);function d(){let[a,d]=(0,c.useState)({name:"",email:"",phone:"",message:""}),[e,f]=(0,c.useState)(!1);return(0,b.jsxs)("form",{onSubmit:b=>{b.preventDefault();let c=encodeURIComponent(`Kontakt z webu - ${a.name}`),e=encodeURIComponent(`Jm\xe9no: ${a.name}
-Email: ${a.email}
-Telefon: ${a.phone}
+module.exports = [
+"[project]/src/components/ContactForm.tsx [app-ssr] (ecmascript)", ((__turbopack_context__) => {
+"use strict";
 
-Zpr\xe1va:
-${a.message}`);window.location.href=`mailto:info@swbeauty.cz?subject=${c}&body=${e}`,f(!0),setTimeout(()=>{f(!1),d({name:"",email:"",phone:"",message:""})},3e3)},className:"space-y-4",children:[(0,b.jsxs)("div",{children:[(0,b.jsx)("label",{htmlFor:"name",className:"block text-sm font-medium text-slate-700 dark:text-slate-300 mb-2",children:"Jméno a příjmení"}),(0,b.jsx)("input",{type:"text",id:"name",required:!0,value:a.name,onChange:b=>d({...a,name:b.target.value}),className:"w-full rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 px-4 py-3 text-sm text-slate-900 dark:text-white outline-none transition focus:border-slate-400 dark:focus:border-slate-600 focus:ring-2 focus:ring-slate-200 dark:focus:ring-slate-700",placeholder:"Jan Novák"})]}),(0,b.jsxs)("div",{children:[(0,b.jsx)("label",{htmlFor:"email",className:"block text-sm font-medium text-slate-700 dark:text-slate-300 mb-2",children:"Email"}),(0,b.jsx)("input",{type:"email",id:"email",required:!0,value:a.email,onChange:b=>d({...a,email:b.target.value}),className:"w-full rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 px-4 py-3 text-sm text-slate-900 dark:text-white outline-none transition focus:border-slate-400 dark:focus:border-slate-600 focus:ring-2 focus:ring-slate-200 dark:focus:ring-slate-700",placeholder:"jan@email.cz"})]}),(0,b.jsxs)("div",{children:[(0,b.jsx)("label",{htmlFor:"phone",className:"block text-sm font-medium text-slate-700 dark:text-slate-300 mb-2",children:"Telefon"}),(0,b.jsx)("input",{type:"tel",id:"phone",value:a.phone,onChange:b=>d({...a,phone:b.target.value}),className:"w-full rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 px-4 py-3 text-sm text-slate-900 dark:text-white outline-none transition focus:border-slate-400 dark:focus:border-slate-600 focus:ring-2 focus:ring-slate-200 dark:focus:ring-slate-700",placeholder:"+420 123 456 789"})]}),(0,b.jsxs)("div",{children:[(0,b.jsx)("label",{htmlFor:"message",className:"block text-sm font-medium text-slate-700 dark:text-slate-300 mb-2",children:"Zpráva"}),(0,b.jsx)("textarea",{id:"message",required:!0,rows:4,value:a.message,onChange:b=>d({...a,message:b.target.value}),className:"w-full rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 px-4 py-3 text-sm text-slate-900 dark:text-white outline-none transition focus:border-slate-400 dark:focus:border-slate-600 focus:ring-2 focus:ring-slate-200 dark:focus:ring-slate-700",placeholder:"Chtěl/a bych se objednat na..."})]}),(0,b.jsx)("button",{type:"submit",className:"w-full rounded-full bg-slate-900 dark:bg-white px-6 py-3.5 text-sm font-medium text-white dark:text-slate-900 transition hover:bg-slate-800 dark:hover:bg-slate-100",children:e?(0,b.jsxs)("span",{className:"flex items-center gap-2",children:[(0,b.jsxs)("svg",{className:"h-4 w-4",fill:"none",viewBox:"0 0 24 24",stroke:"currentColor",strokeWidth:2,children:[(0,b.jsx)("title",{children:"Odesláno"}),(0,b.jsx)("path",{strokeLinecap:"round",strokeLinejoin:"round",d:"M5 13l4 4L19 7"})]}),"Odesláno"]}):"Odeslat zprávu"})]})}}];
+__turbopack_context__.s([
+    "default",
+    ()=>ContactForm
+]);
+var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/node_modules/next/dist/server/route-modules/app-page/vendored/ssr/react-jsx-dev-runtime.js [app-ssr] (ecmascript)");
+var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/node_modules/next/dist/server/route-modules/app-page/vendored/ssr/react.js [app-ssr] (ecmascript)");
+'use client';
+;
+;
+function ContactForm() {
+    const [formData, setFormData] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useState"])({
+        name: '',
+        email: '',
+        phone: '',
+        message: ''
+    });
+    const [submitted, setSubmitted] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useState"])(false);
+    const [isSubmitting, setIsSubmitting] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useState"])(false);
+    const [error, setError] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useState"])(null);
+    const handleSubmit = async (e)=>{
+        e.preventDefault();
+        setIsSubmitting(true);
+        setError(null);
+        try {
+            const response = await fetch('/api/contact', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(formData)
+            });
+            if (!response.ok) {
+                throw new Error('Failed to send message');
+            }
+            setSubmitted(true);
+            setFormData({
+                name: '',
+                email: '',
+                phone: '',
+                message: ''
+            });
+            setTimeout(()=>{
+                setSubmitted(false);
+            }, 5000);
+        } catch (err) {
+            console.error('Contact form error:', err);
+            setError('Nepodařilo se odeslat zprávu. Zkuste to prosím znovu.');
+            setIsSubmitting(false);
+        }
+    };
+    return /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("form", {
+        onSubmit: handleSubmit,
+        className: "space-y-6",
+        children: [
+            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                className: "mb-6",
+                children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
+                    className: "text-sm text-slate-600",
+                    children: "Máte dotaz nebo potřebujete poradit? Napište nám a my se vám ozveme do 24 hodin."
+                }, void 0, false, {
+                    fileName: "[project]/src/components/ContactForm.tsx",
+                    lineNumber: 48,
+                    columnNumber: 9
+                }, this)
+            }, void 0, false, {
+                fileName: "[project]/src/components/ContactForm.tsx",
+                lineNumber: 47,
+                columnNumber: 7
+            }, this),
+            submitted && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                className: "rounded-xl bg-slate-50 border border-slate-200 p-4 flex items-start gap-3",
+                children: [
+                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("svg", {
+                        className: "h-5 w-5 text-slate-900 flex-shrink-0 mt-0.5",
+                        fill: "none",
+                        viewBox: "0 0 24 24",
+                        stroke: "currentColor",
+                        children: [
+                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("title", {
+                                children: "Úspěch"
+                            }, void 0, false, {
+                                fileName: "[project]/src/components/ContactForm.tsx",
+                                lineNumber: 62,
+                                columnNumber: 13
+                            }, this),
+                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("path", {
+                                strokeLinecap: "round",
+                                strokeLinejoin: "round",
+                                strokeWidth: 2,
+                                d: "M5 13l4 4L19 7"
+                            }, void 0, false, {
+                                fileName: "[project]/src/components/ContactForm.tsx",
+                                lineNumber: 63,
+                                columnNumber: 13
+                            }, this)
+                        ]
+                    }, void 0, true, {
+                        fileName: "[project]/src/components/ContactForm.tsx",
+                        lineNumber: 56,
+                        columnNumber: 11
+                    }, this),
+                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                        children: [
+                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
+                                className: "font-medium text-slate-900 text-sm",
+                                children: "Zpráva odeslána!"
+                            }, void 0, false, {
+                                fileName: "[project]/src/components/ContactForm.tsx",
+                                lineNumber: 66,
+                                columnNumber: 13
+                            }, this),
+                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
+                                className: "text-slate-700 text-sm mt-1",
+                                children: "Děkujeme! Brzy se Vám ozveme."
+                            }, void 0, false, {
+                                fileName: "[project]/src/components/ContactForm.tsx",
+                                lineNumber: 67,
+                                columnNumber: 13
+                            }, this)
+                        ]
+                    }, void 0, true, {
+                        fileName: "[project]/src/components/ContactForm.tsx",
+                        lineNumber: 65,
+                        columnNumber: 11
+                    }, this)
+                ]
+            }, void 0, true, {
+                fileName: "[project]/src/components/ContactForm.tsx",
+                lineNumber: 55,
+                columnNumber: 9
+            }, this),
+            error && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                className: "rounded-xl bg-red-50 border border-red-200 p-4 flex items-start gap-3",
+                children: [
+                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("svg", {
+                        className: "h-5 w-5 text-red-600 flex-shrink-0 mt-0.5",
+                        fill: "none",
+                        viewBox: "0 0 24 24",
+                        stroke: "currentColor",
+                        children: [
+                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("title", {
+                                children: "Chyba"
+                            }, void 0, false, {
+                                fileName: "[project]/src/components/ContactForm.tsx",
+                                lineNumber: 81,
+                                columnNumber: 13
+                            }, this),
+                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("path", {
+                                strokeLinecap: "round",
+                                strokeLinejoin: "round",
+                                strokeWidth: 2,
+                                d: "M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
+                            }, void 0, false, {
+                                fileName: "[project]/src/components/ContactForm.tsx",
+                                lineNumber: 82,
+                                columnNumber: 13
+                            }, this)
+                        ]
+                    }, void 0, true, {
+                        fileName: "[project]/src/components/ContactForm.tsx",
+                        lineNumber: 75,
+                        columnNumber: 11
+                    }, this),
+                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
+                        className: "text-red-800 text-sm",
+                        children: error
+                    }, void 0, false, {
+                        fileName: "[project]/src/components/ContactForm.tsx",
+                        lineNumber: 89,
+                        columnNumber: 11
+                    }, this)
+                ]
+            }, void 0, true, {
+                fileName: "[project]/src/components/ContactForm.tsx",
+                lineNumber: 74,
+                columnNumber: 9
+            }, this),
+            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                children: [
+                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("label", {
+                        htmlFor: "name",
+                        className: "block text-sm font-medium text-slate-700  mb-2",
+                        children: "Jméno a příjmení"
+                    }, void 0, false, {
+                        fileName: "[project]/src/components/ContactForm.tsx",
+                        lineNumber: 94,
+                        columnNumber: 9
+                    }, this),
+                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("input", {
+                        type: "text",
+                        id: "name",
+                        required: true,
+                        value: formData.name,
+                        onChange: (e)=>setFormData({
+                                ...formData,
+                                name: e.target.value
+                            }),
+                        className: "w-full rounded-xl border border-slate-200  bg-white  px-4 py-3 text-sm text-slate-900  outline-none transition focus:border-slate-900",
+                        placeholder: "Jan Novák"
+                    }, void 0, false, {
+                        fileName: "[project]/src/components/ContactForm.tsx",
+                        lineNumber: 97,
+                        columnNumber: 9
+                    }, this)
+                ]
+            }, void 0, true, {
+                fileName: "[project]/src/components/ContactForm.tsx",
+                lineNumber: 93,
+                columnNumber: 7
+            }, this),
+            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                children: [
+                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("label", {
+                        htmlFor: "email",
+                        className: "block text-sm font-medium text-slate-700  mb-2",
+                        children: "Email"
+                    }, void 0, false, {
+                        fileName: "[project]/src/components/ContactForm.tsx",
+                        lineNumber: 109,
+                        columnNumber: 9
+                    }, this),
+                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("input", {
+                        type: "email",
+                        id: "email",
+                        inputMode: "email",
+                        autoComplete: "email",
+                        required: true,
+                        value: formData.email,
+                        onChange: (e)=>setFormData({
+                                ...formData,
+                                email: e.target.value
+                            }),
+                        className: "w-full rounded-xl border border-slate-200  bg-white  px-4 py-3 text-sm text-slate-900  outline-none transition focus:border-slate-900",
+                        placeholder: "jan@email.cz"
+                    }, void 0, false, {
+                        fileName: "[project]/src/components/ContactForm.tsx",
+                        lineNumber: 112,
+                        columnNumber: 9
+                    }, this)
+                ]
+            }, void 0, true, {
+                fileName: "[project]/src/components/ContactForm.tsx",
+                lineNumber: 108,
+                columnNumber: 7
+            }, this),
+            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                children: [
+                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("label", {
+                        htmlFor: "phone",
+                        className: "block text-sm font-medium text-slate-700  mb-2",
+                        children: "Telefon (volitelné)"
+                    }, void 0, false, {
+                        fileName: "[project]/src/components/ContactForm.tsx",
+                        lineNumber: 126,
+                        columnNumber: 9
+                    }, this),
+                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("input", {
+                        type: "tel",
+                        id: "phone",
+                        inputMode: "tel",
+                        autoComplete: "tel",
+                        value: formData.phone,
+                        onChange: (e)=>setFormData({
+                                ...formData,
+                                phone: e.target.value
+                            }),
+                        className: "w-full rounded-xl border border-slate-200  bg-white  px-4 py-3 text-sm text-slate-900  outline-none transition focus:border-slate-900",
+                        placeholder: "+420 773 577 899"
+                    }, void 0, false, {
+                        fileName: "[project]/src/components/ContactForm.tsx",
+                        lineNumber: 129,
+                        columnNumber: 9
+                    }, this),
+                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
+                        className: "mt-1.5 text-xs text-slate-500",
+                        children: "Pro rychlejší odpověď můžete přidat telefon"
+                    }, void 0, false, {
+                        fileName: "[project]/src/components/ContactForm.tsx",
+                        lineNumber: 139,
+                        columnNumber: 9
+                    }, this)
+                ]
+            }, void 0, true, {
+                fileName: "[project]/src/components/ContactForm.tsx",
+                lineNumber: 125,
+                columnNumber: 7
+            }, this),
+            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                children: [
+                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("label", {
+                        htmlFor: "message",
+                        className: "block text-sm font-medium text-slate-700  mb-2",
+                        children: "Zpráva"
+                    }, void 0, false, {
+                        fileName: "[project]/src/components/ContactForm.tsx",
+                        lineNumber: 145,
+                        columnNumber: 9
+                    }, this),
+                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("textarea", {
+                        id: "message",
+                        required: true,
+                        rows: 4,
+                        value: formData.message,
+                        onChange: (e)=>setFormData({
+                                ...formData,
+                                message: e.target.value
+                            }),
+                        className: "w-full rounded-xl border border-slate-200  bg-white  px-4 py-3 text-sm text-slate-900  outline-none transition focus:border-slate-900",
+                        placeholder: "Chtěl/a bych se objednat na..."
+                    }, void 0, false, {
+                        fileName: "[project]/src/components/ContactForm.tsx",
+                        lineNumber: 148,
+                        columnNumber: 9
+                    }, this)
+                ]
+            }, void 0, true, {
+                fileName: "[project]/src/components/ContactForm.tsx",
+                lineNumber: 144,
+                columnNumber: 7
+            }, this),
+            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
+                type: "submit",
+                disabled: isSubmitting,
+                className: "w-full rounded-full bg-slate-900 px-6 py-3.5 text-sm font-medium text-white transition hover:bg-slate-800 disabled:opacity-50 disabled:cursor-not-allowed",
+                children: isSubmitting ? 'Odesílám...' : 'Odeslat zprávu'
+            }, void 0, false, {
+                fileName: "[project]/src/components/ContactForm.tsx",
+                lineNumber: 159,
+                columnNumber: 7
+            }, this)
+        ]
+    }, void 0, true, {
+        fileName: "[project]/src/components/ContactForm.tsx",
+        lineNumber: 45,
+        columnNumber: 5
+    }, this);
+}
+}),
+];
 
 //# sourceMappingURL=src_components_ContactForm_tsx_2c021aea._.js.map

@@ -2,38 +2,38 @@ import type { Metadata } from 'next'
 import Image from 'next/image'
 
 export const metadata: Metadata = {
-  title: 'O salonu SW Beauty - Profesionální kosmetický salon v Praze',
+  title: 'O salonu SW Beauty - Profesionální kosmetický salon Hodonín',
   description:
-    'Poznejte Sabinu, zakladatelku SW Beauty salonu. Profesionální kosmetické služby v Praze s moderními technologiemi HIFU, Endos-roller a EMS.',
-  keywords: ['o salonu', 'SW Beauty', 'Sabina', 'kosmetický salon', 'Praha', 'profesionální péče'],
+    'Poznejte Sabinu, zakladatelku SW Beauty salonu. Profesionální kosmetické služby v Hodoníně s moderními technologiemi HIFU, Endos-roller a EMS.',
+  keywords: ['o salonu', 'SW Beauty', 'Sabina', 'kosmetický salon', 'Hodonín', 'profesionální péče'],
   openGraph: {
-    title: 'O salonu SW Beauty - Profesionální kosmetický salon v Praze',
-    description: 'Poznejte Sabinu, zakladatelku SW Beauty salonu. Profesionální kosmetické služby v Praze.',
+    title: 'O salonu SW Beauty - Profesionální kosmetický salon Hodonín',
+    description: 'Poznejte Sabinu, zakladatelku SW Beauty salonu. Profesionální kosmetické služby v Hodoníně.',
     images: ['/images/team/sabina.jpg'],
     url: 'https://swbeauty.cz/o-salonu',
     type: 'website',
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'O salonu SW Beauty - Profesionální kosmetický salon v Praze',
-    description: 'Poznejte Sabinu, zakladatelku SW Beauty salonu. Profesionální kosmetické služby v Praze.',
+    title: 'O salonu SW Beauty - Profesionální kosmetický salon Hodonín',
+    description: 'Poznejte Sabinu, zakladatelku SW Beauty salonu. Profesionální kosmetické služby v Hodoníně.',
     images: ['/images/team/sabina.jpg'],
   },
 }
 
 export default function OSalonuPage() {
   return (
-    <main className="min-h-screen bg-white dark:bg-slate-900">
+    <main className="min-h-screen bg-white">
       {/* Hero Section */}
-      <section className="relative bg-gradient-to-br from-slate-50 to-white dark:from-slate-900 dark:to-slate-800 py-20">
+      <section className="relative bg-gradient-to-br from-slate-50 to-white   py-20">
         <div className="site-container">
           <div className="grid gap-12 lg:grid-cols-2 items-center">
             <div>
-              <h1 className="font-display text-4xl md:text-5xl font-light text-slate-900 dark:text-white mb-6">
+              <h1 className="font-display text-4xl md:text-5xl font-light text-slate-900  mb-6">
                 O salonu <em className="italic">SW Beauty</em>
               </h1>
-              <p className="text-lg text-slate-600 dark:text-slate-400 leading-relaxed mb-8">
-                Vítejte v našem moderním kosmetickém salonu v srdci Prahy. Jsme tým profesionálů, kteří se věnují vaší
+              <p className="text-lg text-slate-600  leading-relaxed mb-8">
+                Vítejte v našem moderním kosmetickém salonu v Hodoníně. Jsme tým profesionálů, kteří se věnují vaší
                 kráse s láskou a péčí již několik let.
               </p>
             </div>
@@ -64,15 +64,15 @@ export default function OSalonuPage() {
               />
             </div>
             <div>
-              <h2 className="font-display text-3xl md:text-4xl font-light text-slate-900 dark:text-white mb-6">
+              <h2 className="font-display text-3xl md:text-4xl font-light text-slate-900  mb-6">
                 Poznejte <em className="italic">Sabina</em>, naši zakladatelku
               </h2>
-              <p className="text-slate-600 dark:text-slate-400 leading-relaxed mb-6">
+              <p className="text-slate-600  leading-relaxed mb-6">
                 Sabina je certifikovaná kosmetička s více než 10 lety zkušeností v oboru. Její vášeň pro krásu a
                 wellness ji přivedla k založení SW Beauty salonu, kde kombinuje tradiční kosmetické techniky s
                 nejnovějšími technologiemi.
               </p>
-              <p className="text-slate-600 dark:text-slate-400 leading-relaxed mb-6">
+              <p className="text-slate-600  leading-relaxed mb-6">
                 Sabina pravidelně absolvuje školení a kurzy, aby mohla svým klientkám nabízet ty nejlepší a
                 nejbezpečnější ošetření. Její přístup je individuální a vždy se zaměřuje na potřeby každé klientky.
               </p>
@@ -89,8 +89,8 @@ export default function OSalonuPage() {
                     <path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" />
                   </svg>
                   <div>
-                    <strong className="text-slate-900 dark:text-white">Certifikovaná kosmetička</strong>
-                    <p className="text-sm text-slate-600 dark:text-slate-400">S mezinárodními certifikáty</p>
+                    <strong className="text-slate-900">Certifikovaná kosmetička</strong>
+                    <p className="text-sm text-slate-600">S mezinárodními certifikáty</p>
                   </div>
                 </div>
                 <div className="flex items-start gap-3">
@@ -105,8 +105,8 @@ export default function OSalonuPage() {
                     <path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" />
                   </svg>
                   <div>
-                    <strong className="text-slate-900 dark:text-white">10+ let zkušeností</strong>
-                    <p className="text-sm text-slate-600 dark:text-slate-400">V oboru kosmetiky a wellness</p>
+                    <strong className="text-slate-900">10+ let zkušeností</strong>
+                    <p className="text-sm text-slate-600">V oboru kosmetiky a wellness</p>
                   </div>
                 </div>
                 <div className="flex items-start gap-3">
@@ -121,8 +121,8 @@ export default function OSalonuPage() {
                     <path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" />
                   </svg>
                   <div>
-                    <strong className="text-slate-900 dark:text-white">Pravidelná školení</strong>
-                    <p className="text-sm text-slate-600 dark:text-slate-400">Nejnovější trendy a technologie</p>
+                    <strong className="text-slate-900">Pravidelná školení</strong>
+                    <p className="text-sm text-slate-600">Nejnovější trendy a technologie</p>
                   </div>
                 </div>
               </div>
@@ -132,13 +132,13 @@ export default function OSalonuPage() {
       </section>
 
       {/* Salon Story */}
-      <section className="py-20 bg-slate-50 dark:bg-slate-800">
+      <section className="py-20 bg-slate-50">
         <div className="site-container">
           <div className="text-center mb-12">
-            <h2 className="font-display text-3xl md:text-4xl font-light text-slate-900 dark:text-white mb-6">
+            <h2 className="font-display text-3xl md:text-4xl font-light text-slate-900  mb-6">
               Příběh našeho <em className="italic">salonu</em>
             </h2>
-            <p className="text-lg text-slate-600 dark:text-slate-400 max-w-2xl mx-auto">
+            <p className="text-lg text-slate-600  max-w-2xl mx-auto">
               SW Beauty vznikl z lásky k péči o krásu a touhy poskytovat klientkám ten nejlepší zážitek z kosmetických
               ošetření.
             </p>
@@ -155,8 +155,8 @@ export default function OSalonuPage() {
                   className="object-cover"
                 />
               </div>
-              <h3 className="font-medium text-slate-900 dark:text-white mb-2">Moderní prostory</h3>
-              <p className="text-sm text-slate-600 dark:text-slate-400">
+              <h3 className="font-medium text-slate-900  mb-2">Moderní prostory</h3>
+              <p className="text-sm text-slate-600">
                 Náš salon je vybaven nejmodernějšími technologiemi v příjemném prostředí.
               </p>
             </div>
@@ -170,8 +170,8 @@ export default function OSalonuPage() {
                   className="object-cover"
                 />
               </div>
-              <h3 className="font-medium text-slate-900 dark:text-white mb-2">Profesionální péče</h3>
-              <p className="text-sm text-slate-600 dark:text-slate-400">
+              <h3 className="font-medium text-slate-900  mb-2">Profesionální péče</h3>
+              <p className="text-sm text-slate-600">
                 Každé ošetření provádíme s maximální péčí a pozorností k detailům.
               </p>
             </div>
@@ -185,10 +185,8 @@ export default function OSalonuPage() {
                   className="object-cover"
                 />
               </div>
-              <h3 className="font-medium text-slate-900 dark:text-white mb-2">Kvalitní produkty</h3>
-              <p className="text-sm text-slate-600 dark:text-slate-400">
-                Používáme pouze certifikované produkty od renomovaných značek.
-              </p>
+              <h3 className="font-medium text-slate-900  mb-2">Kvalitní produkty</h3>
+              <p className="text-sm text-slate-600">Používáme pouze certifikované produkty od renomovaných značek.</p>
             </div>
           </div>
         </div>
@@ -198,16 +196,16 @@ export default function OSalonuPage() {
       <section className="py-20">
         <div className="mx-auto max-w-[1200px] px-6">
           <div className="text-center mb-12">
-            <h2 className="font-display text-3xl md:text-4xl font-light text-slate-900 dark:text-white mb-6">
+            <h2 className="font-display text-3xl md:text-4xl font-light text-slate-900  mb-6">
               Naše <em className="italic">hodnoty</em>
             </h2>
           </div>
 
           <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-4">
             <div className="text-center">
-              <div className="flex h-12 w-12 items-center justify-center rounded-full border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 mx-auto mb-4">
+              <div className="flex h-12 w-12 items-center justify-center rounded-full border border-slate-200  bg-white  mx-auto mb-4">
                 <svg
-                  className="h-6 w-6 text-slate-900 dark:text-white"
+                  className="h-6 w-6 text-slate-900"
                   fill="none"
                   viewBox="0 0 24 24"
                   stroke="currentColor"
@@ -221,15 +219,13 @@ export default function OSalonuPage() {
                   />
                 </svg>
               </div>
-              <h3 className="font-medium text-slate-900 dark:text-white mb-2">Láska k práci</h3>
-              <p className="text-sm text-slate-600 dark:text-slate-400">
-                Každé ošetření děláme srdcem a vášní pro krásu.
-              </p>
+              <h3 className="font-medium text-slate-900  mb-2">Láska k práci</h3>
+              <p className="text-sm text-slate-600">Každé ošetření děláme srdcem a vášní pro krásu.</p>
             </div>
             <div className="text-center">
-              <div className="flex h-12 w-12 items-center justify-center rounded-full border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 mx-auto mb-4">
+              <div className="flex h-12 w-12 items-center justify-center rounded-full border border-slate-200  bg-white  mx-auto mb-4">
                 <svg
-                  className="h-6 w-6 text-slate-900 dark:text-white"
+                  className="h-6 w-6 text-slate-900"
                   fill="none"
                   viewBox="0 0 24 24"
                   stroke="currentColor"
@@ -243,15 +239,13 @@ export default function OSalonuPage() {
                   />
                 </svg>
               </div>
-              <h3 className="font-medium text-slate-900 dark:text-white mb-2">Bezpečnost</h3>
-              <p className="text-sm text-slate-600 dark:text-slate-400">
-                Vaše zdraví a bezpečnost je naší nejvyšší prioritou.
-              </p>
+              <h3 className="font-medium text-slate-900  mb-2">Bezpečnost</h3>
+              <p className="text-sm text-slate-600">Vaše zdraví a bezpečnost je naší nejvyšší prioritou.</p>
             </div>
             <div className="text-center">
-              <div className="flex h-12 w-12 items-center justify-center rounded-full border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 mx-auto mb-4">
+              <div className="flex h-12 w-12 items-center justify-center rounded-full border border-slate-200  bg-white  mx-auto mb-4">
                 <svg
-                  className="h-6 w-6 text-slate-900 dark:text-white"
+                  className="h-6 w-6 text-slate-900"
                   fill="none"
                   viewBox="0 0 24 24"
                   stroke="currentColor"
@@ -261,15 +255,13 @@ export default function OSalonuPage() {
                   <path strokeLinecap="round" strokeLinejoin="round" d="M13 10V3L4 14h7v7l9-11h-7z" />
                 </svg>
               </div>
-              <h3 className="font-medium text-slate-900 dark:text-white mb-2">Inovace</h3>
-              <p className="text-sm text-slate-600 dark:text-slate-400">
-                Pravidelně zavádíme nejnovější technologie a trendy.
-              </p>
+              <h3 className="font-medium text-slate-900  mb-2">Inovace</h3>
+              <p className="text-sm text-slate-600">Pravidelně zavádíme nejnovější technologie a trendy.</p>
             </div>
             <div className="text-center">
-              <div className="flex h-12 w-12 items-center justify-center rounded-full border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 mx-auto mb-4">
+              <div className="flex h-12 w-12 items-center justify-center rounded-full border border-slate-200  bg-white  mx-auto mb-4">
                 <svg
-                  className="h-6 w-6 text-slate-900 dark:text-white"
+                  className="h-6 w-6 text-slate-900"
                   fill="none"
                   viewBox="0 0 24 24"
                   stroke="currentColor"
@@ -283,10 +275,8 @@ export default function OSalonuPage() {
                   />
                 </svg>
               </div>
-              <h3 className="font-medium text-slate-900 dark:text-white mb-2">Individuální přístup</h3>
-              <p className="text-sm text-slate-600 dark:text-slate-400">
-                Každá klientka je pro nás jedinečná a zaslouží si osobní péči.
-              </p>
+              <h3 className="font-medium text-slate-900  mb-2">Individuální přístup</h3>
+              <p className="text-sm text-slate-600">Každá klientka je pro nás jedinečná a zaslouží si osobní péči.</p>
             </div>
           </div>
         </div>
