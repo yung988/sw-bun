@@ -4,11 +4,17 @@ type Props = { eyebrow?: string; title: ReactNode; subtitle?: string; center?: b
 
 export default function SectionTitle({ eyebrow, title, subtitle, center = true }: Props) {
   return (
-    <div className={`space-y-3 ${center ? 'text-center' : 'text-left'}`}>
-      {eyebrow && <span className="text-xs uppercase tracking-[0.4em] text-slate-500">{eyebrow}</span>}
-      <h2 className="font-display text-[40px] leading-[48px] font-light tracking-tight text-slate-900">{title}</h2>
+    <div className={`space-y-4 ${center ? 'text-center' : 'text-left'}`}>
+      {eyebrow && (
+        <span className="inline-block text-xs uppercase tracking-[0.3em] text-slate-500 font-medium mb-2">
+          {eyebrow}
+        </span>
+      )}
+      <h2 className={`font-display text-3xl md:text-4xl font-light leading-tight tracking-tight text-slate-900`}>
+        {title}
+      </h2>
       {subtitle && (
-        <p className={`text-sm leading-relaxed text-slate-500  ${center ? 'mx-auto max-w-2xl' : 'max-w-xl'}`}>
+        <p className={`text-sm leading-relaxed text-slate-600 mt-3 ${center ? 'mx-auto max-w-2xl' : 'max-w-xl'}`}>
           {subtitle}
         </p>
       )}

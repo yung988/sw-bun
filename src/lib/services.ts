@@ -29,12 +29,18 @@ function parseCSV(csvText: string): PriceItem[] {
 
     if (match) {
       items.push({
-        Category: match[1].trim(),
-        Subcategory: match[2].trim(),
-        PackageName: match[3].replace(/^\"|\"$/g, '').replace(/\"\"/g, '\"').trim(),
+        CategoryId: match[1].trim(),
+        CategoryName: match[2].trim(),
+        PackageName: match[3]
+          .replace(/^\"|\"$/g, '')
+          .replace(/\"\"/g, '"')
+          .trim(),
         Price: match[4].trim(),
         Sessions: match[5].trim(),
-        Description: match[6].replace(/^\"|\"$/g, '').replace(/\"\"/g, '\"').trim(),
+        Description: match[6]
+          .replace(/^\"|\"$/g, '')
+          .replace(/\"\"/g, '"')
+          .trim(),
       })
     }
   }
@@ -74,10 +80,10 @@ export function priceItemToService(item: PriceItem): Service {
   const { min, max, isVariable } = parsePrice(item.Price)
 
   return {
-    slug: `${createSlug(item.Category)}-${createSlug(item.PackageName)}`,
+    slug: `${createSlug(item.CategoryId)}-${createSlug(item.PackageName)}`,
     name: item.PackageName,
-    category: item.Subcategory,
-    categoryId: item.Category.toLowerCase(),
+    category: item.CategoryName,
+    categoryId: item.CategoryId.toLowerCase(),
     price: item.Price,
     priceMin: min,
     priceMax: max,
@@ -132,7 +138,7 @@ export type ServiceCategory = {
 
 export function getServiceCategories(): ServiceCategory[] {
   const all = getAllServices()
-  
+
   // Group services by category
   const categoryMap = new Map<string, Service[]>()
   for (const service of all) {
@@ -143,16 +149,14 @@ export function getServiceCategories(): ServiceCategory[] {
 
   // Create category cards with metadata
   const categories: ServiceCategory[] = []
-  
+
   for (const [categoryId, services] of categoryMap.entries()) {
     const firstService = services[0]
-    const prices = services
-      .filter(s => s.priceMin !== undefined)
-      .map(s => s.priceMin!)
-    
+    const prices = services.filter((s) => s.priceMin !== undefined).map((s) => s.priceMin!)
+
     const minPrice = prices.length > 0 ? Math.min(...prices) : 0
     const maxPrice = prices.length > 0 ? Math.max(...prices) : 0
-    
+
     let priceRange = 'Na dotaz'
     if (minPrice > 0 && maxPrice > 0) {
       if (minPrice === maxPrice) {
@@ -168,7 +172,7 @@ export function getServiceCategories(): ServiceCategory[] {
       description: getCategoryDescription(categoryId),
       priceRange,
       slug: categoryId,
-      serviceCount: services.length
+      serviceCount: services.length,
     })
   }
 
@@ -177,29 +181,29 @@ export function getServiceCategories(): ServiceCategory[] {
 
 function getCategoryDisplayName(categoryId: string): string {
   const names: Record<string, string> = {
-    'kosmetika': 'KOSMETIKA',
-    'hifu': 'HIFU',
-    'endosphere': 'ENDOSPHERE',
+    kosmetika: 'KOSMETIKA',
+    hifu: 'HIFU',
+    endosphere: 'ENDOSPHERE',
     'budovani-svalu': 'BUDOVÁNÍ SVALŮ',
-    'kavitace': 'KAVITACE',
-    'lpg': 'LPG',
+    kavitace: 'KAVITACE',
+    lpg: 'LPG',
     'prodluzovani-vlasu': 'PRODLUŽOVÁNÍ VLASŮ',
-    'ostatni-sluzby': 'OSTATNÍ SLUŽBY'
+    'ostatni-sluzby': 'OSTATNÍ SLUŽBY',
   }
   return names[categoryId] || categoryId.toUpperCase()
 }
 
 function getCategoryDescription(categoryId: string): string {
   const descriptions: Record<string, string> = {
-    'hifu': 'Neinvazivní lifting obličeje pomocí fokusovaného ultrazvuku pro pevnější pleť.',
-    'endosphere': 'Kompresní mikro-vibrace pro lymfatickou drenáž a redukci celulitidy.',
+    hifu: 'Neinvazivní lifting obličeje pomocí fokusovaného ultrazvuku pro pevnější pleť.',
+    endosphere: 'Kompresní mikro-vibrace pro lymfatickou drenáž a redukci celulitidy.',
     'budovani-svalu': 'Elektrostimulace svalů pro efektivní trénink a spalování tuků.',
-    'hydrafacial': 'Hloubkové čištění a hydratace pleti pomocí vakuové technologie.',
-    'kavitace': 'Ultrazvuková liposukce pro neinvazivní redukci tukových zásob.',
-    'kosmetika': 'Profesionální kosmetické ošetření pro všechny typy pleti.',
-    'lpg': 'Mechanická endermologie pro formování postavy a boj s celulitidou.',
+    hydrafacial: 'Hloubkové čištění a hydratace pleti pomocí vakuové technologie.',
+    kavitace: 'Ultrazvuková liposukce pro neinvazivní redukci tukových zásob.',
+    kosmetika: 'Profesionální kosmetické ošetření pro všechny typy pleti.',
+    lpg: 'Mechanická endermologie pro formování postavy a boj s celulitidou.',
     'prodluzovani-vlasu': 'Profesionální prodlužování vlasů mikro spoji keratinem.',
-    'ostatni-sluzby': 'Další specializované služby pro vaši krásu a pohodu.'
+    'ostatni-sluzby': 'Další specializované služby pro vaši krásu a pohodu.',
   }
   return descriptions[categoryId] || 'Profesionální péče o vaši krásu.'
 }
