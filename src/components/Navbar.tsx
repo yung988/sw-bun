@@ -11,7 +11,6 @@ export default function Navbar() {
   const [activeSection, setActiveSection] = useState("home");
 
   const links = [
-    { id: "home", label: "Domů" },
     { id: "why", label: "Proč" },
     { id: "o-nas", label: "O nás" },
     { id: "sluzby", label: "Služby" },
@@ -79,19 +78,16 @@ export default function Navbar() {
     <nav className="fixed top-0 left-0 w-full z-50 backdrop-blur-md bg-white/60 py-4 px-6 transition-all duration-300">
       <div className="max-w-6xl mx-auto flex items-center justify-between">
         {/* Logo */}
-        <Link href="/" aria-label="Domů" className="flex items-center gap-2 group">
-          <div className="relative h-10 w-10">
+        <Link href="/" aria-label="Domů" className="group">
+          <div className="relative h-12 w-12 md:h-14 md:w-14">
             <Image
               src="/logo.svg"
-              alt="SW Beauty logo"
+              alt="SW Beauty"
               fill
-              className="object-contain"
+              className="object-contain group-hover:opacity-80 transition-opacity"
               priority
             />
           </div>
-          <span className="text-xl font-light text-neutral-900 select-none group-hover:text-neutral-700 transition-colors">
-            SW Beauty
-          </span>
         </Link>
 
         {/* Desktop Menu */}
