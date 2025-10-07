@@ -8,11 +8,10 @@ export default function Footer() {
         <div className="grid gap-12 md:grid-cols-4">
           {/* Brand */}
           <div className="space-y-4">
-            <Link href="/" className="flex items-center gap-3 group">
-              <div className="relative h-12 w-12 overflow-hidden">
-                <Image src="/logo.svg" alt="SW Beauty" fill className="object-contain" />
+            <Link href="/" className="group inline-block">
+              <div className="relative h-16 w-16">
+                <Image src="/logo.svg" alt="SW Beauty" fill className="object-contain group-hover:opacity-80 transition-opacity" />
               </div>
-              <span className="font-display text-xl tracking-tight text-slate-900">SW Beauty</span>
             </Link>
             <p className="text-sm leading-relaxed text-slate-600">
               Profesionální kosmetický salon v Hodoníně s moderními technologiemi HIFU, Endosphere a EMS.
