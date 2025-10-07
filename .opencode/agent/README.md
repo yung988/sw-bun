@@ -1,16 +1,16 @@
-# Claude Code Subagents Collection
+# Opencode Subagents Collection
 
-A comprehensive collection of 83 specialized AI subagents for [Claude Code](https://docs.anthropic.com/en/docs/claude-code), providing domain-specific expertise across software development, infrastructure, and business operations.
+A comprehensive collection of 83 specialized AI subagents for [opencode](https://opencode.example.com), providing domain-specific expertise across software development, infrastructure, and business operations.
 
 ## Overview
 
-This repository provides production-ready subagents that extend Claude Code's capabilities with specialized knowledge. Each subagent incorporates:
+This repository provides production-ready subagents that extend opencode's capabilities with specialized knowledge. Each subagent incorporates:
 
 - Current industry best practices and standards (2024/2025)
 - Production-ready patterns and enterprise architectures
 - Deep domain expertise with 8-12 capability areas per agent
 - Modern technology stacks and frameworks
-- Optimized model selection based on task complexity
+- Model selection determined by the opencode environment
 
 ## Agent Categories
 
@@ -18,250 +18,211 @@ This repository provides production-ready subagents that extend Claude Code's ca
 
 #### Core Architecture
 
-| Agent | Model | Description |
-|-------|-------|-------------|
-| [backend-architect](backend-architect.md) | opus | RESTful API design, microservice boundaries, database schemas |
-| [frontend-developer](frontend-developer.md) | opencode/code-supernova | React components, responsive layouts, client-side state management |
-| [graphql-architect](graphql-architect.md) | opus | GraphQL schemas, resolvers, federation architecture |
-| [architect-reviewer](architect-review.md) | opus | Architectural consistency analysis and pattern validation |
-| [cloud-architect](cloud-architect.md) | opus | AWS/Azure/GCP infrastructure design and cost optimization |
-| [hybrid-cloud-architect](hybrid-cloud-architect.md) | opus | Multi-cloud strategies across cloud and on-premises environments |
-| [kubernetes-architect](kubernetes-architect.md) | opus | Cloud-native infrastructure with Kubernetes and GitOps |
+| Agent | Description |
+|-------|-------------|
+| [backend-architect](backend-architect.md) | RESTful API design, microservice boundaries, database schemas |
+| [frontend-developer](frontend-developer.md) | React components, responsive layouts, client-side state management |
+| [graphql-architect](graphql-architect.md) | GraphQL schemas, resolvers, federation architecture |
+| [architect-reviewer](architect-review.md) | Architectural consistency analysis and pattern validation |
+| [cloud-architect](cloud-architect.md) | AWS/Azure/GCP infrastructure design and cost optimization |
+| [hybrid-cloud-architect](hybrid-cloud-architect.md) | Multi-cloud strategies across cloud and on-premises environments |
+| [kubernetes-architect](kubernetes-architect.md) | Cloud-native infrastructure with Kubernetes and GitOps |
 
 #### UI/UX & Mobile
 
-| Agent | Model | Description |
-|-------|-------|-------------|
-| [ui-ux-designer](ui-ux-designer.md) | opencode/code-supernova | Interface design, wireframes, design systems |
-| [ui-visual-validator](ui-visual-validator.md) | opencode/code-supernova | Visual regression testing and UI verification |
-| [mobile-developer](mobile-developer.md) | opencode/code-supernova | React Native and Flutter application development |
-| [ios-developer](ios-developer.md) | opencode/code-supernova | Native iOS development with Swift/SwiftUI |
-| [flutter-expert](flutter-expert.md) | opencode/code-supernova | Advanced Flutter development with state management |
+| Agent | Description |
+|-------|-------------|
+| [ui-ux-designer](ui-ux-designer.md) | Interface design, wireframes, design systems |
+| [ui-visual-validator](ui-visual-validator.md) | Visual regression testing and UI verification |
+| [mobile-developer](mobile-developer.md) | React Native and Flutter application development |
+| [ios-developer](ios-developer.md) | Native iOS development with Swift/SwiftUI |
+| [flutter-expert](flutter-expert.md) | Advanced Flutter development with state management |
 
 ### Programming Languages
 
 #### Systems & Low-Level
 
-| Agent | Model | Description |
-|-------|-------|-------------|
-| [c-pro](c-pro.md) | opencode/code-supernova | System programming with memory management and OS interfaces |
-| [cpp-pro](cpp-pro.md) | opencode/code-supernova | Modern C++ with RAII, smart pointers, STL algorithms |
-| [rust-pro](rust-pro.md) | opencode/code-supernova | Memory-safe systems programming with ownership patterns |
-| [golang-pro](golang-pro.md) | opencode/code-supernova | Concurrent programming with goroutines and channels |
+| Agent | Description |
+|-------|-------------|
+| [c-pro](c-pro.md) | System programming with memory management and OS interfaces |
+| [cpp-pro](cpp-pro.md) | Modern C++ with RAII, smart pointers, STL algorithms |
+| [rust-pro](rust-pro.md) | Memory-safe systems programming with ownership patterns |
+| [golang-pro](golang-pro.md) | Concurrent programming with goroutines and channels |
 
 #### Web & Application
 
-| Agent | Model | Description |
-|-------|-------|-------------|
-| [javascript-pro](javascript-pro.md) | opencode/code-supernova | Modern JavaScript with ES6+, async patterns, Node.js |
-| [typescript-pro](typescript-pro.md) | opencode/code-supernova | Advanced TypeScript with type systems and generics |
-| [python-pro](python-pro.md) | opencode/code-supernova | Python development with advanced features and optimization |
-| [ruby-pro](ruby-pro.md) | opencode/code-supernova | Ruby with metaprogramming, Rails patterns, gem development |
-| [php-pro](php-pro.md) | opencode/code-supernova | Modern PHP with frameworks and performance optimization |
+| Agent | Description |
+|-------|-------------|
+| [javascript-pro](javascript-pro.md) | Modern JavaScript with ES6+, async patterns, Node.js |
+| [typescript-pro](typescript-pro.md) | Advanced TypeScript with type systems and generics |
+| [python-pro](python-pro.md) | Python development with advanced features and optimization |
+| [ruby-pro](ruby-pro.md) | Ruby with metaprogramming, Rails patterns, gem development |
+| [php-pro](php-pro.md) | Modern PHP with frameworks and performance optimization |
 
 #### Enterprise & JVM
 
-| Agent | Model | Description |
-|-------|-------|-------------|
-| [java-pro](java-pro.md) | opencode/code-supernova | Modern Java with streams, concurrency, JVM optimization |
-| [scala-pro](scala-pro.md) | opencode/code-supernova | Enterprise Scala with functional programming and distributed systems |
-| [csharp-pro](csharp-pro.md) | opencode/code-supernova | C# development with .NET frameworks and patterns |
+| Agent | Description |
+|-------|-------------|
+| [java-pro](java-pro.md) | Modern Java with streams, concurrency, JVM optimization |
+| [scala-pro](scala-pro.md) | Enterprise Scala with functional programming and distributed systems |
+| [csharp-pro](csharp-pro.md) | C# development with .NET frameworks and patterns |
 
 #### Specialized Platforms
 
-| Agent | Model | Description |
-|-------|-------|-------------|
-| [elixir-pro](elixir-pro.md) | opencode/code-supernova | Elixir with OTP patterns and Phoenix frameworks |
-| [unity-developer](unity-developer.md) | opencode/code-supernova | Unity game development and optimization |
-| [minecraft-bukkit-pro](minecraft-bukkit-pro.md) | opencode/code-supernova | Minecraft server plugin development |
-| [sql-pro](sql-pro.md) | opencode/code-supernova | Complex SQL queries and database optimization |
+| Agent | Description |
+|-------|-------------|
+| [elixir-pro](elixir-pro.md) | Elixir with OTP patterns and Phoenix frameworks |
+| [unity-developer](unity-developer.md) | Unity game development and optimization |
+| [minecraft-bukkit-pro](minecraft-bukkit-pro.md) | Minecraft server plugin development |
+| [sql-pro](sql-pro.md) | Complex SQL queries and database optimization |
 
 ### Infrastructure & Operations
 
 #### DevOps & Deployment
 
-| Agent | Model | Description |
-|-------|-------|-------------|
-| [devops-troubleshooter](devops-troubleshooter.md) | opencode/code-supernova | Production debugging, log analysis, deployment troubleshooting |
-| [deployment-engineer](deployment-engineer.md) | opencode/code-supernova | CI/CD pipelines, containerization, cloud deployments |
-| [terraform-specialist](terraform-specialist.md) | opus | Infrastructure as Code with Terraform modules and state management |
-| [dx-optimizer](dx-optimizer.md) | opencode/code-supernova | Developer experience optimization and tooling improvements |
+| Agent | Description |
+|-------|-------------|
+| [devops-troubleshooter](devops-troubleshooter.md) | Production debugging, log analysis, deployment troubleshooting |
+| [deployment-engineer](deployment-engineer.md) | CI/CD pipelines, containerization, cloud deployments |
+| [terraform-specialist](terraform-specialist.md) | Infrastructure as Code with Terraform modules and state management |
+| [dx-optimizer](dx-optimizer.md) | Developer experience optimization and tooling improvements |
 
 #### Database Management
 
-| Agent | Model | Description |
-|-------|-------|-------------|
-| [database-optimizer](database-optimizer.md) | opus | Query optimization, index design, migration strategies |
-| [database-admin](database-admin.md) | opencode/code-supernova | Database operations, backup, replication, monitoring |
+| Agent | Description |
+|-------|-------------|
+| [database-optimizer](database-optimizer.md) | Query optimization, index design, migration strategies |
+| [database-admin](database-admin.md) | Database operations, backup, replication, monitoring |
 
 #### Incident Response & Network
 
-| Agent | Model | Description |
-|-------|-------|-------------|
-| [incident-responder](incident-responder.md) | opus | Production incident management and resolution |
-| [network-engineer](network-engineer.md) | opencode/code-supernova | Network debugging, load balancing, traffic analysis |
+| Agent | Description |
+|-------|-------------|
+| [incident-responder](incident-responder.md) | Production incident management and resolution |
+| [network-engineer](network-engineer.md) | Network debugging, load balancing, traffic analysis |
 
 ### Quality Assurance & Security
 
 #### Code Quality & Review
 
-| Agent | Model | Description |
-|-------|-------|-------------|
-| [code-reviewer](code-reviewer.md) | opus | Code review with security focus and production reliability |
-| [security-auditor](security-auditor.md) | opus | Vulnerability assessment and OWASP compliance |
-| [backend-security-coder](backend-security-coder.md) | opus | Secure backend coding practices, API security implementation |
-| [frontend-security-coder](frontend-security-coder.md) | opus | XSS prevention, CSP implementation, client-side security |
-| [mobile-security-coder](mobile-security-coder.md) | opus | Mobile security patterns, WebView security, biometric auth |
-| [architect-reviewer](architect-review.md) | opus | Architectural consistency and pattern validation |
+| Agent | Description |
+|-------|-------------|
+| [code-reviewer](code-reviewer.md) | Code review with security focus and production reliability |
+| [security-auditor](security-auditor.md) | Vulnerability assessment and OWASP compliance |
+| [backend-security-coder](backend-security-coder.md) | Secure backend coding practices, API security implementation |
+| [frontend-security-coder](frontend-security-coder.md) | XSS prevention, CSP implementation, client-side security |
+| [mobile-security-coder](mobile-security-coder.md) | Mobile security patterns, WebView security, biometric auth |
+| [architect-reviewer](architect-review.md) | Architectural consistency and pattern validation |
 
 #### Testing & Debugging
 
-| Agent | Model | Description |
-|-------|-------|-------------|
-| [test-automator](test-automator.md) | opencode/code-supernova | Comprehensive test suite creation (unit, integration, e2e) |
-| [tdd-orchestrator](tdd-orchestrator.md) | opencode/code-supernova | Test-Driven Development methodology guidance |
-| [debugger](debugger.md) | opencode/code-supernova | Error resolution and test failure analysis |
-| [error-detective](error-detective.md) | opencode/code-supernova | Log analysis and error pattern recognition |
+| Agent | Description |
+|-------|-------------|
+| [test-automator](test-automator.md) | Comprehensive test suite creation (unit, integration, e2e) |
+| [tdd-orchestrator](tdd-orchestrator.md) | Test-Driven Development methodology guidance |
+| [debugger](debugger.md) | Error resolution and test failure analysis |
+| [error-detective](error-detective.md) | Log analysis and error pattern recognition |
 
 #### Performance & Observability
 
-| Agent | Model | Description |
-|-------|-------|-------------|
-| [performance-engineer](performance-engineer.md) | opus | Application profiling and optimization |
-| [observability-engineer](observability-engineer.md) | opus | Production monitoring, distributed tracing, SLI/SLO management |
-| [search-specialist](search-specialist.md) | haiku | Advanced web research and information synthesis |
+| Agent | Description |
+|-------|-------------|
+| [performance-engineer](performance-engineer.md) | Application profiling and optimization |
+| [observability-engineer](observability-engineer.md) | Production monitoring, distributed tracing, SLI/SLO management |
+| [search-specialist](search-specialist.md) | Advanced web research and information synthesis |
 
 ### Data & AI
 
 #### Data Engineering & Analytics
 
-| Agent | Model | Description |
-|-------|-------|-------------|
-| [data-scientist](data-scientist.md) | opus | Data analysis, SQL queries, BigQuery operations |
-| [data-engineer](data-engineer.md) | opencode/code-supernova | ETL pipelines, data warehouses, streaming architectures |
+| Agent | Description |
+|-------|-------------|
+| [data-scientist](data-scientist.md) | Data analysis, SQL queries, BigQuery operations |
+| [data-engineer](data-engineer.md) | ETL pipelines, data warehouses, streaming architectures |
 
 #### Machine Learning & AI
 
-| Agent | Model | Description |
-|-------|-------|-------------|
-| [ai-engineer](ai-engineer.md) | opus | LLM applications, RAG systems, prompt pipelines |
-| [ml-engineer](ml-engineer.md) | opus | ML pipelines, model serving, feature engineering |
-| [mlops-engineer](mlops-engineer.md) | opus | ML infrastructure, experiment tracking, model registries |
-| [prompt-engineer](prompt-engineer.md) | opus | LLM prompt optimization and engineering |
+| Agent | Description |
+|-------|-------------|
+| [ai-engineer](ai-engineer.md) | LLM applications, RAG systems, prompt pipelines |
+| [ml-engineer](ml-engineer.md) | ML pipelines, model serving, feature engineering |
+| [mlops-engineer](mlops-engineer.md) | ML infrastructure, experiment tracking, model registries |
+| [prompt-engineer](prompt-engineer.md) | LLM prompt optimization and engineering |
 
 ### Documentation & Technical Writing
 
-| Agent | Model | Description |
-|-------|-------|-------------|
-| [docs-architect](docs-architect.md) | opus | Comprehensive technical documentation generation |
-| [api-documenter](api-documenter.md) | opencode/code-supernova | OpenAPI/Swagger specifications and developer docs |
-| [reference-builder](reference-builder.md) | haiku | Technical references and API documentation |
-| [tutorial-engineer](tutorial-engineer.md) | opencode/code-supernova | Step-by-step tutorials and educational content |
-| [mermaid-expert](mermaid-expert.md) | opencode/code-supernova | Diagram creation (flowcharts, sequences, ERDs) |
+| Agent | Description |
+|-------|-------------|
+| [docs-architect](docs-architect.md) | Comprehensive technical documentation generation |
+| [api-documenter](api-documenter.md) | OpenAPI/Swagger specifications and developer docs |
+| [reference-builder](reference-builder.md) | Technical references and API documentation |
+| [tutorial-engineer](tutorial-engineer.md) | Step-by-step tutorials and educational content |
+| [mermaid-expert](mermaid-expert.md) | Diagram creation (flowcharts, sequences, ERDs) |
 
 ### Business & Operations
 
 #### Business Analysis & Finance
 
-| Agent | Model | Description |
-|-------|-------|-------------|
-| [business-analyst](business-analyst.md) | opencode/code-supernova | Metrics analysis, reporting, KPI tracking |
-| [quant-analyst](quant-analyst.md) | opus | Financial modeling, trading strategies, market analysis |
-| [risk-manager](risk-manager.md) | opencode/code-supernova | Portfolio risk monitoring and management |
+| Agent | Description |
+|-------|-------------|
+| [business-analyst](business-analyst.md) | Metrics analysis, reporting, KPI tracking |
+| [quant-analyst](quant-analyst.md) | Financial modeling, trading strategies, market analysis |
+| [risk-manager](risk-manager.md) | Portfolio risk monitoring and management |
 
 #### Marketing & Sales
 
-| Agent | Model | Description |
-|-------|-------|-------------|
-| [content-marketer](content-marketer.md) | opencode/code-supernova | Blog posts, social media, email campaigns |
-| [sales-automator](sales-automator.md) | haiku | Cold emails, follow-ups, proposal generation |
+| Agent | Description |
+|-------|-------------|
+| [content-marketer](content-marketer.md) | Blog posts, social media, email campaigns |
+| [sales-automator](sales-automator.md) | Cold emails, follow-ups, proposal generation |
 
 #### Support & Legal
 
-| Agent | Model | Description |
-|-------|-------|-------------|
-| [customer-support](customer-support.md) | opencode/code-supernova | Support tickets, FAQ responses, customer communication |
-| [hr-pro](hr-pro.md) | opus | HR operations, policies, employee relations |
-| [legal-advisor](legal-advisor.md) | opus | Privacy policies, terms of service, legal documentation |
+| Agent | Description |
+|-------|-------------|
+| [customer-support](customer-support.md) | Support tickets, FAQ responses, customer communication |
+| [hr-pro](hr-pro.md) | HR operations, policies, employee relations |
+| [legal-advisor](legal-advisor.md) | Privacy policies, terms of service, legal documentation |
 
 ### Specialized Domains
 
-| Agent | Model | Description |
-|-------|-------|-------------|
-| [blockchain-developer](blockchain-developer.md) | opencode/code-supernova | Web3 apps, smart contracts, DeFi protocols |
-| [payment-integration](payment-integration.md) | opencode/code-supernova | Payment processor integration (Stripe, PayPal) |
-| [legacy-modernizer](legacy-modernizer.md) | opencode/code-supernova | Legacy code refactoring and modernization |
-| [context-manager](context-manager.md) | haiku | Multi-agent context management |
+| Agent | Description |
+|-------|-------------|
+| [blockchain-developer](blockchain-developer.md) | Web3 apps, smart contracts, DeFi protocols |
+| [payment-integration](payment-integration.md) | Payment processor integration (Stripe, PayPal) |
+| [legacy-modernizer](legacy-modernizer.md) | Legacy code refactoring and modernization |
+| [context-manager](context-manager.md) | Multi-agent context management |
 
 ### SEO & Content Optimization
 
-| Agent | Model | Description |
-|-------|-------|-------------|
-| [seo-content-auditor](seo-content-auditor.md) | opencode/code-supernova | Content quality analysis, E-E-A-T signals assessment |
-| [seo-meta-optimizer](seo-meta-optimizer.md) | haiku | Meta title and description optimization |
-| [seo-keyword-strategist](seo-keyword-strategist.md) | haiku | Keyword analysis and semantic variations |
-| [seo-structure-architect](seo-structure-architect.md) | haiku | Content structure and schema markup |
-| [seo-snippet-hunter](seo-snippet-hunter.md) | haiku | Featured snippet formatting |
-| [seo-content-refresher](seo-content-refresher.md) | haiku | Content freshness analysis |
-| [seo-cannibalization-detector](seo-cannibalization-detector.md) | haiku | Keyword overlap detection |
-| [seo-authority-builder](seo-authority-builder.md) | opencode/code-supernova | E-E-A-T signal analysis |
-| [seo-content-writer](seo-content-writer.md) | opencode/code-supernova | SEO-optimized content creation |
-| [seo-content-planner](seo-content-planner.md) | haiku | Content planning and topic clusters |
-
-## Model Configuration
-
-Agents are assigned to specific Claude models based on task complexity and computational requirements. The system uses three model tiers:
-
-### Model Distribution Summary
-
-| Model | Agent Count | Use Case |
-|-------|-------------|----------|
-| Haiku | 11 | Quick, focused tasks with minimal computational overhead |
-| opencode/code-supernova | 46 | Standard development and specialized engineering tasks |
-| Opus | 22 | Complex reasoning, architecture, and critical analysis |
-
-### Haiku Model Agents
-
-| Category | Agents |
-|----------|--------|
-| Context & Reference | `context-manager`, `reference-builder`, `sales-automator`, `search-specialist` |
-| SEO Optimization | `seo-meta-optimizer`, `seo-keyword-strategist`, `seo-structure-architect`, `seo-snippet-hunter`, `seo-content-refresher`, `seo-cannibalization-detector`, `seo-content-planner` |
-
-### opencode/code-supernova Model Agents
-
-| Category | Count | Agents |
-|----------|-------|--------|
-| Programming Languages | 18 | All language-specific agents (JavaScript, Python, Java, C++, etc.) |
-| Frontend & UI | 5 | `frontend-developer`, `ui-ux-designer`, `ui-visual-validator`, `mobile-developer`, `ios-developer` |
-| Infrastructure | 8 | `devops-troubleshooter`, `deployment-engineer`, `dx-optimizer`, `database-admin`, `network-engineer`, `flutter-expert`, `api-documenter`, `tutorial-engineer` |
-| Quality & Testing | 4 | `test-automator`, `tdd-orchestrator`, `debugger`, `error-detective` |
-| Business & Support | 6 | `business-analyst`, `risk-manager`, `content-marketer`, `customer-support`, `mermaid-expert`, `legacy-modernizer` |
-| Data & Content | 5 | `data-engineer`, `payment-integration`, `seo-content-auditor`, `seo-authority-builder`, `seo-content-writer` |
-
-### Opus Model Agents
-
-| Category | Count | Agents |
-|----------|-------|--------|
-| Architecture & Design | 7 | `architect-reviewer`, `backend-architect`, `cloud-architect`, `hybrid-cloud-architect`, `kubernetes-architect`, `graphql-architect`, `terraform-specialist` |
-| Critical Analysis | 6 | `code-reviewer`, `security-auditor`, `performance-engineer`, `observability-engineer`, `incident-responder`, `database-optimizer` |
-| AI/ML Complex | 5 | `ai-engineer`, `ml-engineer`, `mlops-engineer`, `data-scientist`, `prompt-engineer` |
-| Business Critical | 4 | `docs-architect`, `hr-pro`, `legal-advisor`, `quant-analyst` |
+| Agent | Description |
+|-------|-------------|
+| [seo-content-auditor](seo-content-auditor.md) | Content quality analysis, E-E-A-T signals assessment |
+| [seo-meta-optimizer](seo-meta-optimizer.md) | Meta title and description optimization |
+| [seo-keyword-strategist](seo-keyword-strategist.md) | Keyword analysis and semantic variations |
+| [seo-structure-architect](seo-structure-architect.md) | Content structure and schema markup |
+| [seo-snippet-hunter](seo-snippet-hunter.md) | Featured snippet formatting |
+| [seo-content-refresher](seo-content-refresher.md) | Content freshness analysis |
+| [seo-cannibalization-detector](seo-cannibalization-detector.md) | Keyword overlap detection |
+| [seo-authority-builder](seo-authority-builder.md) | E-E-A-T signal analysis |
+| [seo-content-writer](seo-content-writer.md) | SEO-optimized content creation |
+| [seo-content-planner](seo-content-planner.md) | Content planning and topic clusters |
 
 ## Installation
 
-Clone the repository to the Claude agents directory:
+Clone the repository to the opencode agents directory:
 
 ```bash
-cd ~/.claude
+cd ~/.opencode
 git clone https://github.com/wshobson/agents.git
 ```
 
-The subagents will be automatically available to Claude Code once placed in the `~/.claude/agents/` directory.
+The subagents will be automatically available to opencode once placed in the `~/.opencode/agents/` directory.
 
 ## Usage
 
 ### Automatic Delegation
-Claude Code automatically selects the appropriate subagent based on task context and requirements. The system analyzes your request and delegates to the most suitable specialist.
+Opencode automatically selects the appropriate subagent based on task context and requirements. The system analyzes your request and delegates to the most suitable specialist.
 
 ### Explicit Invocation
 Specify a subagent by name to use a particular specialist:
@@ -351,15 +312,15 @@ Subagents coordinate automatically for complex tasks. The system intelligently s
 → mlops-engineer → ml-engineer → data-engineer → performance-engineer
 ```
 
-### Integration with Claude Code Commands
+### Integration with Opencode Commands
 
-For sophisticated multi-agent orchestration, use the [Claude Code Commands](https://github.com/wshobson/commands) collection which provides 52 pre-built slash commands:
+For sophisticated multi-agent orchestration, use the [Opencode Commands](https://github.com/wshobson/commands) collection which provides 52 pre-built slash commands:
 
 ```
-/full-stack-feature   # Coordinates 8+ agents for complete feature development
-/incident-response    # Activates incident management workflow
-/ml-pipeline         # Sets up end-to-end ML infrastructure
-/security-hardening  # Implements security best practices across stack
+ /full-stack-feature   # Coordinates 8+ agents for complete feature development
+ /incident-response    # Activates incident management workflow
+ /ml-pipeline         # Sets up end-to-end ML infrastructure
+ /security-hardening  # Implements security best practices across stack
 ```
 
 ## Subagent Format
@@ -370,18 +331,11 @@ Each subagent is defined as a Markdown file with frontmatter:
 ---
 name: subagent-name
 description: Activation criteria for this subagent
-model: opencode/code-supernova|opencode/code-supernova|opus  # Optional: Model selection
 tools: tool1, tool2       # Optional: Tool restrictions
 ---
 
 System prompt defining the subagent's expertise and behavior
 ```
-
-### Model Selection Criteria
-
-- **haiku**: Simple, deterministic tasks with minimal reasoning
-- **opencode/code-supernova**: Standard development and engineering tasks
-- **opus**: Complex analysis, architecture, and critical operations
 
 ## Agent Orchestration Patterns
 
@@ -472,7 +426,7 @@ payment-integration → security-auditor → Validated implementation
 ## Best Practices
 
 ### Task Delegation
-1. **Automatic selection** - Let Claude Code analyze context and select optimal agents
+1. **Automatic selection** - Let opencode analyze context and select optimal agents
 2. **Clear requirements** - Specify constraints, tech stack, and quality standards
 3. **Trust specialization** - Each agent is optimized for their specific domain
 
@@ -528,7 +482,7 @@ MIT License - see [LICENSE](LICENSE) file for details.
 
 ## Resources
 
-- [Claude Code Documentation](https://docs.anthropic.com/en/docs/claude-code)
-- [Subagents Documentation](https://docs.anthropic.com/en/docs/claude-code/sub-agents)
-- [Claude Code GitHub](https://github.com/anthropics/claude-code)
-- [Claude Code Commands](https://github.com/wshobson/commands)
+- [Opencode Documentation](https://opencode.example.com)
+- [Subagents Documentation](https://opencode.example.com/sub-agents)
+- [Opencode GitHub](https://github.com/opencode/opencode)
+- [Opencode Commands](https://github.com/wshobson/commands)
