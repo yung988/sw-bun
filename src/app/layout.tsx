@@ -115,7 +115,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   const jsonLdScript = JSON.stringify(jsonLd)
 
   return (
-    <html lang="cs" className={`${inter.variable} ${instrumentSerif.variable}`}>
+    <html lang="cs" className={`scroll-smooth ${inter.variable} ${instrumentSerif.variable}`}>
       <head>
         <script
           type="application/ld+json"

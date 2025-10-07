@@ -61,7 +61,8 @@ export default function Home() {
   return (
     <main id="main-content" className="min-h-screen bg-white pb-24">
       {/* Hero Section */}
-      <Hero
+      <div id="home">
+        <Hero
         title="Objevte svou ideální"
         titleItalic="krásu !"
         subtitle="Moderní technologie HIFU, Endosphere a budování svalů EMS v Hodoníně."
@@ -69,6 +70,7 @@ export default function Home() {
         trustedCount="500+ klientů"
         avatars={['/images/service-hifu.jpg', '/images/service-endosphere.jpg', '/images/service-hair.jpg']}
       />
+      </div>
 
       {/* Why Us - Merged Highlights + Why */}
       <FadeInSection delay={0.1}>
@@ -133,88 +135,74 @@ export default function Home() {
 
       {/* About Us Preview */}
       <FadeInSection delay={0.15}>
-        <section className="mx-auto max-w-[1250px] px-6 py-24 md:py-32">
-          <div className="grid gap-12 lg:grid-cols-2 items-center">
-            <div className="relative aspect-[4/5] overflow-hidden rounded-[2rem] border border-slate-200">
-              <Image
-                src="/images/team/sabina.jpg"
-                alt="Sabina - zakladatelka SW Beauty"
-                fill
-                sizes="(min-width: 1024px) 50vw, 100vw"
-                className="object-cover"
-              />
-            </div>
-            <div>
-              <SectionTitle
-                eyebrow="O nás"
-                title={
-                  <>
-                    Poznejte <em className="italic">SW Beauty</em>
-                  </>
-                }
-                subtitle="Jsme moderní kosmetický salon v Hodoníně, kde kombinujeme nejnovější technologie s individuálním přístupem. Naše zakladatelka Sabina má více než 10 let zkušeností a pravidelně absolvuje školení, aby vám mohla nabízet ty nejlepší služby."
-              />
-              <div className="space-y-4 mb-8">
-                <div className="flex items-start gap-3">
-                  <svg
-                    className="h-5 w-5 text-slate-400 mt-1 flex-shrink-0"
-                    fill="none"
-                    viewBox="0 0 24 24"
-                    stroke="currentColor"
-                    strokeWidth={2}
-                  >
-                    <title>Potvrzeno</title>
-                    <path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" />
-                  </svg>
-                  <div>
-                    <strong className="text-slate-900">Certifikovaná kosmetička</strong>
-                    <p className="text-sm text-slate-600">S mezinárodními certifikáty</p>
-                  </div>
-                </div>
-                <div className="flex items-start gap-3">
-                  <svg
-                    className="h-5 w-5 text-slate-400 mt-1 flex-shrink-0"
-                    fill="none"
-                    viewBox="0 0 24 24"
-                    stroke="currentColor"
-                    strokeWidth={2}
-                  >
-                    <title>Potvrzeno</title>
-                    <path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" />
-                  </svg>
-                  <div>
-                    <strong className="text-slate-900">Moderní technologie</strong>
-                    <p className="text-sm text-slate-600">HIFU, Endosphere, EMS a další</p>
-                  </div>
-                </div>
-                <div className="flex items-start gap-3">
-                  <svg
-                    className="h-5 w-5 text-slate-400 mt-1 flex-shrink-0"
-                    fill="none"
-                    viewBox="0 0 24 24"
-                    stroke="currentColor"
-                    strokeWidth={2}
-                  >
-                    <title>Potvrzeno</title>
-                    <path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" />
-                  </svg>
-                  <div>
-                    <strong className="text-slate-900">Luxusní prostředí</strong>
-                    <p className="text-sm text-slate-600">Relaxujte v příjemném prostředí</p>
-                  </div>
-                </div>
-              </div>
-              <Link
-                href="/o-salonu"
-                className="inline-flex items-center gap-2 rounded-full border border-slate-200 bg-white px-6 py-3 text-sm font-medium text-slate-900 transition hover:bg-slate-50"
-              >
-                Více o nás
-                <svg className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                  <title>Šipka</title>
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+        <section id="o-nas" className="mx-auto max-w-[1250px] px-6 py-24 md:py-32" aria-labelledby="o-nas-heading">
+          <div className="text-center mb-16">
+            <div className="text-xs uppercase tracking-[0.3em] text-slate-500 font-medium mb-3">O nás</div>
+            <h2 id="o-nas-heading" className="font-display text-3xl md:text-4xl lg:text-5xl font-light text-slate-900 mb-6">
+              Poznejte <em className="italic">SW Beauty</em>
+            </h2>
+            <p className="text-lg text-slate-600 leading-relaxed max-w-3xl mx-auto">
+              Jsme moderní kosmetický salon v Hodoníně, kde kombinujeme nejnovější technologie s individuálním přístupem k vaší kráse.
+            </p>
+          </div>
+
+          <div className="grid gap-8 lg:grid-cols-3 mb-12">
+            <div className="text-center p-6 rounded-2xl border border-slate-200 bg-white">
+              <div className="flex h-12 w-12 items-center justify-center rounded-full bg-slate-50 border border-slate-200 mx-auto mb-4">
+                <svg className="h-6 w-6 text-slate-900" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                  <title>Certifikace</title>
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M9 12l2 2 4-4M7.835 4.697a3.42 3.42 0 001.946-.806 3.42 3.42 0 014.438 0 3.42 3.42 0 001.946.806 3.42 3.42 0 013.138 3.138 3.42 3.42 0 00.806 1.946 3.42 3.42 0 010 4.438 3.42 3.42 0 00-.806 1.946 3.42 3.42 0 01-3.138 3.138 3.42 3.42 0 00-1.946.806 3.42 3.42 0 01-4.438 0 3.42 3.42 0 00-1.946-.806 3.42 3.42 0 01-3.138-3.138 3.42 3.42 0 00-.806-1.946 3.42 3.42 0 010-4.438 3.42 3.42 0 00.806-1.946 3.42 3.42 0 013.138-3.138z" />
                 </svg>
-              </Link>
+              </div>
+              <h3 className="text-lg font-medium text-slate-900 mb-2">Certifikovaná péče</h3>
+              <p className="text-sm text-slate-600">Mezinárodní certifikáty a 10+ let zkušeností</p>
             </div>
+
+            <div className="text-center p-6 rounded-2xl border border-slate-200 bg-white">
+              <div className="flex h-12 w-12 items-center justify-center rounded-full bg-slate-50 border border-slate-200 mx-auto mb-4">
+                <svg className="h-6 w-6 text-slate-900" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                  <title>Technologie</title>
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M13 10V3L4 14h7v7l9-11h-7z" />
+                </svg>
+              </div>
+              <h3 className="text-lg font-medium text-slate-900 mb-2">Moderní technologie</h3>
+              <p className="text-sm text-slate-600">HIFU, Endosphere, EMS a další novinky</p>
+            </div>
+
+            <div className="text-center p-6 rounded-2xl border border-slate-200 bg-white">
+              <div className="flex h-12 w-12 items-center justify-center rounded-full bg-slate-50 border border-slate-200 mx-auto mb-4">
+                <svg className="h-6 w-6 text-slate-900" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                  <title>Individuální přístup</title>
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
+                </svg>
+              </div>
+              <h3 className="text-lg font-medium text-slate-900 mb-2">Péče s láskou</h3>
+              <p className="text-sm text-slate-600">Každá klientka je pro nás jedinečná</p>
+            </div>
+          </div>
+
+          <div className="relative aspect-[21/9] overflow-hidden rounded-2xl border border-slate-200 mb-8">
+            <Image
+              src="/images/team/sabina.jpg"
+              alt="Sabina - zakladatelka SW Beauty"
+              fill
+              sizes="(min-width: 1024px) 1250px, 100vw"
+              className="object-cover"
+            />
+          </div>
+
+          <div className="text-center">
+            <Link
+              href="/o-salonu"
+              aria-label="Více o nás"
+              className="inline-flex items-center gap-2 rounded-full bg-slate-900 px-8 py-4 text-sm font-medium text-white transition hover:bg-slate-800"
+            >
+              Více o nás
+              <svg className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <title>Šipka</title>
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+              </svg>
+            </Link>
           </div>
         </section>
       </FadeInSection>
@@ -269,7 +257,7 @@ export default function Home() {
 
       {/* Voucher CTA */}
       <FadeInSection delay={0.25}>
-        <section className="mx-auto max-w-[1250px] px-6 py-24 md:py-32">
+        <section id="poukazy" className="mx-auto max-w-[1250px] px-6 py-24 md:py-32">
           <div className="relative overflow-hidden rounded-[2rem] border border-slate-200 bg-slate-50 p-12 md:p-16">
             <div className="relative z-10 grid gap-8 lg:grid-cols-2 items-center">
               <div>
@@ -388,7 +376,7 @@ export default function Home() {
 
       {/* Contact CTA */}
       <FadeInSection delay={0.45}>
-        <section className="mx-auto max-w-[1250px] px-6 py-16 md:py-20">
+        <section id="kontakt" className="mx-auto max-w-[1250px] px-6 py-16 md:py-20">
           <div className="rounded-2xl border border-slate-200 bg-slate-50 p-8 md:p-12">
             <div className="grid gap-8 lg:grid-cols-2 items-center">
               <div>
