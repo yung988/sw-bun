@@ -1,3 +1,0 @@
-module.exports=[85246,a=>{"use strict";a.s(["default",()=>e],85246);var b=a.i(87924),c=a.i(93005);function d({service:a,children:d,className:e}){let{openBooking:f}=(0,c.useModals)();return(0,b.jsx)("button",{type:"button",onClick:()=>f(a),className:e,children:d})}function e({service:a,className:c,children:e}){return(0,b.jsx)(d,{service:a,className:c,children:e})}}];
-
-//# sourceMappingURL=src_components_ServiceBookingButton_tsx_87e66264._.js.map
