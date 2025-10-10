@@ -1,5 +1,7 @@
 import type { Metadata } from 'next'
 import Image from 'next/image'
+import SectionTitle from '@/components/SectionTitle'
+import { Heart, Sparkles, Scissors } from 'lucide-react'
 
 export const metadata: Metadata = {
   title: 'O salonu SW Beauty - Profesionální kosmetický salon Hodonín',
@@ -30,7 +32,7 @@ export default function OSalonuPage() {
           <div className="grid gap-12 lg:grid-cols-2 items-center">
             <div>
               <h1 className="font-display text-4xl md:text-5xl font-light text-slate-900  mb-6">
-                O salonu <em className="italic">SW Beauty</em>
+                O salonu <strong>SW</strong> <em className="italic">Beauty</em>
               </h1>
               <p className="text-lg text-slate-600  leading-relaxed mb-8">
                 Vítejte v našem moderním kosmetickém salonu v Hodoníně. Jsme tým profesionálů, kteří se věnují vaší
@@ -64,14 +66,15 @@ export default function OSalonuPage() {
               />
             </div>
             <div>
-              <h2 className="font-display text-3xl md:text-4xl font-light text-slate-900  mb-6">
-                Poznejte <em className="italic">Sabina</em>, naši zakladatelku
-              </h2>
-              <p className="text-slate-600  leading-relaxed mb-6">
-                Sabina je certifikovaná kosmetička s více než 10 lety zkušeností v oboru. Její vášeň pro krásu a
-                wellness ji přivedla k založení SW Beauty salonu, kde kombinuje tradiční kosmetické techniky s
-                nejnovějšími technologiemi.
-              </p>
+              <SectionTitle
+                center={false}
+                title={
+                  <>
+                    Naši <em className="italic">zakladatelku</em>
+                  </>
+                }
+                subtitle="Sabina je certifikovaná kosmetička s více než 10 lety zkušeností v oboru. Její vášeň pro krásu a wellness ji přivedla k založení SW Beauty salonu."
+              />
               <p className="text-slate-600  leading-relaxed mb-6">
                 Sabina pravidelně absolvuje školení a kurzy, aby mohla svým klientkám nabízet ty nejlepší a
                 nejbezpečnější ošetření. Její přístup je individuální a vždy se zaměřuje na potřeby každé klientky.
@@ -134,14 +137,17 @@ export default function OSalonuPage() {
       {/* Salon Story */}
       <section className="py-20 bg-slate-50">
         <div className="site-container">
-          <div className="text-center mb-12">
-            <h2 className="font-display text-3xl md:text-4xl font-light text-slate-900  mb-6">
-              Příběh našeho <em className="italic">salonu</em>
-            </h2>
-            <p className="text-lg text-slate-600  max-w-2xl mx-auto">
-              SW Beauty vznikl z lásky k péči o krásu a touhy poskytovat klientkám ten nejlepší zážitek z kosmetických
-              ošetření.
-            </p>
+          <div className="mb-12">
+            <SectionTitle
+              center={false}
+              eyebrow="Naše hodnoty"
+              title={
+                <>
+                  Naše <strong>hodnoty</strong>
+                </>
+              }
+              icon={<Heart className="h-4 w-4" />}
+            />
           </div>
 
           <div className="grid gap-8 md:grid-cols-3">
@@ -192,18 +198,148 @@ export default function OSalonuPage() {
         </div>
       </section>
 
+      {/* Technologies & Certifications */}
+      <section className="py-20 bg-slate-50">
+        <div className="site-container">
+          <div className="mb-12">
+            <SectionTitle
+              center={false}
+              title={
+                <>
+                  Naši <em className="italic">zakladatelku</em>
+                </>
+              }
+              subtitle="Sabina je certifikovaná kosmetička s více než 10 lety zkušeností v oboru. Její vášeň pro krásu a wellness ji přivedla k založení SW Beauty salonu."
+              badge={{ icon: <Heart className="h-4 w-4" />, text: 'Zakladatelka' }}
+            />
+          </div>
+
+          <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3 mb-16">
+            <div className="bg-white p-6 rounded-2xl border border-slate-200">
+              <div className="flex items-center gap-3 mb-4">
+                <div className="flex h-10 w-10 items-center justify-center rounded-full bg-slate-100">
+                  <svg className="h-5 w-5 text-slate-900" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 10V3L4 14h7v7l9-11h-7z" />
+                  </svg>
+                </div>
+                <h3 className="font-medium text-slate-900">HIFU technologie</h3>
+              </div>
+              <p className="text-sm text-slate-600">
+                Neinvazivní lifting obličeje pomocí ultrazvukových vln pro mladší vzhled bez operace.
+              </p>
+            </div>
+
+            <div className="bg-white p-6 rounded-2xl border border-slate-200">
+              <div className="flex items-center gap-3 mb-4">
+                <div className="flex h-10 w-10 items-center justify-center rounded-full bg-slate-100">
+                  <svg className="h-5 w-5 text-slate-900" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth={2}
+                      d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"
+                    />
+                  </svg>
+                </div>
+                <h3 className="font-medium text-slate-900">Endosphere terapie</h3>
+              </div>
+              <p className="text-sm text-slate-600">
+                Kompresivní mikrovibrace pro redukci celulitidy a zpevnění pokožky.
+              </p>
+            </div>
+
+            <div className="bg-white p-6 rounded-2xl border border-slate-200">
+              <div className="flex items-center gap-3 mb-4">
+                <div className="flex h-10 w-10 items-center justify-center rounded-full bg-slate-100">
+                  <svg className="h-5 w-5 text-slate-900" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth={2}
+                      d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6"
+                    />
+                  </svg>
+                </div>
+                <h3 className="font-medium text-slate-900">EMS budování svalů</h3>
+              </div>
+              <p className="text-sm text-slate-600">Elektrická stimulace svalů pro efektivní trénink bez námahy.</p>
+            </div>
+          </div>
+
+          <div className="bg-white p-8 rounded-2xl border border-slate-200">
+            <h3 className="font-medium text-slate-900 mb-4">Certifikáty a školení</h3>
+            <div className="grid gap-4 md:grid-cols-2">
+              <div className="flex items-start gap-3">
+                <svg
+                  className="h-5 w-5 text-green-600 mt-1 flex-shrink-0"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                >
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                </svg>
+                <div>
+                  <strong className="text-slate-900">Certifikovaná kosmetička</strong>
+                  <p className="text-sm text-slate-600">Mezinárodní certifikáty v estetické medicíně</p>
+                </div>
+              </div>
+              <div className="flex items-start gap-3">
+                <svg
+                  className="h-5 w-5 text-green-600 mt-1 flex-shrink-0"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                >
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                </svg>
+                <div>
+                  <strong className="text-slate-900">Pravidelná školení</strong>
+                  <p className="text-sm text-slate-600">Aktualizace znalostí nejnovějších trendů</p>
+                </div>
+              </div>
+              <div className="flex items-start gap-3">
+                <svg
+                  className="h-5 w-5 text-green-600 mt-1 flex-shrink-0"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                >
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                </svg>
+                <div>
+                  <strong className="text-slate-900">Kvalitní produkty</strong>
+                  <p className="text-sm text-slate-600">Certifikované kosmetické přípravky</p>
+                </div>
+              </div>
+              <div className="flex items-start gap-3">
+                <svg
+                  className="h-5 w-5 text-green-600 mt-1 flex-shrink-0"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                >
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                </svg>
+                <div>
+                  <strong className="text-slate-900">Bezpečnost na prvním místě</strong>
+                  <p className="text-sm text-slate-600">Hygienické postupy a sterilizace</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
       {/* Values */}
       <section className="py-20">
         <div className="mx-auto max-w-[1200px] px-6">
-          <div className="text-center mb-12">
-            <h2 className="font-display text-3xl md:text-4xl font-light text-slate-900  mb-6">
-              Naše <em className="italic">hodnoty</em>
-            </h2>
+          <div className="mb-12">
+            <SectionTitle center={false} eyebrow="Naše hodnoty" title="" icon={<Heart className="h-4 w-4" />} />
           </div>
 
           <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-4">
-            <div className="text-center">
-              <div className="flex h-12 w-12 items-center justify-center rounded-full border border-slate-200  bg-white  mx-auto mb-4">
+            <div>
+              <div className="flex h-12 w-12 items-center justify-center rounded-full border border-slate-200 bg-white mb-4">
                 <svg
                   className="h-6 w-6 text-slate-900"
                   fill="none"
@@ -219,11 +355,11 @@ export default function OSalonuPage() {
                   />
                 </svg>
               </div>
-              <h3 className="font-medium text-slate-900  mb-2">Láska k práci</h3>
+              <h3 className="font-medium text-slate-900 mb-2">Láska k práci</h3>
               <p className="text-sm text-slate-600">Každé ošetření děláme srdcem a vášní pro krásu.</p>
             </div>
-            <div className="text-center">
-              <div className="flex h-12 w-12 items-center justify-center rounded-full border border-slate-200  bg-white  mx-auto mb-4">
+            <div>
+              <div className="flex h-12 w-12 items-center justify-center rounded-full border border-slate-200 bg-white mb-4">
                 <svg
                   className="h-6 w-6 text-slate-900"
                   fill="none"
@@ -239,11 +375,11 @@ export default function OSalonuPage() {
                   />
                 </svg>
               </div>
-              <h3 className="font-medium text-slate-900  mb-2">Bezpečnost</h3>
+              <h3 className="font-medium text-slate-900 mb-2">Bezpečnost</h3>
               <p className="text-sm text-slate-600">Vaše zdraví a bezpečnost je naší nejvyšší prioritou.</p>
             </div>
-            <div className="text-center">
-              <div className="flex h-12 w-12 items-center justify-center rounded-full border border-slate-200  bg-white  mx-auto mb-4">
+            <div>
+              <div className="flex h-12 w-12 items-center justify-center rounded-full border border-slate-200 bg-white mb-4">
                 <svg
                   className="h-6 w-6 text-slate-900"
                   fill="none"
@@ -255,11 +391,11 @@ export default function OSalonuPage() {
                   <path strokeLinecap="round" strokeLinejoin="round" d="M13 10V3L4 14h7v7l9-11h-7z" />
                 </svg>
               </div>
-              <h3 className="font-medium text-slate-900  mb-2">Inovace</h3>
+              <h3 className="font-medium text-slate-900 mb-2">Inovace</h3>
               <p className="text-sm text-slate-600">Pravidelně zavádíme nejnovější technologie a trendy.</p>
             </div>
-            <div className="text-center">
-              <div className="flex h-12 w-12 items-center justify-center rounded-full border border-slate-200  bg-white  mx-auto mb-4">
+            <div>
+              <div className="flex h-12 w-12 items-center justify-center rounded-full border border-slate-200 bg-white mb-4">
                 <svg
                   className="h-6 w-6 text-slate-900"
                   fill="none"
@@ -275,7 +411,7 @@ export default function OSalonuPage() {
                   />
                 </svg>
               </div>
-              <h3 className="font-medium text-slate-900  mb-2">Individuální přístup</h3>
+              <h3 className="font-medium text-slate-900 mb-2">Individuální přístup</h3>
               <p className="text-sm text-slate-600">Každá klientka je pro nás jedinečná a zaslouží si osobní péči.</p>
             </div>
           </div>

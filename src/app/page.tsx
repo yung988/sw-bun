@@ -63,26 +63,28 @@ export default function Home() {
       {/* Hero Section */}
       <div id="home">
         <Hero
-        title="Objevte svou ideální"
-        titleItalic="krásu !"
-        subtitle="Moderní technologie HIFU, Endosphere a budování svalů EMS v Hodoníně."
-        trustedText="Důvěřuje nám přes"
-        trustedCount="500+ klientů"
-        avatars={['/images/service-hifu.jpg', '/images/service-endosphere.jpg', '/images/service-hair.jpg']}
-      />
+          title="Objevte svou"
+          titleItalic="ideální krásu !"
+          subtitle="Moderní technologie HIFU, Endosphere a budování svalů EMS v Hodoníně."
+          trustedText="Důvěřuje nám přes"
+          trustedCount="500+ klientů"
+          avatars={['/images/service-hifu.jpg', '/images/service-endosphere.jpg', '/images/service-hair.jpg']}
+        />
       </div>
 
       {/* Why Us - Merged Highlights + Why */}
       <FadeInSection delay={0.1}>
         <section id="why" className="mx-auto max-w-[1250px] px-6 py-24 md:py-32">
           <SectionTitle
+            center={false}
             eyebrow="Proč nás vybrat"
             title={
               <>
-                Proč vaše pleť si zaslouží <em className="italic">nejlepší péči</em>
+                Proč vaše <strong>pleť</strong> si zaslouží <em className="italic">nejlepší péči</em>
               </>
             }
             subtitle="Kopeme hluboko do vašich cílů, zákazníků a výzev, abychom se sladili na strategii a směru."
+            badge={{ icon: <Sparkles className="h-4 w-4" />, text: 'Highlights' }}
           />
 
           {/* Highlights Carousel */}
@@ -136,22 +138,35 @@ export default function Home() {
       {/* About Us Preview */}
       <FadeInSection delay={0.15}>
         <section id="o-nas" className="mx-auto max-w-[1250px] px-6 py-24 md:py-32" aria-labelledby="o-nas-heading">
-          <div className="text-center mb-16">
-            <div className="text-xs uppercase tracking-[0.3em] text-slate-500 font-medium mb-3">O nás</div>
-            <h2 id="o-nas-heading" className="font-display text-3xl md:text-4xl lg:text-5xl font-light text-slate-900 mb-6">
-              Poznejte <em className="italic">SW Beauty</em>
-            </h2>
-            <p className="text-lg text-slate-600 leading-relaxed max-w-3xl mx-auto">
-              Jsme moderní kosmetický salon v Hodoníně, kde kombinujeme nejnovější technologie s individuálním přístupem k vaší kráse.
-            </p>
+          <div className="mb-16">
+            <SectionTitle
+              center={false}
+              title={
+                <>
+                  Poznejte <strong>SW</strong> <em className="italic">Beauty</em>
+                </>
+              }
+              subtitle="Jsme moderní kosmetický salon v Hodoníně, kde kombinujeme nejnovější technologie s individuálním přístupem k vaší kráse."
+              badge={{ icon: <Heart className="h-4 w-4" />, text: 'O nás' }}
+            />
           </div>
 
           <div className="grid gap-8 lg:grid-cols-3 mb-12">
             <div className="text-center p-6 rounded-2xl border border-slate-200 bg-white">
               <div className="flex h-12 w-12 items-center justify-center rounded-full bg-slate-50 border border-slate-200 mx-auto mb-4">
-                <svg className="h-6 w-6 text-slate-900" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                <svg
+                  className="h-6 w-6 text-slate-900"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                  strokeWidth={2}
+                >
                   <title>Certifikace</title>
-                  <path strokeLinecap="round" strokeLinejoin="round" d="M9 12l2 2 4-4M7.835 4.697a3.42 3.42 0 001.946-.806 3.42 3.42 0 014.438 0 3.42 3.42 0 001.946.806 3.42 3.42 0 013.138 3.138 3.42 3.42 0 00.806 1.946 3.42 3.42 0 010 4.438 3.42 3.42 0 00-.806 1.946 3.42 3.42 0 01-3.138 3.138 3.42 3.42 0 00-1.946.806 3.42 3.42 0 01-4.438 0 3.42 3.42 0 00-1.946-.806 3.42 3.42 0 01-3.138-3.138 3.42 3.42 0 00-.806-1.946 3.42 3.42 0 010-4.438 3.42 3.42 0 00.806-1.946 3.42 3.42 0 013.138-3.138z" />
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    d="M9 12l2 2 4-4M7.835 4.697a3.42 3.42 0 001.946-.806 3.42 3.42 0 014.438 0 3.42 3.42 0 001.946.806 3.42 3.42 0 013.138 3.138 3.42 3.42 0 00.806 1.946 3.42 3.42 0 010 4.438 3.42 3.42 0 00-.806 1.946 3.42 3.42 0 01-3.138 3.138 3.42 3.42 0 00-1.946.806 3.42 3.42 0 01-4.438 0 3.42 3.42 0 00-1.946-.806 3.42 3.42 0 01-3.138-3.138 3.42 3.42 0 00-.806-1.946 3.42 3.42 0 010-4.438 3.42 3.42 0 00.806-1.946 3.42 3.42 0 013.138-3.138z"
+                  />
                 </svg>
               </div>
               <h3 className="text-lg font-medium text-slate-900 mb-2">Certifikovaná péče</h3>
@@ -160,7 +175,13 @@ export default function Home() {
 
             <div className="text-center p-6 rounded-2xl border border-slate-200 bg-white">
               <div className="flex h-12 w-12 items-center justify-center rounded-full bg-slate-50 border border-slate-200 mx-auto mb-4">
-                <svg className="h-6 w-6 text-slate-900" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                <svg
+                  className="h-6 w-6 text-slate-900"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                  strokeWidth={2}
+                >
                   <title>Technologie</title>
                   <path strokeLinecap="round" strokeLinejoin="round" d="M13 10V3L4 14h7v7l9-11h-7z" />
                 </svg>
@@ -171,9 +192,19 @@ export default function Home() {
 
             <div className="text-center p-6 rounded-2xl border border-slate-200 bg-white">
               <div className="flex h-12 w-12 items-center justify-center rounded-full bg-slate-50 border border-slate-200 mx-auto mb-4">
-                <svg className="h-6 w-6 text-slate-900" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                <svg
+                  className="h-6 w-6 text-slate-900"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                  strokeWidth={2}
+                >
                   <title>Individuální přístup</title>
-                  <path strokeLinecap="round" strokeLinejoin="round" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"
+                  />
                 </svg>
               </div>
               <h3 className="text-lg font-medium text-slate-900 mb-2">Péče s láskou</h3>
@@ -211,7 +242,11 @@ export default function Home() {
       <FadeInSection delay={0.2}>
         <section id="sluzby" className="mx-auto max-w-[1250px] px-6 py-16 lg:py-24">
           <div className="flex flex-wrap items-center justify-between gap-6 mb-12">
-            <SectionTitle center={false} eyebrow="Naše služby" title="Objevte naši nabídku ošetření" />
+            <SectionTitle
+              center={false}
+              title="Objevte naši nabídku ošetření"
+              badge={{ icon: <Scissors className="h-4 w-4" />, text: 'Služby' }}
+            />
             <Link
               href="/sluzby"
               className="rounded-full border border-slate-200 px-6 py-3 text-sm text-slate-600 transition hover:bg-slate-50 hover:border-slate-300"
@@ -273,7 +308,7 @@ export default function Home() {
                   </svg>
                 </div>
                 <h2 className="font-display text-3xl md:text-4xl font-light text-slate-900 mb-4">
-                  Darujte <em className="italic">relaxaci a krásu</em>
+                  Darujte <strong>relaxaci</strong> a <em className="italic">krásu</em>
                 </h2>
                 <p className="text-slate-600 leading-relaxed mb-6">
                   Dárkové poukazy SW Beauty jsou perfektní dárek pro vaše blízké. Vyberte si konkrétní službu nebo
@@ -330,12 +365,13 @@ export default function Home() {
       <FadeInSection delay={0.3}>
         <section className="mx-auto max-w-[1250px] px-6 py-24 md:py-32">
           <SectionTitle
-            eyebrow="Reference"
+            center={false}
             title={
               <>
-                Co říkají naši <em className="italic">spokojení klienti</em>
+                Co říkají naši <strong>spokojení</strong> <em className="italic">klienti</em>
               </>
             }
+            badge={{ icon: <Heart className="h-4 w-4" />, text: 'Reference' }}
           />
           <div className="mt-8">
             <RatingSummary />
@@ -356,13 +392,14 @@ export default function Home() {
       <FadeInSection delay={0.4}>
         <section id="faq" className="mx-auto max-w-[1250px] px-6 py-16 md:py-20">
           <SectionTitle
-            eyebrow="Časté dotazy"
+            center={false}
             title={
               <>
-                Máte dotaz? <em className="italic">Rádi vám pomůžeme.</em>
+                Máte <strong>dotaz</strong>? <em className="italic">Rádi vám pomůžeme.</em>
               </>
             }
             subtitle="Našli jsme odpovědi na nejčastější otázky našich klientů."
+            badge={{ icon: <Droplet className="h-4 w-4" />, text: 'FAQ' }}
           />
           <div className="mt-12 grid gap-6 md:grid-cols-2">
             <FAQ items={faqsLeft} />
@@ -380,16 +417,16 @@ export default function Home() {
           <div className="rounded-2xl border border-slate-200 bg-slate-50 p-8 md:p-12">
             <div className="grid gap-8 lg:grid-cols-2 items-center">
               <div>
-                <div className="text-xs uppercase tracking-[0.3em] text-slate-500 font-medium mb-3">
-                  Kontaktujte nás
-                </div>
-                <h3 className="font-display text-3xl md:text-4xl font-light text-slate-900 leading-tight mb-4">
-                  Máte otázky? <em className="italic">Rádi pomůžeme</em>
-                </h3>
-                <p className="text-slate-600 leading-relaxed mb-6">
-                  Nevíte si rady s výběrem služby nebo potřebujete konzultaci? Kontaktujte nás a my vám ochotně
-                  poradíme.
-                </p>
+                <SectionTitle
+                  center={false}
+                  title={
+                    <>
+                      Máte <strong>otázky</strong>? <em className="italic">Rádi pomůžeme</em>
+                    </>
+                  }
+                  subtitle="Nevíte si rady s výběrem služby nebo potřebujete konzultaci? Kontaktujte nás a my vám ochotně poradíme."
+                  badge={{ icon: <Zap className="h-4 w-4" />, text: 'Kontakt' }}
+                />
                 <div className="grid gap-4 sm:grid-cols-2 mb-8">
                   <div className="flex items-center gap-3">
                     <div className="flex h-10 w-10 items-center justify-center rounded-full bg-white border border-slate-200">
