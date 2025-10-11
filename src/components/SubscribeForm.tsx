@@ -4,11 +4,35 @@ import { useState } from 'react'
 export default function SubscribeForm() {
   const [email, setEmail] = useState('')
   const [submitted, setSubmitted] = useState(false)
+  const [isSubmitting, setIsSubmitting] = useState(false)
+  const [error, setError] = useState<string | null>(null)
 
-  const submit = (e: React.FormEvent) => {
+  const submit = async (e: React.FormEvent) => {
     e.preventDefault()
-    setSubmitted(true)
-    setTimeout(() => setSubmitted(false), 3000)
+    setIsSubmitting(true)
+    setError(null)
+
+    try {
+      const response = await fetch('/api/newsletter', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email }),
+      })
+
+      if (!response.ok) {
+        const errorData = await response.json()
+        throw new Error(errorData.error || 'Nepodařilo se přihlásit k odběru')
+      }
+
+      setSubmitted(true)
+      setEmail('')
+      setTimeout(() => setSubmitted(false), 5000)
+    } catch (err) {
+      console.error('Newsletter subscription error:', err)
+      setError(err instanceof Error ? err.message : 'Nepodařilo se přihlásit k odběru. Zkuste to prosím znovu.')
+    } finally {
+      setIsSubmitting(false)
+    }
   }
 
   return (
@@ -35,11 +59,31 @@ export default function SubscribeForm() {
             />
             <button
               type="submit"
-              className="rounded-full bg-black px-6 py-3 text-sm font-medium text-white transition hover:bg-slate-800 hover:shadow-lg whitespace-nowrap"
+              disabled={isSubmitting}
+              className="rounded-full bg-black px-6 py-3 text-sm font-medium text-white transition hover:bg-slate-800 hover:shadow-lg whitespace-nowrap disabled:opacity-50 disabled:cursor-not-allowed"
             >
-              Odeslat
+              {isSubmitting ? 'Odesílám...' : 'Odeslat'}
             </button>
           </div>
+          {error && (
+            <div className="rounded-xl bg-red-50 border border-red-200 p-3 flex items-start gap-3">
+              <svg
+                className="h-5 w-5 text-red-600 flex-shrink-0 mt-0.5"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+              >
+                <title>Chyba</title>
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={2}
+                  d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
+                />
+              </svg>
+              <p className="text-red-800 text-sm">{error}</p>
+            </div>
+          )}
           {submitted && (
             <p className="text-sm text-slate-900 text-center flex items-center justify-center gap-2">
               <svg className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>

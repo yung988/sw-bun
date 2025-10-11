@@ -37,7 +37,7 @@ export default function VoucherForm() {
       })
 
       if (!response.ok) {
-        throw new Error('Failed to send voucher order')
+        throw new Error('Nepodařilo se odeslat objednávku poukazu')
       }
 
       setSubmitted(true)
@@ -50,7 +50,7 @@ export default function VoucherForm() {
         recipient: '',
         message: '',
       })
-      
+
       setTimeout(() => {
         setSubmitted(false)
       }, 5000)
@@ -194,9 +194,7 @@ export default function VoucherForm() {
             className="w-full rounded-xl border border-slate-200  bg-white  px-4 py-3 text-sm text-slate-900  outline-none transition focus:border-slate-400  focus:ring-2 focus:ring-slate-200"
             placeholder="+420 773 577 899"
           />
-          <p className="mt-1.5 text-xs text-slate-500">
-            Pro domluvení platby a předání poukazu
-          </p>
+          <p className="mt-1.5 text-xs text-slate-500">Pro domluvení platby a předání poukazu</p>
         </div>
 
         {/* Recipient */}

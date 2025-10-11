@@ -60,6 +60,6 @@ export async function GET() {
     const items = parseCSV(csv)
     return NextResponse.json(items)
   } catch (_error) {
-    return NextResponse.json({ error: 'Failed to load pricelist' }, { status: 500 })
+    return NextResponse.json({ error: 'Nepodařilo se načíst ceník' }, { status: 500 })
   }
 }

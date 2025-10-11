@@ -14,7 +14,7 @@ export default function Carousel({ children, auto = false, autoSpeed = 30, showA
   const [canScrollLeft, setCanScrollLeft] = useState(false)
   const [canScrollRight, setCanScrollRight] = useState(true)
 
-  // Duplicate children for seamless loop with unique keys
+  // Duplikace children pro plynulou smyčku s unikátními klíči
   const items = Children.toArray(children)
   const renderItems = [
     ...items.map((item) =>
@@ -54,7 +54,7 @@ export default function Carousel({ children, auto = false, autoSpeed = 30, showA
       setCanScrollRight(el.scrollLeft < el.scrollWidth - el.clientWidth - 10)
     }
 
-    // Initialize at the middle set for seamless wrap
+    // Inicializace uprostřed sady pro plynulé obalení
     const unit = el.scrollWidth / 3 || 1
     el.scrollLeft = unit
 
@@ -79,7 +79,7 @@ export default function Carousel({ children, auto = false, autoSpeed = 30, showA
       return () => cancelAnimationFrame(raf)
     }
 
-    // For manual scroll, handle infinite loop
+    // Pro manuální scroll, zpracovat nekonečnou smyčku
     const handleScroll = () => {
       const max = unit * 2
       if (el.scrollLeft >= max - 10) {

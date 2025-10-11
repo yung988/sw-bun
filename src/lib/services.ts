@@ -95,11 +95,11 @@ export function priceItemToService(item: PriceItem): Service {
   }
 }
 
-// Cache for parsed services (improves performance)
+// Cache pro parsované služby (zlepšuje výkon)
 let servicesCache: Service[] | null = null
 
 export function getAllServices(): Service[] {
-  // Return cached version if available
+  // Vrátit cachovanou verzi, pokud je dostupná
   if (servicesCache) {
     return servicesCache
   }
@@ -113,7 +113,7 @@ export function getAllServices(): Service[] {
   return servicesCache
 }
 
-// Helper to clear cache (useful for development or if CSV changes)
+// Pomocník pro vyčištění cache (užitečné pro development nebo pokud se CSV změní)
 export function clearServicesCache() {
   servicesCache = null
 }
@@ -139,7 +139,7 @@ export type ServiceCategory = {
 export function getServiceCategories(): ServiceCategory[] {
   const all = getAllServices()
 
-  // Group services by category
+  // Seskupit služby podle kategorie
   const categoryMap = new Map<string, Service[]>()
   for (const service of all) {
     const existing = categoryMap.get(service.categoryId) || []
@@ -147,7 +147,7 @@ export function getServiceCategories(): ServiceCategory[] {
     categoryMap.set(service.categoryId, existing)
   }
 
-  // Create category cards with metadata
+  // Vytvořit karty kategorií s metadaty
   const categories: ServiceCategory[] = []
 
   for (const [categoryId, services] of categoryMap.entries()) {
@@ -212,7 +212,7 @@ export function getMainServices(): Service[] {
   const all = getAllServices()
   const mainServices: Service[] = []
 
-  // Get first service from each major category (including packages if needed)
+  // Získat první službu z každé hlavní kategorie (včetně balíčků, pokud je potřeba)
   const hifu = all.find((s) => s.categoryId === 'hifu')
   if (hifu) mainServices.push(hifu)
 

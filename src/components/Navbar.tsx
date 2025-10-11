@@ -1,78 +1,76 @@
 // components/Navbar.tsx
-"use client";
+'use client'
 
-import { useState, useEffect } from "react";
-import { Instagram, Menu, X } from "lucide-react";
-import Link from "next/link";
-import Image from "next/image";
+import { useState, useEffect } from 'react'
+import { Instagram, Menu, X } from 'lucide-react'
+import Link from 'next/link'
+import Image from 'next/image'
 
 export default function Navbar() {
-  const [menuOpen, setMenuOpen] = useState(false);
-  const [activeSection, setActiveSection] = useState("home");
+  const [menuOpen, setMenuOpen] = useState(false)
+  const [activeSection, setActiveSection] = useState('home')
 
   const links = [
-    { id: "why", label: "Proč" },
-    { id: "o-nas", label: "O nás" },
-    { id: "sluzby", label: "Služby" },
-    { id: "poukazy", label: "Poukazy" },
-    { id: "kontakt", label: "Kontakt" },
-  ];
+    { id: 'why', label: 'Proč' },
+    { id: 'o-nas', label: 'O nás' },
+    { id: 'sluzby', label: 'Služby' },
+    { id: 'poukazy', label: 'Poukazy' },
+    { id: 'kontakt', label: 'Kontakt' },
+  ]
 
-  // Smooth scroll handler
+  // Handler pro plynulé scrollování
   const handleScroll = (e: React.MouseEvent<HTMLAnchorElement>, id: string) => {
-    e.preventDefault();
-    
-    if (id === "home") {
-      const homeElement = document.getElementById("home");
+    e.preventDefault()
+
+    if (id === 'home') {
+      const homeElement = document.getElementById('home')
       if (homeElement) {
-        homeElement.scrollIntoView({ behavior: "smooth", block: "start" });
+        homeElement.scrollIntoView({ behavior: 'smooth', block: 'start' })
       } else {
-        window.scrollTo({ top: 0, behavior: "smooth" });
+        window.scrollTo({ top: 0, behavior: 'smooth' })
       }
     } else {
-      const element = document.getElementById(id);
+      const element = document.getElementById(id)
       if (element) {
-        element.scrollIntoView({ behavior: "smooth", block: "start" });
+        element.scrollIntoView({ behavior: 'smooth', block: 'start' })
       }
     }
-    
-    // Close mobile menu after click
-    setMenuOpen(false);
-  };
 
-  // Scroll spy using Intersection Observer
+    // Zavření mobilního menu po kliknutí
+    setMenuOpen(false)
+  }
+
+  // Scroll spy pomocí Intersection Observer
   useEffect(() => {
-    const sectionIds = ["home", "why", "o-nas", "sluzby", "poukazy", "kontakt"];
-    const sections = sectionIds
-      .map((id) => document.getElementById(id))
-      .filter((el): el is HTMLElement => el !== null);
+    const sectionIds = ['home', 'why', 'o-nas', 'sluzby', 'poukazy', 'kontakt']
+    const sections = sectionIds.map((id) => document.getElementById(id)).filter((el): el is HTMLElement => el !== null)
 
-    if (sections.length === 0) return;
+    if (sections.length === 0) return
 
     const observer = new IntersectionObserver(
       (entries) => {
-        // Find the most visible section
+        // Najít nejvíc viditelnou sekci
         const visibleEntry = entries
           .filter((entry) => entry.isIntersecting)
-          .sort((a, b) => b.intersectionRatio - a.intersectionRatio)[0];
+          .sort((a, b) => b.intersectionRatio - a.intersectionRatio)[0]
 
         if (visibleEntry) {
-          setActiveSection(visibleEntry.target.id);
+          setActiveSection(visibleEntry.target.id)
         }
       },
       {
         root: null,
-        rootMargin: "-45% 0px -55% 0px",
+        rootMargin: '-45% 0px -55% 0px',
         threshold: 0,
       }
-    );
+    )
 
-    sections.forEach((section) => observer.observe(section));
+    sections.forEach((section) => observer.observe(section))
 
     return () => {
-      sections.forEach((section) => observer.unobserve(section));
-    };
-  }, []);
+      sections.forEach((section) => observer.unobserve(section))
+    }
+  }, [])
 
   return (
     <nav className="fixed top-0 left-0 w-full z-50 backdrop-blur-md bg-white/60 py-4 px-6 transition-all duration-300">
@@ -98,11 +96,9 @@ export default function Navbar() {
                 href={`#${link.id}`}
                 onClick={(e) => handleScroll(e, link.id)}
                 aria-label={link.label}
-                aria-current={activeSection === link.id ? "page" : undefined}
+                aria-current={activeSection === link.id ? 'page' : undefined}
                 className={`px-4 py-2 rounded-full text-sm transition-all duration-300 ${
-                  activeSection === link.id
-                    ? "bg-neutral-900 text-white shadow-sm"
-                    : "hover:bg-neutral-100"
+                  activeSection === link.id ? 'bg-neutral-900 text-white shadow-sm' : 'hover:bg-neutral-100'
                 }`}
               >
                 {link.label}
@@ -142,11 +138,9 @@ export default function Navbar() {
               href={`#${link.id}`}
               onClick={(e) => handleScroll(e, link.id)}
               aria-label={link.label}
-              aria-current={activeSection === link.id ? "page" : undefined}
+              aria-current={activeSection === link.id ? 'page' : undefined}
               className={`block px-4 py-2 rounded-full text-sm transition-all duration-300 ${
-                activeSection === link.id
-                  ? "bg-neutral-900 text-white shadow-sm"
-                  : "hover:bg-neutral-100"
+                activeSection === link.id ? 'bg-neutral-900 text-white shadow-sm' : 'hover:bg-neutral-100'
               }`}
             >
               {link.label}
@@ -165,5 +159,5 @@ export default function Navbar() {
         </div>
       )}
     </nav>
-  );
+  )
 }

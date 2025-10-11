@@ -3,7 +3,7 @@ import { Resend } from 'resend'
 import { checkRateLimit, getClientIp, formatResetTime } from '@/lib/rateLimit'
 import { sanitizeHtml, sanitizeEmail, sanitizePhone } from '@/lib/sanitize'
 
-// Initialize Resend only if API key exists
+// Inicializace Resend pouze pokud API klíč existuje
 const getResend = () => {
   const apiKey = process.env.RESEND_API_KEY
   if (!apiKey) {
@@ -15,14 +15,12 @@ const getResend = () => {
 
 export async function POST(request: Request) {
   try {
-    // Rate limiting check (5 requests per hour per IP)
+    // Kontrola rate limiting (5 požadavků za hodinu na IP)
     const clientIp = getClientIp(request)
     const rateLimitResult = checkRateLimit(clientIp, 5, 60 * 60 * 1000)
 
     if (!rateLimitResult.success) {
-      const resetTimeStr = rateLimitResult.resetTime
-        ? formatResetTime(rateLimitResult.resetTime)
-        : 'za chvíli'
+      const resetTimeStr = rateLimitResult.resetTime ? formatResetTime(rateLimitResult.resetTime) : 'za chvíli'
 
       console.warn(`Rate limit exceeded for IP: ${clientIp}`)
 
@@ -42,13 +40,13 @@ export async function POST(request: Request) {
 
     const resend = getResend()
     if (!resend) {
-      return NextResponse.json({ error: 'Email service not configured' }, { status: 500 })
+      return NextResponse.json({ error: 'Služba odesílání emailů není nakonfigurována' }, { status: 500 })
     }
 
     const body = await request.json()
     const { name, email, phone, amount, customAmount, recipient, message } = body
 
-    // Sanitize all inputs
+    // Sanitizace všech vstupů
     const sanitizedName = sanitizeHtml(name || '')
     const sanitizedEmail = sanitizeEmail(email)
     const sanitizedPhone = sanitizePhone(phone)
@@ -57,7 +55,7 @@ export async function POST(request: Request) {
     const sanitizedRecipient = recipient ? sanitizeHtml(recipient) : null
     const sanitizedMessage = message ? sanitizeHtml(message) : null
 
-    // Validate required fields after sanitization
+    // Validace povinných polí po sanitizaci
     if (!sanitizedName || !sanitizedEmail || !sanitizedPhone || !sanitizedAmount) {
       return NextResponse.json({ error: 'Chybí povinné údaje' }, { status: 400 })
     }
@@ -170,6 +168,6 @@ export async function POST(request: Request) {
     return NextResponse.json({ success: true })
   } catch (error) {
     console.error('❌ Voucher API error:', error)
-    return NextResponse.json({ error: 'Failed to send voucher order' }, { status: 500 })
+    return NextResponse.json({ error: 'Nepodařilo se odeslat objednávku poukazu' }, { status: 500 })
   }
 }

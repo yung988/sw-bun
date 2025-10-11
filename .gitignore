@@ -43,3 +43,5 @@
 node_modules
 .DS_Store
 .next
+.vercel
+.env*.local

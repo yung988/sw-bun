@@ -22,11 +22,11 @@ export function checkRateLimit(
   const now = Date.now()
   const requests = store.get(identifier) || []
 
-  // Filter out requests outside the current window
+  // Filtrovat požadavky mimo aktuální okno
   const recentRequests = requests.filter((timestamp) => now - timestamp < windowMs)
 
   if (recentRequests.length >= maxRequests) {
-    // Calculate when the rate limit will reset
+    // Vypočítat, kdy se rate limit resetuje
     const oldestRequest = Math.min(...recentRequests)
     const resetTime = oldestRequest + windowMs
 
@@ -37,11 +37,11 @@ export function checkRateLimit(
     }
   }
 
-  // Add current request timestamp
+  // Přidat timestamp aktuálního požadavku
   recentRequests.push(now)
   store.set(identifier, recentRequests)
 
-  // Cleanup old entries to prevent memory leak (keep max 10000 entries)
+  // Vyčištění starých záznamů pro prevenci memory leak (zachovat max 10000 záznamů)
   if (store.size > 10000) {
     const oldestKey = store.keys().next().value
     if (oldestKey) {
@@ -61,20 +61,20 @@ export function checkRateLimit(
  * @returns IP address or 'unknown'
  */
 export function getClientIp(request: Request): string {
-  // Vercel provides real IP in x-forwarded-for header
+  // Vercel poskytuje reálnou IP v x-forwarded-for header
   const forwarded = request.headers.get('x-forwarded-for')
   if (forwarded) {
     // x-forwarded-for can contain multiple IPs, take the first one
     return forwarded.split(',')[0].trim()
   }
 
-  // Fallback to x-real-ip
+  // Fallback na x-real-ip
   const realIp = request.headers.get('x-real-ip')
   if (realIp) {
     return realIp
   }
 
-  // Last resort
+  // Poslední možnost
   return 'unknown'
 }
 

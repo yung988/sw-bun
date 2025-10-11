@@ -28,9 +28,7 @@ export function sanitizeHtml(input: string): string {
  * @param obj - Object with string values
  * @returns New object with sanitized values
  */
-export function sanitizeObject<T extends Record<string, string | number | boolean | undefined>>(
-  obj: T
-): T {
+export function sanitizeObject<T extends Record<string, string | number | boolean | undefined>>(obj: T): T {
   const sanitized: Record<string, string | number | boolean | undefined> = {}
 
   for (const [key, value] of Object.entries(obj)) {
@@ -69,7 +67,7 @@ export function sanitizeEmail(email: string): string | null {
 
   const trimmed = email.trim().toLowerCase()
 
-  // Basic email validation
+  // Základní validace emailu
   const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
   if (!emailRegex.test(trimmed)) {
     return null
@@ -88,10 +86,10 @@ export function sanitizePhone(phone: string): string | null {
     return null
   }
 
-  // Remove all non-digit characters except +
+  // Odstranit všechny nečíselné znaky kromě +
   const cleaned = phone.replace(/[^\d+]/g, '')
 
-  // Check if it's a valid Czech phone number
+  // Kontrola, zda je platné české telefonní číslo
   if (cleaned.length < 9) {
     return null
   }

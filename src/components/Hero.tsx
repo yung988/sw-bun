@@ -63,7 +63,7 @@ export default function Hero({ title, titleItalic, subtitle, trustedText, truste
           <source src="/hero_1.mp4" type="video/mp4" />
           Video není dostupné
         </video>
-        {/* Subtle overlay for better text contrast if needed */}
+        {/* Jemný overlay pro lepší kontrast textu, pokud je potřeba */}
         <div className="absolute inset-0 bg-gradient-to-t from-black/10 via-transparent to-transparent pointer-events-none" />
       </div>
     </section>

@@ -25,12 +25,12 @@ export default function ContactForm() {
       })
 
       if (!response.ok) {
-        throw new Error('Failed to send message')
+        throw new Error('Nepodařilo se odeslat zprávu')
       }
 
       setSubmitted(true)
       setFormData({ name: '', email: '', phone: '', message: '' })
-      
+
       setTimeout(() => {
         setSubmitted(false)
       }, 5000)
@@ -136,9 +136,7 @@ export default function ContactForm() {
           className="w-full rounded-xl border border-slate-200  bg-white  px-4 py-3 text-sm text-slate-900  outline-none transition focus:border-slate-900"
           placeholder="+420 773 577 899"
         />
-        <p className="mt-1.5 text-xs text-slate-500">
-          Pro rychlejší odpověď můžete přidat telefon
-        </p>
+        <p className="mt-1.5 text-xs text-slate-500">Pro rychlejší odpověď můžete přidat telefon</p>
       </div>
 
       <div>

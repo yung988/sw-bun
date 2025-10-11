@@ -7,18 +7,18 @@ import type { NextRequest } from 'next/server'
 export function middleware(request: NextRequest) {
   const response = NextResponse.next()
 
-  // CSRF Protection for API routes
+  // CSRF ochrana pro API routy
   if (request.method === 'POST' && request.nextUrl.pathname.startsWith('/api/')) {
     const origin = request.headers.get('origin')
     const host = request.headers.get('host')
-    
-    // Allow same-origin requests
+
+    // Povolit same-origin požadavky
     if (origin && host && !origin.includes(host)) {
-      return new NextResponse('CSRF validation failed', { 
+      return new NextResponse('CSRF validation failed', {
         status: 403,
         headers: {
-          'Content-Type': 'application/json'
-        }
+          'Content-Type': 'application/json',
+        },
       })
     }
   }
@@ -34,8 +34,5 @@ export function middleware(request: NextRequest) {
 }
 
 export const config = {
-  matcher: [
-    '/api/:path*',
-    '/((?!_next/static|_next/image|favicon.ico).*)',
-  ],
+  matcher: ['/api/:path*', '/((?!_next/static|_next/image|favicon.ico).*)'],
 }

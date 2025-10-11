@@ -53,7 +53,7 @@ export function ModalProvider({ children }: { children: ReactNode }) {
 export function useModals() {
   const context = useContext(ModalContext)
   if (!context) {
-    throw new Error('useModals must be used within ModalProvider')
+    throw new Error('useModals musí být použit v rámci ModalProvider')
   }
   return context
 }

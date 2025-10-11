@@ -4,7 +4,7 @@ import { getAllServices, getCategories } from '@/lib/services'
 export default function sitemap(): MetadataRoute.Sitemap {
   const baseUrl = 'https://swbeauty.cz'
 
-  // Static pages
+  // Statické stránky
   const staticPages: MetadataRoute.Sitemap = [
     {
       url: baseUrl,
@@ -50,7 +50,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     },
   ]
 
-  // Dynamic service category pages
+  // Dynamické stránky kategorií služeb
   const categories = getCategories()
   const categoryPages: MetadataRoute.Sitemap = categories.map((categoryId) => ({
     url: `${baseUrl}/sluzby/${categoryId}`,
@@ -59,7 +59,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     priority: 0.8,
   }))
 
-  // Dynamic service detail pages
+  // Dynamické stránky detailů služeb
   const services = getAllServices()
   const servicePages: MetadataRoute.Sitemap = services.map((service) => ({
     url: `${baseUrl}/sluzby/${service.categoryId}/${service.slug}`,
@@ -68,6 +68,6 @@ export default function sitemap(): MetadataRoute.Sitemap {
     priority: 0.7,
   }))
 
-  // Combine all pages
+  // Spojit všechny stránky
   return [...staticPages, ...categoryPages, ...servicePages]
 }

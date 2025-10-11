@@ -45,7 +45,7 @@ import Image from 'next/image'
 import Link from 'next/link'
 import OpenVoucherButton from '@/components/OpenVoucherButton'
 
-// Only show most important FAQs - 6 total (3+3)
+// Zobrazit pouze nejdůležitější FAQ - celkem 6 (3+3)
 const faqsLeft = faqs.slice(0, 3)
 const faqsRight = faqs.slice(3, 6)
 

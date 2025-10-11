@@ -50,17 +50,27 @@ export default function BookingForm({ preselectedService }: Props) {
         const response = await fetch('/api/pricelist')
         if (response.ok) {
           const data = await response.json()
-          setAllServices(data.map((item: {CategoryId: string; CategoryName: string; PackageName: string; Price: string; Duration: number}) => ({
-            slug: `${item.CategoryId}-${item.PackageName.toLowerCase().replace(/\s+/g, '-')}`,
-            name: item.PackageName,
-            price: item.Price,
-            duration: item.Duration,
-            category: item.CategoryName,
-            categoryId: item.CategoryId,
-          })))
+          setAllServices(
+            data.map(
+              (item: {
+                CategoryId: string
+                CategoryName: string
+                PackageName: string
+                Price: string
+                Duration: number
+              }) => ({
+                slug: `${item.CategoryId}-${item.PackageName.toLowerCase().replace(/\s+/g, '-')}`,
+                name: item.PackageName,
+                price: item.Price,
+                duration: item.Duration,
+                category: item.CategoryName,
+                categoryId: item.CategoryId,
+              })
+            )
+          )
         }
       } catch (error) {
-        console.error('Failed to load services:', error)
+        console.error('Nepodařilo se načíst služby:', error)
       }
     }
     loadServices()
@@ -79,7 +89,7 @@ export default function BookingForm({ preselectedService }: Props) {
   })
 
   const onSubmit = async (data: BookingFormData) => {
-    // Validate that date is not Sunday
+    // Validace, že datum není neděle
     if (isSunday(data.preferredDate)) {
       alert('Salon je v neděli zavřený. Vyberte prosím jiný den.')
       return
@@ -109,31 +119,31 @@ export default function BookingForm({ preselectedService }: Props) {
   const [selectedDate, setSelectedDate] = useState('')
   const [timeSlots, setTimeSlots] = useState<string[]>([])
 
-  // Helper function to check if date is Sunday
+  // Pomocná funkce pro kontrolu, zda je datum neděle
   const isSunday = useCallback((dateString: string) => {
     const date = new Date(dateString)
     return date.getDay() === 0
   }, [])
 
-  // Generate time slots based on day of week
+  // Generování časových slotů podle dne v týdnu
   const generateTimeSlots = useCallback((dateString: string) => {
     if (!dateString) return []
-    
+
     const date = new Date(dateString)
     const day = date.getDay()
     // Saturday: 10:00-18:00, Other days: 9:00-20:00
     const openHour = day === 6 ? 10 : 9
     const closeHour = day === 6 ? 18 : 20
-    
+
     const slots: string[] = []
     for (let h = openHour; h < closeHour; h++) {
       slots.push(`${h}:00`)
     }
-    
+
     return slots
   }, [])
 
-  // Update time slots when date changes
+  // Aktualizace časových slotů při změně data
   useEffect(() => {
     if (selectedDate && !isSunday(selectedDate)) {
       setTimeSlots(generateTimeSlots(selectedDate))
@@ -211,10 +221,10 @@ export default function BookingForm({ preselectedService }: Props) {
               ))}
             </select>
             {errors.service && (
-            <p className="mt-1.5 text-xs text-red-600" role="alert">
-              {errors.service.message}
-            </p>
-          )}
+              <p className="mt-1.5 text-xs text-red-600" role="alert">
+                {errors.service.message}
+              </p>
+            )}
           </div>
         )}
 
@@ -339,9 +349,7 @@ export default function BookingForm({ preselectedService }: Props) {
             </p>
           )}
           {!errors.phone && (
-            <p className="mt-1.5 text-xs text-slate-500">
-              Pro rychlé potvrzení termínu vám zavoláme nebo pošleme SMS
-            </p>
+            <p className="mt-1.5 text-xs text-slate-500">Pro rychlé potvrzení termínu vám zavoláme nebo pošleme SMS</p>
           )}
         </div>
 
