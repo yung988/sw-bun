@@ -43,7 +43,7 @@ export default function ServicesPage() {
   const categories = getCategories()
 
   return (
-    <main className="min-h-screen bg-white pb-24">
+    <main className="min-h-screen bg-white pb-24 pt-20">
       <div className="mx-auto max-w-[1250px] px-6 py-20">
         <SectionTitle
           eyebrow="Kompletní nabídka"

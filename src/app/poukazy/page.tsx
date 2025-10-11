@@ -23,7 +23,7 @@ export const metadata: Metadata = {
 
 export default function PoukazyPage() {
   return (
-    <main className="min-h-screen bg-white">
+    <main className="min-h-screen bg-white pt-20">
       {/* Hero Section */}
       <section className="relative bg-gradient-to-br from-slate-50 to-white   py-20">
         <div className="site-container">

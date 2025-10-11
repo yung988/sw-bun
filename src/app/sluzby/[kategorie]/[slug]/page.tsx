@@ -43,7 +43,7 @@ export default async function ServicePage({ params }: { params: Promise<{ katego
     .slice(0, 3)
 
   return (
-    <main className="min-h-screen bg-white pb-24">
+    <main className="min-h-screen bg-white pb-24 pt-20">
       {/* Sticky CTA Bar */}
       <div className="fixed bottom-0 left-0 right-0 z-50 bg-white border-t border-slate-200 hidden lg:block">
         <div className="mx-auto max-w-[1250px] px-6 py-4 flex items-center justify-between">

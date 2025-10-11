@@ -8,15 +8,13 @@ export const metadata: Metadata = {
 
 export default function RezervacePage() {
   return (
-    <main className="min-h-screen bg-white">
+    <main className="min-h-screen bg-white pt-20">
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
         <div className="text-center mb-12">
           <h1 className="font-display text-4xl md:text-5xl font-light text-slate-900 mb-4">
             Rezervace <em className="italic">termínu</em>
           </h1>
-          <p className="text-lg text-slate-600">
-            Vyplňte formulář a my se vám ozveme s potvrzením termínu
-          </p>
+          <p className="text-lg text-slate-600">Vyplňte formulář a my se vám ozveme s potvrzením termínu</p>
         </div>
 
         <div className="rounded-2xl border border-slate-200 bg-white p-8 md:p-12">

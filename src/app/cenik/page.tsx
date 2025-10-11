@@ -18,9 +18,9 @@ export const metadata: Metadata = {
 
 export default function PriceListPage() {
   const services = getAllServices()
-  
+
   return (
-    <main className="min-h-screen bg-white pb-24">
+    <main className="min-h-screen bg-white pb-24 pt-20">
       {/* Hero Section */}
       <section className="relative bg-gradient-to-br from-slate-50 to-white py-20">
         <div className="mx-auto max-w-[1250px] px-6">

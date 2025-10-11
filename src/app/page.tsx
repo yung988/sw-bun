@@ -59,7 +59,7 @@ export default function Home() {
   )
 
   return (
-    <main id="main-content" className="min-h-screen bg-white pb-24">
+    <main id="main-content" className="min-h-screen bg-white pb-24 pt-20">
       {/* Hero Section */}
       <div id="home">
         <Hero
