@@ -2,28 +2,28 @@ import type { Highlight } from '@/types'
 
 export const highlights: Highlight[] = [
   {
-    t: 'HIFU 7D Technologie',
-    d: 'Neinvazivní lifting obličeje a těla pomocí fokusovaného ultrazvuku pro pevnější pleť.',
+    t: 'HIFU 7D',
+    d: 'Neinvazivní lifting ultrazvukem. Viditelně pevnější a mladší pleť bez operace.',
     icon: 'sparkles',
   },
   {
-    t: 'Endos-roller',
-    d: 'Kompresní mikro-vibrace zlepšují lymfatickou drenáž a redukují celulitidu.',
+    t: 'Endosphere',
+    d: 'Mikrovibrace proti celulitidě. Zpevnění pokožky a podpora prokrvení.',
     icon: 'heart',
   },
   {
-    t: 'EMS Budování Svalů',
-    d: 'Elektrostimulace svalů pro efektivní trénink a spalování tuků.',
+    t: 'EMS trénink',
+    d: 'Posilování svalů elektrostimulací. Efektivní tvarování těla bez námahy.',
     icon: 'zap',
   },
   {
-    t: 'Profesionální Kosmetika',
-    d: 'Hydrafacial a Dermapen pro hloubkové čištění a stimulaci kolagenu.',
+    t: 'Hydrafacial & Dermapen',
+    d: 'Hloubkové čištění a omlazení pleti. Okamžitá hydratace a zdravý vzhled.',
     icon: 'droplet',
   },
   {
-    t: 'Prodlužování Vlasů',
-    d: 'Mikro spoje keratinem pro přirozený vzhled dlouhých vlasů.',
+    t: 'Prodlužování vlasů',
+    d: 'Keratinové mikrospony. Přirozené dlouhé vlasy, které nikdo nepozná.',
     icon: 'scissors',
   },
 ]

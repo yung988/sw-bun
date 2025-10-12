@@ -49,10 +49,10 @@ export default function ServicesPage() {
           eyebrow="Kompletní nabídka"
           title={
             <>
-              Služby <em className="italic">& Ceny</em>
+              Naše služby <em className="italic">a ceny</em>
             </>
           }
-          subtitle="Vyberte si kategorii a objevte naši nabídku luxusních ošetření s transparentními cenami"
+          subtitle="Vyberte kategorii a prohlédněte si luxusní ošetření s transparentními cenami."
         />
 
         <div className="mt-16 grid gap-6 md:grid-cols-2 lg:grid-cols-3">

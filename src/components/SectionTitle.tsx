@@ -13,9 +13,11 @@ export default function SectionTitle({ eyebrow, title, subtitle, center = true, 
   return (
     <div className={`space-y-4 ${center ? 'text-center' : 'text-left'}`}>
       {badge && (
-        <div className={`flex items-center gap-2 ${center ? 'justify-center' : 'justify-start'} mb-4`}>
-          {badge.icon && <div className="text-slate-500">{badge.icon}</div>}
-          <span className="text-xs uppercase tracking-[0.3em] text-slate-500 font-medium">{badge.text}</span>
+        <div className={`mb-4 ${center ? 'justify-center' : 'justify-start'} flex`}>
+          <div className="inline-flex items-center gap-2 rounded-full border border-slate-300/60 bg-white/60 px-3 py-1">
+            {badge.icon && <div className="text-slate-600">{badge.icon}</div>}
+            <span className="text-[10px] uppercase tracking-[0.3em] text-slate-600">{badge.text}</span>
+          </div>
         </div>
       )}
       {eyebrow && (

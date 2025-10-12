@@ -2,21 +2,21 @@ import VoucherForm from '@/components/VoucherForm'
 import type { Metadata } from 'next'
 
 export const metadata: Metadata = {
-  title: 'Dárkové poukazy - SW Beauty | Darujte relaxaci a krásu',
+  title: 'Dárkové poukazy - SW Beauty Hodonín',
   description:
-    'Dárkové poukazy na kosmetická ošetření SW Beauty. Ideální dárek pro vaše blízké. Platnost 12 měsíců, možnost osobního věnování.',
+    'Dárkové poukazy na kosmetická ošetření SW Beauty. Skvělý dárek pro vaše blízké. Platnost 12 měsíců, možnost osobního věnování.',
   keywords: ['dárkové poukazy', 'SW Beauty', 'dárek', 'kosmetické ošetření', 'poukazy'],
   openGraph: {
-    title: 'Dárkové poukazy - SW Beauty | Darujte relaxaci a krásu',
-    description: 'Dárkové poukazy na kosmetická ošetření SW Beauty. Ideální dárek pro vaše blízké.',
+    title: 'Dárkové poukazy - SW Beauty Hodonín',
+    description: 'Dárkové poukazy na kosmetická ošetření SW Beauty. Skvělý dárek pro vaše blízké.',
     images: ['/images/poukaz.png'],
     url: 'https://swbeauty.cz/poukazy',
     type: 'website',
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'Dárkové poukazy - SW Beauty | Darujte relaxaci a krásu',
-    description: 'Dárkové poukazy na kosmetická ošetření SW Beauty. Ideální dárek pro vaše blízké.',
+    title: 'Dárkové poukazy - SW Beauty Hodonín',
+    description: 'Dárkové poukazy na kosmetická ošetření SW Beauty. Skvělý dárek pro vaše blízké.',
     images: ['/images/poukaz.png'],
   },
 }
@@ -32,8 +32,7 @@ export default function PoukazyPage() {
               Dárkové <em className="italic">poukazy</em>
             </h1>
             <p className="text-lg text-slate-600  max-w-2xl mx-auto">
-              Darujte svým blízkým relaxaci a krásu. Dárkový poukaz je perfektní dárek, který potěší každého milovníka
-              péče o sebe.
+              Potěšte své blízké elegantním poukazem na kosmetická ošetření v SW Beauty.
             </p>
           </div>
         </div>
@@ -61,15 +60,15 @@ export default function PoukazyPage() {
           <div>
             <div className="text-xs uppercase tracking-[0.3em] text-slate-500 mb-1">Dárkové poukazy</div>
             <h2 className="font-display text-3xl md:text-4xl font-light text-slate-900">
-              Darujte <em className="italic">relaxaci a krásu</em>
+              Dárek pro <em className="italic">vaše blízké</em>
             </h2>
           </div>
         </div>
         <div className="grid gap-12 lg:grid-cols-2">
           <div className="space-y-6">
             <p className="text-slate-600  leading-relaxed">
-              Dárkový poukaz je perfektní dárek pro vaše blízké. Můžete si vybrat konkrétní hodnotu nebo nechat
-              obdarovaného vybrat si ošetření podle vlastního výběru.
+              Dárkový poukaz je skvělý dárek pro vaše blízké. Můžete si vybrat konkrétní hodnotu nebo nechat
+              obdarovaného vybrat si ošetření sám.
             </p>
             <div className="space-y-4">
               <div className="flex items-start gap-3">
@@ -101,7 +100,7 @@ export default function PoukazyPage() {
                 </svg>
                 <div>
                   <strong className="text-slate-900">Elegantní provedení</strong>
-                  <p className="text-sm text-slate-600">Vytiskneme poukaz v krásném designu</p>
+                  <p className="text-sm text-slate-600">Poukaz v krásném designu</p>
                 </div>
               </div>
               <div className="flex items-start gap-3">

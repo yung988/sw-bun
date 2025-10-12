@@ -44,7 +44,7 @@ export default function SubscribeForm() {
             Sledujte naše <em className="italic">novinky a akce</em>
           </h3>
           <p className="text-slate-600 leading-relaxed">
-            Přihlaste se k odběru novinek a získejte slevu 10% na první ošetření.
+            Přihlaste se k odběru a získejte 10 % slevu na první ošetření.
           </p>
         </div>
         <form onSubmit={submit} className="flex w-full flex-col gap-4">

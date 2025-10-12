@@ -71,7 +71,7 @@ export async function POST(request: Request) {
           <div style="background: #f8f9fa; border-radius: 8px; padding: 20px; margin: 20px 0;">
             <h3 style="margin-top: 0; color: #334155;">Kontaktní údaje</h3>
             <p style="margin: 5px 0;"><strong>Jméno:</strong> ${sanitizedName}</p>
-            <p style="margin: 5px 0;"><strong>Email:</strong> ${sanitizedEmail}</p>
+            <p style="margin: 5px 0;"><strong>E‑mail:</strong> ${sanitizedEmail}</p>
             ${sanitizedPhone ? `<p style="margin: 5px 0;"><strong>Telefon:</strong> ${sanitizedPhone}</p>` : ''}
             
             <h3 style="color: #334155; margin-top: 20px;">Zpráva</h3>
@@ -79,7 +79,7 @@ export async function POST(request: Request) {
           </div>
           
           <p style="color: #64748b; font-size: 14px;">
-            Odpovězte klientovi co nejdříve na emailu nebo telefonu.
+            Odpovězte prosím klientovi co nejdříve na e‑mail nebo telefon.
           </p>
         </div>
       `,
@@ -94,21 +94,21 @@ export async function POST(request: Request) {
     const { error: clientError } = await resend.emails.send({
       from: 'SW Beauty <kontakt@swbeauty.cz>',
       to: sanitizedEmail,
-      subject: '✅ Děkujeme za Vaši zprávu - SW Beauty',
+      subject: '✅ Děkujeme za vaši zprávu – SW Beauty',
       html: `
         <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto;">
-          <h2 style="color: #0f172a;">Děkujeme za Vaši zprávu!</h2>
+          <h2 style="color: #0f172a;">Děkujeme za vaši zprávu!</h2>
           
           <p>Dobrý den ${sanitizedName},</p>
           
-          <p>Vaše zpráva byla úspěšně odeslána. Brzy se Vám ozveme s odpovědí.</p>
+          <p>Vaše zpráva byla úspěšně odeslána. Ozveme se vám co nejdříve.</p>
           
           <div style="background: #f8f9fa; border-radius: 8px; padding: 20px; margin: 20px 0;">
             <p style="margin: 0; color: #64748b; font-size: 14px;"><strong>Vaše zpráva:</strong></p>
             <p style="margin: 10px 0 0 0; white-space: pre-wrap;">${sanitizedMessage}</p>
           </div>
           
-          <p>Odpovíme Vám do 24 hodin.</p>
+          <p>V případě potřeby nás můžete kontaktovat i telefonicky.</p>
           
           <p style="margin-top: 30px;">S pozdravem,<br><strong>Tým SW Beauty</strong></p>
           
@@ -118,7 +118,7 @@ export async function POST(request: Request) {
             SW Beauty s.r.o.<br>
             U Cihelny 1326/2, 695 01 Hodonín<br>
             Telefon: +420 773 577 899<br>
-            Email: info@swbeauty.cz<br>
+            E‑mail: info@swbeauty.cz<br>
             Web: swbeauty.cz
           </p>
         </div>

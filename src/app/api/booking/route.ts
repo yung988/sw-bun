@@ -76,7 +76,7 @@ export async function POST(request: Request) {
             
             <h3 style="color: #334155;">Kontaktní údaje</h3>
             <p style="margin: 5px 0;">Jméno: <strong>${sanitizedName}</strong></p>
-            <p style="margin: 5px 0;">Email: <strong>${sanitizedEmail}</strong></p>
+            <p style="margin: 5px 0;">E‑mail: <strong>${sanitizedEmail}</strong></p>
             <p style="margin: 5px 0;">Telefon: <strong>${sanitizedPhone || 'Neuvedeno'}</strong></p>
             
             ${
@@ -105,10 +105,10 @@ export async function POST(request: Request) {
     const { error: clientError } = await resend.emails.send({
       from: 'SW Beauty <rezervace@swbeauty.cz>',
       to: sanitizedEmail,
-      subject: '✅ Potvrzení rezervace - SW Beauty',
+      subject: '✅ Potvrzení rezervace – SW Beauty',
       html: `
         <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto;">
-          <h2 style="color: #0f172a;">Děkujeme za Vaši rezervaci!</h2>
+          <h2 style="color: #0f172a;">Děkujeme za vaši rezervaci!</h2>
           
           <p>Dobrý den ${sanitizedName},</p>
           
@@ -120,7 +120,7 @@ export async function POST(request: Request) {
             <p style="margin: 5px 0;"><strong>Preferovaný termín:</strong> ${new Date(preferredDate).toLocaleDateString('cs-CZ')} v ${preferredTime}</p>
           </div>
           
-          <p>Budeme Vás kontaktovat do 24 hodin pro potvrzení termínu na emailu nebo telefonu.</p>
+          <p>Co nejdříve vás budeme kontaktovat pro potvrzení termínu e‑mailem nebo telefonicky.</p>
           
           <p style="margin-top: 30px;">S pozdravem,<br><strong>Tým SW Beauty</strong></p>
           
@@ -130,7 +130,7 @@ export async function POST(request: Request) {
             SW Beauty s.r.o.<br>
             U Cihelny 1326/2, 695 01 Hodonín<br>
             Telefon: +420 773 577 899<br>
-            Email: info@swbeauty.cz<br>
+            E‑mail: info@swbeauty.cz<br>
             Web: swbeauty.cz
           </p>
         </div>

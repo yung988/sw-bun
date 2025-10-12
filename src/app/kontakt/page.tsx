@@ -2,21 +2,21 @@ import ContactForm from '@/components/ContactForm'
 import type { Metadata } from 'next'
 
 export const metadata: Metadata = {
-  title: 'Kontakt - SW Beauty | Kosmetický salon Hodonín',
+  title: 'Kontakt - SW Beauty Hodonín',
   description:
-    'Kontaktujte nás. SW Beauty kosmetický salon v Hodoníně. Adresa: U Cihelny 1326/2, 695 01 Hodonín. Otevírací doba: Po-Pá 9:00-20:00, So 10:00-18:00.',
+    'Kontakt na SW Beauty kosmetický salon v Hodoníně. Adresa: U Cihelny 1326/2, 695 01 Hodonín. Otevírací doba: Po-Pá 9:00-20:00, So 10:00-18:00.',
   keywords: ['kontakt', 'SW Beauty', 'kosmetický salon', 'Hodonín', 'adresa', 'otevírací doba'],
   openGraph: {
-    title: 'Kontakt - SW Beauty | Kosmetický salon Hodonín',
-    description: 'Kontaktujte nás. SW Beauty kosmetický salon v Hodoníně. Adresa a otevírací doba.',
+    title: 'Kontakt - SW Beauty Hodonín',
+    description: 'Kontakt na SW Beauty kosmetický salon v Hodoníně. Adresa a otevírací doba.',
     images: ['/images/hero-image.jpg'],
     url: 'https://swbeauty.cz/kontakt',
     type: 'website',
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'Kontakt - SW Beauty | Kosmetický salon Hodonín',
-    description: 'Kontaktujte nás. SW Beauty kosmetický salon v Hodoníně. Adresa a otevírací doba.',
+    title: 'Kontakt - SW Beauty Hodonín',
+    description: 'Kontakt na SW Beauty kosmetický salon v Hodoníně. Adresa a otevírací doba.',
     images: ['/images/hero-image.jpg'],
   },
 }
@@ -29,11 +29,10 @@ export default function KontaktPage() {
         <div className="site-container">
           <div className="text-center">
             <h1 className="font-display text-4xl md:text-5xl font-light text-slate-900  mb-6">
-              Kontaktujte <em className="italic">nás</em>
+              <em className="italic">Kontakt</em>
             </h1>
             <p className="text-lg text-slate-600  max-w-2xl mx-auto">
-              Máte otázky nebo chcete domluvit konzultaci? Neváhejte nás kontaktovat. Rádi vám pomůžeme najít to pravé
-              ošetření pro vás.
+              Máte dotaz nebo chcete domluvit konzultaci? Napište nám nebo zavolejte.
             </p>
           </div>
         </div>
@@ -60,9 +59,9 @@ export default function KontaktPage() {
             </svg>
           </div>
           <div>
-            <div className="text-xs uppercase tracking-[0.3em] text-slate-500 mb-1">Kontakt</div>
+            <div className="text-xs uppercase tracking-[0.3em] text-slate-500 mb-1">Kde nás najdete</div>
             <h2 className="font-display text-3xl md:text-4xl font-light text-slate-900">
-              Navštivte nás <em className="italic">v salonu</em>
+              Přijďte <em className="italic">k nám</em>
             </h2>
           </div>
         </div>

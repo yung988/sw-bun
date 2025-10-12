@@ -79,7 +79,7 @@ export async function POST(request: Request) {
             
             <h3 style="color: #334155; margin-top: 20px;">Kontaktní údaje objednatele</h3>
             <p style="margin: 5px 0;"><strong>Jméno:</strong> ${sanitizedName}</p>
-            <p style="margin: 5px 0;"><strong>Email:</strong> ${sanitizedEmail}</p>
+            <p style="margin: 5px 0;"><strong>E‑mail:</strong> ${sanitizedEmail}</p>
             <p style="margin: 5px 0;"><strong>Telefon:</strong> ${sanitizedPhone}</p>
             
             ${
@@ -102,7 +102,7 @@ export async function POST(request: Request) {
           </div>
           
           <p style="color: #64748b; font-size: 14px;">
-            Kontaktujte klienta pro platební údaje a domluvu vyzvednutí/doručení poukazu.
+            Kontaktujte prosím klienta pro platební údaje a domluvu vyzvednutí či doručení poukazu.
           </p>
         </div>
       `,
@@ -117,7 +117,7 @@ export async function POST(request: Request) {
     const { error: clientError } = await resend.emails.send({
       from: 'SW Beauty <poukazy@swbeauty.cz>',
       to: sanitizedEmail,
-      subject: '✅ Potvrzení objednávky poukazu - SW Beauty',
+      subject: '✅ Potvrzení objednávky poukazu – SW Beauty',
       html: `
         <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto;">
           <h2 style="color: #0f172a;">Děkujeme za objednávku!</h2>
@@ -133,11 +133,11 @@ export async function POST(request: Request) {
             ${sanitizedMessage ? `<p style="margin: 5px 0;"><strong>Věnování:</strong> ${sanitizedMessage}</p>` : ''}
           </div>
           
-          <p>Brzy Vás budeme kontaktovat s platebními údaji a podrobnostmi o vyzvednutí poukazu.</p>
+          <p>Brzy vás budeme kontaktovat s platebními údaji a podrobnostmi o vyzvednutí poukazu.</p>
           
           <div style="background: #fff7ed; border-left: 4px solid #f59e0b; padding: 15px; margin: 20px 0;">
             <p style="margin: 0; color: #92400e; font-size: 14px;">
-              <strong>💡 Tipy pro dárkový poukaz:</strong><br>
+              <strong>💡 Tipy:</strong><br>
               • Platnost: 12 měsíců od data vystavení<br>
               • Použitelný na všechny služby SW Beauty<br>
               • Elegantní provedení s osobním věnováním
@@ -152,7 +152,7 @@ export async function POST(request: Request) {
             SW Beauty s.r.o.<br>
             U Cihelny 1326/2, 695 01 Hodonín<br>
             Telefon: +420 773 577 899<br>
-            Email: info@swbeauty.cz<br>
+            E‑mail: info@swbeauty.cz<br>
             Web: swbeauty.cz
           </p>
         </div>

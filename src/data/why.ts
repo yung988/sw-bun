@@ -3,31 +3,31 @@ import type { WhyItem } from '@/types'
 export const whyLeft: WhyItem[] = [
   {
     icon: '🌿',
-    title: '100% Profesionální',
+    title: 'Profesionální péče',
     description:
-      'Používáme nejmodernější technologie jako HIFU 7D, Endos-roller a EMS s certifikovanými kosmetičkami s více než 10 lety praxe. Všechna zařízení jsou klinicky testovaná a schválená pro bezpečnost.',
+      'Certifikované kosmetičky s více než 10 lety zkušeností. Technologie HIFU, Endosphere a EMS jsou klinicky ověřené a bezpečné.',
     badges: ['Certifikováno', 'Profesionální'],
   },
   {
     icon: '⚡',
-    title: 'Prokázaná účinnost',
+    title: 'Účinnost potvrzená praxí',
     description:
-      'Naše ošetření jsou založena na vědeckých principech - ultrazvuk stimuluje kolagen, vibrace zlepšuje cirkulaci, elektrostimulace buduje svaly. Klienti vidí výsledky po prvním sezení s kumulativním efektem.',
+      'Technologie založené na vědeckých principech — ultrazvuk stimuluje kolagen, mikrovibrace podporují cirkulaci, elektrostimulace buduje svaly. Výsledky vidíte už po prvním ošetření.',
   },
 ]
 
 export const whyRight: WhyItem[] = [
   {
     icon: '🎯',
-    title: 'Individuální přístup',
+    title: 'Péče šitá na míru',
     description:
-      'Před každým ošetřením provedeme detailní konzultaci, analyzujeme váš typ pleti, zdravotní stav a cíle. Sestavíme plán na míru - od intenzivních kurzů po udržovací péči.',
-    badges: ['Na míru', 'Konzultace'],
+      'Před každým ošetřením provedeme konzultaci zdarma. Probereme stav pleti, vaše cíle a navrhneme plán — od intenzivní kúry po udržovací péči.',
+    badges: ['Na míru', 'Konzultace zdarma'],
   },
   {
     icon: '✨',
     title: 'Viditelné výsledky',
     description:
-      'Okamžité zlepšení po prvním ošetření (lepší hydratace, tonus, lifting), s dlouhodobými efekty trvajícími měsíce. Pravidelná péče zajišťuje udržení výsledků a prevenci stárnutí.',
+      'Po prvním ošetření je vidět lepší hydratace, tonus i jemný lifting. Při pravidelné péči se efekt prohlubuje a vydrží měsíce.',
   },
 ]

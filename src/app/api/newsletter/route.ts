@@ -72,7 +72,7 @@ export async function POST(request: Request) {
           </div>
 
           <p style="color: #64748b; font-size: 14px;">
-            Nový odběratel se přihlásil k odběru newsletteru. Můžete mu poslat uvítací email se slevou 10%.
+            Nový odběratel se přihlásil k odběru. Můžete mu poslat uvítací e‑mail se slevou 10 %.
           </p>
         </div>
       `,
@@ -94,22 +94,22 @@ export async function POST(request: Request) {
 
           <p>Dobrý den,</p>
 
-          <p>Děkujeme za přihlášení k odběru našeho newsletteru. Budeme vás pravidelně informovat o:</p>
+          <p>Děkujeme za přihlášení k odběru. Budeme vás pravidelně informovat o:</p>
 
           <ul style="color: #334155; margin: 20px 0;">
-            <li>Nových službách a produktech</li>
-            <li>Akčních nabídkách a slevách</li>
-            <li>Tipy na péči o pleť a tělo</li>
-            <li>Novinky ze světa krásy</li>
+            <li>nových službách a produktech,</li>
+            <li>akčních nabídkách a slevách,</li>
+            <li>tamhle tipy na péči o pleť a tělo,</li>
+            <li>novinkách ze světa krásy.</li>
           </ul>
 
           <div style="background: #f8f9fa; border-radius: 8px; padding: 20px; margin: 20px 0;">
             <h3 style="margin-top: 0; color: #334155;">🎁 Speciální uvítací sleva</h3>
-            <p style="margin: 5px 0; font-size: 18px; font-weight: bold; color: #0f172a;">10% sleva na první ošetření</p>
-            <p style="margin: 5px 0;">Při první návštěvě ukažte tento email a získejte slevu 10% na jakékoliv ošetření.</p>
+            <p style="margin: 5px 0; font-size: 18px; font-weight: bold; color: #0f172a;">10 % sleva na první ošetření</p>
+            <p style="margin: 5px 0;">Při první návštěvě ukažte tento e‑mail a získejte slevu 10 % na jakékoli ošetření.</p>
           </div>
 
-          <p>Nezapomeňte nás sledovat také na sociálních sítích pro další tipy a inspiraci.</p>
+          <p>Sledujte nás také na sociálních sítích pro další tipy a inspiraci.</p>
 
           <p style="margin-top: 30px;">S pozdravem,<br><strong>Tým SW Beauty</strong></p>
 
@@ -119,12 +119,12 @@ export async function POST(request: Request) {
             SW Beauty s.r.o.<br>
             U Cihelny 1326/2, 695 01 Hodonín<br>
             Telefon: +420 773 577 899<br>
-            Email: info@swbeauty.cz<br>
+            E‑mail: info@swbeauty.cz<br>
             Web: swbeauty.cz
           </p>
 
           <p style="color: #64748b; font-size: 11px; margin-top: 20px;">
-            Pokud se už nechcete odbírat newsletter, můžete se kdykoliv odhlásit odpovědí na tento email.
+            Pokud již nechcete dostávat newsletter, můžete se kdykoli odhlásit odpovědí na tento e‑mail.
           </p>
         </div>
       `,

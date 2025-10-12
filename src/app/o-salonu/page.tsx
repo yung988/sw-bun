@@ -4,21 +4,21 @@ import SectionTitle from '@/components/SectionTitle'
 import { Heart, Sparkles, Scissors } from 'lucide-react'
 
 export const metadata: Metadata = {
-  title: 'O salonu SW Beauty - Profesionální kosmetický salon Hodonín',
+  title: 'O našem salonu - SW Beauty Hodonín',
   description:
-    'Poznejte Sabinu, zakladatelku SW Beauty salonu. Profesionální kosmetické služby v Hodoníně s moderními technologiemi HIFU, Endos-roller a EMS.',
+    'Zakladatelka Sabina a tým SW Beauty. Profesionální kosmetické služby v Hodoníně s moderními technologiemi HIFU, Endosphere a EMS.',
   keywords: ['o salonu', 'SW Beauty', 'Sabina', 'kosmetický salon', 'Hodonín', 'profesionální péče'],
   openGraph: {
-    title: 'O salonu SW Beauty - Profesionální kosmetický salon Hodonín',
-    description: 'Poznejte Sabinu, zakladatelku SW Beauty salonu. Profesionální kosmetické služby v Hodoníně.',
+    title: 'O našem salonu - SW Beauty Hodonín',
+    description: 'Zakladatelka Sabina a tým SW Beauty. Profesionální kosmetické služby v Hodoníně.',
     images: ['/images/team/sabina.jpg'],
     url: 'https://swbeauty.cz/o-salonu',
     type: 'website',
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'O salonu SW Beauty - Profesionální kosmetický salon Hodonín',
-    description: 'Poznejte Sabinu, zakladatelku SW Beauty salonu. Profesionální kosmetické služby v Hodoníně.',
+    title: 'O našem salonu - SW Beauty Hodonín',
+    description: 'Zakladatelka Sabina a tým SW Beauty. Profesionální kosmetické služby v Hodoníně.',
     images: ['/images/team/sabina.jpg'],
   },
 }
@@ -32,11 +32,10 @@ export default function OSalonuPage() {
           <div className="grid gap-12 lg:grid-cols-2 items-center">
             <div>
               <h1 className="font-display text-4xl md:text-5xl font-light text-slate-900  mb-6">
-                O salonu <strong>SW</strong> <em className="italic">Beauty</em>
+                O našem <em className="italic">salonu</em>
               </h1>
               <p className="text-lg text-slate-600  leading-relaxed mb-8">
-                Vítejte v našem moderním kosmetickém salonu v Hodoníně. Jsme tým profesionálů, kteří se věnují vaší
-                kráse s láskou a péčí již několik let.
+                Vítejte v našem kosmetickém salonu v Hodoníně. Profesionální péče o vaši krásu již několik let.
               </p>
             </div>
             <div className="relative aspect-square overflow-hidden rounded-2xl">
@@ -70,14 +69,13 @@ export default function OSalonuPage() {
                 center={false}
                 title={
                   <>
-                    Naši <em className="italic">zakladatelku</em>
+                    Zakladatelka <em className="italic">Sabina</em>
                   </>
                 }
-                subtitle="Sabina je certifikovaná kosmetička s více než 10 lety zkušeností v oboru. Její vášeň pro krásu a wellness ji přivedla k založení SW Beauty salonu."
+                subtitle="Certifikovaná kosmetička s více než 10 lety praxe. Vášeň pro krásu a wellness vedla k založení SW Beauty."
               />
               <p className="text-slate-600  leading-relaxed mb-6">
-                Sabina pravidelně absolvuje školení a kurzy, aby mohla svým klientkám nabízet ty nejlepší a
-                nejbezpečnější ošetření. Její přístup je individuální a vždy se zaměřuje na potřeby každé klientky.
+                Sabina pravidelně absolvuje školení a kurzy, aby mohla klientkám nabízet ty nejlepší a nejbezpečnější ošetření. Její přístup je vždy individuální a zaměřuje se na potřeby každé klientky.
               </p>
               <div className="space-y-4">
                 <div className="flex items-start gap-3">
@@ -143,7 +141,7 @@ export default function OSalonuPage() {
               eyebrow="Naše hodnoty"
               title={
                 <>
-                  Naše <strong>hodnoty</strong>
+                  Naše <em className="italic">hodnoty</em>
                 </>
               }
               icon={<Heart className="h-4 w-4" />}
@@ -163,7 +161,7 @@ export default function OSalonuPage() {
               </div>
               <h3 className="font-medium text-slate-900  mb-2">Moderní prostory</h3>
               <p className="text-sm text-slate-600">
-                Náš salon je vybaven nejmodernějšími technologiemi v příjemném prostředí.
+                Salon vybavený moderními technologiemi v příjemném prostředí.
               </p>
             </div>
             <div className="text-center">
@@ -176,9 +174,9 @@ export default function OSalonuPage() {
                   className="object-cover"
                 />
               </div>
-              <h3 className="font-medium text-slate-900  mb-2">Profesionální péče</h3>
+              <h3 className="font-medium text-slate-900  mb-2">Profesionální přístup</h3>
               <p className="text-sm text-slate-600">
-                Každé ošetření provádíme s maximální péčí a pozorností k detailům.
+                Každé ošetření s maximální péčí a pozorností k detailům.
               </p>
             </div>
             <div className="text-center">
@@ -192,7 +190,7 @@ export default function OSalonuPage() {
                 />
               </div>
               <h3 className="font-medium text-slate-900  mb-2">Kvalitní produkty</h3>
-              <p className="text-sm text-slate-600">Používáme pouze certifikované produkty od renomovaných značek.</p>
+              <p className="text-sm text-slate-600">Certifikované produkty od renomovaných značek.</p>
             </div>
           </div>
         </div>
@@ -206,11 +204,11 @@ export default function OSalonuPage() {
               center={false}
               title={
                 <>
-                  Naši <em className="italic">zakladatelku</em>
+                  Technologie a <em className="italic">certifikace</em>
                 </>
               }
-              subtitle="Sabina je certifikovaná kosmetička s více než 10 lety zkušeností v oboru. Její vášeň pro krásu a wellness ji přivedla k založení SW Beauty salonu."
-              badge={{ icon: <Heart className="h-4 w-4" />, text: 'Zakladatelka' }}
+              subtitle="Ověřené technologie a pravidelné vzdělávání."
+              badge={{ icon: <Sparkles className="h-4 w-4" />, text: 'Technologie' }}
             />
           </div>
 
@@ -225,7 +223,7 @@ export default function OSalonuPage() {
                 <h3 className="font-medium text-slate-900">HIFU technologie</h3>
               </div>
               <p className="text-sm text-slate-600">
-                Neinvazivní lifting obličeje pomocí ultrazvukových vln pro mladší vzhled bez operace.
+                Neinvazivní lifting ultrazvukem pro mladší vzhled bez operace.
               </p>
             </div>
 
@@ -244,7 +242,7 @@ export default function OSalonuPage() {
                 <h3 className="font-medium text-slate-900">Endosphere terapie</h3>
               </div>
               <p className="text-sm text-slate-600">
-                Kompresivní mikrovibrace pro redukci celulitidy a zpevnění pokožky.
+                Mikrovibrace pro redukci celulitidy a zpevnění pokožky.
               </p>
             </div>
 
@@ -262,7 +260,7 @@ export default function OSalonuPage() {
                 </div>
                 <h3 className="font-medium text-slate-900">EMS budování svalů</h3>
               </div>
-              <p className="text-sm text-slate-600">Elektrická stimulace svalů pro efektivní trénink bez námahy.</p>
+              <p className="text-sm text-slate-600">Elektrostimulace svalů pro efektivní trénink bez námahy.</p>
             </div>
           </div>
 
@@ -355,8 +353,8 @@ export default function OSalonuPage() {
                   />
                 </svg>
               </div>
-              <h3 className="font-medium text-slate-900 mb-2">Láska k práci</h3>
-              <p className="text-sm text-slate-600">Každé ošetření děláme srdcem a vášní pro krásu.</p>
+              <h3 className="font-medium text-slate-900 mb-2">Vášeň pro krásu</h3>
+              <p className="text-sm text-slate-600">Každé ošetření děláme s láskou a vášní.</p>
             </div>
             <div>
               <div className="flex h-12 w-12 items-center justify-center rounded-full border border-slate-200 bg-white mb-4">
@@ -376,7 +374,7 @@ export default function OSalonuPage() {
                 </svg>
               </div>
               <h3 className="font-medium text-slate-900 mb-2">Bezpečnost</h3>
-              <p className="text-sm text-slate-600">Vaše zdraví a bezpečnost je naší nejvyšší prioritou.</p>
+              <p className="text-sm text-slate-600">Vaše zdraví a bezpečnost je naší prioritou.</p>
             </div>
             <div>
               <div className="flex h-12 w-12 items-center justify-center rounded-full border border-slate-200 bg-white mb-4">
@@ -392,7 +390,7 @@ export default function OSalonuPage() {
                 </svg>
               </div>
               <h3 className="font-medium text-slate-900 mb-2">Inovace</h3>
-              <p className="text-sm text-slate-600">Pravidelně zavádíme nejnovější technologie a trendy.</p>
+              <p className="text-sm text-slate-600">Sledujeme nejnovější technologie a trendy.</p>
             </div>
             <div>
               <div className="flex h-12 w-12 items-center justify-center rounded-full border border-slate-200 bg-white mb-4">

@@ -3,32 +3,32 @@ import type { Testimonial } from '@/types'
 export const testimonials: Testimonial[] = [
   {
     quote:
-      '„HIFU 7D facelift překonal má očekávání! Okamžitě vidím lifting obličeje a krku, pleť je pevnější a mladší. Po měsíci se výsledky ještě zlepšily - žádné vrásky kolem očí. Konečně vypadám mladší bez operace a injekcí."',
+      '„HIFU 7D mě příjemně překvapilo. Lifting je vidět hned a po měsíci ještě víc. Okolí očí je hladší – a bez injekcí.“',
     name: 'Petra • Hodonín',
   },
   {
     quote:
-      '„Endos-roller je zázrak! Po 6 ošetřeních mám viditelně štíhlejší stehna a žádné otékaní. Nejlepší investice do sebe."',
+      '„Endosphere mi po šesti ošetřeních zpevnila stehna a odlehčila nohám. Cítím se lehčí a sebevědomější.“',
     name: 'Lucie • Brno',
   },
   {
     quote:
-      '„EMS budování svalů je neuvěřitelné - jen 20 minut a cítím se jako po 4 hodinách v posilovně. Svaly na břiše a stehnech jsou pevnější, spálil se tuk. Konečně vidím výsledky, které jsem chtěla po letech cvičení!"',
+      '„EMS mě baví – 20 minut a mám pocit poctivého tréninku. Břicho i stehna jsou pevnější a vidím rychlejší pokrok.“',
     name: 'Martina • Ostrava',
   },
   {
     quote:
-      '„Hydrafacial je nejlepší kosmetické ošetření, které jsem kdy měla. Pleť je čistá, hydratovaná a září. Doporučuji!"',
+      '„Hydrafacial mi vyčistil pleť do hloubky. Je hydratovaná a září – cítím se skvěle.“',
     name: 'Jana • Plzeň',
   },
   {
     quote:
-      '„Kavitace mi pomohla zbavit se tuku na břiše, který nechce jít pryč ani s cvičením. Po 8 ošetřeních vidím obrovský rozdíl!"',
+      '„Kavitace mi pomohla s bříškem, které nešlo dolů ani cvičením. Po několika sezeních je rozdíl opravdu znát.“',
     name: 'Veronika • Liberec',
   },
   {
     quote:
-      '„Prodloužení vlasů je přirozené a nikdo nepozná, že nejsou mé. Konečně mám dlouhé vlasy, o kterých jsem sníla!"',
+      '„Prodloužení vlasů působí přirozeně – nikdo nic nepoznal. Konečně mám dlouhé vlasy, o kterých jsem snila.“',
     name: 'Tereza • České Budějovice',
   },
 ]

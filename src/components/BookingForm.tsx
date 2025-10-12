@@ -1,8 +1,24 @@
 'use client'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { useState, useEffect, useCallback } from 'react'
-import { useForm } from 'react-hook-form'
+import { useForm, Controller } from 'react-hook-form'
 import { z } from 'zod'
+import { format } from 'date-fns'
+import { cs } from 'date-fns/locale'
+import { CalendarIcon } from 'lucide-react'
+import { Calendar } from '@/components/ui/calendar'
+import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover'
+import { Button } from '@/components/ui/button'
+import { Input } from '@/components/ui/input'
+import { Textarea } from '@/components/ui/textarea'
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from '@/components/ui/select'
+import { cn } from '@/lib/utils'
 
 const bookingSchema = z.object({
   service: z.string().min(1, 'Vyberte prosím službu'),
@@ -43,6 +59,8 @@ export default function BookingForm({ preselectedService }: Props) {
   const [isSubmitting, setIsSubmitting] = useState(false)
   const [isSuccess, setIsSuccess] = useState(false)
   const [allServices, setAllServices] = useState<ServiceFromAPI[]>([])
+  const [selectedDate, setSelectedDate] = useState<Date>()
+  const [timeSlots, setTimeSlots] = useState<string[]>([])
 
   useEffect(() => {
     const loadServices = async () => {
@@ -81,6 +99,8 @@ export default function BookingForm({ preselectedService }: Props) {
     handleSubmit,
     formState: { errors },
     reset,
+    control,
+    setValue,
   } = useForm<BookingFormData>({
     resolver: zodResolver(bookingSchema),
     defaultValues: {
@@ -106,7 +126,7 @@ export default function BookingForm({ preselectedService }: Props) {
       if (response.ok) {
         setIsSuccess(true)
         reset()
-        setSelectedDate('')
+        setSelectedDate(undefined)
         setTimeout(() => setIsSuccess(false), 5000)
       }
     } catch (error) {
@@ -116,20 +136,20 @@ export default function BookingForm({ preselectedService }: Props) {
     }
   }
 
-  const [selectedDate, setSelectedDate] = useState('')
-  const [timeSlots, setTimeSlots] = useState<string[]>([])
-
   // Pomocná funkce pro kontrolu, zda je datum neděle
   const isSunday = useCallback((dateString: string) => {
     const date = new Date(dateString)
     return date.getDay() === 0
   }, [])
 
-  // Generování časových slotů podle dne v týdnu
-  const generateTimeSlots = useCallback((dateString: string) => {
-    if (!dateString) return []
+  // Pomocná funkce pro kontrolu, zda je datum neděle (Date objekt)
+  const isSundayDate = useCallback((date: Date | undefined) => {
+    if (!date) return false
+    return date.getDay() === 0
+  }, [])
 
-    const date = new Date(dateString)
+  // Generování časových slotů podle dne v týdnu
+  const generateTimeSlots = useCallback((date: Date) => {
     const day = date.getDay()
     // Saturday: 10:00-18:00, Other days: 9:00-20:00
     const openHour = day === 6 ? 10 : 9
@@ -145,12 +165,12 @@ export default function BookingForm({ preselectedService }: Props) {
 
   // Aktualizace časových slotů při změně data
   useEffect(() => {
-    if (selectedDate && !isSunday(selectedDate)) {
+    if (selectedDate && !isSundayDate(selectedDate)) {
       setTimeSlots(generateTimeSlots(selectedDate))
     } else {
       setTimeSlots([])
     }
-  }, [selectedDate, isSunday, generateTimeSlots])
+  }, [selectedDate, isSundayDate, generateTimeSlots])
 
   return (
     <div>
@@ -208,18 +228,24 @@ export default function BookingForm({ preselectedService }: Props) {
             <label htmlFor="service" className="block text-sm font-medium text-slate-700 mb-2">
               Vyberte službu <span className="text-red-500">*</span>
             </label>
-            <select
-              id="service"
-              {...register('service')}
-              className="w-full rounded-xl border border-slate-300 bg-white px-4 py-3 text-sm text-slate-900 outline-none transition focus:border-slate-900"
-            >
-              <option value="">-- Vyberte službu --</option>
-              {allServices.map((service) => (
-                <option key={service.slug} value={service.name}>
-                  {service.name} - {service.price} ({service.duration} min)
-                </option>
-              ))}
-            </select>
+            <Controller
+              name="service"
+              control={control}
+              render={({ field }) => (
+                <Select onValueChange={field.onChange} value={field.value}>
+                  <SelectTrigger className="w-full">
+                    <SelectValue placeholder="-- Vyberte službu --" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    {allServices.map((service) => (
+                      <SelectItem key={service.slug} value={service.name}>
+                        {service.name} - {service.price} ({service.duration} min)
+                      </SelectItem>
+                    ))}
+                  </SelectContent>
+                </Select>
+              )}
+            />
             {errors.service && (
               <p className="mt-1.5 text-xs text-red-600" role="alert">
                 {errors.service.message}
@@ -232,21 +258,52 @@ export default function BookingForm({ preselectedService }: Props) {
           <label htmlFor="preferredDate" className="block text-sm font-medium text-slate-700 mb-2">
             Preferovaný termín <span className="text-red-500">*</span>
           </label>
-          <input
-            id="preferredDate"
-            type="date"
-            {...register('preferredDate', {
-              onChange: (e) => setSelectedDate(e.target.value),
-            })}
-            min={new Date(Date.now() + 86400000).toISOString().split('T')[0]}
-            className="w-full rounded-xl border border-slate-300 bg-white px-4 py-3 text-sm text-slate-900 outline-none transition focus:border-slate-900"
+          <Controller
+            name="preferredDate"
+            control={control}
+            render={({ field }) => (
+              <Popover>
+                <PopoverTrigger asChild>
+                  <Button
+                    variant="outline"
+                    className={cn(
+                      'w-full justify-start text-left font-normal',
+                      !selectedDate && 'text-muted-foreground'
+                    )}
+                  >
+                    <CalendarIcon className="mr-2 h-4 w-4" />
+                    {selectedDate ? format(selectedDate, 'PPP', { locale: cs }) : <span>Vyberte datum</span>}
+                  </Button>
+                </PopoverTrigger>
+                <PopoverContent className="w-auto p-0" align="start">
+                  <Calendar
+                    mode="single"
+                    selected={selectedDate}
+                    onSelect={(date) => {
+                      setSelectedDate(date)
+                      if (date) {
+                        field.onChange(format(date, 'yyyy-MM-dd'))
+                      }
+                    }}
+                    disabled={(date) => {
+                      // Disable past dates and Sundays
+                      const tomorrow = new Date()
+                      tomorrow.setHours(0, 0, 0, 0)
+                      tomorrow.setDate(tomorrow.getDate() + 1)
+                      return date < tomorrow || date.getDay() === 0
+                    }}
+                    initialFocus
+                  />
+                </PopoverContent>
+              </Popover>
+            )}
           />
           {errors.preferredDate && (
             <p className="mt-1.5 text-xs text-red-600" role="alert">
               {errors.preferredDate.message}
             </p>
           )}
-          {selectedDate && isSunday(selectedDate) && (
+          {selectedDate && isSundayDate(selectedDate) && (
             <p className="mt-1.5 text-xs text-amber-600 flex items-center gap-1">
               <svg className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                 <title>Varování</title>
@@ -260,9 +317,9 @@ export default function BookingForm({ preselectedService }: Props) {
               Salon je v neděli zavřený. Vyberte prosím jiný den.
             </p>
           )}
-          {selectedDate && !isSunday(selectedDate) && (
+          {selectedDate && !isSundayDate(selectedDate) && (
             <p className="mt-1.5 text-xs text-slate-500">
-              Otevírací doba: {new Date(selectedDate).getDay() === 6 ? '10:00 - 18:00' : '9:00 - 20:00'}
+              Otevírací doba: {selectedDate.getDay() === 6 ? '10:00 - 18:00' : '9:00 - 20:00'}
             </p>
           )}
         </div>
@@ -271,18 +328,24 @@ export default function BookingForm({ preselectedService }: Props) {
           <label htmlFor="preferredTime" className="block text-sm font-medium text-slate-700  mb-2">
             Preferovaný čas <span className="text-red-500">*</span>
           </label>
-          <select
-            id="preferredTime"
-            {...register('preferredTime')}
-            className="w-full rounded-xl border border-slate-300  bg-white  px-4 py-3 text-sm text-slate-900  outline-none transition focus:border-slate-900"
-          >
-            <option value="">Vyberte čas...</option>
-            {timeSlots.map((time) => (
-              <option key={time} value={time}>
-                {time}
-              </option>
-            ))}
-          </select>
+          <Controller
+            name="preferredTime"
+            control={control}
+            render={({ field }) => (
+              <Select onValueChange={field.onChange} value={field.value}>
+                <SelectTrigger className="w-full">
+                  <SelectValue placeholder="Vyberte čas..." />
+                </SelectTrigger>
+                <SelectContent>
+                  {timeSlots.map((time) => (
+                    <SelectItem key={time} value={time}>
+                      {time}
+                    </SelectItem>
+                  ))}
+                </SelectContent>
+              </Select>
+            )}
+          />
           {errors.preferredTime && (
             <p className="mt-1.5 text-xs text-red-600" role="alert">
               {errors.preferredTime.message}
@@ -295,12 +358,11 @@ export default function BookingForm({ preselectedService }: Props) {
             <label htmlFor="name" className="block text-sm font-medium text-slate-700  mb-2">
               Jméno a příjmení <span className="text-red-500">*</span>
             </label>
-            <input
+            <Input
               id="name"
               type="text"
               {...register('name')}
               placeholder="Jana Nová"
-              className="w-full rounded-xl border border-slate-300  bg-white  px-4 py-3 text-sm text-slate-900  placeholder:text-slate-400 outline-none transition focus:border-slate-400  focus:ring-2 focus:ring-slate-200"
             />
             {errors.name && (
               <p className="mt-1.5 text-xs text-red-600" role="alert">
@@ -313,14 +375,13 @@ export default function BookingForm({ preselectedService }: Props) {
             <label htmlFor="email" className="block text-sm font-medium text-slate-700  mb-2">
               Email <span className="text-red-500">*</span>
             </label>
-            <input
+            <Input
               id="email"
               type="email"
               inputMode="email"
               autoComplete="email"
               {...register('email')}
               placeholder="jana@email.cz"
-              className="w-full rounded-xl border border-slate-300  bg-white  px-4 py-3 text-sm text-slate-900  placeholder:text-slate-400 outline-none transition focus:border-slate-400  focus:ring-2 focus:ring-slate-200"
             />
             {errors.email && (
               <p className="mt-1.5 text-xs text-red-600" role="alert">
@@ -334,14 +395,13 @@ export default function BookingForm({ preselectedService }: Props) {
           <label htmlFor="phone" className="block text-sm font-medium text-slate-700  mb-2">
             Telefon <span className="text-red-500">*</span>
           </label>
-          <input
+          <Input
             id="phone"
             type="tel"
             inputMode="tel"
             autoComplete="tel"
             {...register('phone')}
             placeholder="+420 773 577 899"
-            className="w-full rounded-xl border border-slate-300  bg-white  px-4 py-3 text-sm text-slate-900  placeholder:text-slate-400 outline-none transition focus:border-slate-400  focus:ring-2 focus:ring-slate-200"
           />
           {errors.phone && (
             <p className="mt-1.5 text-xs text-red-600" role="alert">
@@ -357,22 +417,21 @@ export default function BookingForm({ preselectedService }: Props) {
           <label htmlFor="message" className="block text-sm font-medium text-slate-700  mb-2">
             Poznámka (volitelné)
           </label>
-          <textarea
+          <Textarea
             id="message"
             {...register('message')}
             rows={4}
             placeholder="Máte nějaké speciální požadavky nebo dotazy?"
-            className="w-full rounded-xl border border-slate-300  bg-white  px-4 py-3 text-sm text-slate-900  placeholder:text-slate-400 outline-none transition focus:border-slate-400  focus:ring-2 focus:ring-slate-200  resize-none"
           />
         </div>
 
-        <button
+        <Button
           type="submit"
           disabled={isSubmitting}
-          className="w-full rounded-full bg-slate-900  px-8 py-4 text-sm font-medium text-white  transition hover:bg-slate-800  disabled:opacity-50 disabled:cursor-not-allowed"
+          className="w-full rounded-full bg-slate-900 px-8 py-4 text-sm font-medium text-white transition hover:bg-slate-800 disabled:opacity-50 disabled:cursor-not-allowed"
         >
           {isSubmitting ? 'Odesílám...' : 'Odeslat nezávaznou poptávku'}
-        </button>
+        </Button>
 
         <p className="text-xs text-center text-slate-500">
           Odesláním formuláře souhlasíte se zpracováním osobních údajů

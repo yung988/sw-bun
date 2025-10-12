@@ -5,6 +5,8 @@ import { useState, useEffect } from 'react'
 import { Instagram, Menu, X } from 'lucide-react'
 import Link from 'next/link'
 import Image from 'next/image'
+import OpenBookingButton from '@/components/OpenBookingButton'
+import OpenVoucherButton from '@/components/OpenVoucherButton'
 
 export default function Navbar() {
   const [menuOpen, setMenuOpen] = useState(false)
@@ -15,7 +17,7 @@ export default function Navbar() {
     { id: 'o-nas', label: 'O nás' },
     { id: 'sluzby', label: 'Služby' },
     { id: 'poukazy', label: 'Poukazy' },
-    { id: 'kontakt', label: 'Kontakt' },
+    // Kontakt sekci skrýváme z navigace – kontakt řeší modaly na homepage
   ]
 
   // Handler pro plynulé scrollování
@@ -42,7 +44,7 @@ export default function Navbar() {
 
   // Scroll spy pomocí Intersection Observer
   useEffect(() => {
-    const sectionIds = ['home', 'why', 'o-nas', 'sluzby', 'poukazy', 'kontakt']
+    const sectionIds = ['home', 'why', 'o-nas', 'sluzby', 'poukazy']
     const sections = sectionIds.map((id) => document.getElementById(id)).filter((el): el is HTMLElement => el !== null)
 
     if (sections.length === 0) return
@@ -105,6 +107,16 @@ export default function Navbar() {
               </a>
             </li>
           ))}
+          <li className="pl-2">
+            <OpenBookingButton className="inline-flex items-center gap-2 rounded-full bg-neutral-900 px-5 py-2 text-sm font-medium text-white transition hover:bg-neutral-800">
+              Rezervace
+            </OpenBookingButton>
+          </li>
+          <li>
+            <OpenVoucherButton className="inline-flex items-center gap-2 rounded-full border border-neutral-300 bg-white px-5 py-2 text-sm font-medium text-neutral-900 transition hover:bg-neutral-50">
+              Poukaz
+            </OpenVoucherButton>
+          </li>
           <li>
             <a
               href="https://www.instagram.com/swbeautysalons/"
@@ -146,6 +158,16 @@ export default function Navbar() {
               {link.label}
             </a>
           ))}
+          <div className="px-4">
+            <OpenBookingButton className="w-full inline-flex items-center justify-center gap-2 rounded-full bg-neutral-900 px-5 py-3 text-sm font-medium text-white transition hover:bg-neutral-800">
+              Rezervace
+            </OpenBookingButton>
+          </div>
+          <div className="px-4">
+            <OpenVoucherButton className="w-full inline-flex items-center justify-center gap-2 rounded-full border border-neutral-300 bg-white px-5 py-3 text-sm font-medium text-neutral-900 transition hover:bg-neutral-50">
+              Poukaz
+            </OpenVoucherButton>
+          </div>
           <a
             href="https://www.instagram.com/swbeautysalons/"
             target="_blank"

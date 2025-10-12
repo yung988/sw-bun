@@ -8,15 +8,15 @@ export const faqs: FAQ[] = [
   },
   {
     q: 'Kdy uvidím výsledky?',
-    a: 'HIFU má okamžitý efekt, který se zlepšuje 2-3 měsíce. Endos-roller a EMS po 3-5 ošetřeních. Kosmetika okamžitě.',
+    a: 'HIFU má okamžitý efekt, který se dál zlepšuje 2–3 měsíce. Endosphere a EMS obvykle po 3–5 ošetřeních. U kosmetiky je výsledek vidět hned.',
   },
   {
     q: 'Kolik ošetření potřebuji?',
-    a: 'HIFU stačí 1x ročně, Endos-roller a EMS doporučujeme kuru 8-10 ošetření, kosmetiku pravidelně každý měsíc.',
+    a: 'HIFU stačí 1× ročně. U Endosphere a EMS doporučujeme kúru 8–10 ošetření. Kosmetiku je vhodné absolvovat jednou měsíčně.',
   },
   {
-    q: 'Je to bolestné?',
-    a: 'Všechna ošetření jsou nebolestivá. HIFU může být mírně nepříjemné, ale snesitelné. Endos-roller a EMS jsou příjemné.',
+    q: 'Je to bolestivé?',
+    a: 'Naše ošetření jsou šetrná. HIFU může být místy nepříjemné, ale je dobře snesitelné. Endosphere i EMS jsou vnímány příjemně.',
   },
   {
     q: 'Jaké jsou kontraindikace?',
@@ -24,7 +24,7 @@ export const faqs: FAQ[] = [
   },
   {
     q: 'Můžu si objednat termín online?',
-    a: 'Ano, objednávky přijímáme telefonicky nebo přes rezervační formulář na našem webu. Termíny máme většinou dostupné do 1-2 týdnů.',
+    a: 'Ano, objednávky přijímáme telefonicky i přes rezervační formulář na webu. Obvykle máme volné termíny do 1–2 týdnů.',
   },
   {
     q: 'Nabízíte dárkové poukazy?',
@@ -32,11 +32,11 @@ export const faqs: FAQ[] = [
   },
   {
     q: 'Jaká je storno politika?',
-    a: 'Termín můžete zrušit nebo přesunout nejpozději 24 hodin před plánovaným ošetřením. Při pozdějším zrušení účtujeme 50% z ceny. V případě nemoci s potvrzením lékaře je storno zdarma.',
+    a: 'Termín lze zrušit či přesunout nejpozději 24 hodin předem. Při pozdějším zrušení účtujeme 50 % ceny. V případě nemoci s potvrzením lékaře je storno zdarma.',
   },
   {
     q: 'Jaká je péče po ošetření?',
-    a: 'Po HIFU vyhýbejte se slunci a sauně týden. Po Endos-roller a EMS hydratujte pokožku a doporučujeme pít více vody. Po kosmetice používejte SPF a vyhýbejte se make-upu 24 hodin. Dostanete detailní instrukce.',
+    a: 'Po HIFU se týden vyhýbejte slunci a sauně. Po Endosphere a EMS hydratujte a pijte více vody. Po kosmetice používejte SPF a 24 hodin vynechte make‑up. Vše vám podrobně vysvětlíme.',
   },
   {
     q: 'Mohu použít dárkový poukaz na jakoukoli službu?',
@@ -52,7 +52,7 @@ export const faqs: FAQ[] = [
   },
   {
     q: 'Jak často bych měl/a docházet na ošetření?',
-    a: 'Kosmetiku doporučujeme 1x měsíčně pro udržovací péči. HIFU stačí 1-2x ročně. Endos-roller a EMS nejdříve kura 8-10 ošetření 2x týdně, pak udržovací 1x měsíčně. Vše závisí na vašich individuálních potřebách.',
+    a: 'Kosmetiku doporučujeme 1× měsíčně. HIFU stačí 1–2× ročně. Endosphere a EMS nejprve kúra 8–10 ošetření 2× týdně, poté udržování 1× měsíčně. Vždy záleží na vašich potřebách.',
   },
   {
     q: 'Jsou služby bolestivé nebo nepříjemné?',

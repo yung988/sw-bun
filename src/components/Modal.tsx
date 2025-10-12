@@ -28,12 +28,15 @@ export default function Modal({ isOpen, onCloseAction, children, title }: ModalP
   if (!isOpen) return null
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
+    <div className="fixed inset-0 z-50 flex items-start sm:items-center justify-center p-3 sm:p-6">
       {/* Backdrop - rozmazané pozadí */}
       <div className="absolute inset-0 bg-black/50 backdrop-blur-sm" onClick={onCloseAction} aria-hidden="true" />
 
       {/* Modal content */}
-      <div className="relative w-full max-w-2xl max-h-[90vh] overflow-y-auto rounded-2xl border border-slate-200 bg-white shadow-2xl">
+      <div
+        className="relative w-full max-w-xl md:max-w-2xl rounded-2xl border border-slate-200 bg-white shadow-2xl"
+        style={{ maxHeight: 'calc(100dvh - 48px)', overflowY: 'auto' }}
+      >
         {/* Header */}
         {title && (
           <div className="sticky top-0 z-10 flex items-center justify-between border-b border-slate-200 bg-white px-6 py-4">
@@ -53,7 +56,7 @@ export default function Modal({ isOpen, onCloseAction, children, title }: ModalP
         )}
 
         {/* Body */}
-        <div className="p-6">{children}</div>
+        <div className="p-5 sm:p-6">{children}</div>
       </div>
     </div>
   )

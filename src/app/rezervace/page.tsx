@@ -14,7 +14,7 @@ export default function RezervacePage() {
           <h1 className="font-display text-4xl md:text-5xl font-light text-slate-900 mb-4">
             Rezervace <em className="italic">termínu</em>
           </h1>
-          <p className="text-lg text-slate-600">Vyplňte formulář a my se vám ozveme s potvrzením termínu</p>
+          <p className="text-lg text-slate-600">Vyplňte formulář — potvrzení vám pošleme co nejdříve.</p>
         </div>
 
         <div className="rounded-2xl border border-slate-200 bg-white p-8 md:p-12">
