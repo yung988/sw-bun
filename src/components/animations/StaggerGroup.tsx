@@ -1,6 +1,6 @@
 'use client'
-import { motion } from 'framer-motion'
-import { ReactNode } from 'react'
+import { motion, type Variants } from 'framer-motion'
+import type { ReactNode } from 'react'
 
 type StaggerGroupProps = {
   children: ReactNode[]
@@ -17,7 +17,7 @@ export default function StaggerGroup({
   staggerDelay = 0.1,
   className = '' 
 }: StaggerGroupProps) {
-  const container = {
+  const container: Variants = {
     hidden: { opacity: 0 },
     visible: {
       opacity: 1,
@@ -29,7 +29,7 @@ export default function StaggerGroup({
   }
 
   // Different entrance animations for variety
-  const childVariants = [
+  const childVariants: Variants[] = [
     // From left
     {
       hidden: { opacity: 0, x: -100, rotateY: -30 },

@@ -67,12 +67,15 @@ export default function SplitReveal({
       }
 
       // Reveal content
-      tl.from(ref.current?.querySelector('.split-content'), {
-        opacity: 0,
-        scale: 0.8,
-        duration: 0.8,
-        ease: 'back.out(1.7)',
-      }, '-=0.6')
+      const contentElement = ref.current?.querySelector('.split-content')
+      if (contentElement) {
+        tl.from(contentElement, {
+          opacity: 0,
+          scale: 0.8,
+          duration: 0.8,
+          ease: 'back.out(1.7)',
+        }, '-=0.6')
+      }
     }, ref)
 
     return () => ctx.revert()

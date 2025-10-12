@@ -1,6 +1,6 @@
 'use client'
 import { motion, useMotionValue, useSpring } from 'framer-motion'
-import { useRef, MouseEvent } from 'react'
+import { useRef, type MouseEvent } from 'react'
 
 type MagneticButtonProps = {
   children: React.ReactNode

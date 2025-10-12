@@ -21,6 +21,7 @@ export default function LenisScroll() {
       gestureOrientation: 'vertical',
       smoothWheel: true,
       wheelMultiplier: 1,
+      // @ts-expect-error - smoothTouch is a valid option in Lenis but not in types
       smoothTouch: false,
       touchMultiplier: 2,
       infinite: false,

@@ -1,6 +1,6 @@
 'use client'
 import { motion, useScroll, useTransform, useSpring, MotionValue } from 'framer-motion'
-import { useRef, ReactNode } from 'react'
+import { useRef, type ReactNode } from 'react'
 
 type Layer = {
   children: ReactNode

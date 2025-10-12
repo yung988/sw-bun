@@ -123,13 +123,14 @@ export default function ContactSection() {
       <div ref={titleRef} className="mb-12">
         <SectionTitle
           center={false}
+          eyebrow="Kontakt"
+          icon={<Zap className="h-4 w-4" />}
           title={
             <>
               Kde nás <em className="italic">najdete</em>
             </>
           }
           subtitle="Náš salon se nachází v centru Hodonína na Masarykově náměstí."
-          badge={{ icon: <Zap className="h-4 w-4" />, text: 'Kontakt' }}
         />
       </div>
 

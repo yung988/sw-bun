@@ -51,7 +51,7 @@ export default function TestimonialCard({ quote, name, stars = 5, avatarSrc }: P
       onMouseMove={handleMouseMove}
       onMouseLeave={handleMouseLeave}
       whileHover={{ y: -8 }}
-      transition={{ duration: 0.3, ease: 'power2.out' }}
+      transition={{ duration: 0.3, ease: 'easeOut' }}
     >
       <div className="flex items-center gap-1 text-slate-900" aria-label={`Hodnocení: ${stars} z 5 hvězdiček`}>
         {[...Array(stars)].map((_, i) => (

@@ -26,6 +26,7 @@ export default function SmoothScrollProvider({ children }: SmoothScrollProviderP
     const lenis = new Lenis({
       duration: 1.2,
       easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+      // @ts-expect-error - direction is a valid option in Lenis but not in types
       direction: 'vertical',
       smooth: true,
       smoothTouch: false,

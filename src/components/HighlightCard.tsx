@@ -1,6 +1,6 @@
 'use client'
 
-import { Sparkles, Heart, Zap, Droplet, Scissors, LucideIcon } from 'lucide-react'
+import { Sparkles, Heart, Zap, Droplet, Scissors, type LucideIcon } from 'lucide-react'
 
 type IconName = 'sparkles' | 'heart' | 'zap' | 'droplet' | 'scissors'
 

@@ -116,7 +116,7 @@ export default function ServicesSection({ categories }: ServicesSectionProps) {
   }, [categories])
 
   // Magnetic button effect
-  const handleMouseMove = (e: ReactMouseEvent<HTMLAnchorElement>) => {
+  const handleMouseMove = (e: React.MouseEvent<HTMLAnchorElement>) => {
     if (!buttonRef.current) return
     
     const rect = buttonRef.current.getBoundingClientRect()

@@ -1,5 +1,5 @@
 'use client'
-import { motion } from 'framer-motion'
+import { motion, type Variants } from 'framer-motion'
 import { useRef } from 'react'
 
 type EntranceType = 
@@ -22,7 +22,7 @@ type DramaticEntranceProps = {
   className?: string
 }
 
-const entranceVariants = {
+const entranceVariants: Record<EntranceType, Variants> = {
   slideLeft: {
     hidden: { opacity: 0, x: -200, rotateY: -45 },
     visible: { 

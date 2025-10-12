@@ -54,6 +54,8 @@ import Image from 'next/image'
 import Link from 'next/link'
 import OpenVoucherButton from '@/components/OpenVoucherButton'
 import OpenBookingButton from '@/components/OpenBookingButton'
+import Container from '@/components/ui/Container'
+import Section from '@/components/ui/Section'
 import {
   SmoothReveal,
   MagneticButton,
@@ -61,7 +63,8 @@ import {
   ScrollVelocity,
   ElasticScale,
   Perspective3D,
-  TextReveal
+  TextReveal,
+  FadeIn
 } from '@/components/animations'
 
 // Zobrazit pouze nejdůležitější FAQ - celkem 6 (3+3)
@@ -92,8 +95,8 @@ export default async function Home() {
       <AboutUsSection />
 
       {/* Gallery Section - With FadeIn animations */}
-      <section className="relative bg-white py-16 md:py-24">
-        <div className="mx-auto max-w-[1250px] px-6">
+      <Section className="relative bg-white">
+        <Container>
           <FadeIn>
             <div className="mb-20 max-w-3xl">
               <h3 className="font-display text-4xl md:text-5xl lg:text-6xl font-light text-slate-900 mb-8 leading-tight">
@@ -152,8 +155,8 @@ export default async function Home() {
               </div>
             </div>
           </FadeIn>
-        </div>
-      </section>
+        </Container>
+      </Section>
 
       {/* Services section - With 3D Carousel & Perspective Depth */}
       <ServicesSection categories={categories} />
@@ -168,24 +171,26 @@ export default async function Home() {
       <TestimonialsSection />
 
       {/* FAQ - With Parallax */}
-      <section id="faq" className="mx-auto max-w-[1250px] px-6 py-16 md:py-24">
-        <ParallaxText speed={0.2}>
-          <SectionTitle
-            center={false}
-            title={
-              <>
-                Máte <em className="italic">dotaz?</em>
-              </>
-            }
-            subtitle="Připravili jsme odpovědi na nejčastější otázky."
-          />
-        </ParallaxText>
+      <Section id="faq">
+        <Container>
+          <ParallaxText speed={0.2}>
+            <SectionTitle
+              center={false}
+              title={
+                <>
+                  Máte <em className="italic">dotaz?</em>
+                </>
+              }
+              subtitle="Připravili jsme odpovědi na nejčastější otázky."
+            />
+          </ParallaxText>
 
-        <ElasticScale scaleRange={[0.98, 1.02]} className="mt-16 grid gap-8 md:grid-cols-2">
-          <FAQ items={faqsLeft} />
-          <FAQ items={faqsRight} />
-        </ElasticScale>
-      </section>
+          <ElasticScale scaleRange={[0.98, 1.02]} className="mt-16 grid gap-8 md:grid-cols-2">
+            <FAQ items={faqsLeft} />
+            <FAQ items={faqsRight} />
+          </ElasticScale>
+        </Container>
+      </Section>
 
       {/* Instagram Feed */}
       <InstagramFeed />
@@ -194,11 +199,13 @@ export default async function Home() {
       <ContactSection />
 
       {/* Newsletter - With Smooth Reveal */}
-      <section className="mx-auto max-w-[1250px] px-6 py-16 md:py-24">
-        <SmoothReveal>
-          <SubscribeForm />
-        </SmoothReveal>
-      </section>
+      <Section>
+        <Container>
+          <SmoothReveal>
+            <SubscribeForm />
+          </SmoothReveal>
+        </Container>
+      </Section>
     </main>
   )
 }

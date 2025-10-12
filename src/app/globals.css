@@ -24,20 +24,7 @@
   /* Okare-inspired: Mléčně bílá (milk white) */
   --color-milk: #FAF9F6;
 
-  /* Brand béžová paleta */
-  --color-brand-beige-50: #FAF9F6;
-  --color-brand-beige-100: #F5F2EC;
-  --color-brand-beige-200: #E9E2D5;
-  --color-brand-beige-300: #D7CAB9;
-  --color-brand-beige-400: #C2AE95;
-  --color-brand-beige-500: #A98F72;
-  --color-brand-beige-600: #8E775D;
-  --color-brand-beige-700: #76604B;
-  --color-brand-beige-800: #5E4C3C;
-  --color-brand-beige-900: #4B3C30;
 
-  /* Accent */
-  --color-accent-500: #A77A49;
 
   /* Spacing - 4px grid systém */
   --spacing-90: 90px;
@@ -144,83 +131,13 @@
 }
 
 @layer utilities {
-  .site-container {
-    @apply mx-auto max-w-[1250px] px-3;
-  }
-  .max-w-container {
-    max-width: 1250px;
-  }
-  /* Consistent vertical spacing for sections */
-  .section-y {
-    @apply py-20 md:py-24;
-  }
-
-  /* Reusable card surface */
-  .card-soft {
-    @apply rounded-2xl border border-slate-200 bg-white shadow-sm;
-  }
-
-  /* Buttons */
-  .btn {
-    @apply inline-flex items-center justify-center rounded-full px-6 py-3 text-sm font-medium transition;
-  }
-  .btn-primary {
-    @apply inline-flex items-center justify-center rounded-full px-6 py-3 text-sm font-medium transition bg-black text-white shadow-sm hover:bg-[#4C4C4C];
-  }
+  /* Scrollbar hiding utility */
   .scrollbar-hide {
     scrollbar-width: none;
   }
 
   .scrollbar-hide::-webkit-scrollbar {
     display: none;
-  }
-
-  /* === OKARE-INSPIRED UTILITIES === */
-
-  /* Typography hierarchy */
-  .type-h1 {
-    @apply text-4xl md:text-5xl font-semibold tracking-tight;
-  }
-  .type-h2 {
-    @apply text-3xl md:text-4xl font-semibold tracking-tight;
-  }
-  .type-h3 {
-    @apply text-2xl md:text-3xl font-semibold;
-  }
-  .type-body {
-    @apply text-base leading-7 text-stone-700;
-  }
-  .type-muted {
-    @apply text-sm text-stone-600;
-  }
-
-  /* Container - Okare style (1250px max, 24px/48px padding) */
-  .ui-container {
-    @apply mx-auto max-w-[1250px] px-6 lg:px-12;
-  }
-
-  /* Interactive cards with Okare hover */
-  .ui-card {
-    @apply rounded-xl bg-white border border-black/5 transition-transform duration-200 will-change-transform;
-    box-shadow: var(--shadow-soft);
-    transition-timing-function: var(--transition-timing-function-okare);
-  }
-  .ui-card-hover:hover {
-    @apply -translate-y-1;
-    box-shadow: var(--shadow-elevated);
-  }
-
-  /* Focus ring pro a11y */
-  .focus-ring {
-    @apply outline-none ring-2 ring-offset-2 ring-stone-900/70;
-  }
-
-  /* Motion control - respekt k prefers-reduced-motion */
-  @media (prefers-reduced-motion: reduce) {
-    .ui-card-hover:hover {
-      @apply translate-y-0;
-      box-shadow: var(--shadow-soft);
-    }
   }
 }
 
