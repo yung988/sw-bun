@@ -1,5 +1,3 @@
-import fs from 'node:fs'
-import path from 'node:path'
 import type { PriceItem } from '@/types'
 
 export type Service = {
@@ -97,20 +95,47 @@ export function priceItemToService(item: PriceItem): Service {
 
 // Cache pro parsované služby (zlepšuje výkon)
 let servicesCache: Service[] | null = null
+let servicesLoading: Promise<Service[]> | null = null
 
-export function getAllServices(): Service[] {
-  // Vrátit cachovanou verzi, pokud je dostupná
+async function getPriceListFile(): Promise<string | null> {
+  if (typeof window === 'undefined') {
+    try {
+      const { readFile } = await import('node:fs/promises')
+      return await readFile(`${process.cwd()}/public/pricelist.csv`, 'utf-8')
+    } catch (error) {
+      console.error('Nepodařilo se načíst soubor ceníku:', error)
+    }
+  }
+  return null
+}
+
+async function loadServices(): Promise<Service[]> {
   if (servicesCache) {
     return servicesCache
   }
 
-  // Parse CSV and cache the result
-  const csvPath = path.join(process.cwd(), 'public', 'pricelist.csv')
-  const csvContent = fs.readFileSync(csvPath, 'utf-8')
-  const items = parseCSV(csvContent)
-  servicesCache = items.map(priceItemToService)
+  if (!servicesLoading) {
+    servicesLoading = (async () => {
+      const csvContent = await getPriceListFile()
+      if (!csvContent) {
+        return []
+      }
+      const items = parseCSV(csvContent)
+      return items.map(priceItemToService)
+    })()
 
-  return servicesCache
+    try {
+      servicesCache = await servicesLoading
+    } finally {
+      servicesLoading = null
+    }
+  }
+
+  return servicesCache ?? []
+}
+
+export async function getAllServices(): Promise<Service[]> {
+  return loadServices()
 }
 
 // Pomocník pro vyčištění cache (užitečné pro development nebo pokud se CSV změní)
@@ -118,13 +143,14 @@ export function clearServicesCache() {
   servicesCache = null
 }
 
-export function getServiceBySlug(slug: string): Service | null {
-  const services = getAllServices()
+export async function getServiceBySlug(slug: string): Promise<Service | null> {
+  const services = await getAllServices()
   return services.find((s) => s.slug === slug) || null
 }
 
-export function getServicesByCategory(categoryId: string): Service[] {
-  return getAllServices().filter((s) => s.categoryId === categoryId)
+export async function getServicesByCategory(categoryId: string): Promise<Service[]> {
+  const services = await getAllServices()
+  return services.filter((s) => s.categoryId === categoryId)
 }
 
 export type ServiceCategory = {
@@ -136,8 +162,8 @@ export type ServiceCategory = {
   serviceCount: number
 }
 
-export function getServiceCategories(): ServiceCategory[] {
-  const all = getAllServices()
+export async function getServiceCategories(): Promise<ServiceCategory[]> {
+  const all = await getAllServices()
 
   // Seskupit služby podle kategorie
   const categoryMap = new Map<string, Service[]>()
@@ -208,8 +234,8 @@ function getCategoryDescription(categoryId: string): string {
   return descriptions[categoryId] || 'Profesionální péče o vaši krásu.'
 }
 
-export function getMainServices(): Service[] {
-  const all = getAllServices()
+export async function getMainServices(): Promise<Service[]> {
+  const all = await getAllServices()
   const mainServices: Service[] = []
 
   // Získat první službu z každé hlavní kategorie (včetně balíčků, pokud je potřeba)
@@ -240,12 +266,13 @@ export function getMainServices(): Service[] {
   return mainServices.slice(0, 8)
 }
 
-export function getCategories(): string[] {
-  const services = getAllServices()
+export async function getCategories(): Promise<string[]> {
+  const services = await getAllServices()
   return [...new Set(services.map((s) => s.categoryId))]
 }
 
-export function getCategoryName(categoryId: string): string {
-  const service = getAllServices().find((s) => s.categoryId === categoryId)
+export async function getCategoryName(categoryId: string): Promise<string> {
+  const services = await getAllServices()
+  const service = services.find((s) => s.categoryId === categoryId)
   return service?.category || categoryId.toUpperCase()
 }

@@ -10,7 +10,7 @@ type Props = {
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { kategorie } = await params
-  const categoryName = getCategoryName(kategorie)
+  const categoryName = await getCategoryName(kategorie)
 
   return {
     title: `${categoryName} | SW Beauty Hodonín`,
@@ -19,7 +19,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 }
 
 export async function generateStaticParams() {
-  const categories = getCategories()
+  const categories = await getCategories()
   return categories.map((kategorie) => ({
     kategorie,
   }))
@@ -27,8 +27,8 @@ export async function generateStaticParams() {
 
 export default async function CategoryPage({ params }: Props) {
   const { kategorie } = await params
-  const services = getServicesByCategory(kategorie)
-  const categoryName = getCategoryName(kategorie)
+  const services = await getServicesByCategory(kategorie)
+  const categoryName = await getCategoryName(kategorie)
 
   if (services.length === 0) {
     notFound()

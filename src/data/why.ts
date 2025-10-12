@@ -3,31 +3,31 @@ import type { WhyItem } from '@/types'
 export const whyLeft: WhyItem[] = [
   {
     icon: '🌿',
-    title: 'Profesionální péče',
+    title: 'Odbornost a zkušenosti',
     description:
-      'Certifikované kosmetičky s více než 10 lety zkušeností. Technologie HIFU, Endosphere a EMS jsou klinicky ověřené a bezpečné.',
-    badges: ['Certifikováno', 'Profesionální'],
+      'Náš tým tvoří certifikované kosmetičky s více než 10 lety praxe. Pravidelně se vzděláváme v nejnovějších metodách a technologiích, abychom vám mohli nabídnout to nejlepší.',
+    badges: ['Certifikováno', '10+ let praxe'],
   },
   {
     icon: '⚡',
-    title: 'Účinnost potvrzená praxí',
+    title: 'Technologie s prokázanými výsledky',
     description:
-      'Technologie založené na vědeckých principech — ultrazvuk stimuluje kolagen, mikrovibrace podporují cirkulaci, elektrostimulace buduje svaly. Výsledky vidíte už po prvním ošetření.',
+      'Používáme pouze ověřené přístroje s klinickými studiemi — HIFU 7D pro neinvazivní lifting, Endosphere proti celulitidě a EMS pro budování svalů. Výsledky uvidíte už po první návštěvě.',
   },
 ]
 
 export const whyRight: WhyItem[] = [
   {
     icon: '🎯',
-    title: 'Péče šitá na míru',
+    title: 'Individuální přístup ke každé klientce',
     description:
-      'Před každým ošetřením provedeme konzultaci zdarma. Probereme stav pleti, vaše cíle a navrhneme plán — od intenzivní kúry po udržovací péči.',
-    badges: ['Na míru', 'Konzultace zdarma'],
+      'Žádné univerzální řešení. Před každým ošetřením si s vámi v klidu promluvíme, probereme stav vaší pleti a společně navrhneme plán péče přesně podle vašich potřeb a cílů.',
+    badges: ['Konzultace zdarma', 'Plán na míru'],
   },
   {
     icon: '✨',
-    title: 'Viditelné výsledky',
+    title: 'Výsledky, které uvidíte i ucítíte',
     description:
-      'Po prvním ošetření je vidět lepší hydratace, tonus i jemný lifting. Při pravidelné péči se efekt prohlubuje a vydrží měsíce.',
+      'Už po prvním ošetření zaznamenáte rozdíl — hydratovanější pleť, lepší tonus, viditelný lifting. S pravidelnou péčí se efekt prohlubuje a výsledky vydrží měsíce.',
   },
 ]

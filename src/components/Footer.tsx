@@ -9,8 +9,8 @@ export default function Footer() {
           {/* Brand */}
           <div className="space-y-4">
             <Link href="/" className="group inline-block">
-              <div className="relative h-16 w-16">
-                <Image src="/logo.svg" alt="SW Beauty" fill className="object-contain group-hover:opacity-80 transition-opacity" />
+              <div className="relative h-16 w-40">
+                <Image src="/sw-logo.svg" alt="SW Beauty" fill className="object-contain group-hover:opacity-80 transition-opacity" />
               </div>
             </Link>
             <p className="text-sm leading-relaxed text-slate-600">
@@ -28,14 +28,14 @@ export default function Footer() {
                 </Link>
               </li>
               <li>
-                <Link href="/o-salonu" className="hover:text-slate-900 transition-colors duration-200">
+                <a href="/#o-nas" className="hover:text-slate-900 transition-colors duration-200">
                   O salonu
-                </Link>
+                </a>
               </li>
               <li>
-                <a href="#kontakt" className="hover:text-slate-900 transition-colors duration-200">
+                <Link href="/#kontakt" className="hover:text-slate-900 transition-colors duration-200">
                   Kontakt
-                </a>
+                </Link>
               </li>
               <li>
                 <Link href="/rezervace" className="hover:text-slate-900 transition-colors duration-200">

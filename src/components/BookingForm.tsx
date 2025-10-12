@@ -173,7 +173,7 @@ export default function BookingForm({ preselectedService }: Props) {
   }, [selectedDate, isSundayDate, generateTimeSlots])
 
   return (
-    <div>
+    <div className="p-4 sm:p-6 lg:p-8">
       <div className="mb-6">
         <p className="text-sm text-slate-600">
           Vyplňte formulář a my Vás budeme během 24 hodin kontaktovat pro potvrzení termínu.

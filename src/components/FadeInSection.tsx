@@ -1,28 +1,44 @@
 'use client'
-import { motion } from 'framer-motion'
-import { useInView } from 'framer-motion'
+import { motion, useScroll, useTransform, useSpring } from 'framer-motion'
 import { useRef } from 'react'
 
-type FadeInSectionProps = {
+type ScrollAnimationProps = {
   children: React.ReactNode
-  delay?: number
   className?: string
 }
 
-export default function FadeInSection({ children, delay = 0, className = '' }: FadeInSectionProps) {
+/**
+ * Smooth Parallax Scroll Animation
+ * Elements move at different speeds based on scroll position
+ */
+export default function ScrollAnimation({ children, className = '' }: ScrollAnimationProps) {
   const ref = useRef(null)
-  const isInView = useInView(ref, { once: true, margin: '-100px' })
+
+  const { scrollYProgress } = useScroll({
+    target: ref,
+    offset: ['start end', 'end start']
+  })
+
+  // Smooth spring physics for natural movement
+  const smoothProgress = useSpring(scrollYProgress, {
+    stiffness: 100,
+    damping: 30,
+    restDelta: 0.001
+  })
+
+  // Parallax Y movement
+  const y = useTransform(smoothProgress, [0, 1], [100, -100])
+
+  // Opacity fade based on scroll
+  const opacity = useTransform(smoothProgress, [0, 0.2, 0.8, 1], [0, 1, 1, 0])
+
+  // Scale transformation for depth
+  const scale = useTransform(smoothProgress, [0, 0.5, 1], [0.8, 1, 0.8])
 
   return (
     <motion.div
       ref={ref}
-      initial={{ opacity: 0, y: 40 }}
-      animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 40 }}
-      transition={{
-        duration: 0.8,
-        delay,
-        ease: [0.25, 0.1, 0.25, 1], // Soft easing
-      }}
+      style={{ y, opacity, scale }}
       className={className}
     >
       {children}

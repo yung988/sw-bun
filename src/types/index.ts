@@ -39,7 +39,7 @@ export type Service = {
 export type Highlight = {
   t: string
   d: string
-  icon?: string
+  icon?: 'sparkles' | 'heart' | 'zap' | 'droplet' | 'scissors'
 }
 
 export type PriceItem = {

@@ -2,27 +2,62 @@
 
 import { motion } from 'framer-motion'
 import Image from 'next/image'
+import { useRef, useState } from 'react'
 
 type Props = { quote: string; name: string; stars?: number; avatarSrc?: string }
 
 export default function TestimonialCard({ quote, name, stars = 5, avatarSrc }: Props) {
+  const cardRef = useRef<HTMLDivElement>(null)
+  const [rotateX, setRotateX] = useState(0)
+  const [rotateY, setRotateY] = useState(0)
+
   const initials = name
     .split(' ')
     .map((n) => n[0])
     .join('')
     .slice(0, 2)
     .toUpperCase()
+
+  const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
+    if (!cardRef.current) return
+
+    const rect = cardRef.current.getBoundingClientRect()
+    const x = e.clientX - rect.left
+    const y = e.clientY - rect.top
+
+    const centerX = rect.width / 2
+    const centerY = rect.height / 2
+
+    const rotateXValue = ((y - centerY) / centerY) * -5
+    const rotateYValue = ((x - centerX) / centerX) * 5
+
+    setRotateX(rotateXValue)
+    setRotateY(rotateYValue)
+  }
+
+  const handleMouseLeave = () => {
+    setRotateX(0)
+    setRotateY(0)
+  }
+
   return (
     <motion.div
-      className="group flex h-full flex-col gap-4 rounded-2xl border border-slate-200  bg-white  p-6 shadow-sm"
-      whileHover={{ y: -8, scale: 1.01 }}
-      transition={{ duration: 0.4, ease: [0.25, 0.1, 0.25, 1] }}
+      ref={cardRef}
+      className="group flex h-full flex-col gap-6 rounded-2xl border border-slate-200 bg-white p-8 shadow-sm hover:shadow-xl transition-shadow duration-300"
+      style={{
+        transform: `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg)`,
+        transformStyle: 'preserve-3d',
+      }}
+      onMouseMove={handleMouseMove}
+      onMouseLeave={handleMouseLeave}
+      whileHover={{ y: -8 }}
+      transition={{ duration: 0.3, ease: 'power2.out' }}
     >
       <div className="flex items-center gap-1 text-slate-900" aria-label={`Hodnocení: ${stars} z 5 hvězdiček`}>
         {[...Array(stars)].map((_, i) => (
           <svg
             key={`${name.replace(/\s/g, '')}-star-${i + 1}`}
-            className="h-4 w-4 fill-current"
+            className="h-5 w-5 fill-current"
             viewBox="0 0 20 20"
             aria-hidden="true"
           >
@@ -31,20 +66,19 @@ export default function TestimonialCard({ quote, name, stars = 5, avatarSrc }: P
           </svg>
         ))}
       </div>
-      <p className="text-sm leading-relaxed text-slate-700">{quote}</p>
-      <div className="mt-auto flex items-center gap-3 pt-2 border-t border-slate-200">
-        <div className="relative h-10 w-10 overflow-hidden rounded-full border-2 border-white  shadow-sm bg-slate-100">
+      <p className="text-base leading-relaxed text-slate-700">{quote}</p>
+      <div className="mt-auto flex items-center gap-3 pt-4 border-t border-slate-200">
+        <div className="relative h-12 w-12 overflow-hidden rounded-full border-2 border-white shadow-sm bg-slate-100">
           {avatarSrc ? (
-            <Image src={avatarSrc} alt={name} fill sizes="40px" className="object-cover" />
+            <Image src={avatarSrc} alt={name} fill sizes="48px" className="object-cover" />
           ) : (
-            <div className="flex h-full w-full items-center justify-center text-xs font-medium text-slate-600">
+            <div className="flex h-full w-full items-center justify-center text-sm font-medium text-slate-600">
               {initials}
             </div>
           )}
         </div>
         <div className="text-sm">
-          <div className="font-medium text-slate-900">{name}</div>
-          <div className="text-xs text-slate-500">Zákazník</div>
+          <div className="font-semibold text-slate-900">{name}</div>
         </div>
       </div>
     </motion.div>

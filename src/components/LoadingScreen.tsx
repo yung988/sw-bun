@@ -1,15 +1,18 @@
 'use client'
 import { AnimatePresence, motion, useReducedMotion } from 'framer-motion'
 import { useEffect, useRef, useState } from 'react'
+import gsap from 'gsap'
 
-const EASE = [0.22, 1, 0.36, 1] as const
-const INTRO_DURATION_MS = 2400
+const EASE = [0.16, 1, 0.3, 1] as const // Smooth easing
+const INTRO_DURATION_MS = 3000 // Increased for counter animation
 const SESSION_KEY = 'swbeauty_intro_seen'
 
 export default function LoadingScreen() {
   const prefersReducedMotion = useReducedMotion()
   const [isVisible, setIsVisible] = useState(false)
+  const [progress, setProgress] = useState(0)
   const hasRunRef = useRef(false)
+  const counterRef = useRef<HTMLSpanElement>(null)
 
   useEffect(() => {
     if (hasRunRef.current) return
@@ -23,13 +26,23 @@ export default function LoadingScreen() {
     } catch {}
 
     if (prefersReducedMotion) {
-      // Respect reduced motion: skip intro quickly
       setIsVisible(false)
       try { sessionStorage.setItem(SESSION_KEY, '1') } catch {}
       return
     }
 
     setIsVisible(true)
+
+    // Animate counter from 0 to 100
+    const counter = { value: 0 }
+    gsap.to(counter, {
+      value: 100,
+      duration: INTRO_DURATION_MS / 1000,
+      ease: 'power2.inOut',
+      onUpdate: () => {
+        setProgress(Math.round(counter.value))
+      },
+    })
 
     const timeout = setTimeout(() => {
       setIsVisible(false)
@@ -47,60 +60,83 @@ export default function LoadingScreen() {
         key="intro"
         initial={{ opacity: 1 }}
         exit={{ opacity: 0 }}
-        transition={{ duration: 0.5, ease: EASE }}
-        className="fixed inset-0 z-[9999] bg-milk"
+        transition={{ duration: 0.8, ease: EASE }}
+        className="fixed inset-0 z-[9999] bg-white"
         aria-hidden="true"
       >
-        {/* Subtle vignette */}
-        <div className="pointer-events-none absolute inset-0" style={{
-          background: 'radial-gradient(1200px 600px at 50% 40%, rgba(0,0,0,0.04), rgba(0,0,0,0))'
-        }} />
         {/* Content center */}
         <div className="absolute inset-0 flex items-center justify-center">
-          <div className="flex flex-col items-center">
-            {/* Brand logo */}
-            <motion.img
-              src="/sw-logo.svg"
-              alt="SW Beauty logo"
-              width={220}
-              height={220}
-              loading="eager"
-              initial={{ opacity: 0, y: 10, scale: 0.94, filter: 'blur(3px)' }}
-              animate={{ opacity: 1, y: 0, scale: 1, filter: 'blur(0px)' }}
-              transition={{ duration: 1.1, ease: EASE }}
-              className="block opacity-95"
-            />
-
-            {/* Subtle tagline */}
-            <motion.p
-              initial={{ opacity: 0, y: 8 }}
+          <div className="flex flex-col items-center gap-12">
+            {/* Brand logo with smooth fade */}
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.7, delay: 0.35, ease: EASE }}
-              className="mt-6 text-[11px] md:text-sm uppercase tracking-[0.35em] text-slate-600"
+              transition={{
+                duration: 0.8,
+                ease: EASE,
+                delay: 0.1
+              }}
+              className="relative"
             >
-              Hodonín · kosmetický salon
-            </motion.p>
+              <motion.img
+                src="/sw-logo.svg"
+                alt="SW Beauty logo"
+                width={180}
+                height={180}
+                loading="eager"
+                className="block"
+              />
+            </motion.div>
+
+            {/* Counter and progress bar */}
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ duration: 0.6, delay: 0.3, ease: EASE }}
+              className="flex flex-col items-center gap-6 w-64"
+            >
+              {/* Animated counter */}
+              <div className="text-center">
+                <span
+                  ref={counterRef}
+                  className="text-6xl font-light text-slate-900 tabular-nums"
+                >
+                  {progress.toString().padStart(2, '0')}
+                </span>
+                <span className="text-2xl font-light text-slate-400 ml-1">%</span>
+              </div>
+
+              {/* Progress bar */}
+              <div className="w-full h-[2px] bg-slate-200 rounded-full overflow-hidden">
+                <motion.div
+                  className="h-full bg-slate-900"
+                  initial={{ width: '0%' }}
+                  animate={{ width: `${progress}%` }}
+                  transition={{ duration: 0.1, ease: 'linear' }}
+                />
+              </div>
+
+              {/* Tagline */}
+              <motion.p
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                transition={{ duration: 0.6, delay: 0.5, ease: EASE }}
+                className="text-xs uppercase tracking-[0.3em] text-slate-600 font-light"
+              >
+                beauty in every detail
+              </motion.p>
+            </motion.div>
           </div>
         </div>
 
-        {/* Progress line at bottom */}
-        <div className="absolute inset-x-10 bottom-12">
-          <div className="h-px w-full bg-black/10" />
-          <motion.div
-            initial={{ width: 0 }}
-            animate={{ width: '100%' }}
-            transition={{ duration: 1.4, delay: 0.35, ease: EASE }}
-            className="mt-[-1px] h-[2px] bg-black/80"
-          />
-        </div>
-
-        {/* Soft wipe reveal */}
+        {/* Smooth curtain exit */}
         <motion.div
-          initial={{ scaleY: 1 }}
-          animate={{ scaleY: 0 }}
-          transition={{ duration: 0.9, delay: 1.2, ease: EASE }}
-          style={{ transformOrigin: 'top center' }}
-          className="pointer-events-none absolute inset-0 bg-milk"
+          initial={{ y: '100%' }}
+          animate={{ y: '100%' }}
+          exit={{ y: 0 }}
+          transition={{ duration: 0.8, ease: EASE }}
+          className="pointer-events-none absolute inset-0 bg-white"
+          style={{ transformOrigin: 'bottom' }}
         />
       </motion.div>
     </AnimatePresence>

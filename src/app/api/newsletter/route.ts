@@ -99,7 +99,7 @@ export async function POST(request: Request) {
           <ul style="color: #334155; margin: 20px 0;">
             <li>nových službách a produktech,</li>
             <li>akčních nabídkách a slevách,</li>
-            <li>tamhle tipy na péči o pleť a tělo,</li>
+            <li>užitečných tipech na péči o pleť a tělo,</li>
             <li>novinkách ze světa krásy.</li>
           </ul>
 

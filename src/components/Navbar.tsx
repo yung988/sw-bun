@@ -79,11 +79,12 @@ export default function Navbar() {
       <div className="max-w-6xl mx-auto flex items-center justify-between">
         {/* Logo */}
         <Link href="/" aria-label="Domů" className="group">
-          <div className="relative h-12 w-12 md:h-14 md:w-14">
+          <div className="relative h-20 w-48 md:h-24 md:w-60 lg:h-28 lg:w-72">
             <Image
-              src="/logo.svg"
+              src="/sw-logo.svg"
               alt="SW Beauty"
               fill
+              sizes="(max-width: 768px) 192px, (max-width: 1024px) 240px, 288px"
               className="object-contain group-hover:opacity-80 transition-opacity"
               priority
             />

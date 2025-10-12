@@ -1,11 +1,13 @@
 import type { Metadata } from 'next'
 import { Inter, Instrument_Serif } from 'next/font/google'
 import './globals.css'
+import 'lenis/dist/lenis.css'
 import Navbar from '@/components/Navbar'
 import Footer from '@/components/Footer'
 import { ModalProvider } from '@/components/ModalProvider'
 import LoadingScreen from '@/components/LoadingScreen'
-import SmoothScroll from '@/components/SmoothScroll'
+import LenisScroll from '@/components/LenisScroll'
+import ScrollProgress from '@/components/ScrollProgress'
 import { Analytics } from '@vercel/analytics/react'
 import { SpeedInsights } from '@vercel/speed-insights/next'
 
@@ -126,7 +128,8 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       </head>
       <body className={inter.className}>
         <LoadingScreen />
-        <SmoothScroll />
+        <LenisScroll />
+        <ScrollProgress />
         <ModalProvider>
           <Navbar />
           {children}

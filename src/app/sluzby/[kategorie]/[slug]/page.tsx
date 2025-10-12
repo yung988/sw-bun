@@ -5,7 +5,7 @@ import { notFound } from 'next/navigation'
 import ServiceBookingButton from '@/components/ServiceBookingButton'
 
 export async function generateStaticParams() {
-  const services = getAllServices()
+  const services = await getAllServices()
   return services.map((service) => ({
     kategorie: service.categoryId,
     slug: service.slug,
@@ -16,7 +16,7 @@ export async function generateMetadata({
   params,
 }: { params: Promise<{ kategorie: string; slug: string }> }): Promise<Metadata> {
   const { slug } = await params
-  const service = getServiceBySlug(slug)
+  const service = await getServiceBySlug(slug)
 
   if (!service) {
     return {
@@ -32,13 +32,13 @@ export async function generateMetadata({
 
 export default async function ServicePage({ params }: { params: Promise<{ kategorie: string; slug: string }> }) {
   const { slug } = await params
-  const service = getServiceBySlug(slug)
+  const service = await getServiceBySlug(slug)
 
   if (!service) {
     notFound()
   }
 
-  const relatedServices = getServicesByCategory(service.categoryId)
+  const relatedServices = (await getServicesByCategory(service.categoryId))
     .filter((s) => s.slug !== service.slug)
     .slice(0, 3)
 
@@ -178,7 +178,7 @@ export default async function ServicePage({ params }: { params: Promise<{ katego
               </ServiceBookingButton>
 
               <Link
-                href="/kontakt"
+                href="/#kontakt"
                 className="block w-full rounded-full border border-slate-200 px-6 py-3 text-center text-sm font-medium text-slate-700 transition hover:bg-slate-50"
               >
                 Mám dotaz

@@ -1,5 +1,6 @@
 import PriceTable from '@/components/PriceTable'
 import SectionTitle from '@/components/SectionTitle'
+import OpenVoucherButton from '@/components/OpenVoucherButton'
 import type { Metadata } from 'next'
 import Link from 'next/link'
 import { getAllServices } from '@/lib/services'
@@ -16,8 +17,8 @@ export const metadata: Metadata = {
   },
 }
 
-export default function PriceListPage() {
-  const services = getAllServices()
+export default async function PriceListPage() {
+  const services = await getAllServices()
 
   return (
     <main className="min-h-screen bg-white pb-24 pt-20">
@@ -90,16 +91,13 @@ export default function PriceListPage() {
             <p className="mb-6 text-sm text-slate-600">
               Darujte svým blízkým relaxaci a krásu. Poukazy na libovolnou hodnotu nebo konkrétní službu.
             </p>
-            <Link
-              href="/poukazy"
-              className="inline-flex items-center gap-2 rounded-full border border-slate-200 bg-white px-6 py-3 text-sm font-medium text-slate-900 transition hover:bg-slate-50"
-            >
+            <OpenVoucherButton className="inline-flex items-center gap-2 rounded-full border border-slate-200 bg-white px-6 py-3 text-sm font-medium text-slate-900 transition hover:bg-slate-50">
               Objednat poukaz
               <svg className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                 <title>Šipka</title>
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
               </svg>
-            </Link>
+            </OpenVoucherButton>
           </div>
         </div>
       </section>

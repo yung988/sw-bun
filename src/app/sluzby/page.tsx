@@ -1,7 +1,8 @@
-import { getCategories, getCategoryName } from '@/lib/services'
+import { getCategories, getCategoryName, getAllServices } from '@/lib/services'
 import type { Metadata } from 'next'
 import Link from 'next/link'
 import SectionTitle from '@/components/SectionTitle'
+import ServiceSearch from '@/components/ServiceSearch'
 
 export const metadata: Metadata = {
   title: 'Služby | SW Beauty Hodonín',
@@ -39,8 +40,14 @@ const categoryDescriptions: Record<string, string> = {
     'Prodlužování vlasů mikro spoji keratinem za tepla nebo studena - přirozený vzhled, pevné spoje, výdrž 3-4 měsíce',
 }
 
-export default function ServicesPage() {
-  const categories = getCategories()
+export default async function ServicesPage() {
+  const categories = await getCategories()
+  const allServices = await getAllServices()
+
+  // Načíst názvy kategorií předem
+  const categoryNames = await Promise.all(
+    categories.map(categoryId => getCategoryName(categoryId))
+  )
 
   return (
     <main className="min-h-screen bg-white pb-24 pt-20">
@@ -55,9 +62,14 @@ export default function ServicesPage() {
           subtitle="Vyberte kategorii a prohlédněte si luxusní ošetření s transparentními cenami."
         />
 
+        {/* Live Search */}
+        <div className="mt-12 mb-16">
+          <ServiceSearch services={allServices} />
+        </div>
+
         <div className="mt-16 grid gap-6 md:grid-cols-2 lg:grid-cols-3">
-          {categories.map((categoryId) => {
-            const categoryName = getCategoryName(categoryId)
+          {categories.map((categoryId, index) => {
+            const categoryName = categoryNames[index]
             const icon = categoryIcons[categoryId] || '✨'
             const description = categoryDescriptions[categoryId] || ''
 

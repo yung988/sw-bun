@@ -17,8 +17,8 @@ export const features = [
         />
       </svg>
     ),
-    title: 'Profesionální tým',
-    description: 'Certifikace a více než 10 let praxe',
+    title: 'Zkušený tým odborníků',
+    description: 'Certifikované kosmetičky s více než 10 lety praxe a pravidelnými školeními v nejnovějších metodách',
   },
   {
     id: 'technology',
@@ -34,8 +34,8 @@ export const features = [
         <path strokeLinecap="round" strokeLinejoin="round" d="M13 10V3L4 14h7v7l9-11h-7z" />
       </svg>
     ),
-    title: 'Ověřené technologie',
-    description: 'HIFU, Endosphere, EMS — jen to, co funguje',
+    title: 'Špičkové technologie',
+    description: 'Investujeme do nejmodernějších přístrojů — HIFU 7D, Endosphere a EMS s klinicky prokázanými výsledky',
   },
   {
     id: 'care',
@@ -55,8 +55,8 @@ export const features = [
         />
       </svg>
     ),
-    title: 'Individuální péče',
-    description: 'Každá klientka je pro nás jedinečná',
+    title: 'Péče šitá na míru',
+    description: 'Každé ošetření začíná konzultací zdarma, kde společně navrhneme plán přesně podle vašich potřeb',
   },
 ]
 

@@ -1,7 +1,7 @@
 import type { MetadataRoute } from 'next'
 import { getAllServices, getCategories } from '@/lib/services'
 
-export default function sitemap(): MetadataRoute.Sitemap {
+export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const baseUrl = 'https://swbeauty.cz'
 
   // Statické stránky
@@ -30,28 +30,11 @@ export default function sitemap(): MetadataRoute.Sitemap {
       changeFrequency: 'monthly',
       priority: 0.9,
     },
-    {
-      url: `${baseUrl}/kontakt`,
-      lastModified: new Date(),
-      changeFrequency: 'monthly',
-      priority: 0.7,
-    },
-    {
-      url: `${baseUrl}/o-salonu`,
-      lastModified: new Date(),
-      changeFrequency: 'monthly',
-      priority: 0.7,
-    },
-    {
-      url: `${baseUrl}/poukazy`,
-      lastModified: new Date(),
-      changeFrequency: 'monthly',
-      priority: 0.8,
-    },
+
   ]
 
   // Dynamické stránky kategorií služeb
-  const categories = getCategories()
+  const categories = await getCategories()
   const categoryPages: MetadataRoute.Sitemap = categories.map((categoryId) => ({
     url: `${baseUrl}/sluzby/${categoryId}`,
     lastModified: new Date(),
@@ -60,7 +43,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
   }))
 
   // Dynamické stránky detailů služeb
-  const services = getAllServices()
+  const services = await getAllServices()
   const servicePages: MetadataRoute.Sitemap = services.map((service) => ({
     url: `${baseUrl}/sluzby/${service.categoryId}/${service.slug}`,
     lastModified: new Date(),
