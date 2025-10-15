@@ -93,7 +93,7 @@ export function priceItemToService(item: PriceItem): Service {
     sessions: item.Sessions,
     duration: extractDuration(item.PackageName),
     description: item.Description,
-    image: item.Image,
+    image: item.Image ? `/images/${item.Image}` : '/images/service-ostatni.jpg',
     isPackage,
     isVariablePrice: isVariable,
   }
