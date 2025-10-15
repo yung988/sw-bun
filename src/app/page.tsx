@@ -41,7 +41,7 @@ export default async function Home() {
   const categories = await getServiceCategories()
 
   return (
-    <main id="main-content" className="min-h-screen bg-white pb-24 pt-20">
+    <main id="main-content" className="min-h-screen bg-white pb-24 pt-32 md:pt-40 lg:pt-44">
       <HeroSection />
       <WhyUsSection />
       <AboutUsSection />

@@ -60,8 +60,8 @@ export default async function ServicesPage() {
   const categoryNames = await Promise.all(categories.map((categoryId) => getCategoryName(categoryId)))
 
   return (
-    <main className="min-h-screen bg-white pb-24 pt-20">
-      <div className="mx-auto max-w-[1250px] px-6 py-20">
+    <main className="min-h-screen bg-white pb-24 pt-32 md:pt-40 lg:pt-44">
+      <div className="mx-auto max-w-[1250px] px-6 py-16 md:py-24 lg:py-28">
         <SectionTitle
           eyebrow="Kompletní nabídka"
           title={

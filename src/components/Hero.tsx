@@ -24,10 +24,7 @@ export default function Hero({ title, titleItalic, subtitle, trustedText, truste
   }, [])
 
   return (
-    <section
-      id="home"
-      className="mx-auto max-w-[1250px] px-6 py-20 md:py-28"
-    >
+    <section id="home" className="mx-auto max-w-[1250px] px-6 py-16 md:py-24 lg:py-28">
       {/* Top Content - 3 Columns */}
       <div className="grid gap-12 lg:grid-cols-3 lg:gap-16 mb-20 lg:mb-24">
         {/* Column 1: Title */}
@@ -39,9 +36,7 @@ export default function Hero({ title, titleItalic, subtitle, trustedText, truste
 
         {/* Column 2: Subtitle */}
         <div className="lg:col-span-1 flex items-center">
-          <p className="text-base md:text-lg text-slate-600 leading-relaxed max-w-md">
-            {subtitle}
-          </p>
+          <p className="text-base md:text-lg text-slate-600 leading-relaxed max-w-md">{subtitle}</p>
         </div>
 
         {/* Column 3: Trusted */}
@@ -53,13 +48,7 @@ export default function Hero({ title, titleItalic, subtitle, trustedText, truste
                   key={avatar}
                   className="relative h-12 w-12 overflow-hidden rounded-full border-[3px] border-white shadow-md transition-transform hover:scale-110 hover:z-10"
                 >
-                  <Image
-                    src={avatar}
-                    alt={`Zákazník ${index + 1}`}
-                    fill
-                    sizes="48px"
-                    className="object-cover"
-                  />
+                  <Image src={avatar} alt={`Zákazník ${index + 1}`} fill sizes="48px" className="object-cover" />
                 </div>
               ))}
             </div>

@@ -8,7 +8,7 @@ export const metadata: Metadata = {
 
 export default function PrivacyPage() {
   return (
-    <main className="min-h-screen bg-white py-20">
+    <main className="min-h-screen bg-white pt-32 pb-20 md:pt-40 md:pb-20 lg:pt-44 lg:pb-20">
       <div className="mx-auto max-w-[900px] px-6">
         <Link href="/" className="inline-flex items-center text-sm text-slate-600 hover:text-slate-900 mb-8 transition">
           <svg className="mr-2 h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
