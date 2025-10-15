@@ -8,6 +8,7 @@ import { ModalProvider } from '@/components/ModalProvider'
 import LoadingScreen from '@/components/LoadingScreen'
 import LenisScroll from '@/components/LenisScroll'
 import ScrollProgress from '@/components/ScrollProgress'
+import MainContent from '@/components/MainContent'
 import { Analytics } from '@vercel/analytics/react'
 import { SpeedInsights } from '@vercel/speed-insights/next'
 
@@ -119,10 +120,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   return (
     <html lang="cs" className={`scroll-smooth ${inter.variable} ${instrumentSerif.variable}`}>
       <head>
-        <script
-          type="application/ld+json"
-          suppressHydrationWarning
-        >
+        <script type="application/ld+json" suppressHydrationWarning>
           {jsonLdScript}
         </script>
       </head>
@@ -132,7 +130,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <ScrollProgress />
         <ModalProvider>
           <Navbar />
-          {children}
+          <MainContent>{children}</MainContent>
           <Footer />
         </ModalProvider>
         <Analytics />

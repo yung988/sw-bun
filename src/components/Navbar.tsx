@@ -4,9 +4,9 @@
 import { useState, useEffect } from 'react'
 import { Instagram, Menu, X } from 'lucide-react'
 import Link from 'next/link'
+import Image from 'next/image'
 import OpenBookingButton from '@/components/OpenBookingButton'
 import OpenVoucherButton from '@/components/OpenVoucherButton'
-import AnimatedLogo from '@/components/AnimatedLogo'
 
 export default function Navbar() {
   const [menuOpen, setMenuOpen] = useState(false)
@@ -79,8 +79,13 @@ export default function Navbar() {
       <div className="max-w-6xl mx-auto flex items-center justify-between">
         {/* Logo */}
         <Link href="/" aria-label="Domů" className="group">
-          <div className="h-24 w-56 md:h-32 md:w-72 lg:h-36 lg:w-80">
-            <AnimatedLogo className="w-full h-full" />
+          <div className="relative h-12 w-24 md:h-16 md:w-32 lg:h-20 lg:w-40">
+            <Image
+              src="/logo.svg"
+              alt="SW Beauty"
+              fill
+              className="object-contain group-hover:opacity-80 transition-opacity"
+            />
           </div>
         </Link>
 
