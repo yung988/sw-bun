@@ -4,7 +4,6 @@
 import { useState, useEffect } from 'react'
 import { Instagram, Menu, X } from 'lucide-react'
 import Link from 'next/link'
-import Image from 'next/image'
 import OpenBookingButton from '@/components/OpenBookingButton'
 import OpenVoucherButton from '@/components/OpenVoucherButton'
 import AnimatedLogo from '@/components/AnimatedLogo'
@@ -80,17 +79,8 @@ export default function Navbar() {
       <div className="max-w-6xl mx-auto flex items-center justify-between">
         {/* Logo */}
         <Link href="/" aria-label="Domů" className="group">
-          <div className="relative h-24 w-56 md:h-32 md:w-72 lg:h-36 lg:w-80">
-            <AnimatedLogo className="absolute inset-0 w-full h-full" />
-            {/* Fallback pro případ, že by animace nefungovala */}
-            <Image
-              src="/sw-logo.svg"
-              alt="SW Beauty"
-              fill
-              sizes="(max-width: 768px) 224px, (max-width: 1024px) 288px, 320px"
-              className="object-contain group-hover:opacity-80 transition-opacity opacity-0"
-              priority
-            />
+          <div className="h-24 w-56 md:h-32 md:w-72 lg:h-36 lg:w-80">
+            <AnimatedLogo className="w-full h-full" />
           </div>
         </Link>
 
