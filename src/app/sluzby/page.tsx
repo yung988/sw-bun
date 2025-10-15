@@ -3,6 +3,7 @@ import type { Metadata } from 'next'
 import Link from 'next/link'
 import SectionTitle from '@/components/SectionTitle'
 import ServiceSearch from '@/components/ServiceSearch'
+import OpenBookingButton from '@/components/OpenBookingButton'
 
 export const metadata: Metadata = {
   title: 'Služby | SW Beauty Hodonín',
@@ -16,24 +17,35 @@ export const metadata: Metadata = {
 
 const categoryIcons: Record<string, string> = {
   kosmetika: '✨',
-  hifu: '💆‍♀️',
   'budovani-svalu': '💪',
-  endosphere: '🌊',
+  'hifu-facelift': '💆‍♀️',
+  'endosphere-roller': '🌊',
   kavitace: '🔊',
+  radiofrekvence: '⚡',
+  lymfodrenaz: '💧',
+  hifu: '💆‍♀️',
+  endosphere: '🌊',
   'ostatni-sluzby': '💅',
   'Prodlužování vlasů': '💇‍♀️',
 }
 
 const categoryDescriptions: Record<string, string> = {
   kosmetika:
-    'Profesionální péče o pleť s Hydrafacial čištěním a Dermapen mikrojehličkováním pro hydrataci, anti-aging a jasnou pleť',
-  hifu: 'Neinvazivní lifting obličeje a těla fokusovaným ultrazvukem - stimuluje kolagen bez operace s výsledky trvajícími měsíce',
+    'Profesionální kosmetické ošetření pro všechny typy pleti - čištění, hydratace, anti-aging procedury a speciální péče',
   'budovani-svalu':
     'Elektrostimulace svalů EMS - 20 minut intenzivního tréninku nahradí hodiny v posilovně, spaluje tuk a buduje svaly',
-  endosphere:
+  'hifu-facelift':
+    'Neinvazivní lifting obličeje a těla fokusovaným ultrazvukem - stimuluje kolagen bez operace s výsledky trvajícími měsíce',
+  'endosphere-roller':
     'Kompresní mikro-vibrace Endos-roller pro lymfatickou drenáž, redukci celulitidy a tonizaci pokožky bez bolesti',
   kavitace:
     'Ultrazvuková lipokavitace pro bezpečnou redukci lokálního tuku, konturování postavy a zlepšení elasticity pleti',
+  radiofrekvence:
+    'Radiofrekvenční ošetření pro omlazení a zpevnění pleti, redukci vrásek a zlepšení kontur obličeje a těla',
+  lymfodrenaz: 'Manuální lymfodrenáž pro detoxikaci těla, zlepšení cirkulace, redukci otoků a celkovou regeneraci',
+  hifu: 'Neinvazivní lifting obličeje a těla fokusovaným ultrazvukem - stimuluje kolagen bez operace s výsledky trvajícími měsíce',
+  endosphere:
+    'Kompresní mikro-vibrace Endos-roller pro lymfatickou drenáž, redukci celulitidy a tonizaci pokožky bez bolesti',
   'ostatni-sluzby':
     'Doplňkové služby jako prodlužování řas, depilace voskem a další speciální procedury pro kompletní péči',
   'Prodlužování vlasů':
@@ -45,9 +57,7 @@ export default async function ServicesPage() {
   const allServices = await getAllServices()
 
   // Načíst názvy kategorií předem
-  const categoryNames = await Promise.all(
-    categories.map(categoryId => getCategoryName(categoryId))
-  )
+  const categoryNames = await Promise.all(categories.map((categoryId) => getCategoryName(categoryId)))
 
   return (
     <main className="min-h-screen bg-white pb-24 pt-20">
@@ -108,12 +118,9 @@ export default async function ServicesPage() {
               Nevíte si rady s <em className="font-serif italic">výběrem?</em>
             </h3>
             <p className="text-slate-600 mb-6">Objednejte si konzultaci zdarma a my vám poradíme.</p>
-            <Link
-              href="/rezervace"
-              className="inline-flex rounded-full bg-slate-900 px-8 py-3 text-sm font-medium text-white transition hover:bg-slate-800"
-            >
+            <OpenBookingButton className="inline-flex rounded-full bg-slate-900 px-8 py-3 text-sm font-medium text-white transition hover:bg-slate-800">
               Konzultace zdarma
-            </Link>
+            </OpenBookingButton>
           </div>
         </div>
       </div>

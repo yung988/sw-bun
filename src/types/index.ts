@@ -48,6 +48,8 @@ export type PriceItem = {
   PackageName: string
   Price: string
   Sessions: string
+  Price_Cleaned: string
+  Image: string
   Description: string
 }
 

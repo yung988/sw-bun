@@ -11,6 +11,7 @@ export type Service = {
   sessions: string
   duration: number
   description: string
+  image: string
   isPackage: boolean
   isVariablePrice: boolean
 }
@@ -22,23 +23,26 @@ function parseCSV(csvText: string): PriceItem[] {
   const items: PriceItem[] = []
 
   for (let i = 1; i < lines.length; i++) {
-    const regex = /^([^,]+),([^,]+),("(?:[^"]|"")*"|[^,]+),([^,]+),([^,]+),("(?:[^"]|"")*"|[^,]*)$/
+    // Nový formát: Category,PackageName,Description,Price,Sessions,Price_Cleaned,Image
+    const regex = /^([^,]+),("(?:[^"]|"")*"|[^,]+),("(?:[^"]|"")*"|[^,]+),([^,]+),([^,]+),([^,]+),([^,]+)$/
     const match = lines[i].match(regex)
 
     if (match) {
       items.push({
         CategoryId: match[1].trim(),
-        CategoryName: match[2].trim(),
-        PackageName: match[3]
+        CategoryName: match[1].trim(), // V novém CSV je kategorie v prvním sloupci
+        PackageName: match[2]
+          .replace(/^\"|\"$/g, '')
+          .replace(/\"\"/g, '"')
+          .trim(),
+        Description: match[3]
           .replace(/^\"|\"$/g, '')
           .replace(/\"\"/g, '"')
           .trim(),
         Price: match[4].trim(),
         Sessions: match[5].trim(),
-        Description: match[6]
-          .replace(/^\"|\"$/g, '')
-          .replace(/\"\"/g, '"')
-          .trim(),
+        Price_Cleaned: match[6].trim(),
+        Image: match[7].trim(),
       })
     }
   }
@@ -60,34 +64,36 @@ function createSlug(text: string): string {
     .replace(/^-+|-+$/g, '')
 }
 
-function parsePrice(priceStr: string): { min?: number; max?: number; isVariable: boolean } {
+function parseCleanPrice(priceStr: string): { min?: number; max?: number; isVariable: boolean } {
   if (priceStr.includes('-')) {
     const parts = priceStr.split('-')
-    const min = Number.parseInt(parts[0].replace(/[^\d]/g, ''))
-    const max = Number.parseInt(parts[1].replace(/[^\d]/g, ''))
+    const min = Number.parseInt(parts[0].trim())
+    const max = Number.parseInt(parts[1].trim())
     return { min, max, isVariable: true }
   }
 
-  const price = Number.parseInt(priceStr.replace(/[^\d]/g, ''))
+  const price = Number.parseInt(priceStr.trim())
   return { min: price, max: price, isVariable: false }
 }
 
 export function priceItemToService(item: PriceItem): Service {
   const nameLower = item.PackageName.toLowerCase()
   const isPackage = nameLower.includes('balíček') || nameLower.includes('baličck') || nameLower.includes('balicek')
-  const { min, max, isVariable } = parsePrice(item.Price)
+  const { min, max, isVariable } = parseCleanPrice(item.Price_Cleaned)
+  const categoryId = createSlug(item.CategoryName)
 
   return {
-    slug: `${createSlug(item.CategoryId)}-${createSlug(item.PackageName)}`,
+    slug: `${categoryId}-${createSlug(item.PackageName)}`,
     name: item.PackageName,
     category: item.CategoryName,
-    categoryId: item.CategoryId.toLowerCase(),
+    categoryId: categoryId,
     price: item.Price,
     priceMin: min,
     priceMax: max,
     sessions: item.Sessions,
     duration: extractDuration(item.PackageName),
     description: item.Description,
+    image: item.Image,
     isPackage,
     isVariablePrice: isVariable,
   }
@@ -101,7 +107,7 @@ async function getPriceListFile(): Promise<string | null> {
   if (typeof window === 'undefined') {
     try {
       const { readFile } = await import('node:fs/promises')
-      return await readFile(`${process.cwd()}/public/pricelist.csv`, 'utf-8')
+      return await readFile(`${process.cwd()}/public/swbeauty-procedury.csv`, 'utf-8')
     } catch (error) {
       console.error('Nepodařilo se načíst soubor ceníku:', error)
     }
@@ -177,26 +183,11 @@ export async function getServiceCategories(): Promise<ServiceCategory[]> {
   const categories: ServiceCategory[] = []
 
   for (const [categoryId, services] of categoryMap.entries()) {
-    const firstService = services[0]
-    const prices = services.filter((s) => s.priceMin !== undefined).map((s) => s.priceMin!)
-
-    const minPrice = prices.length > 0 ? Math.min(...prices) : 0
-    const maxPrice = prices.length > 0 ? Math.max(...prices) : 0
-
-    let priceRange = 'Na dotaz'
-    if (minPrice > 0 && maxPrice > 0) {
-      if (minPrice === maxPrice) {
-        priceRange = `${minPrice.toLocaleString('cs-CZ')} Kč`
-      } else {
-        priceRange = `${minPrice.toLocaleString('cs-CZ')} - ${maxPrice.toLocaleString('cs-CZ')} Kč`
-      }
-    }
-
     categories.push({
       id: categoryId,
       name: getCategoryDisplayName(categoryId),
       description: getCategoryDescription(categoryId),
-      priceRange,
+      priceRange: 'Na dotaz',
       slug: categoryId,
       serviceCount: services.length,
     })
@@ -208,10 +199,14 @@ export async function getServiceCategories(): Promise<ServiceCategory[]> {
 function getCategoryDisplayName(categoryId: string): string {
   const names: Record<string, string> = {
     kosmetika: 'KOSMETIKA',
+    'budovani-svalu': 'BUDOVÁNÍ SVALŮ',
+    'hifu>facelift': 'HIFU FACELIFT',
+    'endosphere-roller': 'ENDOSPHERE ROLLER',
+    kavitace: 'KAVITACE',
+    radiofrekvence: 'RADIOFREKVENCE',
+    lymfodrenaz: 'LYMFODRENÁŽ',
     hifu: 'HIFU',
     endosphere: 'ENDOSPHERE',
-    'budovani-svalu': 'BUDOVÁNÍ SVALŮ',
-    kavitace: 'KAVITACE',
     lpg: 'LPG',
     'prodluzovani-vlasu': 'PRODLUŽOVÁNÍ VLASŮ',
     'ostatni-sluzby': 'OSTATNÍ SLUŽBY',
@@ -221,12 +216,16 @@ function getCategoryDisplayName(categoryId: string): string {
 
 function getCategoryDescription(categoryId: string): string {
   const descriptions: Record<string, string> = {
+    kosmetika: 'Profesionální kosmetické ošetření pro všechny typy pleti.',
+    'budovani-svalu': 'Elektrostimulace svalů pro efektivní trénink a spalování tuků.',
+    'hifu>facelift': 'Neinvazivní lifting obličeje pomocí fokusovaného ultrazvuku pro pevnější pleť.',
+    'endosphere-roller': 'Kompresní mikro-vibrace pro lymfatickou drenáž a redukci celulitidy.',
+    kavitace: 'Ultrazvuková liposukce pro neinvazivní redukci tukových zásob.',
+    radiofrekvence: 'Radiofrekvenční ošetření pro omlazení a zpevnění pleti.',
+    lymfodrenaz: 'Manuální lymfodrenáž pro detoxikaci a zlepšení cirkulace.',
     hifu: 'Neinvazivní lifting obličeje pomocí fokusovaného ultrazvuku pro pevnější pleť.',
     endosphere: 'Kompresní mikro-vibrace pro lymfatickou drenáž a redukci celulitidy.',
-    'budovani-svalu': 'Elektrostimulace svalů pro efektivní trénink a spalování tuků.',
     hydrafacial: 'Hloubkové čištění a hydratace pleti pomocí vakuové technologie.',
-    kavitace: 'Ultrazvuková liposukce pro neinvazivní redukci tukových zásob.',
-    kosmetika: 'Profesionální kosmetické ošetření pro všechny typy pleti.',
     lpg: 'Mechanická endermologie pro formování postavy a boj s celulitidou.',
     'prodluzovani-vlasu': 'Profesionální prodlužování vlasů mikro spoji keratinem.',
     'ostatni-sluzby': 'Další specializované služby pro vaši krásu a pohodu.',
@@ -239,29 +238,26 @@ export async function getMainServices(): Promise<Service[]> {
   const mainServices: Service[] = []
 
   // Získat první službu z každé hlavní kategorie (včetně balíčků, pokud je potřeba)
-  const hifu = all.find((s) => s.categoryId === 'hifu')
-  if (hifu) mainServices.push(hifu)
-
-  const endosphere = all.find((s) => s.categoryId === 'endosphere')
-  if (endosphere) mainServices.push(endosphere)
+  const kosmetika = all.find((s) => s.categoryId === 'kosmetika')
+  if (kosmetika) mainServices.push(kosmetika)
 
   const budovani = all.find((s) => s.categoryId === 'budovani-svalu')
   if (budovani) mainServices.push(budovani)
 
-  const hydrafacial = all.find((s) => s.categoryId === 'hydrafacial')
-  if (hydrafacial) mainServices.push(hydrafacial)
+  const hifu = all.find((s) => s.categoryId === 'hifu>facelift')
+  if (hifu) mainServices.push(hifu)
+
+  const endosphere = all.find((s) => s.categoryId === 'endosphere-roller')
+  if (endosphere) mainServices.push(endosphere)
 
   const kavitace = all.find((s) => s.categoryId === 'kavitace')
   if (kavitace) mainServices.push(kavitace)
 
-  const kosmetika = all.find((s) => s.categoryId === 'kosmetika')
-  if (kosmetika) mainServices.push(kosmetika)
+  const radiofrekvence = all.find((s) => s.categoryId === 'radiofrekvence')
+  if (radiofrekvence) mainServices.push(radiofrekvence)
 
-  const lpg = all.find((s) => s.categoryId === 'lpg')
-  if (lpg) mainServices.push(lpg)
-
-  const ostatni = all.find((s) => s.categoryId === 'ostatni-sluzby')
-  if (ostatni) mainServices.push(ostatni)
+  const lymfodrenaz = all.find((s) => s.categoryId === 'lymfodrenaz')
+  if (lymfodrenaz) mainServices.push(lymfodrenaz)
 
   return mainServices.slice(0, 8)
 }

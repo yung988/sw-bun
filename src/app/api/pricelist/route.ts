@@ -39,11 +39,13 @@ function parseCSV(text: string): PriceItem[] {
   for (let l = 1; l < lines.length; l++) {
     const cols = parseLine(lines[l])
     const item: PriceItem = {
-      CategoryId: cols[idx('CategoryId')] ?? '',
-      CategoryName: cols[idx('CategoryName')] ?? '',
+      CategoryId: cols[idx('Category')] ?? '',
+      CategoryName: cols[idx('Category')] ?? '',
       PackageName: cols[idx('PackageName')] ?? '',
       Price: cols[idx('Price')] ?? '',
       Sessions: cols[idx('Sessions')] ?? '',
+      Price_Cleaned: cols[idx('Price_Cleaned')] ?? '',
+      Image: cols[idx('Image')] ?? '',
       Description: cols[idx('Description')] ?? '',
     }
     if (item.CategoryId || item.CategoryName || item.PackageName) {
@@ -55,7 +57,7 @@ function parseCSV(text: string): PriceItem[] {
 
 export async function GET() {
   try {
-    const file = path.join(process.cwd(), 'public', 'pricelist.csv')
+    const file = path.join(process.cwd(), 'public', 'swbeauty-procedury.csv')
     const csv = await fs.readFile(file, 'utf-8')
     const items = parseCSV(csv)
     return NextResponse.json(items)

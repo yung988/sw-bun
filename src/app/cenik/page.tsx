@@ -1,6 +1,7 @@
 import PriceTable from '@/components/PriceTable'
 import SectionTitle from '@/components/SectionTitle'
 import OpenVoucherButton from '@/components/OpenVoucherButton'
+import OpenBookingButton from '@/components/OpenBookingButton'
 import type { Metadata } from 'next'
 import Link from 'next/link'
 import { getAllServices } from '@/lib/services'
@@ -62,16 +63,13 @@ export default async function PriceListPage() {
             <p className="mb-6 text-sm text-white/80">
               Našli jste službu, která vás zaujala? Rezervujte si termín online nebo nás kontaktujte.
             </p>
-            <Link
-              href="/rezervace"
-              className="inline-flex items-center gap-2 rounded-full bg-white px-6 py-3 text-sm font-medium text-slate-900 transition hover:bg-white/90"
-            >
+            <OpenBookingButton className="inline-flex items-center gap-2 rounded-full bg-white px-6 py-3 text-sm font-medium text-slate-900 transition hover:bg-white/90">
               Rezervovat termín
               <svg className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                 <title>Šipka</title>
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
               </svg>
-            </Link>
+            </OpenBookingButton>
           </div>
 
           {/* Voucher CTA */}

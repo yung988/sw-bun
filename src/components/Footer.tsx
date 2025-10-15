@@ -1,7 +1,12 @@
+'use client'
+
 import Image from 'next/image'
 import Link from 'next/link'
+import { useModals } from './ModalProvider'
 
 export default function Footer() {
+  const { openBooking } = useModals()
+
   return (
     <footer className="border-t border-slate-200/50 bg-white py-20">
       <div className="mx-auto max-w-[1250px] px-6">
@@ -10,7 +15,12 @@ export default function Footer() {
           <div className="space-y-4">
             <Link href="/" className="group inline-block">
               <div className="relative h-16 w-40">
-                <Image src="/sw-logo.svg" alt="SW Beauty" fill className="object-contain group-hover:opacity-80 transition-opacity" />
+                <Image
+                  src="/sw-logo.svg"
+                  alt="SW Beauty"
+                  fill
+                  className="object-contain group-hover:opacity-80 transition-opacity"
+                />
               </div>
             </Link>
             <p className="text-sm leading-relaxed text-slate-600">
@@ -38,9 +48,9 @@ export default function Footer() {
                 </Link>
               </li>
               <li>
-                <Link href="/rezervace" className="hover:text-slate-900 transition-colors duration-200">
+                <button onClick={() => openBooking()} className="hover:text-slate-900 transition-colors duration-200">
                   Rezervace
-                </Link>
+                </button>
               </li>
             </ul>
           </div>
@@ -88,15 +98,19 @@ export default function Footer() {
               </li>
               <li className="text-slate-600 pt-2">
                 <div className="leading-relaxed">
-                  U Cihelny 1326/2<br />
+                  U Cihelny 1326/2
+                  <br />
                   695 01 Hodonín
                 </div>
               </li>
               <li className="text-slate-600 pt-2">
                 <div className="leading-relaxed">
-                  <strong className="text-slate-900">Otevírací doba:</strong><br />
-                  Po - Pá: 9:00 - 20:00<br />
-                  So: 10:00 - 18:00<br />
+                  <strong className="text-slate-900">Otevírací doba:</strong>
+                  <br />
+                  Po - Pá: 9:00 - 20:00
+                  <br />
+                  So: 10:00 - 18:00
+                  <br />
                   Ne: Zavřeno
                 </div>
               </li>
@@ -134,9 +148,7 @@ export default function Footer() {
 
         {/* Copyright */}
         <div className="mt-16 border-t border-slate-200/50 pt-8 flex flex-col md:flex-row md:items-center md:justify-between gap-4 text-sm text-slate-600">
-          <p>
-            © {new Date().getFullYear()} SW Beauty s.r.o. Všechna práva vyhrazena.
-          </p>
+          <p>© {new Date().getFullYear()} SW Beauty s.r.o. Všechna práva vyhrazena.</p>
           <div className="flex flex-wrap gap-6">
             <Link href="/ochrana-osobnich-udaju" className="hover:text-slate-900 transition-colors duration-200">
               Ochrana osobních údajů
