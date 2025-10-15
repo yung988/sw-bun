@@ -1,5 +1,5 @@
 import SectionTitle from '@/components/SectionTitle'
-import { getCategories, getCategoryName, getServicesByCategory } from '@/lib/services'
+import { getCategories, getCategoryName, getServicesByCategory, formatPrice } from '@/lib/services'
 import type { Metadata } from 'next'
 import Link from 'next/link'
 import { notFound } from 'next/navigation'
@@ -71,16 +71,28 @@ export default async function CategoryPage({ params }: Props) {
                 </div>
               )}
 
-              <h3 className="mb-3 text-lg font-medium text-slate-900 group-hover:text-slate-700 transition line-clamp-2 pr-20">
-                {service.name}
-              </h3>
-
-              <p className="mb-4 text-sm text-slate-600 line-clamp-3">{service.description}</p>
+              <div className="mb-3 flex items-start gap-3">
+                {service.image && (
+                  <img
+                    src={service.image}
+                    alt={service.name}
+                    className="w-16 h-16 object-cover rounded-lg flex-shrink-0"
+                  />
+                )}
+                <div className="flex-1">
+                  <h3 className="text-lg font-medium text-slate-900 group-hover:text-slate-700 transition line-clamp-2">
+                    {service.name}
+                  </h3>
+                  <p className="text-sm text-slate-600 line-clamp-2 mt-1">{service.description}</p>
+                </div>
+              </div>
 
               <div className="flex items-end justify-between border-t border-slate-100 pt-4">
                 <div>
-                  <p className="text-2xl font-light text-slate-900">{service.price}</p>
-                  <p className="text-xs text-slate-500">{service.duration} min</p>
+                  <p className="text-2xl font-semibold text-slate-900">{formatPrice(service.price)}</p>
+                  <p className="text-xs text-slate-500">
+                    {service.duration} min • {service.sessions}
+                  </p>
                 </div>
                 <span className="text-sm font-medium text-slate-900 group-hover:gap-1 inline-flex items-center transition-all">
                   Detail

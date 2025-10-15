@@ -79,7 +79,7 @@ export default function Navbar() {
       <div className="max-w-6xl mx-auto flex items-center justify-between">
         {/* Logo */}
         <Link href="/" aria-label="Domů" className="group">
-          <div className="relative h-12 w-24 md:h-16 md:w-32 lg:h-20 lg:w-40">
+          <div className="relative h-16 w-32 md:h-20 md:w-40 lg:h-24 lg:w-48">
             <Image
               src="/logo.svg"
               alt="SW Beauty"

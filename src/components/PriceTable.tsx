@@ -1,8 +1,10 @@
 'use client'
 
 import type { Service } from '@/lib/services'
-import { useMemo, useState } from 'react'
+import { useMemo, useState, useEffect } from 'react'
 import Link from 'next/link'
+import { useSearchParams, useRouter } from 'next/navigation'
+import { formatPrice } from '@/lib/services'
 
 type CategoryFilter = 'all' | string
 
@@ -22,14 +24,64 @@ const categoryLabels: Record<string, string> = {
 }
 
 export default function PriceTable({ services }: Props) {
+  const searchParams = useSearchParams()
+  const router = useRouter()
   const [searchQuery, setSearchQuery] = useState('')
   const [categoryFilter, setCategoryFilter] = useState<CategoryFilter>('all')
 
+  // Initialize filter from URL params
+  useEffect(() => {
+    const categoryParam = searchParams.get('category')
+    if (categoryParam && categories.includes(categoryParam as CategoryFilter)) {
+      setCategoryFilter(categoryParam as CategoryFilter)
+    }
+    const searchParam = searchParams.get('search')
+    if (searchParam) {
+      setSearchQuery(searchParam)
+    }
+  }, [searchParams, categories])
+
+  // Update URL when filters change
+  useEffect(() => {
+    const params = new URLSearchParams()
+    if (categoryFilter !== 'all') {
+      params.set('category', categoryFilter)
+    }
+    if (searchQuery) {
+      params.set('search', searchQuery)
+    }
+    const query = params.toString()
+    router.replace(`/cenik${query ? `?${query}` : ''}`, { scroll: false })
+  }, [categoryFilter, searchQuery, router])
+
   const allServices = useMemo(() => services, [services])
-  const categories = useMemo(() => {
-    const cats = [...new Set(allServices.map((s) => s.categoryId))]
-    return ['all', ...cats]
-  }, [allServices])
+  const categories = ['all', ...new Set(allServices.map((s) => s.categoryId))]
+
+  // Initialize filter from URL params
+  useEffect(() => {
+    const cats = ['all', ...new Set(allServices.map((s) => s.categoryId))]
+    const categoryParam = searchParams.get('category')
+    if (categoryParam && cats.includes(categoryParam as CategoryFilter)) {
+      setCategoryFilter(categoryParam as CategoryFilter)
+    }
+    const searchParam = searchParams.get('search')
+    if (searchParam) {
+      setSearchQuery(searchParam)
+    }
+  }, [searchParams, allServices])
+
+  // Update URL when filters change
+  useEffect(() => {
+    const params = new URLSearchParams()
+    if (categoryFilter !== 'all') {
+      params.set('category', categoryFilter)
+    }
+    if (searchQuery) {
+      params.set('search', searchQuery)
+    }
+    const query = params.toString()
+    router.replace(`/cenik${query ? `?${query}` : ''}`, { scroll: false })
+  }, [categoryFilter, searchQuery, router])
 
   const filteredServices = useMemo(() => {
     return allServices.filter((service) => {
@@ -132,6 +184,9 @@ export default function PriceTable({ services }: Props) {
             <thead className="bg-slate-50 border-b border-slate-200">
               <tr>
                 <th className="px-6 py-4 text-left text-xs font-medium uppercase tracking-wider text-slate-600">
+                  Obrázek
+                </th>
+                <th className="px-6 py-4 text-left text-xs font-medium uppercase tracking-wider text-slate-600">
                   Služba
                 </th>
                 <th className="px-6 py-4 text-left text-xs font-medium uppercase tracking-wider text-slate-600">
@@ -154,7 +209,7 @@ export default function PriceTable({ services }: Props) {
             <tbody className="divide-y divide-slate-100">
               {filteredServices.length === 0 ? (
                 <tr>
-                  <td colSpan={6} className="px-6 py-12 text-center">
+                  <td colSpan={7} className="px-6 py-12 text-center">
                     <div className="flex flex-col items-center gap-3">
                       <svg className="h-12 w-12 text-slate-300" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                         <title>Nenalezeno</title>
@@ -183,6 +238,11 @@ export default function PriceTable({ services }: Props) {
                 filteredServices.map((service) => (
                   <tr key={service.slug} className="group hover:bg-slate-50 transition">
                     <td className="px-6 py-4">
+                      {service.image && (
+                        <img src={service.image} alt={service.name} className="w-12 h-12 object-cover rounded-lg" />
+                      )}
+                    </td>
+                    <td className="px-6 py-4">
                       <div className="flex items-start gap-3">
                         <div className="flex-1">
                           <div className="flex items-center gap-2">
@@ -205,7 +265,7 @@ export default function PriceTable({ services }: Props) {
                     <td className="px-6 py-4 text-sm text-slate-600">{service.duration} min</td>
                     <td className="px-6 py-4 text-sm text-slate-600">{service.sessions}</td>
                     <td className="px-6 py-4 text-right">
-                      <p className="text-lg font-semibold text-slate-900">{service.price}</p>
+                      <p className="text-lg font-semibold text-slate-900">{formatPrice(service.price)}</p>
                     </td>
                     <td className="px-6 py-4 text-right">
                       <Link
@@ -255,7 +315,14 @@ export default function PriceTable({ services }: Props) {
         ) : (
           filteredServices.map((service) => (
             <div key={service.slug} className="rounded-2xl border border-slate-200 bg-white p-5 shadow-sm">
-              <div className="mb-3 flex items-start justify-between gap-3">
+              <div className="mb-3 flex items-start gap-3">
+                {service.image && (
+                  <img
+                    src={service.image}
+                    alt={service.name}
+                    className="w-16 h-16 object-cover rounded-lg flex-shrink-0"
+                  />
+                )}
                 <div className="flex-1">
                   <div className="mb-1 flex items-center gap-2">
                     <span className="inline-flex items-center rounded-full bg-slate-100 px-2.5 py-0.5 text-xs font-medium text-slate-700">
@@ -268,8 +335,8 @@ export default function PriceTable({ services }: Props) {
                     )}
                   </div>
                   <h3 className="font-medium text-slate-900">{service.name}</h3>
+                  <p className="text-lg font-semibold text-slate-900 mt-1">{formatPrice(service.price)}</p>
                 </div>
-                <p className="shrink-0 text-lg font-semibold text-slate-900">{service.price}</p>
               </div>
 
               <p className="mb-4 text-sm text-slate-600 line-clamp-3">{service.description}</p>

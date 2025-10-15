@@ -1,4 +1,4 @@
-import { getAllServices, getServiceBySlug, getServicesByCategory } from '@/lib/services'
+import { getAllServices, getServiceBySlug, getServicesByCategory, formatPrice } from '@/lib/services'
 import type { Metadata } from 'next'
 import Link from 'next/link'
 import { notFound } from 'next/navigation'
@@ -49,7 +49,7 @@ export default async function ServicePage({ params }: { params: Promise<{ katego
         <div className="mx-auto max-w-[1250px] px-6 py-4 flex items-center justify-between">
           <div>
             <p className="text-sm text-slate-600">{service.name}</p>
-            <p className="text-lg font-medium text-slate-900">{service.price}</p>
+            <p className="text-lg font-medium text-slate-900">{formatPrice(service.price)}</p>
           </div>
           <ServiceBookingButton
             service={{
@@ -96,44 +96,63 @@ export default async function ServicePage({ params }: { params: Promise<{ katego
               </div>
               <h1 className="text-4xl md:text-5xl font-light tracking-tight text-slate-900 mb-4">{service.name}</h1>
               <p className="text-lg text-slate-600">{service.description}</p>
-            </div>
-
-            {/* Info Cards */}
-            <div className="grid md:grid-cols-3 gap-4 mb-12">
-              <div className="rounded-xl border border-slate-200 bg-white p-6">
-                <div className="mb-2 text-sm text-slate-600">Cena</div>
-                <div className="text-2xl font-light text-slate-900">{service.price}</div>
-              </div>
-              <div className="rounded-xl border border-slate-200 bg-white p-6">
-                <div className="mb-2 text-sm text-slate-600">Délka</div>
-                <div className="text-2xl font-light text-slate-900">{service.duration} min</div>
-              </div>
-              <div className="rounded-xl border border-slate-200 bg-white p-6">
-                <div className="mb-2 text-sm text-slate-600">Sezení</div>
-                <div className="text-2xl font-light text-slate-900">{service.sessions}</div>
-              </div>
-            </div>
-
-            {/* Related Services */}
-            {relatedServices.length > 0 && (
-              <div>
-                <h2 className="text-2xl font-medium text-slate-900 mb-6">Související služby</h2>
-                <div className="grid md:grid-cols-3 gap-4">
-                  {relatedServices.map((s) => (
-                    <Link
-                      key={s.slug}
-                      href={`/sluzby/${s.categoryId}/${s.slug}`}
-                      className="group rounded-xl border border-slate-200 bg-white p-4 transition hover:shadow-soft hover:-translate-y-1"
-                    >
-                      <h3 className="text-sm font-medium text-slate-900 mb-2 line-clamp-2 group-hover:text-slate-700">
-                        {s.name}
-                      </h3>
-                      <p className="text-lg font-light text-slate-900">{s.price}</p>
-                    </Link>
-                  ))}
+              {service.image && (
+                <div className="mt-6">
+                  <img
+                    src={service.image}
+                    alt={service.name}
+                    className="w-full h-80 object-cover rounded-xl shadow-lg"
+                  />
                 </div>
+              )}
+            </div>
+
+            {/* Product Info Cards */}
+            <div className="grid md:grid-cols-3 gap-6 mb-12">
+              <div className="rounded-xl border border-slate-200 bg-gradient-to-br from-slate-50 to-white p-6 shadow-sm">
+                <div className="mb-2 text-sm font-medium text-slate-600">Cena</div>
+                <div className="text-3xl font-bold text-slate-900">{formatPrice(service.price)}</div>
               </div>
-            )}
+              <div className="rounded-xl border border-slate-200 bg-gradient-to-br from-slate-50 to-white p-6 shadow-sm">
+                <div className="mb-2 text-sm font-medium text-slate-600">Délka ošetření</div>
+                <div className="text-3xl font-bold text-slate-900">{service.duration} min</div>
+              </div>
+              <div className="rounded-xl border border-slate-200 bg-gradient-to-br from-slate-50 to-white p-6 shadow-sm">
+                <div className="mb-2 text-sm font-medium text-slate-600">Počet sezení</div>
+                <div className="text-3xl font-bold text-slate-900">{service.sessions}</div>
+              </div>
+            </div>
+
+            {/* Category Services CTA */}
+            <div className="mt-12 p-6 rounded-2xl border border-slate-200 bg-slate-50">
+              <h2 className="text-xl font-medium text-slate-900 mb-3">Další služby v kategorii {service.category}</h2>
+              <p className="text-slate-600 mb-4">
+                Prohlédněte si všechny služby v této kategorii nebo použijte vyhledávání pro nalezení podobných
+                ošetření.
+              </p>
+              <div className="flex gap-3">
+                <Link
+                  href={`/cenik?category=${service.categoryId}`}
+                  className="inline-flex items-center gap-2 rounded-full bg-slate-900 px-6 py-3 text-sm font-medium text-white transition hover:bg-slate-800"
+                >
+                  Prohlédnout kategorii
+                  <svg className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <title>Prohlédnout kategorii</title>
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                  </svg>
+                </Link>
+                <Link
+                  href="/cenik"
+                  className="inline-flex items-center gap-2 rounded-full border border-slate-200 bg-white px-6 py-3 text-sm font-medium text-slate-900 transition hover:bg-slate-50"
+                >
+                  Všechny služby
+                  <svg className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <title>Všechny služby</title>
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                  </svg>
+                </Link>
+              </div>
+            </div>
           </div>
 
           {/* Right - Booking Card */}

@@ -18,11 +18,11 @@ type ServicesSectionProps = {
 
 export default function ServicesSection({ categories }: ServicesSectionProps) {
   const serviceImages = [
-    '/services/oblicej.jpg',
-    '/services/telo.jpg',
-    '/services/depilace.jpg',
-    '/services/masaze.jpg',
-    '/services/nehty.jpg',
+    '/images/service-cosmetic.jpg',
+    '/images/service-cavitace.jpg',
+    '/images/service-hair.jpg',
+    '/images/service-ems.jpg',
+    '/images/service-endosphere.jpg',
   ]
 
   return (

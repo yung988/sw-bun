@@ -272,3 +272,8 @@ export async function getCategoryName(categoryId: string): Promise<string> {
   const service = services.find((s) => s.categoryId === categoryId)
   return service?.category || categoryId.toUpperCase()
 }
+
+export function formatPrice(price: string): string {
+  const trimmed = price.trim()
+  return trimmed.endsWith('Kč') ? trimmed : `${trimmed} Kč`
+}
