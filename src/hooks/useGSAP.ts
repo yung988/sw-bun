@@ -1,19 +1,17 @@
 import { useEffect, useRef } from 'react'
 import gsap from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
+import { DrawSVGPlugin } from 'gsap/DrawSVGPlugin'
 
-// Register ScrollTrigger plugin
+// Register plugins
 if (typeof window !== 'undefined') {
-  gsap.registerPlugin(ScrollTrigger)
+  gsap.registerPlugin(ScrollTrigger, DrawSVGPlugin)
 }
 
 /**
  * Custom hook for GSAP animations with automatic cleanup
  */
-export function useGSAPAnimation(
-  animationFn: (ctx: gsap.Context) => void,
-  dependencies: any[] = []
-) {
+export function useGSAPAnimation(animationFn: (ctx: gsap.Context) => void, dependencies: any[] = []) {
   const ref = useRef<HTMLElement>(null)
 
   useEffect(() => {
@@ -59,4 +57,3 @@ export function useScrollTrigger(
 
   return ref
 }
-
