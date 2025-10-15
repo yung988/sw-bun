@@ -27,7 +27,9 @@ export default function LoadingScreen() {
 
     if (prefersReducedMotion) {
       setIsVisible(false)
-      try { sessionStorage.setItem(SESSION_KEY, '1') } catch {}
+      try {
+        sessionStorage.setItem(SESSION_KEY, '1')
+      } catch {}
       return
     }
 
@@ -46,7 +48,9 @@ export default function LoadingScreen() {
 
     const timeout = setTimeout(() => {
       setIsVisible(false)
-      try { sessionStorage.setItem(SESSION_KEY, '1') } catch {}
+      try {
+        sessionStorage.setItem(SESSION_KEY, '1')
+      } catch {}
     }, INTRO_DURATION_MS)
 
     return () => clearTimeout(timeout)
@@ -74,12 +78,12 @@ export default function LoadingScreen() {
               transition={{
                 duration: 0.8,
                 ease: EASE,
-                delay: 0.1
+                delay: 0.1,
               }}
               className="relative"
             >
               <motion.img
-                src="/sw-logo.svg"
+                src="/logo.svg"
                 alt="SW Beauty logo"
                 width={180}
                 height={180}
@@ -97,10 +101,7 @@ export default function LoadingScreen() {
             >
               {/* Animated counter */}
               <div className="text-center">
-                <span
-                  ref={counterRef}
-                  className="text-6xl font-light text-slate-900 tabular-nums"
-                >
+                <span ref={counterRef} className="text-6xl font-light text-slate-900 tabular-nums">
                   {progress.toString().padStart(2, '0')}
                 </span>
                 <span className="text-2xl font-light text-slate-400 ml-1">%</span>
