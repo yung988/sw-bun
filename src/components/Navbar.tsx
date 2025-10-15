@@ -81,7 +81,7 @@ export default function Navbar() {
         {/* Logo */}
         <Link href="/" aria-label="Domů" className="group">
           <div className="relative h-24 w-56 md:h-32 md:w-72 lg:h-36 lg:w-80">
-            <AnimatedLogo animationType="centerOut" duration={1.5} className="absolute inset-0 w-full h-full" />
+            <AnimatedLogo className="absolute inset-0 w-full h-full" />
             {/* Fallback pro případ, že by animace nefungovala */}
             <Image
               src="/sw-logo.svg"
