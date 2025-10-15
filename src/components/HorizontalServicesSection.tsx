@@ -30,7 +30,7 @@ const services: Service[] = [
     number: 3,
     title: 'Kosmetické ošetření',
     description: 'Profesionální péče o pleť přizpůsobená vašim potřebám.',
-    image: '/images/service-cosmetic.jpeg',
+    image: '/images/service-cosmetic.jpg',
     href: '/sluzby/oblicej',
   },
   {
@@ -54,17 +54,11 @@ export default function HorizontalServicesSection() {
       {/* Horizontal scroller */}
       <div className="flex gap-8 px-6 overflow-x-auto">
         {services.map((service) => (
-          <Link
-            key={service.number}
-            href={service.href}
-            className="service-card block w-[400px] md:w-[500px] shrink-0"
-          >
+          <Link key={service.number} href={service.href} className="service-card block w-[400px] md:w-[500px] shrink-0">
             <div className="group relative h-[600px] bg-white rounded-3xl overflow-hidden border border-slate-200 transition-all duration-300 hover:shadow-2xl hover:border-slate-300">
               {/* Number badge */}
               <div className="absolute top-8 left-8 z-10">
-                <div className="text-7xl font-light text-white/90 tabular-nums">
-                  {service.number}
-                </div>
+                <div className="text-7xl font-light text-white/90 tabular-nums">{service.number}</div>
               </div>
 
               {/* Image */}
@@ -86,26 +80,14 @@ export default function HorizontalServicesSection() {
                   <h3 className="text-3xl font-semibold text-slate-900 mb-4 group-hover:text-slate-700 transition-colors">
                     {service.title}
                   </h3>
-                  <p className="text-lg text-slate-600 leading-relaxed">
-                    {service.description}
-                  </p>
+                  <p className="text-lg text-slate-600 leading-relaxed">{service.description}</p>
                 </div>
 
                 {/* Arrow indicator */}
                 <div className="flex items-center text-sm font-medium text-slate-900 group-hover:translate-x-2 transition-transform duration-300">
                   <span>Zjistit v\u00edce</span>
-                  <svg
-                    className="ml-2 w-4 h-4"
-                    fill="none"
-                    viewBox="0 0 24 24"
-                    stroke="currentColor"
-                  >
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      strokeWidth={2}
-                      d="M17 8l4 4m0 0l-4 4m4-4H3"
-                    />
+                  <svg className="ml-2 w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
                   </svg>
                 </div>
               </div>
@@ -119,4 +101,3 @@ export default function HorizontalServicesSection() {
     </Section>
   )
 }
-

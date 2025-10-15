@@ -12,14 +12,14 @@ type Props = {
 
 // Mapování kategorií na obrázky
 const categoryImages: Record<string, string> = {
-  kosmetika: '/images/service-cosmetic.jpeg',
+  kosmetika: '/images/service-cosmetic.jpg',
   hifu: '/images/service-hifu.jpg',
-  'budovani-svalu': '/images/service-ems.jpeg',
+  'budovani-svalu': '/images/service-ems.jpg',
   endosphere: '/images/service-endosphere.jpg',
-  kavitace: '/images/service-cavitace.jpeg',
-  lpg: '/images/service-default.jpg',
+  kavitace: '/images/service-cavitace.jpg',
+  lpg: '/images/service-ostatni.jpg',
   'prodluzovani-vlasu': '/images/service-hair.jpg',
-  'ostatni-sluzby': '/images/service-ostatni.jpeg',
+  'ostatni-sluzby': '/images/service-ostatni.jpg',
 }
 
 export default function ServiceSearch({ services }: Props) {
@@ -31,13 +31,13 @@ export default function ServiceSearch({ services }: Props) {
     if (!query.trim()) return []
 
     const searchTerm = query.toLowerCase().trim()
-    
+
     return services
       .filter((service) => {
         const nameMatch = service.name.toLowerCase().includes(searchTerm)
         const categoryMatch = service.category.toLowerCase().includes(searchTerm)
         const descriptionMatch = service.description?.toLowerCase().includes(searchTerm)
-        
+
         return nameMatch || categoryMatch || descriptionMatch
       })
       .slice(0, 8) // Omezit na 8 výsledků
@@ -91,7 +91,8 @@ export default function ServiceSearch({ services }: Props) {
           {filteredServices.length > 0 ? (
             <div className="p-2">
               <div className="px-4 py-2 text-xs text-slate-500 font-medium uppercase tracking-wider">
-                Nalezeno {filteredServices.length} {filteredServices.length === 1 ? 'služba' : filteredServices.length < 5 ? 'služby' : 'služeb'}
+                Nalezeno {filteredServices.length}{' '}
+                {filteredServices.length === 1 ? 'služba' : filteredServices.length < 5 ? 'služby' : 'služeb'}
               </div>
               {filteredServices.map((service) => (
                 <Link
@@ -117,17 +118,11 @@ export default function ServiceSearch({ services }: Props) {
                         <h3 className="text-sm font-medium text-slate-900 group-hover:text-slate-700 transition truncate">
                           {service.name}
                         </h3>
-                        <p className="text-xs text-slate-500 mt-0.5">
-                          {service.category}
-                        </p>
+                        <p className="text-xs text-slate-500 mt-0.5">{service.category}</p>
                       </div>
                       <div className="text-right flex-shrink-0">
-                        <div className="text-sm font-medium text-slate-900">
-                          {service.price}
-                        </div>
-                        <div className="text-xs text-slate-500">
-                          {service.duration} min
-                        </div>
+                        <div className="text-sm font-medium text-slate-900">{service.price}</div>
+                        <div className="text-xs text-slate-500">{service.duration} min</div>
                       </div>
                     </div>
                   </div>
@@ -147,12 +142,8 @@ export default function ServiceSearch({ services }: Props) {
               <div className="text-slate-400 mb-2">
                 <Search className="h-8 w-8 mx-auto" />
               </div>
-              <p className="text-sm text-slate-600 mb-1">
-                Nenalezeny žádné služby
-              </p>
-              <p className="text-xs text-slate-500">
-                Zkuste jiný výraz nebo procházejte kategorie níže
-              </p>
+              <p className="text-sm text-slate-600 mb-1">Nenalezeny žádné služby</p>
+              <p className="text-xs text-slate-500">Zkuste jiný výraz nebo procházejte kategorie níže</p>
             </div>
           )}
         </div>
@@ -160,13 +151,8 @@ export default function ServiceSearch({ services }: Props) {
 
       {/* Overlay for mobile */}
       {isOpen && query && (
-        <div 
-          className="fixed inset-0 bg-black/20 z-40 md:hidden"
-          onClick={handleClear}
-          aria-hidden="true"
-        />
+        <div className="fixed inset-0 bg-black/20 z-40 md:hidden" onClick={handleClear} aria-hidden="true" />
       )}
     </div>
   )
 }
-

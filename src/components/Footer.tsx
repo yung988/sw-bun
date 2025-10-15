@@ -16,7 +16,7 @@ export default function Footer() {
             <Link href="/" className="group inline-block">
               <div className="relative h-16 w-40">
                 <Image
-                  src="/sw-logo.svg"
+                  src="/logo.svg"
                   alt="SW Beauty"
                   fill
                   className="object-contain group-hover:opacity-80 transition-opacity"
