@@ -18,11 +18,7 @@ type PinSectionProps = {
  * Pin section in place while scrolling
  * Content stays fixed while other animations happen
  */
-export default function PinSection({ 
-  children, 
-  duration = 1,
-  className = '' 
-}: PinSectionProps) {
+export default function PinSection({ children, duration = 1, className = '' }: PinSectionProps) {
   const ref = useRef<HTMLDivElement>(null)
 
   useEffect(() => {
@@ -54,4 +50,3 @@ export default function PinSection({
     </div>
   )
 }
-

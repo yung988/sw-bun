@@ -21,13 +21,13 @@ type FadeInProps = {
  * Simple fade-in animation on scroll
  * Clean, minimal, no fancy effects
  */
-export default function FadeIn({ 
-  children, 
+export default function FadeIn({
+  children,
   delay = 0,
   duration = 1,
   y = 30,
   className = '',
-  stagger = 0
+  stagger = 0,
 }: FadeInProps) {
   const ref = useRef<HTMLDivElement>(null)
 
@@ -56,7 +56,7 @@ export default function FadeIn({
           trigger: element,
           start: 'top 85%',
           toggleActions: 'play none none none',
-        }
+        },
       })
     }, ref)
 
@@ -69,4 +69,3 @@ export default function FadeIn({
     </div>
   )
 }
-

@@ -21,13 +21,13 @@ type ScrollRevealProps = {
  * Scroll-triggered reveal animation with multiple direction options
  * Versatile component for any scroll-based entrance
  */
-export default function ScrollReveal({ 
-  children, 
+export default function ScrollReveal({
+  children,
   direction = 'up',
   delay = 0,
   duration = 1,
   className = '',
-  triggerOnce = true
+  triggerOnce = true,
 }: ScrollRevealProps) {
   const ref = useRef<HTMLDivElement>(null)
 
@@ -72,7 +72,7 @@ export default function ScrollReveal({
           start: 'top 85%',
           end: 'top 50%',
           toggleActions: triggerOnce ? 'play none none none' : 'play none none reverse',
-        }
+        },
       })
     }, ref)
 
@@ -85,4 +85,3 @@ export default function ScrollReveal({
     </div>
   )
 }
-

@@ -27,11 +27,7 @@ type ImageGalleryProps = {
  * Image gallery with stagger fade-in animations
  * Images appear one by one as you scroll
  */
-export default function ImageGallery({ 
-  images, 
-  columns = 3,
-  className = '' 
-}: ImageGalleryProps) {
+export default function ImageGallery({ images, columns = 3, className = '' }: ImageGalleryProps) {
   const galleryRef = useRef<HTMLDivElement>(null)
 
   useEffect(() => {
@@ -57,7 +53,7 @@ export default function ImageGallery({
             trigger: item,
             start: 'top 90%',
             toggleActions: 'play none none none',
-          }
+          },
         })
       })
     }, galleryRef)
@@ -72,15 +68,9 @@ export default function ImageGallery({
   }
 
   return (
-    <div
-      ref={galleryRef}
-      className={`grid ${gridCols[columns]} gap-6 ${className}`}
-    >
+    <div ref={galleryRef} className={`grid ${gridCols[columns]} gap-6 ${className}`}>
       {images.map((image, index) => (
-        <div
-          key={index}
-          className="gallery-item relative aspect-square overflow-hidden rounded-2xl bg-slate-100"
-        >
+        <div key={index} className="gallery-item relative aspect-square overflow-hidden rounded-2xl bg-slate-100">
           <ImageReveal direction={index % 2 === 0 ? 'right' : 'left'}>
             <Image
               src={image.src}
@@ -95,4 +85,3 @@ export default function ImageGallery({
     </div>
   )
 }
-

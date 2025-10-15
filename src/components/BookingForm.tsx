@@ -11,13 +11,7 @@ import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { Textarea } from '@/components/ui/textarea'
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from '@/components/ui/select'
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select'
 import { cn } from '@/lib/utils'
 
 const bookingSchema = z.object({
@@ -358,12 +352,7 @@ export default function BookingForm({ preselectedService }: Props) {
             <label htmlFor="name" className="block text-sm font-medium text-slate-700  mb-2">
               Jméno a příjmení <span className="text-red-500">*</span>
             </label>
-            <Input
-              id="name"
-              type="text"
-              {...register('name')}
-              placeholder="Jana Nová"
-            />
+            <Input id="name" type="text" {...register('name')} placeholder="Jana Nová" />
             {errors.name && (
               <p className="mt-1.5 text-xs text-red-600" role="alert">
                 {errors.name.message}

@@ -25,12 +25,7 @@ export default function GlobalError({
         <div className="bg-white rounded-2xl border border-slate-200 p-8 text-center shadow-sm">
           {/* Error Icon */}
           <div className="mx-auto w-16 h-16 mb-6 rounded-full bg-red-100 flex items-center justify-center">
-            <svg
-              className="w-8 h-8 text-red-600"
-              fill="none"
-              viewBox="0 0 24 24"
-              stroke="currentColor"
-            >
+            <svg className="w-8 h-8 text-red-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
               <title>Chyba</title>
               <path
                 strokeLinecap="round"
@@ -42,9 +37,7 @@ export default function GlobalError({
           </div>
 
           {/* Error Title */}
-          <h2 className="text-2xl font-light text-slate-900 mb-3">
-            Něco se pokazilo
-          </h2>
+          <h2 className="text-2xl font-light text-slate-900 mb-3">Něco se pokazilo</h2>
 
           {/* Error Description */}
           <p className="text-slate-600 mb-6">
@@ -91,11 +84,7 @@ export default function GlobalError({
           </p>
 
           {/* Error ID for support */}
-          {error.digest && (
-            <p className="mt-2 text-xs text-slate-400">
-              ID chyby: {error.digest}
-            </p>
-          )}
+          {error.digest && <p className="mt-2 text-xs text-slate-400">ID chyby: {error.digest}</p>}
         </div>
       </div>
     </div>

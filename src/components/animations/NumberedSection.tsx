@@ -18,11 +18,7 @@ type NumberedSectionProps = {
  * Section with animated number (01, 02, 03...)
  * Number fades in and sticks to the side as you scroll
  */
-export default function NumberedSection({ 
-  number, 
-  children, 
-  className = '' 
-}: NumberedSectionProps) {
+export default function NumberedSection({ number, children, className = '' }: NumberedSectionProps) {
   const sectionRef = useRef<HTMLElement>(null)
   const numberRef = useRef<HTMLDivElement>(null)
 
@@ -52,7 +48,7 @@ export default function NumberedSection({
           trigger: section,
           start: 'top 80%',
           toggleActions: 'play none none none',
-        }
+        },
       })
 
       // Number parallax effect
@@ -64,7 +60,7 @@ export default function NumberedSection({
           start: 'top bottom',
           end: 'bottom top',
           scrub: 1,
-        }
+        },
       })
     }, sectionRef)
 
@@ -74,20 +70,14 @@ export default function NumberedSection({
   return (
     <section ref={sectionRef} className={`relative ${className}`}>
       {/* Number badge */}
-      <div
-        ref={numberRef}
-        className="absolute -left-4 md:left-0 top-0 z-10"
-      >
+      <div ref={numberRef} className="absolute -left-4 md:left-0 top-0 z-10">
         <span className="text-[120px] md:text-[180px] font-light text-slate-200 tabular-nums leading-none select-none">
           {number.toString().padStart(2, '0')}
         </span>
       </div>
 
       {/* Content */}
-      <div className="relative z-20">
-        {children}
-      </div>
+      <div className="relative z-20">{children}</div>
     </section>
   )
 }
-

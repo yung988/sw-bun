@@ -91,13 +91,18 @@ export default function AboutUsSection() {
               </h3>
               <div className="space-y-8 text-lg md:text-xl text-slate-600 leading-relaxed">
                 <p>
-                  Více než 10 let se věnuji tomu, co mě baví — pomáhat ženám cítit se skvěle. Ne jen vypadat, ale opravdu se <strong className="text-slate-900">cítit krásně a sebevědomě</strong>.
+                  Více než 10 let se věnuji tomu, co mě baví — pomáhat ženám cítit se skvěle. Ne jen vypadat, ale
+                  opravdu se <strong className="text-slate-900">cítit krásně a sebevědomě</strong>.
                 </p>
                 <p>
-                  Specializuji se na <strong className="text-slate-900">moderní technologie</strong> — HIFU lifting, Endosphere proti celulitidě, EMS pro budování svalů, kavitaci, kosmetiku i prodlužování vlasů. Ale nejde jen o přístroje. Jde o to, že každá z vás je jiná a potřebuje něco jiného.
+                  Specializuji se na <strong className="text-slate-900">moderní technologie</strong> — HIFU lifting,
+                  Endosphere proti celulitidě, EMS pro budování svalů, kavitaci, kosmetiku i prodlužování vlasů. Ale
+                  nejde jen o přístroje. Jde o to, že každá z vás je jiná a potřebuje něco jiného.
                 </p>
                 <p>
-                  Proto vždy začínáme <strong className="text-slate-900">konzultací</strong>. Poslechnu si vás, probereme vaše cíle a společně najdeme cestu, která bude fungovat právě pro vás. Žádné univerzální řešení. Jen péče, která dává smysl.
+                  Proto vždy začínáme <strong className="text-slate-900">konzultací</strong>. Poslechnu si vás,
+                  probereme vaše cíle a společně najdeme cestu, která bude fungovat právě pro vás. Žádné univerzální
+                  řešení. Jen péče, která dává smysl.
                 </p>
               </div>
             </div>
@@ -107,4 +112,3 @@ export default function AboutUsSection() {
     </Section>
   )
 }
-

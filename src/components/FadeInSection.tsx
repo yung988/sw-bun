@@ -16,14 +16,14 @@ export default function ScrollAnimation({ children, className = '' }: ScrollAnim
 
   const { scrollYProgress } = useScroll({
     target: ref,
-    offset: ['start end', 'end start']
+    offset: ['start end', 'end start'],
   })
 
   // Smooth spring physics for natural movement
   const smoothProgress = useSpring(scrollYProgress, {
     stiffness: 100,
     damping: 30,
-    restDelta: 0.001
+    restDelta: 0.001,
   })
 
   // Parallax Y movement
@@ -36,11 +36,7 @@ export default function ScrollAnimation({ children, className = '' }: ScrollAnim
   const scale = useTransform(smoothProgress, [0, 0.5, 1], [0.8, 1, 0.8])
 
   return (
-    <motion.div
-      ref={ref}
-      style={{ y, opacity, scale }}
-      className={className}
-    >
+    <motion.div ref={ref} style={{ y, opacity, scale }} className={className}>
       {children}
     </motion.div>
   )

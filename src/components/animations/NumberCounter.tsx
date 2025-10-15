@@ -20,12 +20,12 @@ type NumberCounterProps = {
  * Animated number counter on scroll
  * Perfect for stats and numbered sections
  */
-export default function NumberCounter({ 
-  number, 
+export default function NumberCounter({
+  number,
   prefix = '',
   suffix = '',
   duration = 2,
-  className = '' 
+  className = '',
 }: NumberCounterProps) {
   const ref = useRef<HTMLSpanElement>(null)
   const [displayNumber, setDisplayNumber] = useState(0)
@@ -55,7 +55,7 @@ export default function NumberCounter({
           trigger: element,
           start: 'top 80%',
           toggleActions: 'play none none none',
-        }
+        },
       })
     }, ref)
 
@@ -64,8 +64,9 @@ export default function NumberCounter({
 
   return (
     <span ref={ref} className={className}>
-      {prefix}{displayNumber.toString().padStart(2, '0')}{suffix}
+      {prefix}
+      {displayNumber.toString().padStart(2, '0')}
+      {suffix}
     </span>
   )
 }
-

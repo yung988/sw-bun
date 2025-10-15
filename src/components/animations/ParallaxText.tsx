@@ -12,22 +12,18 @@ type ParallaxTextProps = {
  * Parallax Text - Text moves at different speed than scroll
  * Creates depth and premium feel
  */
-export default function ParallaxText({ 
-  children, 
-  speed = 0.5,
-  className = '' 
-}: ParallaxTextProps) {
+export default function ParallaxText({ children, speed = 0.5, className = '' }: ParallaxTextProps) {
   const ref = useRef(null)
-  
+
   const { scrollYProgress } = useScroll({
     target: ref,
-    offset: ['start end', 'end start']
+    offset: ['start end', 'end start'],
   })
 
   // Smooth spring for natural movement
   const smoothProgress = useSpring(scrollYProgress, {
     stiffness: 100,
-    damping: 30
+    damping: 30,
   })
 
   // Calculate parallax offset based on speed
@@ -35,10 +31,7 @@ export default function ParallaxText({
 
   return (
     <div ref={ref} className={className}>
-      <motion.div style={{ y }}>
-        {children}
-      </motion.div>
+      <motion.div style={{ y }}>{children}</motion.div>
     </div>
   )
 }
-

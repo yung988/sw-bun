@@ -13,19 +13,19 @@ type ParallaxImageProps = {
   priority?: boolean
 }
 
-export default function ParallaxImage({ 
-  src, 
-  alt, 
-  speed = 0.5, 
+export default function ParallaxImage({
+  src,
+  alt,
+  speed = 0.5,
   className = '',
   fill = true,
   sizes,
-  priority = false
+  priority = false,
 }: ParallaxImageProps) {
   const ref = useRef(null)
   const { scrollYProgress } = useScroll({
     target: ref,
-    offset: ['start end', 'end start']
+    offset: ['start end', 'end start'],
   })
 
   // Transform scroll progress to Y position
@@ -34,20 +34,9 @@ export default function ParallaxImage({
 
   return (
     <div ref={ref} className={`relative overflow-hidden ${className}`}>
-      <motion.div
-        style={{ y }}
-        className="relative w-full h-full"
-      >
-        <Image
-          src={src}
-          alt={alt}
-          fill={fill}
-          sizes={sizes}
-          className="object-cover"
-          priority={priority}
-        />
+      <motion.div style={{ y }} className="relative w-full h-full">
+        <Image src={src} alt={alt} fill={fill} sizes={sizes} className="object-cover" priority={priority} />
       </motion.div>
     </div>
   )
 }
-

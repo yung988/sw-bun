@@ -14,12 +14,7 @@ type TiltCardProps = {
  * 3D tilt effect on hover - card tilts based on mouse position
  * Creates depth and interactivity
  */
-export default function TiltCard({ 
-  children, 
-  tiltAmount = 15, 
-  className = '',
-  glareEffect = true 
-}: TiltCardProps) {
+export default function TiltCard({ children, tiltAmount = 15, className = '', glareEffect = true }: TiltCardProps) {
   const ref = useRef<HTMLDivElement>(null)
 
   const x = useMotionValue(0)
@@ -75,4 +70,3 @@ export default function TiltCard({
     </motion.div>
   )
 }
-

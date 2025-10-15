@@ -17,4 +17,3 @@ export default function ContactInfoCard({ icon, label, value }: Props) {
     </div>
   )
 }
-

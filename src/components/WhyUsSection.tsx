@@ -23,13 +23,7 @@ export default function WhyUsSection() {
         <div className="mt-16">
           <Carousel auto autoSpeed={25}>
             {highlights.map((b, index) => (
-              <HighlightCard
-                key={b.t}
-                icon={b.icon}
-                title={b.t}
-                description={b.d}
-                index={index}
-              />
+              <HighlightCard key={b.t} icon={b.icon} title={b.t} description={b.d} index={index} />
             ))}
           </Carousel>
         </div>
@@ -37,4 +31,3 @@ export default function WhyUsSection() {
     </Section>
   )
 }
-

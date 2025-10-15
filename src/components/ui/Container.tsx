@@ -10,10 +10,5 @@ type ContainerProps = {
  * Default: mx-auto max-w-[1250px] px-6
  */
 export default function Container({ children, className }: ContainerProps) {
-  return (
-    <div className={cn('mx-auto max-w-[1250px] px-6', className)}>
-      {children}
-    </div>
-  )
+  return <div className={cn('mx-auto max-w-[1250px] px-6', className)}>{children}</div>
 }
-

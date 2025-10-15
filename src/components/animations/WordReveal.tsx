@@ -19,12 +19,7 @@ type WordRevealProps = {
  * Word-by-word reveal animation
  * Text appears word by word as you scroll
  */
-export default function WordReveal({ 
-  children, 
-  delay = 0,
-  stagger = 0.05,
-  className = '' 
-}: WordRevealProps) {
+export default function WordReveal({ children, delay = 0, stagger = 0.05, className = '' }: WordRevealProps) {
   const ref = useRef<HTMLDivElement>(null)
 
   useEffect(() => {
@@ -54,7 +49,7 @@ export default function WordReveal({
           trigger: element,
           start: 'top 85%',
           toggleActions: 'play none none none',
-        }
+        },
       })
     }, ref)
 
@@ -74,4 +69,3 @@ export default function WordReveal({
     </div>
   )
 }
-

@@ -54,4 +54,3 @@ export default function MagneticHover({ children, strength = 0.3, className = ''
     </motion.div>
   )
 }
-

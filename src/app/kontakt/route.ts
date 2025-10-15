@@ -8,4 +8,3 @@ export function GET() {
 export function HEAD() {
   return NextResponse.redirect('/#kontakt', 308)
 }
-

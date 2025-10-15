@@ -11,15 +11,15 @@ export default function VoucherCTASection() {
           <div className="relative z-10 grid gap-12 lg:grid-cols-2 items-center">
             <div>
               <div className="mb-6 flex h-16 w-16 items-center justify-center rounded-2xl bg-white border-2 border-slate-200">
-              <svg className="h-8 w-8 text-slate-900" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <title>Dárek</title>
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth={2}
-                  d="M12 8v13m0-13V6a2 2 0 112 2h-2zm0 0V5.5A2.5 2.5 0 109.5 8H12zm-7 4h14M5 12a2 2 0 110-4h14a2 2 0 110 4M5 12v7a2 2 0 002 2h10a2 2 0 002-2v-7"
-                />
-              </svg>
+                <svg className="h-8 w-8 text-slate-900" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <title>Dárek</title>
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2}
+                    d="M12 8v13m0-13V6a2 2 0 112 2h-2zm0 0V5.5A2.5 2.5 0 109.5 8H12zm-7 4h14M5 12a2 2 0 110-4h14a2 2 0 110 4M5 12v7a2 2 0 002 2h10a2 2 0 002-2v-7"
+                  />
+                </svg>
               </div>
 
               <h2 className="font-display text-4xl md:text-5xl font-light text-slate-900 mb-6">
@@ -27,31 +27,32 @@ export default function VoucherCTASection() {
               </h2>
 
               <p className="text-base text-slate-600 leading-relaxed mb-8">
-                Darujte zážitek krásy a relaxace. Vyberte konkrétní službu nebo hodnotu poukazu — ideální dárek pro každou příležitost.
+                Darujte zážitek krásy a relaxace. Vyberte konkrétní službu nebo hodnotu poukazu — ideální dárek pro
+                každou příležitost.
               </p>
 
               <ul className="space-y-4 mb-10">
-              <li className="flex items-center gap-3 text-base text-slate-700">
-                <svg className="h-6 w-6 text-slate-900" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                  <title>Potvrzeno</title>
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
-                </svg>
-                Platnost 12 měsíců
-              </li>
-              <li className="flex items-center gap-3 text-base text-slate-700">
-                <svg className="h-6 w-6 text-slate-900" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                  <title>Potvrzeno</title>
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
-                </svg>
-                Elegantní provedení s osobním věnováním
-              </li>
-              <li className="flex items-center gap-3 text-base text-slate-700">
-                <svg className="h-6 w-6 text-slate-900" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                  <title>Potvrzeno</title>
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
-                </svg>
-                Možnost výběru konkrétní služby nebo hodnoty
-              </li>
+                <li className="flex items-center gap-3 text-base text-slate-700">
+                  <svg className="h-6 w-6 text-slate-900" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <title>Potvrzeno</title>
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                  </svg>
+                  Platnost 12 měsíců
+                </li>
+                <li className="flex items-center gap-3 text-base text-slate-700">
+                  <svg className="h-6 w-6 text-slate-900" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <title>Potvrzeno</title>
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                  </svg>
+                  Elegantní provedení s osobním věnováním
+                </li>
+                <li className="flex items-center gap-3 text-base text-slate-700">
+                  <svg className="h-6 w-6 text-slate-900" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <title>Potvrzeno</title>
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                  </svg>
+                  Možnost výběru konkrétní služby nebo hodnoty
+                </li>
               </ul>
 
               <div>
@@ -82,4 +83,3 @@ export default function VoucherCTASection() {
     </Section>
   )
 }
-

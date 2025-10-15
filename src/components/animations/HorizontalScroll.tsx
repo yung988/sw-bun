@@ -18,11 +18,7 @@ type HorizontalScrollProps = {
  * Horizontal scroll section - scrolls horizontally as you scroll down
  * Perfect for timelines and service showcases
  */
-export default function HorizontalScroll({ 
-  children, 
-  speed = 1,
-  className = '' 
-}: HorizontalScrollProps) {
+export default function HorizontalScroll({ children, speed = 1, className = '' }: HorizontalScrollProps) {
   const containerRef = useRef<HTMLDivElement>(null)
   const scrollerRef = useRef<HTMLDivElement>(null)
 
@@ -50,7 +46,7 @@ export default function HorizontalScroll({
           pin: true,
           anticipatePin: 1,
           invalidateOnRefresh: true,
-        }
+        },
       })
     }, containerRef)
 
@@ -65,4 +61,3 @@ export default function HorizontalScroll({
     </div>
   )
 }
-

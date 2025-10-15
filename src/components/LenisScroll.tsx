@@ -31,7 +31,7 @@ export default function LenisScroll() {
 
     // Make Lenis instance globally accessible for scroll-direction aware animations
     if (typeof window !== 'undefined') {
-      (window as any).lenis = lenis
+      ;(window as any).lenis = lenis
     }
 
     // Synchronize Lenis scrolling with GSAP's ScrollTrigger plugin
@@ -57,4 +57,3 @@ export default function LenisScroll() {
 
   return null
 }
-

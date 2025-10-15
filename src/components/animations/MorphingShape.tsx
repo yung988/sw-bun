@@ -59,12 +59,9 @@ export default function MorphingShape({ children, className = '' }: MorphingShap
           }}
         />
       </div>
-      
+
       {/* Content */}
-      <div className="relative z-10">
-        {children}
-      </div>
+      <div className="relative z-10">{children}</div>
     </div>
   )
 }
-

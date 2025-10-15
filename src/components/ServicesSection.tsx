@@ -50,12 +50,9 @@ export default function ServicesSection({ categories }: ServicesSectionProps) {
           <Carousel auto autoSpeed={30}>
             {categories.map((category, index) => {
               const image = serviceImages[index % serviceImages.length]
-              
+
               return (
-                <div
-                  key={category.id}
-                  className="w-[320px] shrink-0 snap-start"
-                >
+                <div key={category.id} className="w-[320px] shrink-0 snap-start">
                   <ServiceCard
                     title={category.name}
                     description={category.description}
@@ -74,4 +71,3 @@ export default function ServicesSection({ categories }: ServicesSectionProps) {
     </Section>
   )
 }
-

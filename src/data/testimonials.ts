@@ -7,8 +7,7 @@ export const testimonials: Testimonial[] = [
     name: 'Petra • Hodonín',
   },
   {
-    quote:
-      '„Endosphere mi po šesti ošetřeních zpevnila stehna a odlehčila nohám. Cítím se lehčí a sebevědomější.“',
+    quote: '„Endosphere mi po šesti ošetřeních zpevnila stehna a odlehčila nohám. Cítím se lehčí a sebevědomější.“',
     name: 'Lucie • Brno',
   },
   {
@@ -17,8 +16,7 @@ export const testimonials: Testimonial[] = [
     name: 'Martina • Ostrava',
   },
   {
-    quote:
-      '„Hydrafacial mi vyčistil pleť do hloubky. Je hydratovaná a září – cítím se skvěle.“',
+    quote: '„Hydrafacial mi vyčistil pleť do hloubky. Je hydratovaná a září – cítím se skvěle.“',
     name: 'Jana • Plzeň',
   },
   {
@@ -27,8 +25,7 @@ export const testimonials: Testimonial[] = [
     name: 'Veronika • Liberec',
   },
   {
-    quote:
-      '„Prodloužení vlasů působí přirozeně – nikdo nic nepoznal. Konečně mám dlouhé vlasy, o kterých jsem snila.“',
+    quote: '„Prodloužení vlasů působí přirozeně – nikdo nic nepoznal. Konečně mám dlouhé vlasy, o kterých jsem snila.“',
     name: 'Tereza • České Budějovice',
   },
 ]

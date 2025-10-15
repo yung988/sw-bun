@@ -19,12 +19,7 @@ type CharRevealProps = {
  * Character-by-character reveal animation
  * Text appears letter by letter as you scroll
  */
-export default function CharReveal({ 
-  children, 
-  delay = 0,
-  stagger = 0.02,
-  className = '' 
-}: CharRevealProps) {
+export default function CharReveal({ children, delay = 0, stagger = 0.02, className = '' }: CharRevealProps) {
   const ref = useRef<HTMLDivElement>(null)
 
   useEffect(() => {
@@ -54,7 +49,7 @@ export default function CharReveal({
           trigger: element,
           start: 'top 85%',
           toggleActions: 'play none none none',
-        }
+        },
       })
     }, ref)
 
@@ -64,7 +59,11 @@ export default function CharReveal({
   // Split text into characters, preserving spaces
   const chars = children.split('').map((char, index) => {
     if (char === ' ') {
-      return <span key={index} className="char inline-block">&nbsp;</span>
+      return (
+        <span key={index} className="char inline-block">
+          &nbsp;
+        </span>
+      )
     }
     return (
       <span key={index} className="char inline-block">
@@ -79,4 +78,3 @@ export default function CharReveal({
     </div>
   )
 }
-

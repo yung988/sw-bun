@@ -53,9 +53,7 @@ export default function Modal({ isOpen, onCloseAction, children, title }: ModalP
         )}
 
         {/* Body - scrollable */}
-        <div className="flex-1 overflow-y-auto overscroll-contain">
-          {children}
-        </div>
+        <div className="flex-1 overflow-y-auto overscroll-contain">{children}</div>
       </div>
     </div>
   )

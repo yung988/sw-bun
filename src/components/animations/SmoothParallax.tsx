@@ -20,35 +20,27 @@ type SmoothParallaxProps = {
  */
 export default function SmoothParallax({ layers, className = '' }: SmoothParallaxProps) {
   const ref = useRef(null)
-  
+
   const { scrollYProgress } = useScroll({
     target: ref,
-    offset: ['start end', 'end start']
+    offset: ['start end', 'end start'],
   })
 
   // Smooth spring for all layers
   const smoothProgress = useSpring(scrollYProgress, {
     stiffness: 100,
     damping: 30,
-    restDelta: 0.001
+    restDelta: 0.001,
   })
 
   return (
     <div ref={ref} className={`relative ${className}`}>
       {layers.map((layer, index) => {
         // Calculate Y offset based on layer speed
-        const y = useTransform(
-          smoothProgress,
-          [0, 1],
-          [-100 * layer.speed, 100 * layer.speed]
-        )
+        const y = useTransform(smoothProgress, [0, 1], [-100 * layer.speed, 100 * layer.speed])
 
         return (
-          <motion.div
-            key={index}
-            style={{ y }}
-            className={layer.className}
-          >
+          <motion.div key={index} style={{ y }} className={layer.className}>
             {layer.children}
           </motion.div>
         )
@@ -56,4 +48,3 @@ export default function SmoothParallax({ layers, className = '' }: SmoothParalla
     </div>
   )
 }
-

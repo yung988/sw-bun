@@ -20,12 +20,12 @@ type ImageRevealProps = {
  * Image reveal with curtain/wipe effect
  * Image is revealed with a sliding curtain effect
  */
-export default function ImageReveal({ 
-  children, 
+export default function ImageReveal({
+  children,
   direction = 'right',
   duration = 1.2,
   delay = 0,
-  className = '' 
+  className = '',
 }: ImageRevealProps) {
   const containerRef = useRef<HTMLDivElement>(null)
   const curtainRef = useRef<HTMLDivElement>(null)
@@ -69,7 +69,7 @@ export default function ImageReveal({
           trigger: container,
           start: 'top 80%',
           toggleActions: 'play none none none',
-        }
+        },
       })
 
       // Curtain reveal
@@ -81,11 +81,15 @@ export default function ImageReveal({
       })
 
       // Image scale effect
-      tl.from(image, {
-        scale: 1.1,
-        duration,
-        ease: 'power2.out',
-      }, '<')
+      tl.from(
+        image,
+        {
+          scale: 1.1,
+          duration,
+          ease: 'power2.out',
+        },
+        '<'
+      )
     }, containerRef)
 
     return () => ctx.revert()
@@ -94,12 +98,8 @@ export default function ImageReveal({
   return (
     <div ref={containerRef} className={`relative overflow-hidden ${className}`}>
       {/* Curtain overlay */}
-      <div
-        ref={curtainRef}
-        className="absolute inset-0 bg-slate-900 z-10"
-        style={{ clipPath: 'inset(0 100% 0 0)' }}
-      />
-      
+      <div ref={curtainRef} className="absolute inset-0 bg-slate-900 z-10" style={{ clipPath: 'inset(0 100% 0 0)' }} />
+
       {/* Image content */}
       <div ref={imageRef} className="w-full h-full">
         {children}
@@ -107,4 +107,3 @@ export default function ImageReveal({
     </div>
   )
 }
-

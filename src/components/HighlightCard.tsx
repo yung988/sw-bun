@@ -30,14 +30,9 @@ export default function HighlightCard({ icon, title, description, index = 0 }: P
             <IconComponent className="h-8 w-8 text-slate-900" />
           </div>
         )}
-        <h3 className="text-lg font-semibold text-slate-900 mb-3">
-          {title}
-        </h3>
-        <p className="text-base leading-relaxed text-slate-600">
-          {description}
-        </p>
+        <h3 className="text-lg font-semibold text-slate-900 mb-3">{title}</h3>
+        <p className="text-base leading-relaxed text-slate-600">{description}</p>
       </div>
     </div>
   )
 }
-

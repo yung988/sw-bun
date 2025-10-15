@@ -26,10 +26,7 @@ export default function TestimonialsSection() {
         <div className="mt-16">
           <Carousel>
             {testimonials.map((testimonial, index) => (
-              <div 
-                key={testimonial.name} 
-                className="w-[340px] md:w-[380px] shrink-0"
-              >
+              <div key={testimonial.name} className="w-[340px] md:w-[380px] shrink-0">
                 <TestimonialCard {...testimonial} />
               </div>
             ))}
@@ -39,4 +36,3 @@ export default function TestimonialsSection() {
     </Section>
   )
 }
-

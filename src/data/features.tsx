@@ -2,13 +2,7 @@ export const features = [
   {
     id: 'certification',
     icon: (
-      <svg
-        className="h-6 w-6 text-slate-900"
-        fill="none"
-        viewBox="0 0 24 24"
-        stroke="currentColor"
-        strokeWidth={2}
-      >
+      <svg className="h-6 w-6 text-slate-900" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
         <title>Certifikace</title>
         <path
           strokeLinecap="round"
@@ -23,13 +17,7 @@ export const features = [
   {
     id: 'technology',
     icon: (
-      <svg
-        className="h-6 w-6 text-slate-900"
-        fill="none"
-        viewBox="0 0 24 24"
-        stroke="currentColor"
-        strokeWidth={2}
-      >
+      <svg className="h-6 w-6 text-slate-900" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
         <title>Technologie</title>
         <path strokeLinecap="round" strokeLinejoin="round" d="M13 10V3L4 14h7v7l9-11h-7z" />
       </svg>
@@ -40,13 +28,7 @@ export const features = [
   {
     id: 'care',
     icon: (
-      <svg
-        className="h-6 w-6 text-slate-900"
-        fill="none"
-        viewBox="0 0 24 24"
-        stroke="currentColor"
-        strokeWidth={2}
-      >
+      <svg className="h-6 w-6 text-slate-900" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
         <title>Individuální přístup</title>
         <path
           strokeLinecap="round"
@@ -59,4 +41,3 @@ export const features = [
     description: 'Každé ošetření začíná konzultací zdarma, kde společně navrhneme plán přesně podle vašich potřeb',
   },
 ]
-

@@ -13,10 +13,10 @@ type TextRevealProps = {
  */
 export default function TextReveal({ children, className = '' }: TextRevealProps) {
   const ref = useRef(null)
-  
+
   const { scrollYProgress } = useScroll({
     target: ref,
-    offset: ['start 0.9', 'start 0.25']
+    offset: ['start 0.9', 'start 0.25'],
   })
 
   const words = children.split(' ')
@@ -53,13 +53,9 @@ function Word({ children, progress, range }: WordProps) {
   return (
     <span className="relative mr-2 mt-2">
       <span className="absolute opacity-10">{children}</span>
-      <motion.span
-        style={{ opacity, y, scale }}
-        className="relative"
-      >
+      <motion.span style={{ opacity, y, scale }} className="relative">
         {children}
       </motion.span>
     </span>
   )
 }
-

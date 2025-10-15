@@ -13,52 +13,36 @@ type Perspective3DProps = {
  * Creates depth and premium spatial feel
  * Used on luxury brand websites
  */
-export default function Perspective3D({ 
-  children, 
-  className = '',
-  rotateIntensity = 15
-}: Perspective3DProps) {
+export default function Perspective3D({ children, className = '', rotateIntensity = 15 }: Perspective3DProps) {
   const ref = useRef(null)
-  
+
   const { scrollYProgress } = useScroll({
     target: ref,
-    offset: ['start end', 'end start']
+    offset: ['start end', 'end start'],
   })
 
   // 3D rotation transforms
-  const rotateX = useTransform(
-    scrollYProgress,
-    [0, 0.5, 1],
-    [rotateIntensity, 0, -rotateIntensity]
-  )
-  
-  const rotateY = useTransform(
-    scrollYProgress,
-    [0, 0.5, 1],
-    [-rotateIntensity / 2, 0, rotateIntensity / 2]
-  )
+  const rotateX = useTransform(scrollYProgress, [0, 0.5, 1], [rotateIntensity, 0, -rotateIntensity])
+
+  const rotateY = useTransform(scrollYProgress, [0, 0.5, 1], [-rotateIntensity / 2, 0, rotateIntensity / 2])
 
   // Smooth spring for natural movement
   const smoothRotateX = useSpring(rotateX, {
     stiffness: 100,
-    damping: 30
+    damping: 30,
   })
-  
+
   const smoothRotateY = useSpring(rotateY, {
     stiffness: 100,
-    damping: 30
+    damping: 30,
   })
 
   // Z-axis movement for depth
-  const z = useTransform(
-    scrollYProgress,
-    [0, 0.5, 1],
-    [-100, 0, -100]
-  )
+  const z = useTransform(scrollYProgress, [0, 0.5, 1], [-100, 0, -100])
 
   const smoothZ = useSpring(z, {
     stiffness: 100,
-    damping: 30
+    damping: 30,
   })
 
   return (
@@ -68,7 +52,7 @@ export default function Perspective3D({
           rotateX: smoothRotateX,
           rotateY: smoothRotateY,
           z: smoothZ,
-          transformStyle: 'preserve-3d'
+          transformStyle: 'preserve-3d',
         }}
       >
         {children}
@@ -76,4 +60,3 @@ export default function Perspective3D({
     </div>
   )
 }
-

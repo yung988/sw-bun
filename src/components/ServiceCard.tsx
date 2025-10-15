@@ -93,7 +93,9 @@ export default function ServiceCard({ title, description, price, category, href,
           </h3>
         </div>
 
-        <p className={`text-base text-slate-600 mb-6 leading-relaxed ${compact ? 'line-clamp-2' : 'line-clamp-3 min-h-[4.5rem]'}`}>
+        <p
+          className={`text-base text-slate-600 mb-6 leading-relaxed ${compact ? 'line-clamp-2' : 'line-clamp-3 min-h-[4.5rem]'}`}
+        >
           {description}
         </p>
 
