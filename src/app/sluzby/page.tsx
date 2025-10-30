@@ -1,129 +1,127 @@
-import OpenBookingButton from '@/components/OpenBookingButton'
-import SectionTitle from '@/components/SectionTitle'
-import ServiceSearch from '@/components/ServiceSearch'
-import { getAllServices, getCategories, getCategoryName } from '@/lib/services'
+// app/sluzby/page.tsx
 import type { Metadata } from 'next'
 import Link from 'next/link'
+import dynamic from 'next/dynamic'
+import SectionTitle from '@/components/SectionTitle'
+import OpenBookingButton from '@/components/OpenBookingButton'
+import ServicesClient from './_client'
+import { getAllServices, getCategories, getCategoryName } from '@/lib/services'
+import { Sparkles, Dumbbell, ScanFace, Waves, Zap, Droplets, Scissors, Stars } from 'lucide-react'
 
 export const metadata: Metadata = {
   title: 'Služby | SW Beauty Hodonín',
   description:
-    'Kompletní seznam profesionálních kosmetických služeb - HIFU, Endos-roller, budování svalů EMS, kosmetika. Moderní technologie pro viditelné výsledky.',
-  keywords: ['služby', 'kosmetické služby', 'HIFU', 'Endos-roller', 'EMS', 'kosmetika', 'Hodonín'],
-  alternates: {
-    canonical: 'https://swbeauty.cz/sluzby',
-  },
+    'Kompletní přehled profesionálních kosmetických služeb. HIFU, Endosphere, EMS, kosmetika — moderní technologie s viditelnými výsledky.',
+  alternates: { canonical: 'https://swbeauty.cz/sluzby' },
 }
 
-const categoryIcons: Record<string, string> = {
-  kosmetika: '✨',
-  'budovani-svalu': '💪',
-  'hifu-facelift': '💆‍♀️',
-  'endosphere-roller': '🌊',
-  kavitace: '🔊',
-  radiofrekvence: '⚡',
-  lymfodrenaz: '💧',
-  hifu: '💆‍♀️',
-  endosphere: '🌊',
-  'ostatni-sluzby': '💅',
-  'Prodlužování vlasů': '💇‍♀️',
+// Heuristické mapování ikon podle ID (dynamické – bez fixního seznamu)
+function pickIcon(id: string) {
+  const key = id.toLowerCase()
+  if (key.includes('hifu')) return ScanFace
+  if (key.includes('endo')) return Waves
+  if (key.includes('kavit')) return Waves
+  if (key.includes('radiof')) return Zap
+  if (key.includes('lymfo')) return Droplets
+  if (key.includes('sval') || key.includes('budovani')) return Dumbbell
+  if (key.includes('vlasy') || key.includes('prodlu')) return Scissors
+  if (key.includes('kosmet')) return Sparkles
+  return Stars
 }
 
-const categoryDescriptions: Record<string, string> = {
-  kosmetika:
-    'Profesionální kosmetické ošetření pro všechny typy pleti - čištění, hydratace, anti-aging procedury a speciální péče',
-  'budovani-svalu':
-    'Elektrostimulace svalů EMS - 20 minut intenzivního tréninku nahradí hodiny v posilovně, spaluje tuk a buduje svaly',
-  'hifu-facelift':
-    'Neinvazivní lifting obličeje a těla fokusovaným ultrazvukem - stimuluje kolagen bez operace s výsledky trvajícími měsíce',
-  'endosphere-roller':
-    'Kompresní mikro-vibrace Endos-roller pro lymfatickou drenáž, redukci celulitidy a tonizaci pokožky bez bolesti',
-  kavitace:
-    'Ultrazvuková lipokavitace pro bezpečnou redukci lokálního tuku, konturování postavy a zlepšení elasticity pleti',
-  radiofrekvence:
-    'Radiofrekvenční ošetření pro omlazení a zpevnění pleti, redukci vrásek a zlepšení kontur obličeje a těla',
-  lymfodrenaz: 'Manuální lymfodrenáž pro detoxikaci těla, zlepšení cirkulace, redukci otoků a celkovou regeneraci',
-  hifu: 'Neinvazivní lifting obličeje a těla fokusovaným ultrazvukem - stimuluje kolagen bez operace s výsledky trvajícími měsíce',
-  endosphere:
-    'Kompresní mikro-vibrace Endos-roller pro lymfatickou drenáž, redukci celulitidy a tonizaci pokožky bez bolesti',
-  'ostatni-sluzby':
-    'Doplňkové služby jako prodlužování řas, depilace voskem a další speciální procedury pro kompletní péči',
-  'Prodlužování vlasů':
-    'Prodlužování vlasů mikro spoji keratinem za tepla nebo studena - přirozený vzhled, pevné spoje, výdrž 3-4 měsíce',
-}
+const ServiceSearch = dynamic(() => import('@/components/ServiceSearch'), { ssr: false })
 
 export default async function ServicesPage() {
-  const categories = await getCategories()
-  const allServices = await getAllServices()
-
-  // Načíst názvy kategorií předem
-  const categoryNames = await Promise.all(categories.map((categoryId) => getCategoryName(categoryId)))
+  const [categories, allServices] = await Promise.all([getCategories(), getAllServices()])
+  const categoryNames = await Promise.all(categories.map((id) => getCategoryName(id)))
 
   return (
-    <main className="min-h-screen bg-white pb-24 pt-32 md:pt-40 lg:pt-44">
-      <div className="mx-auto max-w-[1250px] px-6 py-16 md:py-24 lg:py-28">
-        <SectionTitle
-          eyebrow="Kompletní nabídka"
-          title={
-            <>
-              Naše služby <em className="italic">a ceny</em>
-            </>
-          }
-          subtitle="Vyberte kategorii a prohlédněte si luxusní ošetření s transparentními cenami."
-        />
-
-        {/* Live Search */}
-        <div className="mt-12 mb-16">
-          <ServiceSearch services={allServices} />
-        </div>
-
-        <div className="mt-16 grid gap-6 md:grid-cols-2 lg:grid-cols-3">
-          {categories.map((categoryId, index) => {
-            const categoryName = categoryNames[index]
-            const icon = categoryIcons[categoryId] || '✨'
-            const description = categoryDescriptions[categoryId] || ''
-
-            return (
+    <ServicesClient>
+      <main className="min-h-screen bg-white pb-24 pt-28 md:pt-36 lg:pt-40">
+        <div className="mx-auto max-w-[1250px] px-6">
+          {/* Header */}
+          <div data-reveal className="flex flex-col gap-6 md:flex-row md:items-end md:justify-between">
+            <SectionTitle
+              eyebrow="Kompletní nabídka"
+              title={
+                <>
+                  Naše služby <em className="italic">a ceny</em>
+                </>
+              }
+              subtitle="Vyhledejte konkrétní ošetření nebo si procházejte kategorie — v klidném, přehledném rytmu."
+            />
+            <div className="flex items-center gap-3">
+              <OpenBookingButton className="rounded-full bg-slate-900 px-6 py-3 text-sm font-medium text-white transition hover:bg-slate-800">
+                Konzultace zdarma
+              </OpenBookingButton>
               <Link
-                key={categoryId}
-                href={`/sluzby/${categoryId}`}
-                className="group relative overflow-hidden rounded-2xl border border-slate-200 bg-white p-8 transition-all hover:shadow-soft hover:-translate-y-1"
+                href="/kontakt"
+                className="rounded-full border border-slate-300 px-6 py-3 text-sm font-medium text-slate-900 hover:bg-slate-50 transition"
               >
-                <div className="mb-4 text-4xl">{icon}</div>
-                <h2 className="mb-2 text-xl font-medium text-slate-900 group-hover:text-slate-700 transition">
-                  {categoryName}
-                </h2>
-                <p className="text-sm text-slate-600 mb-4">{description}</p>
-                <span className="inline-flex items-center text-sm font-medium text-slate-900 group-hover:gap-2 transition-all">
-                  Prohlédnout služby
-                  <svg
-                    className="ml-1 h-4 w-4 transition-transform group-hover:translate-x-1"
-                    fill="none"
-                    viewBox="0 0 24 24"
-                    stroke="currentColor"
-                  >
-                    <title>Prohlédnout služby</title>
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
-                  </svg>
-                </span>
+                Napsat dotaz
               </Link>
-            )
-          })}
-        </div>
+            </div>
+          </div>
 
-        {/* Bottom CTA */}
-        <div className="mt-16 text-center">
-          <div className="rounded-2xl border border-slate-200 bg-slate-50 p-8">
-            <h3 className="text-2xl font-light text-slate-900 mb-3">
-              Nevíte si rady s <em className="font-serif italic">výběrem?</em>
-            </h3>
-            <p className="text-slate-600 mb-6">Objednejte si konzultaci zdarma a my vám poradíme.</p>
-            <OpenBookingButton className="inline-flex rounded-full bg-slate-900 px-8 py-3 text-sm font-medium text-white transition hover:bg-slate-800">
-              Konzultace zdarma
-            </OpenBookingButton>
+          {/* Live Search */}
+          <div data-reveal className="mt-10">
+            <ServiceSearch services={allServices} />
+          </div>
+
+          {/* Grid kategorií */}
+          <section aria-labelledby="categories" className="mt-12">
+            <h2 id="categories" className="sr-only">
+              Kategorie služeb
+            </h2>
+            <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+              {categories.map((id, i) => {
+                const name = categoryNames[i]
+                const Icon = pickIcon(id)
+                return (
+                  <Link
+                    data-reveal
+                    key={id}
+                    href={`/sluzby/${id}`}
+                    prefetch={false}
+                    className="group relative overflow-hidden rounded-[2rem] border border-slate-200 bg-white p-7 transition-all hover:-translate-y-0.5 hover:border-slate-900"
+                  >
+                    <div className="mb-6 flex items-center justify-between">
+                      <Icon
+                        className="h-6 w-6 text-slate-900 transition-transform group-hover:-translate-y-0.5"
+                        aria-hidden
+                      />
+                      <span
+                        aria-hidden
+                        className="inline-flex h-9 w-9 items-center justify-center rounded-full border border-slate-300 transition-all group-hover:border-slate-900 group-hover:translate-x-1"
+                      >
+                        →
+                      </span>
+                    </div>
+
+                    <h3 className="mb-2 text-xl font-light text-slate-900">{name}</h3>
+                    <p className="text-sm leading-relaxed text-slate-600">Prohlédnout dostupná ošetření a ceník.</p>
+
+                    <div className="pointer-events-none absolute inset-x-0 bottom-0 h-16 bg-gradient-to-t from-slate-50/90 to-transparent" />
+                  </Link>
+                )
+              })}
+            </div>
+          </section>
+
+          {/* Spodní CTA */}
+          <div data-reveal className="mt-16">
+            <div className="rounded-[2rem] border border-slate-200 bg-slate-50 p-8 text-center">
+              <h3 className="mb-2 text-2xl font-light text-slate-900">
+                Nejste si jistí <em className="font-serif italic">které ošetření</em> je pro vás?
+              </h3>
+              <p className="mb-6 text-slate-600">Krátká konzultace zdarma vám pomůže zvolit ideální postup.</p>
+              <OpenBookingButton className="inline-flex rounded-full bg-slate-900 px-8 py-3 text-sm font-medium text-white transition hover:bg-slate-800">
+                Konzultace zdarma
+              </OpenBookingButton>
+            </div>
           </div>
         </div>
-      </div>
-    </main>
+      </main>
+    </ServicesClient>
   )
 }
