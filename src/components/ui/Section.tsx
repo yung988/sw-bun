@@ -9,11 +9,11 @@ type SectionProps = {
 
 /**
  * Section component for consistent vertical spacing
- * Default: py-16 md:py-24
+ * Default: py-24 md:py-28
  */
 const Section = forwardRef<HTMLElement, SectionProps>(({ children, className, id }, ref) => {
   return (
-    <section ref={ref} id={id} className={cn('py-16 md:py-24', className)}>
+    <section ref={ref} id={id} className={cn('py-24 md:py-28', className)}>
       {children}
     </section>
   )

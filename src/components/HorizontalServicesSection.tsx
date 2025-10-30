@@ -2,6 +2,7 @@ import Image from 'next/image'
 import Link from 'next/link'
 import Container from '@/components/ui/Container'
 import Section from '@/components/ui/Section'
+import { getCategoryCoverServer } from '@/lib/server/images'
 
 type Service = {
   number: number
@@ -11,38 +12,41 @@ type Service = {
   href: string
 }
 
-const services: Service[] = [
-  {
-    number: 1,
-    title: 'HIFU Facelift',
-    description: 'Neinvazivní lifting obličeje pomocí ultrazvuku. Viditelné výsledky již po prvním ošetření.',
-    image: '/images/service-hifu.jpg',
-    href: '/sluzby/oblicej/hifu-facelift',
-  },
-  {
-    number: 2,
-    title: 'Endosphere',
-    description: 'Revoluční technologie pro formování postavy a redukci celulitidy.',
-    image: '/images/service-endosphere.jpg',
-    href: '/sluzby/telo/endosphere',
-  },
-  {
-    number: 3,
-    title: 'Kosmetické ošetření',
-    description: 'Profesionální péče o pleť přizpůsobená vašim potřebám.',
-    image: '/images/service-cosmetic.jpg',
-    href: '/sluzby/oblicej',
-  },
-  {
-    number: 4,
-    title: 'Prodlužování vlasů',
-    description: 'Přirozený vzhled, pevné spoje, výdrž 3-4 měsíce.',
-    image: '/images/service-hair.jpg',
-    href: '/sluzby/vlasy',
-  },
-]
+async function buildServices(): Promise<Service[]> {
+  return [
+    {
+      number: 1,
+      title: 'HIFU Facelift',
+      description: 'Neinvazivní lifting obličeje pomocí ultrazvuku. Viditelné výsledky již po prvním ošetření.',
+      image: await getCategoryCoverServer('hifu'),
+      href: '/sluzby/hifu',
+    },
+    {
+      number: 2,
+      title: 'Endosphere',
+      description: 'Revoluční technologie pro formování postavy a redukci celulitidy.',
+      image: await getCategoryCoverServer('endosphere'),
+      href: '/sluzby/endosphere',
+    },
+    {
+      number: 3,
+      title: 'Kosmetické ošetření',
+      description: 'Profesionální péče o pleť přizpůsobená vašim potřebám.',
+      image: await getCategoryCoverServer('kosmetika'),
+      href: '/sluzby/kosmetika',
+    },
+    {
+      number: 4,
+      title: 'Budování svalů (EMS)',
+      description: 'Efektivní elektrostimulace pro posílení a formování.',
+      image: await getCategoryCoverServer('budovani-svalu'),
+      href: '/sluzby/budovani-svalu',
+    },
+  ]
+}
 
-export default function HorizontalServicesSection() {
+export default async function HorizontalServicesSection() {
+  const services = await buildServices()
   return (
     <Section className="relative bg-slate-50 overflow-hidden">
       <Container className="mb-16">

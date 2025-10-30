@@ -10,12 +10,4 @@ export { default as ImageReveal } from './ImageReveal'
 export { default as NumberedSection } from './NumberedSection'
 
 // Legacy animations (keep for compatibility)
-export { default as SmoothReveal } from './SmoothReveal'
-export { default as MagneticButton } from './MagneticButton'
-export { default as ParallaxText } from './ParallaxText'
-export { default as ScrollVelocity } from './ScrollVelocity'
-export { default as SmoothParallax } from './SmoothParallax'
-export { default as TextReveal } from './TextReveal'
-export { default as ElasticScale } from './ElasticScale'
-export { default as CursorFollow } from './CursorFollow'
-export { default as Perspective3D } from './Perspective3D'
+// Legacy/Framer-based components removed in GSAP migration.

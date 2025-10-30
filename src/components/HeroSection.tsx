@@ -1,6 +1,9 @@
 import Hero from '@/components/Hero'
+import { getAvatars, getMoviesListServer } from '@/lib/server/images'
 
-export default function HeroSection() {
+export default async function HeroSection() {
+  const avatars = await getAvatars(3)
+  const videos = await getMoviesListServer('movies')
   return (
     <Hero
       title="Krása, která vám"
@@ -8,7 +11,8 @@ export default function HeroSection() {
       subtitle="Profesionální kosmetika s moderními technologiemi v centru Hodonína."
       trustedText="Důvěřuje nám přes"
       trustedCount="500+ klientek"
-      avatars={['/images/service-hifu.jpg', '/images/service-endosphere.jpg', '/images/service-hair.jpg']}
+      avatars={avatars}
+      videos={videos}
     />
   )
 }

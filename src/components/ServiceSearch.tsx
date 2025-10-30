@@ -12,14 +12,14 @@ type Props = {
 
 // Mapování kategorií na obrázky
 const categoryImages: Record<string, string> = {
-  kosmetika: '/images/service-cosmetic.jpg',
-  hifu: '/images/service-hifu.jpg',
-  'budovani-svalu': '/images/service-ems.jpg',
-  endosphere: '/images/service-endosphere.jpg',
-  kavitace: '/images/service-cavitace.jpg',
-  lpg: '/images/service-ostatni.jpg',
-  'prodluzovani-vlasu': '/images/service-hair.jpg',
-  'ostatni-sluzby': '/images/service-ostatni.jpg',
+  kosmetika: '/images/kosmetika/hydratational-1.jpg',
+  hifu: '/images/hifu/hifu-1.jpg',
+  'budovani-svalu': '/images/ems/ems-1.jpeg',
+  endosphere: '/images/stylizované/details-1.jpeg',
+  kavitace: '/images/kavitace/kavitace-1.jpg',
+  lpg: '/images/lpg/lpg-1.jpg',
+  'prodluzovani-vlasu': '/images/salon/recepce.jpg',
+  'ostatni-sluzby': '/images/salon/recepce.jpg',
 }
 
 export default function ServiceSearch({ services }: Props) {

@@ -3,6 +3,8 @@ import type { Metadata } from 'next'
 import Link from 'next/link'
 import { notFound } from 'next/navigation'
 import ServiceBookingButton from '@/components/ServiceBookingButton'
+import ImageGallery from '@/components/ImageGallery'
+import ServiceViewTracker from '@/components/ServiceViewTracker'
 
 export async function generateStaticParams() {
   const services = await getAllServices()
@@ -44,8 +46,10 @@ export default async function ServicePage({ params }: { params: Promise<{ katego
 
   return (
     <main className="min-h-screen bg-white pb-24 pt-20">
+      {/* Analytics: page view */}
+      <ServiceViewTracker slug={service.slug} categoryId={service.categoryId} price={service.price} />
       {/* Sticky CTA Bar */}
-      <div className="fixed bottom-0 left-0 right-0 z-50 bg-white border-t border-slate-200 hidden lg:block">
+      <div className="fixed bottom-0 left-0 right-0 z-50 bg-white/80 backdrop-blur-sm border-t border-slate-200/70 hidden lg:block">
         <div className="mx-auto max-w-[1250px] px-6 py-4 flex items-center justify-between">
           <div>
             <p className="text-sm text-slate-600">{service.name}</p>
@@ -95,7 +99,9 @@ export default async function ServicePage({ params }: { params: Promise<{ katego
                 )}
               </div>
               <h1 className="text-4xl md:text-5xl font-light tracking-tight text-slate-900 mb-4">{service.name}</h1>
-              <p className="text-lg text-slate-600">{service.description}</p>
+              {service.shortDescription && (
+                <p className="text-lg text-slate-600">{service.shortDescription}</p>
+              )}
               {service.image && (
                 <div className="mt-6">
                   <img
@@ -122,6 +128,35 @@ export default async function ServicePage({ params }: { params: Promise<{ katego
                 <div className="text-3xl font-bold text-slate-900">{service.sessions}</div>
               </div>
             </div>
+
+            {/* Benefits */}
+            {service.benefits && service.benefits.length > 0 && (
+              <div className="mb-12">
+                <h3 className="text-xl font-semibold text-slate-900 mb-4">Benefity</h3>
+                <ul className="grid sm:grid-cols-2 gap-3">
+                  {service.benefits.slice(0, 6).map((b, i) => (
+                    <li key={i} className="flex items-start gap-3 text-slate-700">
+                      <svg className="h-5 w-5 text-emerald-600 mt-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <title>Benefit</title>
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                      </svg>
+                      <span>{b}</span>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            )}
+
+            {/* Mini Gallery */}
+            {service.images && service.images.length > 1 && (
+              <div className="mb-12">
+                <h3 className="text-xl font-semibold text-slate-900 mb-4">Galerie</h3>
+                <ImageGallery
+                  images={service.images.slice(0, 6).map((src) => ({ src, alt: service.name }))}
+                  columns={3}
+                />
+              </div>
+            )}
 
             {/* Category Services CTA */}
             <div className="mt-12 p-6 rounded-2xl border border-slate-200 bg-slate-50">

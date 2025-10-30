@@ -3,9 +3,11 @@
 import Image from 'next/image'
 import Link from 'next/link'
 import { useModals } from './ModalProvider'
+import { useBrand } from './BrandProvider'
 
 export default function Footer() {
   const { openBooking } = useModals()
+  const { logoSrc } = useBrand()
 
   return (
     <footer className="border-t border-slate-200/50 bg-white py-20">
@@ -14,18 +16,15 @@ export default function Footer() {
           {/* Brand */}
           <div className="space-y-4">
             <Link href="/" className="group inline-block">
-              <div className="relative h-16 w-40">
+              <div className="relative h-20 w-56">
                 <Image
-                  src="/logo.svg"
+                  src={logoSrc}
                   alt="SW Beauty"
                   fill
                   className="object-contain group-hover:opacity-80 transition-opacity"
                 />
               </div>
             </Link>
-            <p className="text-sm leading-relaxed text-slate-600">
-              Profesionální kosmetický salon v Hodoníně s moderními technologiemi HIFU, Endosphere a EMS.
-            </p>
           </div>
 
           {/* Quick Links */}

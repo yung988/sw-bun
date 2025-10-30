@@ -1,10 +1,10 @@
 'use client'
-
-import { motion } from 'framer-motion'
 import Image from 'next/image'
 import { useRef, useState } from 'react'
 
 type Props = { quote: string; name: string; stars?: number; avatarSrc?: string }
+
+import gsap from 'gsap'
 
 export default function TestimonialCard({ quote, name, stars = 5, avatarSrc }: Props) {
   const cardRef = useRef<HTMLDivElement>(null)
@@ -40,18 +40,29 @@ export default function TestimonialCard({ quote, name, stars = 5, avatarSrc }: P
     setRotateY(0)
   }
 
+  const handleHoverIn = () => {
+    if (!cardRef.current) return
+    gsap.to(cardRef.current, { y: -8, duration: 0.25, ease: 'power2.out' })
+  }
+  const handleHoverOut = () => {
+    if (!cardRef.current) return
+    gsap.to(cardRef.current, { y: 0, duration: 0.3, ease: 'power2.out' })
+  }
+
   return (
-    <motion.div
+    <div
       ref={cardRef}
-      className="group flex h-full flex-col gap-6 rounded-2xl border border-slate-200 bg-white p-8 shadow-sm hover:shadow-xl transition-shadow duration-300"
+      className="group flex h-full flex-col gap-6 rounded-2xl border border-slate-200 bg-white p-8 shadow-sm hover:shadow-xl transition-shadow duration-300 will-change-transform"
       style={{
         transform: `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg)`,
         transformStyle: 'preserve-3d',
       }}
       onMouseMove={handleMouseMove}
-      onMouseLeave={handleMouseLeave}
-      whileHover={{ y: -8 }}
-      transition={{ duration: 0.3, ease: 'easeOut' }}
+      onMouseLeave={(e) => {
+        handleMouseLeave()
+        handleHoverOut()
+      }}
+      onMouseEnter={handleHoverIn}
     >
       <div className="flex items-center gap-1 text-slate-900" aria-label={`Hodnocení: ${stars} z 5 hvězdiček`}>
         {[...Array(stars)].map((_, i) => (
@@ -81,6 +92,6 @@ export default function TestimonialCard({ quote, name, stars = 5, avatarSrc }: P
           <div className="font-semibold text-slate-900">{name}</div>
         </div>
       </div>
-    </motion.div>
+    </div>
   )
 }

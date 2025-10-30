@@ -1,6 +1,6 @@
 'use client'
-import { motion, useScroll, useTransform } from 'framer-motion'
-import { useRef } from 'react'
+import { useLayoutEffect, useRef } from 'react'
+import { gsap, ScrollTrigger } from '@/lib/gsap'
 import Image from 'next/image'
 
 type ParallaxImageProps = {
@@ -22,21 +22,36 @@ export default function ParallaxImage({
   sizes,
   priority = false,
 }: ParallaxImageProps) {
-  const ref = useRef(null)
-  const { scrollYProgress } = useScroll({
-    target: ref,
-    offset: ['start end', 'end start'],
-  })
+  const ref = useRef<HTMLDivElement>(null)
+  const innerRef = useRef<HTMLDivElement>(null)
 
-  // Transform scroll progress to Y position
-  // speed controls how fast the image moves (0.5 = half speed, 1 = same speed, 2 = double speed)
-  const y = useTransform(scrollYProgress, [0, 1], ['-20%', '20%'])
+  useLayoutEffect(() => {
+    if (!ref.current || !innerRef.current) return
+    const ctx = gsap.context(() => {
+      const el = innerRef.current!
+      gsap.fromTo(
+        el,
+        { yPercent: -20 },
+        {
+          yPercent: 20,
+          ease: 'none',
+          scrollTrigger: {
+            trigger: ref.current,
+            start: 'top bottom',
+            end: 'bottom top',
+            scrub: true,
+          },
+        },
+      )
+    }, ref)
+    return () => ctx.revert()
+  }, [speed])
 
   return (
     <div ref={ref} className={`relative overflow-hidden ${className}`}>
-      <motion.div style={{ y }} className="relative w-full h-full">
+      <div ref={innerRef} className="relative w-full h-full will-change-transform">
         <Image src={src} alt={alt} fill={fill} sizes={sizes} className="object-cover" priority={priority} />
-      </motion.div>
+      </div>
     </div>
   )
 }

@@ -4,29 +4,35 @@ import SectionTitle from './SectionTitle'
 import Carousel from './Carousel'
 import HighlightCard from './HighlightCard'
 import { highlights } from '@/data/highlights'
+import FadeIn from '@/components/animations/FadeIn'
+import ScrollReveal from '@/components/animations/ScrollReveal'
 
 export default function WhyUsSection() {
   return (
     <Section id="why">
       <Container>
-        <SectionTitle
-          center={false}
-          eyebrow="Proč přijít právě k nám"
-          title={
-            <>
-              Co nás <em className="italic">odlišuje</em>
-            </>
-          }
-          subtitle="Nejsme jen další kosmetický salon. Kombinujeme osobní přístup s nejmodernějšími technologiemi a péčí, která přináší viditelné výsledky."
-        />
+        <FadeIn y={20} duration={0.7}>
+          <SectionTitle
+            center={false}
+            eyebrow="Proč přijít právě k nám"
+            title={
+              <>
+                Co nás <em className="italic">odlišuje</em>
+              </>
+            }
+            subtitle="Nejsme jen další kosmetický salon. Kombinujeme osobní přístup s nejmodernějšími technologiemi a péčí, která přináší viditelné výsledky."
+          />
+        </FadeIn>
 
-        <div className="mt-16">
-          <Carousel auto autoSpeed={25}>
-            {highlights.map((b, index) => (
-              <HighlightCard key={b.t} icon={b.icon} title={b.t} description={b.d} index={index} />
-            ))}
-          </Carousel>
-        </div>
+        <ScrollReveal direction="up" duration={0.8}>
+          <div className="mt-16">
+            <Carousel auto autoSpeed={25}>
+              {highlights.map((b, index) => (
+                <HighlightCard key={b.t} icon={b.icon} title={b.t} description={b.d} index={index} />
+              ))}
+            </Carousel>
+          </div>
+        </ScrollReveal>
       </Container>
     </Section>
   )

@@ -11,6 +11,9 @@ import ScrollProgress from '@/components/ScrollProgress'
 import MainContent from '@/components/MainContent'
 import { Analytics } from '@vercel/analytics/react'
 import { SpeedInsights } from '@vercel/speed-insights/next'
+import { BrandProvider } from '@/components/BrandProvider'
+import { getBrandLogoServer, getFaviconServer } from '@/lib/server/images'
+import { IntroProvider } from "@/components/IntroProvider";
 
 export const metadata: Metadata = {
   metadataBase: new URL('https://swbeauty.cz'),
@@ -69,7 +72,9 @@ const instrumentSerif = Instrument_Serif({
   display: 'swap',
 })
 
-export default function RootLayout({ children }: { children: React.ReactNode }) {
+export default async function RootLayout({ children }: { children: React.ReactNode }) {
+  const logoSrc = await getBrandLogoServer()
+  const favicon = await getFaviconServer()
   // JSON-LD structured data for SEO
   const jsonLd = {
     '@context': 'https://schema.org',
@@ -123,18 +128,23 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <script type="application/ld+json" suppressHydrationWarning>
           {jsonLdScript}
         </script>
+        <link rel="icon" href={favicon} />
       </head>
       <body className={inter.className}>
-        <LoadingScreen />
-        <LenisScroll />
-        <ScrollProgress />
-        <ModalProvider>
-          <Navbar />
-          <MainContent>{children}</MainContent>
-          <Footer />
-        </ModalProvider>
-        <Analytics />
-        <SpeedInsights />
+        <IntroProvider>
+          <LoadingScreen />
+          <LenisScroll />
+          <ScrollProgress />
+          <ModalProvider>
+            <BrandProvider value={{ logoSrc }}>
+              <Navbar />
+              <MainContent>{children}</MainContent>
+              <Footer />
+            </BrandProvider>
+          </ModalProvider>
+          <Analytics />
+          <SpeedInsights />
+        </IntroProvider>
       </body>
     </html>
   )
