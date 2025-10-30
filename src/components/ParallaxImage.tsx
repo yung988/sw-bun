@@ -1,12 +1,11 @@
 'use client'
-import { useLayoutEffect, useRef } from 'react'
-import { gsap, ScrollTrigger } from '@/lib/gsap'
+import { ScrollTrigger, gsap } from '@/lib/gsap'
 import Image from 'next/image'
+import { useLayoutEffect, useRef } from 'react'
 
 type ParallaxImageProps = {
   src: string
   alt: string
-  speed?: number
   className?: string
   fill?: boolean
   sizes?: string
@@ -16,7 +15,6 @@ type ParallaxImageProps = {
 export default function ParallaxImage({
   src,
   alt,
-  speed = 0.5,
   className = '',
   fill = true,
   sizes,
@@ -28,7 +26,7 @@ export default function ParallaxImage({
   useLayoutEffect(() => {
     if (!ref.current || !innerRef.current) return
     const ctx = gsap.context(() => {
-      const el = innerRef.current!
+      const el = innerRef.current
       gsap.fromTo(
         el,
         { yPercent: -20 },
@@ -41,11 +39,11 @@ export default function ParallaxImage({
             end: 'bottom top',
             scrub: true,
           },
-        },
+        }
       )
     }, ref)
     return () => ctx.revert()
-  }, [speed])
+  }, [])
 
   return (
     <div ref={ref} className={`relative overflow-hidden ${className}`}>

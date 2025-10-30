@@ -1,8 +1,8 @@
 'use client'
 
-import { useEffect, useRef, type ReactNode } from 'react'
 import gsap from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
+import { type ReactNode, useEffect, useRef } from 'react'
 
 if (typeof window !== 'undefined') {
   gsap.registerPlugin(ScrollTrigger)
@@ -62,7 +62,7 @@ export default function WordReveal({ children, delay = 0, stagger = 0.05, classN
   return (
     <div ref={ref} className={className}>
       {words.map((word, index) => (
-        <span key={index} className="word inline-block mr-[0.25em]">
+        <span key={`${word}-${index}`} className="word inline-block mr-[0.25em]">
           {word}
         </span>
       ))}

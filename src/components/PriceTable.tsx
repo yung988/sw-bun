@@ -1,79 +1,75 @@
-"use client";
+'use client'
 
-import type { Service } from "@/lib/services";
-import { useMemo, useState, useEffect } from "react";
-import Link from "next/link";
-import { useSearchParams, useRouter } from "next/navigation";
-import { formatPrice } from "@/lib/services";
+import type { Service } from '@/lib/services'
+import { formatPrice } from '@/lib/services'
+import Link from 'next/link'
+import { useRouter, useSearchParams } from 'next/navigation'
+import { useEffect, useMemo, useState } from 'react'
 
-type CategoryFilter = "all" | string;
+type CategoryFilter = 'all' | string
 
 type Props = {
-  services: Service[];
-};
+  services: Service[]
+}
 
 const categoryLabels: Record<string, string> = {
-  all: "Vše",
-  kosmetika: "Kosmetika",
-  hifu: "HIFU",
-  "budovani-svalu": "Budování svalů",
-  endosphere: "Endosphere",
-  kavitace: "Kavitace",
-  "ostatni-sluzby": "Ostatní služby",
-  "Prodlužování vlasů": "Prodlužování vlasů",
-};
+  all: 'Vše',
+  kosmetika: 'Kosmetika',
+  hifu: 'HIFU',
+  'budovani-svalu': 'Budování svalů',
+  endosphere: 'Endosphere',
+  kavitace: 'Kavitace',
+  'ostatni-sluzby': 'Ostatní služby',
+  'Prodlužování vlasů': 'Prodlužování vlasů',
+}
 
 export default function PriceTable({ services }: Props) {
-  const searchParams = useSearchParams();
-  const router = useRouter();
-  const [searchQuery, setSearchQuery] = useState("");
-  const [categoryFilter, setCategoryFilter] = useState<CategoryFilter>("all");
+  const searchParams = useSearchParams()
+  const router = useRouter()
+  const [searchQuery, setSearchQuery] = useState('')
+  const [categoryFilter, setCategoryFilter] = useState<CategoryFilter>('all')
 
-  const allServices = useMemo(() => services, [services]);
-  const categories = useMemo(
-    () => ["all", ...new Set(allServices.map((s) => s.categoryId))],
-    [allServices],
-  );
+  const allServices = useMemo(() => services, [services])
+  const categories = useMemo(() => ['all', ...new Set(allServices.map((s) => s.categoryId))], [allServices])
 
   // Initialize filter from URL params
   useEffect(() => {
-    const cats = ["all", ...new Set(allServices.map((s) => s.categoryId))];
-    const categoryParam = searchParams.get("category");
+    const cats = ['all', ...new Set(allServices.map((s) => s.categoryId))]
+    const categoryParam = searchParams.get('category')
     if (categoryParam && cats.includes(categoryParam as CategoryFilter)) {
-      setCategoryFilter(categoryParam as CategoryFilter);
+      setCategoryFilter(categoryParam as CategoryFilter)
     }
-    const searchParam = searchParams.get("search");
+    const searchParam = searchParams.get('search')
     if (searchParam) {
-      setSearchQuery(searchParam);
+      setSearchQuery(searchParam)
     }
-  }, [searchParams, allServices]);
+  }, [searchParams, allServices])
 
   // Update URL when filters change
   useEffect(() => {
-    const params = new URLSearchParams();
-    if (categoryFilter !== "all") {
-      params.set("category", categoryFilter);
+    const params = new URLSearchParams()
+    if (categoryFilter !== 'all') {
+      params.set('category', categoryFilter)
     }
     if (searchQuery) {
-      params.set("search", searchQuery);
+      params.set('search', searchQuery)
     }
-    const query = params.toString();
-    router.replace(`/cenik${query ? `?${query}` : ""}`, { scroll: false });
-  }, [categoryFilter, searchQuery, router]);
+    const query = params.toString()
+    router.replace(`/cenik${query ? `?${query}` : ''}`, { scroll: false })
+  }, [categoryFilter, searchQuery, router])
 
   const filteredServices = useMemo(() => {
     return allServices.filter((service) => {
-      const matchesCategory =
-        categoryFilter === "all" || service.categoryId === categoryFilter;
+      const matchesCategory = categoryFilter === 'all' || service.categoryId === categoryFilter
       const matchesSearch =
-        searchQuery === "" ||
+        searchQuery === '' ||
         service.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
         service.description.toLowerCase().includes(searchQuery.toLowerCase()) ||
-        service.category.toLowerCase().includes(searchQuery.toLowerCase());
+        service.category.toLowerCase().includes(searchQuery.toLowerCase())
 
-      return matchesCategory && matchesSearch;
-    });
-  }, [allServices, categoryFilter, searchQuery]);
+      return matchesCategory && matchesSearch
+    })
+  }, [allServices, categoryFilter, searchQuery])
 
   return (
     <div className="space-y-8">
@@ -105,22 +101,12 @@ export default function PriceTable({ services }: Props) {
           {searchQuery && (
             <button
               type="button"
-              onClick={() => setSearchQuery("")}
+              onClick={() => setSearchQuery('')}
               className="absolute right-4 top-1/2 -translate-y-1/2 text-slate-400 hover:text-slate-600"
             >
-              <svg
-                className="h-5 w-5"
-                fill="none"
-                viewBox="0 0 24 24"
-                stroke="currentColor"
-              >
+              <svg className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                 <title>Vymazat</title>
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth={2}
-                  d="M6 18L18 6M6 6l12 12"
-                />
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
               </svg>
             </button>
           )}
@@ -135,8 +121,8 @@ export default function PriceTable({ services }: Props) {
               onClick={() => setCategoryFilter(cat)}
               className={`shrink-0 rounded-full px-4 py-2 text-sm font-medium transition ${
                 categoryFilter === cat
-                  ? "bg-slate-900 text-white"
-                  : "border border-slate-200 bg-white text-slate-600 hover:border-slate-300 hover:bg-slate-50"
+                  ? 'bg-slate-900 text-white'
+                  : 'border border-slate-200 bg-white text-slate-600 hover:border-slate-300 hover:bg-slate-50'
               }`}
             >
               {categoryLabels[cat] || cat}
@@ -148,12 +134,10 @@ export default function PriceTable({ services }: Props) {
       {/* Results Count */}
       <div className="flex items-center justify-between">
         <p className="text-sm text-slate-600">
-          Zobrazeno{" "}
-          <strong className="text-slate-900">{filteredServices.length}</strong>{" "}
-          služeb
+          Zobrazeno <strong className="text-slate-900">{filteredServices.length}</strong> služeb
           {searchQuery && (
             <span>
-              {" "}
+              {' '}
               pro "<strong className="text-slate-900">{searchQuery}</strong>"
             </span>
           )}
@@ -202,12 +186,7 @@ export default function PriceTable({ services }: Props) {
                 <tr>
                   <td colSpan={7} className="px-6 py-12 text-center">
                     <div className="flex flex-col items-center gap-3">
-                      <svg
-                        className="h-12 w-12 text-slate-300"
-                        fill="none"
-                        viewBox="0 0 24 24"
-                        stroke="currentColor"
-                      >
+                      <svg className="h-12 w-12 text-slate-300" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                         <title>Nenalezeno</title>
                         <path
                           strokeLinecap="round"
@@ -220,8 +199,8 @@ export default function PriceTable({ services }: Props) {
                       <button
                         type="button"
                         onClick={() => {
-                          setSearchQuery("");
-                          setCategoryFilter("all");
+                          setSearchQuery('')
+                          setCategoryFilter('all')
                         }}
                         className="text-sm text-slate-900 underline hover:no-underline"
                       >
@@ -232,35 +211,24 @@ export default function PriceTable({ services }: Props) {
                 </tr>
               ) : (
                 filteredServices.map((service) => (
-                  <tr
-                    key={service.slug}
-                    className="group hover:bg-slate-50 transition"
-                  >
+                  <tr key={service.slug} className="group hover:bg-slate-50 transition">
                     <td className="px-6 py-4">
                       {service.image && (
-                        <img
-                          src={service.image}
-                          alt={service.name}
-                          className="w-12 h-12 object-cover rounded-lg"
-                        />
+                        <img src={service.image} alt={service.name} className="w-12 h-12 object-cover rounded-lg" />
                       )}
                     </td>
                     <td className="px-6 py-4">
                       <div className="flex items-start gap-3">
                         <div className="flex-1">
                           <div className="flex items-center gap-2">
-                            <p className="font-medium text-slate-900 group-hover:text-slate-700">
-                              {service.name}
-                            </p>
+                            <p className="font-medium text-slate-900 group-hover:text-slate-700">{service.name}</p>
                             {service.isPackage && (
                               <span className="inline-flex items-center rounded-full bg-slate-900 px-2 py-0.5 text-xs font-medium text-white">
                                 Balíček
                               </span>
                             )}
                           </div>
-                          <p className="mt-1 text-sm text-slate-600 line-clamp-2">
-                            {service.description}
-                          </p>
+                          <p className="mt-1 text-sm text-slate-600 line-clamp-2">{service.description}</p>
                         </div>
                       </div>
                     </td>
@@ -269,16 +237,10 @@ export default function PriceTable({ services }: Props) {
                         {service.category}
                       </span>
                     </td>
-                    <td className="px-6 py-4 text-sm text-slate-600">
-                      {service.duration} min
-                    </td>
-                    <td className="px-6 py-4 text-sm text-slate-600">
-                      {service.sessions}
-                    </td>
+                    <td className="px-6 py-4 text-sm text-slate-600">{service.duration} min</td>
+                    <td className="px-6 py-4 text-sm text-slate-600">{service.sessions}</td>
                     <td className="px-6 py-4 text-right">
-                      <p className="text-lg font-semibold text-slate-900">
-                        {formatPrice(service.price)}
-                      </p>
+                      <p className="text-lg font-semibold text-slate-900">{formatPrice(service.price)}</p>
                     </td>
                     <td className="px-6 py-4 text-right">
                       <Link
@@ -286,19 +248,9 @@ export default function PriceTable({ services }: Props) {
                         className="inline-flex items-center gap-1 text-sm font-medium text-slate-900 hover:text-slate-600 transition"
                       >
                         Detail
-                        <svg
-                          className="h-4 w-4"
-                          fill="none"
-                          viewBox="0 0 24 24"
-                          stroke="currentColor"
-                        >
+                        <svg className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                           <title>Detail</title>
-                          <path
-                            strokeLinecap="round"
-                            strokeLinejoin="round"
-                            strokeWidth={2}
-                            d="M9 5l7 7-7 7"
-                          />
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
                         </svg>
                       </Link>
                     </td>
@@ -314,12 +266,7 @@ export default function PriceTable({ services }: Props) {
       <div className="lg:hidden space-y-4">
         {filteredServices.length === 0 ? (
           <div className="flex flex-col items-center gap-3 py-12 text-center">
-            <svg
-              className="h-12 w-12 text-slate-300"
-              fill="none"
-              viewBox="0 0 24 24"
-              stroke="currentColor"
-            >
+            <svg className="h-12 w-12 text-slate-300" fill="none" viewBox="0 0 24 24" stroke="currentColor">
               <title>Nenalezeno</title>
               <path
                 strokeLinecap="round"
@@ -332,8 +279,8 @@ export default function PriceTable({ services }: Props) {
             <button
               type="button"
               onClick={() => {
-                setSearchQuery("");
-                setCategoryFilter("all");
+                setSearchQuery('')
+                setCategoryFilter('all')
               }}
               className="text-sm text-slate-900 underline hover:no-underline"
             >
@@ -342,10 +289,7 @@ export default function PriceTable({ services }: Props) {
           </div>
         ) : (
           filteredServices.map((service) => (
-            <div
-              key={service.slug}
-              className="rounded-2xl border border-slate-200 bg-white p-5 shadow-sm"
-            >
+            <div key={service.slug} className="rounded-2xl border border-slate-200 bg-white p-5 shadow-sm">
               <div className="mb-3 flex items-start gap-3">
                 {service.image && (
                   <img
@@ -366,15 +310,11 @@ export default function PriceTable({ services }: Props) {
                     )}
                   </div>
                   <h3 className="font-medium text-slate-900">{service.name}</h3>
-                  <p className="text-lg font-semibold text-slate-900 mt-1">
-                    {formatPrice(service.price)}
-                  </p>
+                  <p className="text-lg font-semibold text-slate-900 mt-1">{formatPrice(service.price)}</p>
                 </div>
               </div>
 
-              <p className="mb-4 text-sm text-slate-600 line-clamp-3">
-                {service.description}
-              </p>
+              <p className="mb-4 text-sm text-slate-600 line-clamp-3">{service.description}</p>
 
               <div className="flex items-center justify-between border-t border-slate-100 pt-3">
                 <div className="flex gap-4 text-xs text-slate-500">
@@ -386,19 +326,9 @@ export default function PriceTable({ services }: Props) {
                   className="inline-flex items-center gap-1 text-sm font-medium text-slate-900"
                 >
                   Detail
-                  <svg
-                    className="h-4 w-4"
-                    fill="none"
-                    viewBox="0 0 24 24"
-                    stroke="currentColor"
-                  >
+                  <svg className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                     <title>Detail</title>
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      strokeWidth={2}
-                      d="M9 5l7 7-7 7"
-                    />
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
                   </svg>
                 </Link>
               </div>
@@ -407,5 +337,5 @@ export default function PriceTable({ services }: Props) {
         )}
       </div>
     </div>
-  );
+  )
 }

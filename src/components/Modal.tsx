@@ -30,7 +30,14 @@ export default function Modal({ isOpen, onCloseAction, children, title }: ModalP
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center p-4 sm:p-6 lg:p-8">
       {/* Backdrop - rozmazané pozadí */}
-      <div className="fixed inset-0 bg-black/50 backdrop-blur-sm" onClick={onCloseAction} aria-hidden="true" />
+      <div
+        className="fixed inset-0 bg-black/50 backdrop-blur-sm"
+        onClick={onCloseAction}
+        onKeyDown={(e) => {
+          if (e.key === 'Escape') onCloseAction()
+        }}
+        aria-hidden="true"
+      />
 
       {/* Modal content - scrollable container */}
       <div className="relative w-full max-w-xl md:max-w-2xl lg:max-w-3xl max-h-[90vh] flex flex-col rounded-2xl border border-slate-200 bg-white shadow-2xl">

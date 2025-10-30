@@ -58,7 +58,7 @@ export default function TestimonialCard({ quote, name, stars = 5, avatarSrc }: P
         transformStyle: 'preserve-3d',
       }}
       onMouseMove={handleMouseMove}
-      onMouseLeave={(e) => {
+      onMouseLeave={(_e) => {
         handleMouseLeave()
         handleHoverOut()
       }}

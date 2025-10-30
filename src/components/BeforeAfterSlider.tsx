@@ -1,50 +1,46 @@
-"use client";
+'use client'
 
-import { useState, useRef, useEffect } from "react";
-import Image from "next/image";
+import Image from 'next/image'
+import { useEffect, useRef, useState } from 'react'
 
 type BeforeAfterSliderProps = {
-  beforeImage: string;
-  afterImage: string;
-  alt: string;
-};
+  beforeImage: string
+  afterImage: string
+  alt: string
+}
 
-export default function BeforeAfterSlider({
-  beforeImage,
-  afterImage,
-  alt,
-}: BeforeAfterSliderProps) {
-  const [sliderPosition, setSliderPosition] = useState(50);
-  const [isDragging, setIsDragging] = useState(false);
-  const containerRef = useRef<HTMLDivElement>(null);
+export default function BeforeAfterSlider({ beforeImage, afterImage, alt }: BeforeAfterSliderProps) {
+  const [sliderPosition, setSliderPosition] = useState(50)
+  const [isDragging, setIsDragging] = useState(false)
+  const containerRef = useRef<HTMLDivElement>(null)
 
   const handleMove = (clientX: number) => {
-    if (!containerRef.current) return;
+    if (!containerRef.current) return
 
-    const rect = containerRef.current.getBoundingClientRect();
-    const x = Math.max(0, Math.min(clientX - rect.left, rect.width));
-    const percent = Math.max(0, Math.min((x / rect.width) * 100, 100));
-    setSliderPosition(percent);
-  };
+    const rect = containerRef.current.getBoundingClientRect()
+    const x = Math.max(0, Math.min(clientX - rect.left, rect.width))
+    const percent = Math.max(0, Math.min((x / rect.width) * 100, 100))
+    setSliderPosition(percent)
+  }
 
-  const handleMouseDown = () => setIsDragging(true);
-  const handleMouseUp = () => setIsDragging(false);
+  const handleMouseDown = () => setIsDragging(true)
+  const handleMouseUp = () => setIsDragging(false)
 
   const handleMouseMove = (e: React.MouseEvent) => {
-    if (!isDragging) return;
-    handleMove(e.clientX);
-  };
+    if (!isDragging) return
+    handleMove(e.clientX)
+  }
 
   const handleTouchMove = (e: React.TouchEvent) => {
-    if (!isDragging) return;
-    handleMove(e.touches[0].clientX);
-  };
+    if (!isDragging) return
+    handleMove(e.touches[0].clientX)
+  }
 
   useEffect(() => {
-    const handleGlobalMouseUp = () => setIsDragging(false);
-    window.addEventListener("mouseup", handleGlobalMouseUp);
-    return () => window.removeEventListener("mouseup", handleGlobalMouseUp);
-  }, []);
+    const handleGlobalMouseUp = () => setIsDragging(false)
+    window.addEventListener('mouseup', handleGlobalMouseUp)
+    return () => window.removeEventListener('mouseup', handleGlobalMouseUp)
+  }, [])
 
   return (
     <div
@@ -71,10 +67,7 @@ export default function BeforeAfterSlider({
       </div>
 
       {/* Before Image (Clipped) */}
-      <div
-        className="absolute inset-0 overflow-hidden"
-        style={{ clipPath: `inset(0 ${100 - sliderPosition}% 0 0)` }}
-      >
+      <div className="absolute inset-0 overflow-hidden" style={{ clipPath: `inset(0 ${100 - sliderPosition}% 0 0)` }}>
         <Image
           src={beforeImage}
           alt={`${alt} - Před`}
@@ -89,10 +82,7 @@ export default function BeforeAfterSlider({
       </div>
 
       {/* Slider Handle */}
-      <div
-        className="absolute top-0 bottom-0 w-1 cursor-ew-resize"
-        style={{ left: `${sliderPosition}%` }}
-      >
+      <div className="absolute top-0 bottom-0 w-1 cursor-ew-resize" style={{ left: `${sliderPosition}%` }}>
         {/* Line */}
         <div className="absolute inset-0 bg-white shadow-lg" />
 
@@ -103,18 +93,9 @@ export default function BeforeAfterSlider({
           onTouchStart={handleMouseDown}
         >
           {/* Left Arrow */}
-          <svg
-            className="absolute left-2 h-4 w-4 text-slate-900"
-            fill="none"
-            viewBox="0 0 24 24"
-            stroke="currentColor"
-          >
-            <path
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              strokeWidth={2}
-              d="M15 19l-7-7 7-7"
-            />
+          <svg className="absolute left-2 h-4 w-4 text-slate-900" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <title>Previous image</title>
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
           </svg>
 
           {/* Right Arrow */}
@@ -124,12 +105,8 @@ export default function BeforeAfterSlider({
             viewBox="0 0 24 24"
             stroke="currentColor"
           >
-            <path
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              strokeWidth={2}
-              d="M9 5l7 7-7 7"
-            />
+            <title>Next image</title>
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
           </svg>
         </div>
       </div>
@@ -142,5 +119,5 @@ export default function BeforeAfterSlider({
         Přetáhněte pro porovnání
       </div>
     </div>
-  );
+  )
 }

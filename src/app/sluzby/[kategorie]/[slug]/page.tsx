@@ -1,10 +1,10 @@
-import { getAllServices, getServiceBySlug, getServicesByCategory, formatPrice } from '@/lib/services'
+import ImageGallery from '@/components/ImageGallery'
+import ServiceBookingButton from '@/components/ServiceBookingButton'
+import ServiceViewTracker from '@/components/ServiceViewTracker'
+import { formatPrice, getAllServices, getServiceBySlug, getServicesByCategory } from '@/lib/services'
 import type { Metadata } from 'next'
 import Link from 'next/link'
 import { notFound } from 'next/navigation'
-import ServiceBookingButton from '@/components/ServiceBookingButton'
-import ImageGallery from '@/components/ImageGallery'
-import ServiceViewTracker from '@/components/ServiceViewTracker'
 
 export async function generateStaticParams() {
   const services = await getAllServices()
@@ -40,7 +40,7 @@ export default async function ServicePage({ params }: { params: Promise<{ katego
     notFound()
   }
 
-  const relatedServices = (await getServicesByCategory(service.categoryId))
+  const _relatedServices = (await getServicesByCategory(service.categoryId))
     .filter((s) => s.slug !== service.slug)
     .slice(0, 3)
 
@@ -99,9 +99,7 @@ export default async function ServicePage({ params }: { params: Promise<{ katego
                 )}
               </div>
               <h1 className="text-4xl md:text-5xl font-light tracking-tight text-slate-900 mb-4">{service.name}</h1>
-              {service.shortDescription && (
-                <p className="text-lg text-slate-600">{service.shortDescription}</p>
-              )}
+              {service.shortDescription && <p className="text-lg text-slate-600">{service.shortDescription}</p>}
               {service.image && (
                 <div className="mt-6">
                   <img
@@ -134,9 +132,14 @@ export default async function ServicePage({ params }: { params: Promise<{ katego
               <div className="mb-12">
                 <h3 className="text-xl font-semibold text-slate-900 mb-4">Benefity</h3>
                 <ul className="grid sm:grid-cols-2 gap-3">
-                  {service.benefits.slice(0, 6).map((b, i) => (
-                    <li key={i} className="flex items-start gap-3 text-slate-700">
-                      <svg className="h-5 w-5 text-emerald-600 mt-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  {service.benefits.slice(0, 6).map((b, _i) => (
+                    <li key={b} className="flex items-start gap-3 text-slate-700">
+                      <svg
+                        className="h-5 w-5 text-emerald-600 mt-0.5"
+                        fill="none"
+                        viewBox="0 0 24 24"
+                        stroke="currentColor"
+                      >
                         <title>Benefit</title>
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
                       </svg>

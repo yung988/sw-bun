@@ -1,293 +1,344 @@
-"use client";
+'use client'
 
-import { useEffect, useRef } from "react";
-import { gsap } from "gsap";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
-import Image from "next/image";
-import Link from "next/link";
-// Images are passed from the server to avoid referencing removed files
+import { useEffect, useRef, useState } from 'react'
+import Image from 'next/image'
+import Link from 'next/link'
+import { gsap } from 'gsap'
+import { ScrollTrigger } from 'gsap/ScrollTrigger'
 
-if (typeof window !== "undefined") {
-  gsap.registerPlugin(ScrollTrigger);
+if (typeof window !== 'undefined') {
+  gsap.registerPlugin(ScrollTrigger)
 }
 
-type CategoryInput = {
-  id: string;
-  slug: string;
-  name: string;
-  description: string;
-  priceRange: string;
-  serviceCount: number;
-};
+type Service = {
+  id: string
+  slug: string
+  name: string
+  description: string
+  image: string
+}
 
-const gradientColors = [
-  "from-blue-500/20 to-cyan-500/20",
-  "from-purple-500/20 to-pink-500/20",
-  "from-rose-500/20 to-orange-500/20",
-  "from-amber-500/20 to-yellow-500/20",
-  "from-green-500/20 to-emerald-500/20",
-  "from-red-500/20 to-pink-500/20",
-  "from-pink-500/20 to-rose-500/20",
-  "from-slate-500/20 to-gray-500/20",
-];
+const CSV_PATH = '/services/services.csv' // ← uprav, pokud máš jiné umístění
 
-export default function HorizontalScrollSection({ categories, coversByCategory }: { categories: CategoryInput[], coversByCategory: Record<string, string> }) {
-  const containerRef = useRef<HTMLDivElement>(null);
-  const cardsRef = useRef<HTMLDivElement>(null);
-  const cursorRef = useRef<HTMLDivElement>(null);
-
-  useEffect(() => {
-    const container = containerRef.current;
-    const cards = cardsRef.current;
-    const cursor = cursorRef.current;
-
-    if (!container || !cards) return;
-
-    const ctx = gsap.context(() => {
-      // Calculate total width
-      const totalWidth = cards.scrollWidth;
-      const containerWidth = container.offsetWidth;
-      const scrollDistance = totalWidth - containerWidth;
-
-      // Horizontal scroll animation
-      const tl = gsap.timeline({
-        scrollTrigger: {
-          trigger: container,
-          pin: true,
-          scrub: 1,
-          start: "center center",
-          end: () => `+=${scrollDistance * 1.5}`,
-          anticipatePin: 1,
-        },
-      });
-
-      // Horizontal movement
-      tl.to(cards, {
-        xPercent: -((scrollDistance / totalWidth) * 100),
-        ease: "none",
-      });
-
-      // Staggered reveal animations for cards
-      const cardElements = cards.querySelectorAll(".service-card");
-      cardElements.forEach((card, index) => {
-        gsap.fromTo(
-          card,
-          {
-            clipPath: "polygon(0% 0%, 0% 0%, 0% 100%, 0% 100%)",
-          },
-          {
-            clipPath: "polygon(0% 0%, 100% 0%, 100% 100%, 0% 100%)",
-            duration: 1,
-            ease: "power2.out",
-            scrollTrigger: {
-              trigger: card,
-              containerAnimation: tl,
-              start: "left 80%",
-              end: "left 50%",
-              scrub: 1,
-            },
-          },
-        );
-
-        // Zoom effect on active card
-        gsap.to(card, {
-          scale: 1.02,
-          scrollTrigger: {
-            trigger: card,
-            containerAnimation: tl,
-            start: "left 60%",
-            end: "right 40%",
-            scrub: 1,
-          },
-        });
-      });
-    });
-
-    // Custom cursor
-    const handleMouseMove = (e: MouseEvent) => {
-      if (!cursor || !container) return;
-      const rect = container.getBoundingClientRect();
-      const x = e.clientX - rect.left;
-      const y = e.clientY - rect.top;
-
-      if (
-        e.clientX >= rect.left &&
-        e.clientX <= rect.right &&
-        e.clientY >= rect.top &&
-        e.clientY <= rect.bottom
-      ) {
-        gsap.to(cursor, {
-          x: x,
-          y: y,
-          opacity: 1,
-          duration: 0.3,
-          ease: "power2.out",
-        });
+function parseCSV(text: string): Service[] {
+  // jednoduchý parser s podporou uvozovek
+  const rows: string[][] = []
+  let row: string[] = []
+  let cell = ''
+  let q = false
+  for (let i = 0; i < text.length; i++) {
+    const c = text[i]
+    if (c === '"') {
+      if (q && text[i + 1] === '"') {
+        cell += '"'
+        i++
       } else {
-        gsap.to(cursor, {
-          opacity: 0,
-          duration: 0.2,
-        });
+        q = !q
       }
-    };
+    } else if (c === ',' && !q) {
+      row.push(cell.trim())
+      cell = ''
+    } else if ((c === '\n' || c === '\r') && !q) {
+      if (cell.length || row.length) {
+        row.push(cell.trim())
+        rows.push(row)
+        row = []
+        cell = ''
+      }
+    } else {
+      cell += c
+    }
+  }
+  if (cell.length || row.length) {
+    row.push(cell.trim())
+    rows.push(row)
+  }
+  const header = rows.shift() || []
+  return rows
+    .filter((r) => r.length)
+    .map((r, i) => {
+      const obj: Record<string, string> = {}
+      header.forEach((h, idx) => (obj[h] = r[idx] ?? ''))
+      return {
+        id: obj.id || String(i),
+        slug: obj.slug || '',
+        name: obj.name || '',
+        description: obj.description || '',
+        image: obj.image || '',
+          }
+        }
+}
 
-    container.addEventListener("mousemove", handleMouseMove);
+async function fetchServices(): Promise<Service[]> {
+  const res = await fetch(CSV_PATH, { cache: 'no-store' })
+  const text = await res.text()
+  return parseCSV(text)
+}
 
+export default function HorizontalScrollSection() {
+  const containerRef = useRef<HTMLDivElement>(null)
+  const trackRef = useRef<HTMLDivElement>(null)
+  const [services, setServices] = useState<Service[]>([])
+  const [isMobile, setIsMobile] = useState(false)
+
+  // Načtení CSV
+  useEffect(() => {
+    let mounted = true
+    fetchServices().then((data) => mounted && setServices(data))
     return () => {
-      ctx.revert();
-      container.removeEventListener("mousemove", handleMouseMove);
-    };
-  }, []);
+      mounted = false
+    }
+  }, [])
 
-  // Build card view models from categories
-  const cards = (categories || []).map((c, idx) => ({
-    title: c.name,
-    slug: c.slug,
-    claim: c.description,
-    image: coversByCategory[c.id],
-    color: gradientColors[idx % gradientColors.length],
-  }));
+  // Mobile detection
+  useEffect(() => {
+    const mq = window.matchMedia('(max-width: 767.98px)')
+    const apply = () => setIsMobile(mq.matches)
+    apply()
+    mq.addEventListener('change', apply)
+    return () => mq.removeEventListener('change', apply)
+  }, [])
 
-  if (!cards.length) return null;
+  // GSAP + ScrollTrigger (Lenis-friendly)
+  useEffect(() => {
+    if (!services.length) return
+    const container = containerRef.current
+    const track = trackRef.current
+    if (!container || !track) return
 
-  return (
-    <section
-      ref={containerRef}
-      className="relative min-h-[60vh] md:min-h-[70vh] bg-white overflow-hidden cursor-none"
-    >
-      {/* Header */}
-      <div className="absolute top-10 left-10 z-20 text-slate-900">
-        <div>
-          <p className="text-sm uppercase tracking-wider text-slate-500 mb-2">
-            Naše služby
-          </p>
-          <h2 className="text-4xl md:text-5xl font-light">
-            Objevte <span className="font-serif italic">dokonalost</span>
+    // Skip on mobile
+    if (isMobile) return
+
+    const setup = () => {
+      const totalWidth = track.scrollWidth - window.innerWidth
+      const ctx = gsap.context(() => {
+        const tl = gsap.timeline({
+          defaults: { ease: 'none' },
+          scrollTrigger: {
+            trigger: container,
+            pin: true,
+            scrub: 1,
+            start: 'top top',
+            end: () => `+=${Math.max(0, totalWidth)}`,
+            anticipatePin: 1,
+          },
+        })
+        tl.to(track, { x: -totalWidth })
+
+        // Per-card motion (parallax image + text fade)
+        for (const card of gsap.utils.toArray<HTMLElement>('.glass-card')) {
+          const img = card.querySelector('img')
+          const text = card.querySelector('.text-block')
+
+          if (img) {
+            gsap.fromTo(
+              img,
+              { scale: 1.05, y: 60, opacity: 0.5 },
+              {
+                scale: 1,
+                y: 0,
+                opacity: 1,
+                scrollTrigger: {
+                  trigger: card,
+                  containerAnimation: tl,
+                  start: 'left 95%',
+                  end: 'left 55%',
+                  scrub: true,
+                },
+              }
+            )
+          }
+
+          if (text) {
+            gsap.fromTo(
+              text,
+              { opacity: 0, y: 30 },
+              {
+                opacity: 1,
+                y: 0,
+                scrollTrigger: {
+                  trigger: card,
+                  containerAnimation: tl,
+                  start: 'left 90%',
+                  end: 'left 60%',
+                  scrub: true,
+                },
+              }
+            )
+          }
+        })
+
+        // Pokud používáš Lenis, někde v app už běží lenis.on('scroll', ScrollTrigger.update)
+        // Jen zajistíme refresh po načtení obrázků a při resize:
+        const imgs = Array.from(track.querySelectorAll('img')) as HTMLImageElement[]
+        let pending = imgs.length
+        const done = () => ScrollTrigger.refresh()
+        if (!pending) done()
+        imgs.forEach((im) => {
+          if (im.complete) {
+            if (--pending === 0) done()
+          } else {
+            im.addEventListener('load', () => {
+              if (--pending === 0) done()
+            })
+            im.addEventListener('error', () => {
+              if (--pending === 0) done()
+            })
+          }
+        })
+
+        const onResize = () => {
+          const w = track.scrollWidth - window.innerWidth
+          tl.clear().to(track, { x: -w, ease: 'none' })
+          ScrollTrigger.refresh()
+        }
+        window.addEventListener('resize', onResize)
+
+        return () => {
+          window.removeEventListener('resize', onResize)
+          tl.kill()
+          ScrollTrigger.getAll().forEach((s) => s.kill())
+        }
+      }, container)
+
+      return () => ctx.revert()
+    }
+
+    const cleanup = setup()
+    return cleanup
+  }, [services, isMobile])
+
+  if (!services.length) return null
+
+  if (isMobile) {
+    return (
+      <section className="relative w-full bg-white overflow-hidden z-[1] pt-[84px] pb-10">
+        {/* Header */}
+        <div className="px-6 text-slate-900">
+          <p className="uppercase text-[10px] tracking-[0.28em] text-slate-500/90 mb-2">Naše služby</p>
+          <h2 className="text-4xl font-light leading-tight">
+            Objevte <span className="italic font-serif">dokonalost</span>
           </h2>
-          <p className="text-slate-500 mt-2 text-sm">
-            Scroll horizontálně →
-          </p>
         </div>
-      </div>
 
-      {/* Cards Container */}
-      <div
-        ref={cardsRef}
-        className="absolute inset-0 flex items-center gap-8 px-12"
-        style={{
-          width: `${cards.length * 36}vw`,
-        }}
-      >
-        {cards.map((category, index) => (
-          <Link
-            key={category.slug}
-            href={`/sluzby/${category.slug}`}
-            className="service-card relative flex-shrink-0 group"
-            style={{
-              width: "32vw",
-              height: "60vh",
-              clipPath: "polygon(0% 0%, 0% 0%, 0% 100%, 0% 100%)",
-            }}
-          >
-            {/* Card Content */}
-            <div className="relative w-full h-full rounded-3xl overflow-hidden">
+        {/* Snap scroller */}
+        <div className="mt-6 flex gap-5 px-6 overflow-x-auto snap-x snap-mandatory hide-scrollbar touch-pan-x">
+          {services.map((s, index) => (
+            <Link
+              key={s.id}
+              href={`/sluzby/${s.slug}`}
+              className="snap-start relative flex-shrink-0 w-[82vw] h-[68vh] rounded-[22px] overflow-hidden group"
+            >
               {/* Image */}
               <div className="absolute inset-0">
                 <Image
-                  src={category.image}
-                  alt={category.title}
+                  src={s.image}
+                  alt={s.name}
                   fill
-                  className="object-cover transition-transform duration-700 group-hover:scale-105"
-                  sizes="(min-width: 1280px) 32vw, (min-width: 1024px) 40vw, 100vw"
+                  sizes="90vw"
+                  className="object-cover transition-transform duration-[1200ms] ease-[cubic-bezier(.16,.84,.44,1)] group-active:scale-[1.03]"
                   priority={index === 0}
                 />
               </div>
 
-              {/* Subtle light overlay for readability */}
-              <div className="absolute inset-0 bg-gradient-to-t from-white via-white/70 to-transparent" />
-
-              {/* Content */}
-              <div className="absolute inset-0 flex flex-col justify-end p-8 md:p-12">
-                {/* Number */}
-                <div className="text-slate-200 text-7xl md:text-8xl font-light mb-4 font-serif">
-                  0{index + 1}
-                </div>
-
-                {/* Title */}
-                <h3 className="text-4xl md:text-5xl font-light text-slate-900 mb-4 group-hover:translate-x-2 transition-transform duration-300">
-                  {category.title}
-                </h3>
-
-                {/* Claim */}
-                <p className="text-lg text-slate-700 mb-8 max-w-md leading-relaxed">
-                  {category.claim}
-                </p>
-
-                {/* CTA */}
-                <div className="inline-flex items-center gap-2 text-slate-900 group-hover:gap-4 transition-all duration-300">
-                  <span className="text-sm font-medium uppercase tracking-wider">
-                    Zjistit více
-                  </span>
-                  <svg
-                    className="w-6 h-6"
-                    fill="none"
-                    viewBox="0 0 24 24"
-                    stroke="currentColor"
-                  >
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      strokeWidth={1.5}
-                      d="M17 8l4 4m0 0l-4 4m4-4H3"
-                    />
-                  </svg>
+              {/* Glass text panel */}
+              <div className="absolute inset-0 flex items-end p-5">
+                <div className="w-full rounded-[18px] border border-white/35 bg-white/25 backdrop-blur-[12px] shadow-[0_8px_36px_-12px_rgba(0,0,0,0.18)] p-5">
+                  <div className="text-slate-900">
+                    <p className="text-[2.6rem] font-light text-black/10 font-serif leading-none mb-1">0{index + 1}</p>
+                    <h3 className="text-[1.4rem] font-light mb-1">{s.name}</h3>
+                    <p className="text-[0.95rem] text-slate-700/95 mb-4 leading-relaxed line-clamp-3">
+                      {s.description}
+                    </p>
+                    <span className="inline-flex items-center gap-2 text-slate-900 text-xs font-medium uppercase tracking-[0.18em]">
+                      Zjistit více
+                      <svg
+                        width="16"
+                        height="16"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        stroke="currentColor"
+                        strokeWidth="1.5"
+                        aria-hidden="true"
+                      >
+                        <path d="M17 8l4 4-4 4M21 12H3" strokeLinecap="round" strokeLinejoin="round" />
+                      </svg>
+                    </span>
+                  </div>
                 </div>
               </div>
+            </Link>
+          ))}
+        </div>
+      </section>
+    )
+  }
 
-              {/* Border Glow */}
-              <div className="absolute inset-0 rounded-3xl border border-slate-200 group-hover:border-slate-300 transition-colors duration-300" />
+  return (
+    <section
+      ref={containerRef}
+      className="relative h-screen w-full bg-white overflow-hidden z-[1] pt-[96px] md:pt-[112px]"
+    >
+      {/* Fixní header (mírně vlevo, redakční feeling) */}
+      <div className="absolute top-28 left-16 md:left-20 z-20 text-slate-900 pointer-events-none">
+        <p className="uppercase text-[10px] tracking-[0.28em] text-slate-500/90 mb-3">Naše služby</p>
+        <h2 className="text-5xl md:text-6xl font-light leading-tight">
+          Objevte <span className="italic font-serif">dokonalost</span>
+        </h2>
+      </div>
+
+      {/* Horizontální dráha */}
+      <div
+        ref={trackRef}
+        className="absolute top-0 left-0 flex h-full items-center gap-[10vw] pl-[20vw] pr-[20vw]"
+        style={{ width: `${services.length * 58}vw` }}
+      >
+        {services.map((s, i) => (
+          <Link
+            key={s.id}
+            href={`/sluzby/${s.slug}`}
+            className="glass-card relative flex-shrink-0 w-[44vw] h-[80vh] rounded-[28px] overflow-hidden group"
+          >
+            {/* Foto */}
+            <Image
+              src={s.image}
+              alt={s.name}
+              fill
+              sizes="(min-width:1280px) 44vw, (min-width:1024px) 60vw, 90vw"
+              className="object-cover transition-transform duration-[2s] ease-[cubic-bezier(.16,.84,.44,1)] group-hover:scale-[1.05]"
+              priority={i < 2}
+            />
+
+            {/* Glass panel (spodní) */}
+            <div className="absolute inset-0 flex items-end p-6 md:p-10">
+              <div className="text-block w-full rounded-[22px] border border-white/35 bg-white/20 backdrop-blur-[14px] shadow-[0_8px_40px_-10px_rgba(0,0,0,0.15)] p-6 md:p-8">
+                <p className="text-[3.5rem] md:text-[5rem] font-light text-black/10 font-serif leading-none mb-1">
+                  0{i + 1}
+                </p>
+                <h3 className="text-[1.8rem] md:text-[2.4rem] font-light text-slate-900 mb-2">{s.name}</h3>
+                <p className="text-[0.95rem] text-slate-700/95 mb-5 leading-relaxed line-clamp-3">{s.description}</p>
+                <span className="inline-flex items-center gap-2 text-slate-900 text-xs md:text-sm font-medium uppercase tracking-[0.18em] group-hover:gap-3 transition-all">
+                  Zjistit více
+                  <svg
+                    width="18"
+                    height="18"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    strokeWidth="1.5"
+                    aria-hidden="true"
+                  >
+                    <path d="M17 8l4 4-4 4M21 12H3" strokeLinecap="round" strokeLinejoin="round" />
+                  </svg>
+                </span>
+              </div>
             </div>
+
+            {/* Jemná highlight aura */}
+            <div className="pointer-events-none absolute inset-0 rounded-[28px] ring-1 ring-white/10 group-hover:ring-white/25 transition-[ring] duration-500" />
           </Link>
         ))}
       </div>
-
-      {/* Custom Cursor */}
-      <div
-        ref={cursorRef}
-        className="pointer-events-none fixed z-50 opacity-0"
-        style={{
-          width: "80px",
-          height: "80px",
-          transform: "translate(-50%, -50%)",
-        }}
-      >
-        <div className="relative w-full h-full">
-          <div className="absolute inset-0 rounded-full bg-slate-900/10 backdrop-blur-sm flex items-center justify-center">
-            <span className="text-slate-900 text-xs font-medium uppercase tracking-wider">
-              Drag
-            </span>
-          </div>
-          <div className="absolute inset-0 rounded-full border border-slate-400/40 animate-ping" />
-        </div>
-      </div>
-
-      {/* Scroll Indicator */}
-      <div className="absolute bottom-10 right-10 text-slate-600 text-sm flex items-center gap-2">
-        <span>Scroll</span>
-        <svg
-          className="w-4 h-4 animate-bounce"
-          fill="none"
-          viewBox="0 0 24 24"
-          stroke="currentColor"
-        >
-          <path
-            strokeLinecap="round"
-            strokeLinejoin="round"
-            strokeWidth={2}
-            d="M13 7l5 5m0 0l-5 5m5-5H6"
-          />
-        </svg>
-      </div>
     </section>
-  );
+  )
 }

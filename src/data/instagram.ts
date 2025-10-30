@@ -17,7 +17,7 @@ export const instagramPosts: InstagramPost[] = [
   },
   {
     id: 3,
-    image: '/images/ems/ems-1.jpeg',
+    image: '/images/ems/budovani-svalu-1.jpeg',
     alt: 'EMS trénink',
     likes: 156,
     comments: 15,

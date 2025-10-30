@@ -1,6 +1,6 @@
 'use client'
-import { useState } from 'react'
 import { track } from '@/lib/analytics'
+import { useState } from 'react'
 
 export default function SubscribeForm() {
   const [email, setEmail] = useState('')
@@ -60,7 +60,7 @@ export default function SubscribeForm() {
               placeholder="vas@email.cz"
               id="newsletter-email"
               aria-describedby={error ? 'newsletter-error' : undefined}
-              aria-invalid={error ? true : false}
+              aria-invalid={!!error}
               className="flex-1 rounded-full border border-slate-200 bg-white px-5 py-3 text-sm text-slate-900 outline-none transition focus:border-slate-900"
             />
             <button
@@ -72,7 +72,11 @@ export default function SubscribeForm() {
             </button>
           </div>
           {error && (
-            <div id="newsletter-error" aria-live="assertive" className="rounded-xl bg-red-50 border border-red-200 p-3 flex items-start gap-3">
+            <div
+              id="newsletter-error"
+              aria-live="assertive"
+              className="rounded-xl bg-red-50 border border-red-200 p-3 flex items-start gap-3"
+            >
               <svg
                 className="h-5 w-5 text-red-600 flex-shrink-0 mt-0.5"
                 fill="none"

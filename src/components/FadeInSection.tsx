@@ -1,6 +1,6 @@
 'use client'
+import { ScrollTrigger, gsap } from '@/lib/gsap'
 import { useLayoutEffect, useRef } from 'react'
-import { gsap, ScrollTrigger } from '@/lib/gsap'
 
 type ScrollAnimationProps = {
   children: React.ReactNode
@@ -26,7 +26,7 @@ export default function ScrollAnimation({ children, className = '' }: ScrollAnim
           scale: 1,
           ease: 'power2.out',
           scrollTrigger: { trigger: ref.current, start: 'top 90%', end: 'bottom top', scrub: true },
-        },
+        }
       )
     }, ref)
     return () => ctx.revert()

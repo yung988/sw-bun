@@ -2,8 +2,8 @@
 
 import Image from 'next/image'
 import Link from 'next/link'
-import { useModals } from './ModalProvider'
 import { useBrand } from './BrandProvider'
+import { useModals } from './ModalProvider'
 
 export default function Footer() {
   const { openBooking } = useModals()
@@ -47,7 +47,11 @@ export default function Footer() {
                 </Link>
               </li>
               <li>
-                <button onClick={() => openBooking()} className="hover:text-slate-900 transition-colors duration-200">
+                <button
+                  type="button"
+                  onClick={() => openBooking()}
+                  className="hover:text-slate-900 transition-colors duration-200"
+                >
                   Rezervace
                 </button>
               </li>

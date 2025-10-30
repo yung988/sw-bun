@@ -1,9 +1,9 @@
 'use client'
 
-import { useEffect, useRef } from 'react'
 import gsap from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import Image from 'next/image'
+import { useEffect, useRef } from 'react'
 import { ImageReveal } from './animations'
 
 if (typeof window !== 'undefined') {
@@ -70,7 +70,7 @@ export default function ImageGallery({ images, columns = 3, className = '' }: Im
   return (
     <div ref={galleryRef} className={`grid ${gridCols[columns]} gap-6 ${className}`}>
       {images.map((image, index) => (
-        <div key={index} className="gallery-item relative aspect-square overflow-hidden rounded-2xl bg-slate-100">
+        <div key={image.src} className="gallery-item relative aspect-square overflow-hidden rounded-2xl bg-slate-100">
           <ImageReveal direction={index % 2 === 0 ? 'right' : 'left'}>
             <Image
               src={image.src}

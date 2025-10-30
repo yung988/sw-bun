@@ -1,9 +1,9 @@
 import FAQ from '@/components/FAQ'
 import SectionTitle from '@/components/SectionTitle'
+import FadeIn from '@/components/animations/FadeIn'
 import Container from '@/components/ui/Container'
 import Section from '@/components/ui/Section'
 import { faqs } from '@/data/faq'
-import FadeIn from '@/components/animations/FadeIn'
 
 // Zobrazit pouze nejdůležitější FAQ - celkem 6 (3+3)
 const faqsLeft = faqs.slice(0, 3)

@@ -1,7 +1,7 @@
 'use client'
 
-import { useModals } from './ModalProvider'
 import { track } from '@/lib/analytics'
+import { useModals } from './ModalProvider'
 
 type Service = {
   id: string

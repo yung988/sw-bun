@@ -1,7 +1,7 @@
 'use client'
 
-import Link from 'next/link'
 import { track } from '@/lib/analytics'
+import Link from 'next/link'
 import type { ComponentProps, ReactNode } from 'react'
 
 type Props = {
@@ -14,14 +14,8 @@ type Props = {
 
 export default function TrackedLink({ href, className, children, event, data, ...rest }: Props) {
   return (
-    <Link
-      href={href}
-      className={className}
-      onClick={() => track(event, { href, ...data })}
-      {...rest}
-    >
+    <Link href={href} className={className} onClick={() => track(event, { href, ...data })} {...rest}>
       {children}
     </Link>
   )
 }
-

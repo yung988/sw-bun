@@ -1,7 +1,7 @@
 'use client'
 
-import { useLayoutEffect, useRef } from 'react'
 import { gsap } from '@/lib/gsap'
+import { useLayoutEffect, useRef } from 'react'
 
 type Props = { icon?: string; title: string; description: string }
 
@@ -14,7 +14,8 @@ export default function WhyCard({ icon, title, description }: Props) {
     const ctx = gsap.context(() => {
       // entrance on scroll is usually handled by parent; safe no-op here
       // hover interactions
-      const el = ref.current!
+      const el = ref.current
+      if (!el) return
       const over = () => gsap.to(el, { y: -8, scale: 1.01, duration: 0.3, ease: 'power2.out' })
       const out = () => gsap.to(el, { y: 0, scale: 1, duration: 0.35, ease: 'power2.out' })
       el.addEventListener('mouseenter', over)

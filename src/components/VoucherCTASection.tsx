@@ -1,6 +1,6 @@
-import Image from 'next/image'
 import Container from '@/components/ui/Container'
 import Section from '@/components/ui/Section'
+import Image from 'next/image'
 import OpenVoucherButton from './OpenVoucherButton'
 
 export default function VoucherCTASection() {
@@ -69,7 +69,7 @@ export default function VoucherCTASection() {
             <div className="relative hidden lg:block">
               <div className="relative aspect-square overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-xl">
                 <Image
-                  src="/images/poukaz.png"
+                  src="/images/poukaz/Image_fx (25).jpg"
                   alt="Dárkový poukaz SW Beauty"
                   fill
                   sizes="(min-width: 1024px) 50vw, 100vw"

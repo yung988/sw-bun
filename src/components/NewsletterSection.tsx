@@ -1,7 +1,7 @@
 import SubscribeForm from '@/components/SubscribeForm'
+import FadeIn from '@/components/animations/FadeIn'
 import Container from '@/components/ui/Container'
 import Section from '@/components/ui/Section'
-import FadeIn from '@/components/animations/FadeIn'
 
 export default function NewsletterSection() {
   return (

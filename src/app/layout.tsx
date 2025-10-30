@@ -1,19 +1,19 @@
 import type { Metadata } from 'next'
-import { Inter, Instrument_Serif } from 'next/font/google'
+import { Instrument_Serif, Inter } from 'next/font/google'
 import './globals.css'
 import 'lenis/dist/lenis.css'
-import Navbar from '@/components/Navbar'
+import { BrandProvider } from '@/components/BrandProvider'
 import Footer from '@/components/Footer'
-import { ModalProvider } from '@/components/ModalProvider'
-import LoadingScreen from '@/components/LoadingScreen'
+import { IntroProvider } from '@/components/IntroProvider'
 import LenisScroll from '@/components/LenisScroll'
-import ScrollProgress from '@/components/ScrollProgress'
+import LoadingScreen from '@/components/LoadingScreen'
 import MainContent from '@/components/MainContent'
+import { ModalProvider } from '@/components/ModalProvider'
+import Navbar from '@/components/Navbar'
+import ScrollProgress from '@/components/ScrollProgress'
+import { getBrandLogoServer, getFaviconServer } from '@/lib/server/images'
 import { Analytics } from '@vercel/analytics/react'
 import { SpeedInsights } from '@vercel/speed-insights/next'
-import { BrandProvider } from '@/components/BrandProvider'
-import { getBrandLogoServer, getFaviconServer } from '@/lib/server/images'
-import { IntroProvider } from "@/components/IntroProvider";
 
 export const metadata: Metadata = {
   metadataBase: new URL('https://swbeauty.cz'),

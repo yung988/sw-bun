@@ -1,7 +1,7 @@
 'use client'
 
-import { useEffect } from 'react'
 import { track } from '@/lib/analytics'
+import { useEffect } from 'react'
 
 type Props = {
   slug: string
@@ -15,4 +15,3 @@ export default function ServiceViewTracker({ slug, categoryId, price }: Props) {
   }, [slug, categoryId, price])
   return null
 }
-

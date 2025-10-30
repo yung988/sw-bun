@@ -1,34 +1,26 @@
-import { Suspense } from "react";
-import PriceTable from "@/components/PriceTable";
-import SectionTitle from "@/components/SectionTitle";
-import OpenVoucherButton from "@/components/OpenVoucherButton";
-import OpenBookingButton from "@/components/OpenBookingButton";
-import type { Metadata } from "next";
-import Link from "next/link";
-import { getAllServices } from "@/lib/services";
+import OpenBookingButton from '@/components/OpenBookingButton'
+import OpenVoucherButton from '@/components/OpenVoucherButton'
+import PriceTable from '@/components/PriceTable'
+import SectionTitle from '@/components/SectionTitle'
+import { getAllServices } from '@/lib/services'
+import type { Metadata } from 'next'
+import Link from 'next/link'
+import { Suspense } from 'react'
 
 export const metadata: Metadata = {
-  title: "Ceník služeb | SW Beauty Hodonín",
+  title: 'Ceník služeb | SW Beauty Hodonín',
   description:
-    "Kompletní ceník všech služeb SW Beauty s cenami - kosmetika, HIFU facelift, budování svalů, endos-roller a další profesionální ošetření. Transparentní ceny bez skrytých poplatků.",
-  keywords: [
-    "ceník",
-    "ceny",
-    "SW Beauty",
-    "kosmetika",
-    "HIFU",
-    "Hodonín",
-    "služby",
-  ],
+    'Kompletní ceník všech služeb SW Beauty s cenami - kosmetika, HIFU facelift, budování svalů, endos-roller a další profesionální ošetření. Transparentní ceny bez skrytých poplatků.',
+  keywords: ['ceník', 'ceny', 'SW Beauty', 'kosmetika', 'HIFU', 'Hodonín', 'služby'],
   openGraph: {
-    title: "Ceník služeb | SW Beauty Hodonín",
-    url: "https://swbeauty.cz/cenik",
-    type: "website",
+    title: 'Ceník služeb | SW Beauty Hodonín',
+    url: 'https://swbeauty.cz/cenik',
+    type: 'website',
   },
-};
+}
 
 export default async function PriceListPage() {
-  const services = await getAllServices();
+  const services = await getAllServices()
 
   return (
     <main className="min-h-screen bg-white pb-24 pt-32 md:pt-40 lg:pt-44">
@@ -53,10 +45,8 @@ export default async function PriceListPage() {
           fallback={
             <div className="flex items-center justify-center py-12">
               <div className="text-center">
-                <div className="inline-block h-8 w-8 animate-spin rounded-full border-4 border-solid border-slate-900 border-r-transparent"></div>
-                <p className="mt-4 text-sm text-slate-600">
-                  Načítání ceníku...
-                </p>
+                <div className="inline-block h-8 w-8 animate-spin rounded-full border-4 border-solid border-slate-900 border-r-transparent" />
+                <p className="mt-4 text-sm text-slate-600">Načítání ceníku...</p>
               </div>
             </div>
           }
@@ -71,12 +61,7 @@ export default async function PriceListPage() {
           {/* Reservation CTA */}
           <div className="rounded-2xl border border-slate-200 bg-gradient-to-br from-slate-900 to-slate-800 p-8 text-white">
             <div className="mb-4 flex h-12 w-12 items-center justify-center rounded-full bg-white/10 backdrop-blur-sm">
-              <svg
-                className="h-6 w-6 text-white"
-                fill="none"
-                viewBox="0 0 24 24"
-                stroke="currentColor"
-              >
+              <svg className="h-6 w-6 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                 <title>Kalendář</title>
                 <path
                   strokeLinecap="round"
@@ -88,24 +73,13 @@ export default async function PriceListPage() {
             </div>
             <h3 className="mb-2 text-2xl font-light">Rezervace termínu</h3>
             <p className="mb-6 text-sm text-white/80">
-              Našli jste službu, která vás zaujala? Rezervujte si termín online
-              nebo nás kontaktujte.
+              Našli jste službu, která vás zaujala? Rezervujte si termín online nebo nás kontaktujte.
             </p>
             <OpenBookingButton className="inline-flex items-center gap-2 rounded-full bg-white px-6 py-3 text-sm font-medium text-slate-900 transition hover:bg-white/90">
               Rezervovat termín
-              <svg
-                className="h-4 w-4"
-                fill="none"
-                viewBox="0 0 24 24"
-                stroke="currentColor"
-              >
+              <svg className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                 <title>Šipka</title>
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth={2}
-                  d="M9 5l7 7-7 7"
-                />
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
               </svg>
             </OpenBookingButton>
           </div>
@@ -113,12 +87,7 @@ export default async function PriceListPage() {
           {/* Voucher CTA */}
           <div className="rounded-2xl border border-slate-200 bg-slate-50 p-8">
             <div className="mb-4 flex h-12 w-12 items-center justify-center rounded-full bg-white border border-slate-200">
-              <svg
-                className="h-6 w-6 text-slate-900"
-                fill="none"
-                viewBox="0 0 24 24"
-                stroke="currentColor"
-              >
+              <svg className="h-6 w-6 text-slate-900" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                 <title>Dárek</title>
                 <path
                   strokeLinecap="round"
@@ -128,28 +97,15 @@ export default async function PriceListPage() {
                 />
               </svg>
             </div>
-            <h3 className="mb-2 text-2xl font-light text-slate-900">
-              Dárkové poukazy
-            </h3>
+            <h3 className="mb-2 text-2xl font-light text-slate-900">Dárkové poukazy</h3>
             <p className="mb-6 text-sm text-slate-600">
-              Darujte svým blízkým relaxaci a krásu. Poukazy na libovolnou
-              hodnotu nebo konkrétní službu.
+              Darujte svým blízkým relaxaci a krásu. Poukazy na libovolnou hodnotu nebo konkrétní službu.
             </p>
             <OpenVoucherButton className="inline-flex items-center gap-2 rounded-full border border-slate-200 bg-white px-6 py-3 text-sm font-medium text-slate-900 transition hover:bg-slate-50">
               Objednat poukaz
-              <svg
-                className="h-4 w-4"
-                fill="none"
-                viewBox="0 0 24 24"
-                stroke="currentColor"
-              >
+              <svg className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                 <title>Šipka</title>
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth={2}
-                  d="M9 5l7 7-7 7"
-                />
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
               </svg>
             </OpenVoucherButton>
           </div>
@@ -173,18 +129,12 @@ export default async function PriceListPage() {
                   stroke="currentColor"
                 >
                   <title>Rozbalit</title>
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth={2}
-                    d="M19 9l-7 7-7-7"
-                  />
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
                 </svg>
               </summary>
               <p className="mt-3 text-sm text-slate-600">
-                Délka ošetření se liší podle typu služby. V ceníku najdete u
-                každé služby uvedenou přesnou délku v minutách. Většina ošetření
-                trvá 60-90 minut.
+                Délka ošetření se liší podle typu služby. V ceníku najdete u každé služby uvedenou přesnou délku v
+                minutách. Většina ošetření trvá 60-90 minut.
               </p>
             </details>
 
@@ -198,18 +148,12 @@ export default async function PriceListPage() {
                   stroke="currentColor"
                 >
                   <title>Rozbalit</title>
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth={2}
-                    d="M19 9l-7 7-7-7"
-                  />
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
                 </svg>
               </summary>
               <p className="mt-3 text-sm text-slate-600">
-                Všechny ceny jsou konečné a zahrnují veškeré náklady. Žádné
-                skryté poplatky. Ceny se mohou měnit pouze při aktualizaci
-                ceníku, o které vás vždy předem informujeme.
+                Všechny ceny jsou konečné a zahrnují veškeré náklady. Žádné skryté poplatky. Ceny se mohou měnit pouze
+                při aktualizaci ceníku, o které vás vždy předem informujeme.
               </p>
             </details>
 
@@ -223,18 +167,12 @@ export default async function PriceListPage() {
                   stroke="currentColor"
                 >
                   <title>Rozbalit</title>
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth={2}
-                    d="M19 9l-7 7-7-7"
-                  />
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
                 </svg>
               </summary>
               <p className="mt-3 text-sm text-slate-600">
-                Ano! V ceníku najdete balíčky označené štítkem "Balíček", které
-                nabízejí výhodnější ceny při zakoupení více sezení. Pravidelně
-                také nabízíme sezónní akce.
+                Ano! V ceníku najdete balíčky označené štítkem "Balíček", které nabízejí výhodnější ceny při zakoupení
+                více sezení. Pravidelně také nabízíme sezónní akce.
               </p>
             </details>
 
@@ -248,22 +186,16 @@ export default async function PriceListPage() {
                   stroke="currentColor"
                 >
                   <title>Rozbalit</title>
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth={2}
-                    d="M19 9l-7 7-7-7"
-                  />
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
                 </svg>
               </summary>
               <p className="mt-3 text-sm text-slate-600">
-                Ano, přijímáme platby kartou i hotovost. Pro vaše pohodlí
-                nabízíme všechny běžné platební metody.
+                Ano, přijímáme platby kartou i hotovost. Pro vaše pohodlí nabízíme všechny běžné platební metody.
               </p>
             </details>
           </div>
         </div>
       </section>
     </main>
-  );
+  )
 }

@@ -1,78 +1,66 @@
-"use client";
+'use client'
 
-import { useEffect, useLayoutEffect, useRef } from "react";
-import Image from "next/image";
-import { gsap } from "gsap";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { gsap } from 'gsap'
+import { ScrollTrigger } from 'gsap/ScrollTrigger'
+import Image from 'next/image'
+import { useEffect, useLayoutEffect, useRef } from 'react'
 
-if (typeof window !== "undefined") {
-  gsap.registerPlugin(ScrollTrigger);
+if (typeof window !== 'undefined') {
+  gsap.registerPlugin(ScrollTrigger)
 }
 
 type CategoryHeroProps = {
-  title: string;
-  description: string;
-  heroImage: string;
-  subheroImages: string[];
-};
+  title: string
+  description: string
+  heroImage: string
+  subheroImages: string[]
+}
 
-export default function CategoryHero({
-  title,
-  description,
-  heroImage,
-  subheroImages,
-}: CategoryHeroProps) {
-  const heroRef = useRef<HTMLDivElement>(null);
-  const imageRef = useRef<HTMLDivElement>(null);
-  const contentRef = useRef<HTMLDivElement>(null);
-  const thumbsRef = useRef<HTMLDivElement>(null);
+export default function CategoryHero({ title, description, heroImage, subheroImages }: CategoryHeroProps) {
+  const heroRef = useRef<HTMLDivElement>(null)
+  const imageRef = useRef<HTMLDivElement>(null)
+  const contentRef = useRef<HTMLDivElement>(null)
+  const thumbsRef = useRef<HTMLDivElement>(null)
 
   useEffect(() => {
-    if (!heroRef.current || !imageRef.current) return;
+    if (!heroRef.current || !imageRef.current) return
 
     const ctx = gsap.context(() => {
       // Parallax effect on hero image
       gsap.to(imageRef.current, {
         yPercent: 30,
-        ease: "none",
+        ease: 'none',
         scrollTrigger: {
           trigger: heroRef.current,
-          start: "top top",
-          end: "bottom top",
+          start: 'top top',
+          end: 'bottom top',
           scrub: 1,
         },
-      });
-    });
+      })
+    })
 
-    return () => ctx.revert();
-  }, []);
+    return () => ctx.revert()
+  }, [])
 
   useLayoutEffect(() => {
-    if (!contentRef.current) return;
+    if (!contentRef.current) return
     const ctx = gsap.context(() => {
-      const tl = gsap.timeline({ defaults: { ease: "power2.out", duration: 0.8 } });
-      tl.fromTo(contentRef.current, { opacity: 0, y: 40 }, { opacity: 1, y: 0 }, 0);
+      const tl = gsap.timeline({ defaults: { ease: 'power2.out', duration: 0.8 } })
+      tl.fromTo(contentRef.current, { opacity: 0, y: 40 }, { opacity: 1, y: 0 }, 0)
       if (thumbsRef.current) {
-        const items = thumbsRef.current.querySelectorAll(".thumb");
-        gsap.from(items, { opacity: 0, scale: 0.9, stagger: 0.1, duration: 0.5, delay: 0.2 });
+        const items = thumbsRef.current.querySelectorAll('.thumb')
+        gsap.from(items, { opacity: 0, scale: 0.9, stagger: 0.1, duration: 0.5, delay: 0.2 })
       }
-    }, heroRef);
-    return () => ctx.revert();
-  }, []);
+    }, heroRef)
+    return () => ctx.revert()
+  }, [])
 
   return (
     <section ref={heroRef} className="relative h-screen overflow-hidden">
       {/* Main Hero Image with Parallax */}
       <div className="absolute inset-0">
         <div ref={imageRef} className="relative h-[120%] w-full">
-          <Image
-            src={heroImage}
-            alt={title}
-            fill
-            className="object-cover"
-            sizes="100vw"
-            priority
-          />
+          <Image src={heroImage} alt={title} fill className="object-cover" sizes="100vw" priority />
         </div>
       </div>
 
@@ -96,15 +84,13 @@ export default function CategoryHero({
             </h1>
 
             {/* Description */}
-            <p className="text-xl md:text-2xl text-white/90 max-w-3xl leading-relaxed mb-12">
-              {description}
-            </p>
+            <p className="text-xl md:text-2xl text-white/90 max-w-3xl leading-relaxed mb-12">{description}</p>
 
             {/* Subhero Images Grid */}
             <div ref={thumbsRef} className="grid grid-cols-3 gap-4 max-w-2xl">
               {subheroImages.slice(0, 3).map((image, index) => (
                 <div
-                  key={index}
+                  key={image}
                   className="thumb relative aspect-[4/3] overflow-hidden rounded-2xl group cursor-pointer"
                 >
                   <Image
@@ -125,20 +111,11 @@ export default function CategoryHero({
       {/* Scroll Indicator */}
       <div className="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 text-white/60">
         <span className="text-xs uppercase tracking-wider">Scroll</span>
-        <svg
-          className="w-6 h-6 animate-bounce"
-          fill="none"
-          viewBox="0 0 24 24"
-          stroke="currentColor"
-        >
-          <path
-            strokeLinecap="round"
-            strokeLinejoin="round"
-            strokeWidth={2}
-            d="M19 14l-7 7m0 0l-7-7m7 7V3"
-          />
+        <svg className="w-6 h-6 animate-bounce" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <title>Scroll down</title>
+          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 14l-7 7m0 0l-7-7m7 7V3" />
         </svg>
       </div>
     </section>
-  );
+  )
 }

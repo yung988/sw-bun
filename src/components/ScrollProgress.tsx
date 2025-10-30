@@ -1,6 +1,6 @@
 'use client'
-import { useEffect, useRef } from 'react'
 import { gsap } from '@/lib/gsap'
+import { useEffect, useRef } from 'react'
 
 export default function ScrollProgress() {
   const ref = useRef<HTMLDivElement>(null)
@@ -24,5 +24,11 @@ export default function ScrollProgress() {
     }
   }, [])
 
-  return <div ref={ref} className="fixed top-0 left-0 right-0 h-1 bg-slate-900 origin-left z-50" style={{ transform: 'scaleX(0)' }} />
+  return (
+    <div
+      ref={ref}
+      className="fixed top-0 left-0 right-0 h-1 bg-slate-900 origin-left z-50"
+      style={{ transform: 'scaleX(0)' }}
+    />
+  )
 }

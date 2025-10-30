@@ -1,5 +1,5 @@
-import type { MetadataRoute } from 'next'
 import { getAllServices, getCategories } from '@/lib/services'
+import type { MetadataRoute } from 'next'
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const baseUrl = 'https://swbeauty.cz'

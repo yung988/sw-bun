@@ -1,7 +1,8 @@
-import { useEffect, useRef } from 'react'
 import gsap from 'gsap'
-import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import { DrawSVGPlugin } from 'gsap/DrawSVGPlugin'
+import { ScrollTrigger } from 'gsap/ScrollTrigger'
+import { useEffect, useRef } from 'react'
+import type { DependencyList } from 'react'
 
 // Register plugins
 if (typeof window !== 'undefined') {
@@ -11,7 +12,7 @@ if (typeof window !== 'undefined') {
 /**
  * Custom hook for GSAP animations with automatic cleanup
  */
-export function useGSAPAnimation(animationFn: (ctx: gsap.Context) => void, dependencies: any[] = []) {
+export function useGSAPAnimation(animationFn: (ctx: gsap.Context) => void, dependencies: DependencyList = []) {
   const ref = useRef<HTMLElement>(null)
 
   useEffect(() => {
@@ -20,7 +21,7 @@ export function useGSAPAnimation(animationFn: (ctx: gsap.Context) => void, depen
     }, ref)
 
     return () => ctx.revert()
-  }, dependencies)
+  }, [animationFn, ...dependencies])
 
   return ref
 }
@@ -31,7 +32,7 @@ export function useGSAPAnimation(animationFn: (ctx: gsap.Context) => void, depen
 export function useScrollTrigger(
   animationFn: (element: HTMLElement) => gsap.core.Tween | gsap.core.Timeline,
   triggerOptions: ScrollTrigger.Vars = {},
-  dependencies: any[] = []
+  dependencies: DependencyList = []
 ) {
   const ref = useRef<HTMLElement>(null)
 
@@ -47,13 +48,13 @@ export function useScrollTrigger(
     })
 
     return () => {
-      ScrollTrigger.getAll().forEach((trigger) => {
+      for (const trigger of ScrollTrigger.getAll()) {
         if (trigger.trigger === ref.current) {
           trigger.kill()
         }
-      })
+      }
     }
-  }, dependencies)
+  }, [animationFn, triggerOptions, ...dependencies])
 
   return ref
 }

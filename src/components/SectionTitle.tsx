@@ -17,7 +17,7 @@ export default function SectionTitle({ eyebrow, title, subtitle, center = true, 
           <span className="text-xs uppercase tracking-[0.3em] text-slate-500 font-medium">{eyebrow}</span>
         </div>
       )}
-      <h2 className={`font-display text-4xl md:text-5xl font-light leading-tight tracking-tight text-slate-900`}>
+      <h2 className={'font-display text-4xl md:text-5xl font-light leading-tight tracking-tight text-slate-900'}>
         {title}
       </h2>
       {subtitle && (

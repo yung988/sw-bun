@@ -1,9 +1,9 @@
-import { getCategories, getCategoryName, getAllServices } from '@/lib/services'
-import type { Metadata } from 'next'
-import Link from 'next/link'
+import OpenBookingButton from '@/components/OpenBookingButton'
 import SectionTitle from '@/components/SectionTitle'
 import ServiceSearch from '@/components/ServiceSearch'
-import OpenBookingButton from '@/components/OpenBookingButton'
+import { getAllServices, getCategories, getCategoryName } from '@/lib/services'
+import type { Metadata } from 'next'
+import Link from 'next/link'
 
 export const metadata: Metadata = {
   title: 'Služby | SW Beauty Hodonín',

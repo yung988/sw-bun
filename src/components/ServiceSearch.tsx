@@ -1,10 +1,10 @@
 'use client'
 
-import { useState, useMemo } from 'react'
-import { Search, X } from 'lucide-react'
-import Link from 'next/link'
-import Image from 'next/image'
 import type { Service } from '@/lib/services'
+import { Search, X } from 'lucide-react'
+import Image from 'next/image'
+import Link from 'next/link'
+import { useMemo, useState } from 'react'
 
 type Props = {
   services: Service[]
@@ -14,7 +14,7 @@ type Props = {
 const categoryImages: Record<string, string> = {
   kosmetika: '/images/kosmetika/hydratational-1.jpg',
   hifu: '/images/hifu/hifu-1.jpg',
-  'budovani-svalu': '/images/ems/ems-1.jpeg',
+  'budovani-svalu': '/images/ems/budovani-svalu-1.jpeg',
   endosphere: '/images/stylizované/details-1.jpeg',
   kavitace: '/images/kavitace/kavitace-1.jpg',
   lpg: '/images/lpg/lpg-1.jpg',
@@ -151,7 +151,14 @@ export default function ServiceSearch({ services }: Props) {
 
       {/* Overlay for mobile */}
       {isOpen && query && (
-        <div className="fixed inset-0 bg-black/20 z-40 md:hidden" onClick={handleClear} aria-hidden="true" />
+        <div
+          className="fixed inset-0 bg-black/20 z-40 md:hidden"
+          onClick={handleClear}
+          onKeyDown={(e) => {
+            if (e.key === 'Escape') handleClear()
+          }}
+          aria-hidden="true"
+        />
       )}
     </div>
   )

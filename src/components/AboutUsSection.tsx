@@ -1,7 +1,7 @@
-import Image from 'next/image'
-import { Heart } from 'lucide-react'
 import Container from '@/components/ui/Container'
 import Section from '@/components/ui/Section'
+import { Heart } from 'lucide-react'
+import Image from 'next/image'
 
 export default function AboutUsSection() {
   return (

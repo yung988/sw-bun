@@ -1,8 +1,8 @@
+import Container from '@/components/ui/Container'
+import Section from '@/components/ui/Section'
 import { instagramPosts } from '@/data/instagram'
 import Image from 'next/image'
 import Link from 'next/link'
-import Container from '@/components/ui/Container'
-import Section from '@/components/ui/Section'
 
 export default function InstagramFeed() {
   return (

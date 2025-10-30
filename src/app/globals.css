@@ -220,9 +220,15 @@
   }
 }
 @keyframes fade {
-  0% { opacity: 1; }
-  50% { opacity: 0; }
-  100% { opacity: 1; }
+  0% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
 }
 
 @keyframes loader-spin {
@@ -233,4 +239,13 @@
 
 .spinner {
   animation: loader-spin 1s linear infinite;
+}
+
+/* Hide horizontal scrollbar for mobile snap scroller */
+.hide-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+.hide-scrollbar::-webkit-scrollbar {
+  display: none;
 }

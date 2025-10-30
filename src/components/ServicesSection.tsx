@@ -1,10 +1,10 @@
-import Link from 'next/link'
 import Container from '@/components/ui/Container'
 import Section from '@/components/ui/Section'
-import SectionTitle from './SectionTitle'
-import Carousel from './Carousel'
-import ServiceCard from './ServiceCard'
 import { getCategoryCoverServer } from '@/lib/server/images'
+import Link from 'next/link'
+import Carousel from './Carousel'
+import SectionTitle from './SectionTitle'
+import ServiceCard from './ServiceCard'
 
 type ServicesSectionProps = {
   categories: {

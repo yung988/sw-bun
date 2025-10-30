@@ -1,8 +1,8 @@
-import Image from 'next/image'
-import Link from 'next/link'
 import Container from '@/components/ui/Container'
 import Section from '@/components/ui/Section'
 import { getCategoryCoverServer } from '@/lib/server/images'
+import Image from 'next/image'
+import Link from 'next/link'
 
 type Service = {
   number: number
@@ -91,6 +91,7 @@ export default async function HorizontalServicesSection() {
                 <div className="flex items-center text-sm font-medium text-slate-900 group-hover:translate-x-2 transition-transform duration-300">
                   <span>Zjistit v\u00edce</span>
                   <svg className="ml-2 w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <title>Zjistit více</title>
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
                   </svg>
                 </div>

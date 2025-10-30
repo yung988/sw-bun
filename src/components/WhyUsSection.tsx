@@ -1,11 +1,11 @@
-import Container from '@/components/ui/Container'
-import Section from '@/components/ui/Section'
-import SectionTitle from './SectionTitle'
-import Carousel from './Carousel'
-import HighlightCard from './HighlightCard'
-import { highlights } from '@/data/highlights'
 import FadeIn from '@/components/animations/FadeIn'
 import ScrollReveal from '@/components/animations/ScrollReveal'
+import Container from '@/components/ui/Container'
+import Section from '@/components/ui/Section'
+import { highlights } from '@/data/highlights'
+import Carousel from './Carousel'
+import HighlightCard from './HighlightCard'
+import SectionTitle from './SectionTitle'
 
 export default function WhyUsSection() {
   return (

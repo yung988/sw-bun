@@ -1,11 +1,18 @@
+import ImageGallery from '@/components/ImageGallery'
 import SectionTitle from '@/components/SectionTitle'
-import { getCategories, getCategoryName, getServicesByCategory, getSubcategoriesByCategory, getServicesBySubcategory, formatPrice } from '@/lib/services'
+import SubcategoryTOC from '@/components/SubcategoryTOC'
+import TrackedLink from '@/components/TrackedLink'
+import { getCategoryMosaicServer } from '@/lib/server/images'
+import {
+  formatPrice,
+  getCategories,
+  getCategoryName,
+  getServicesByCategory,
+  getServicesBySubcategory,
+  getSubcategoriesByCategory,
+} from '@/lib/services'
 import type { Metadata } from 'next'
 import Link from 'next/link'
-import TrackedLink from '@/components/TrackedLink'
-import SubcategoryTOC from '@/components/SubcategoryTOC'
-import ImageGallery from '@/components/ImageGallery'
-import { getCategoryMosaicServer } from '@/lib/server/images'
 import { notFound } from 'next/navigation'
 
 type Props = {
@@ -40,9 +47,7 @@ export default async function CategoryPage({ params }: Props) {
 
   // Subkategorie a jejich služby
   const subcategories = await getSubcategoriesByCategory(kategorie)
-  const lists = await Promise.all(
-    subcategories.map((s) => getServicesBySubcategory(kategorie, s.id)),
-  )
+  const lists = await Promise.all(subcategories.map((s) => getServicesBySubcategory(kategorie, s.id)))
   const fallbackMosaic = await getCategoryMosaicServer(kategorie)
 
   return (
@@ -84,10 +89,10 @@ export default async function CategoryPage({ params }: Props) {
               const gallerySources = Array.from(
                 new Set(
                   group
-                    .flatMap((svc) => (svc.images && svc.images.length ? svc.images : [svc.image]))
+                    .flatMap((svc) => (svc.images?.length ? svc.images : [svc.image]))
                     .filter(Boolean)
-                    .slice(0, 6),
-                ),
+                    .slice(0, 6)
+                )
               )
               const gallery = (gallerySources.length ? gallerySources : fallbackMosaic).slice(0, 3)
 
@@ -95,9 +100,7 @@ export default async function CategoryPage({ params }: Props) {
                 <section key={s.id} id={s.id} className="scroll-mt-24">
                   <div className="mb-6">
                     <h2 className="text-2xl font-semibold text-slate-900">{s.name}</h2>
-                    {s.description && (
-                      <p className="text-slate-600 mt-1">{s.description}</p>
-                    )}
+                    {s.description && <p className="text-slate-600 mt-1">{s.description}</p>}
                   </div>
 
                   {gallery && gallery.length > 0 && (
@@ -144,7 +147,7 @@ export default async function CategoryPage({ params }: Props) {
                             <p className="text-2xl font-semibold text-slate-900">{formatPrice(service.price)}</p>
                             <p className="text-xs text-slate-500">
                               {service.duration ? `${service.duration} min` : null}
-                              {service.duration && service.sessions ? " • " : null}
+                              {service.duration && service.sessions ? ' • ' : null}
                               {service.sessions ? service.sessions : null}
                             </p>
                           </div>
