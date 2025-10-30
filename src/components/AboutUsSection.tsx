@@ -17,7 +17,7 @@ export default function AboutUsSection() {
         scrollTrigger: {
           trigger: sectionRef.current,
           start: 'top top',
-          end: '+=160%',
+          end: '+=120%',
           scrub: true,
           pin: true,
         },
@@ -32,9 +32,16 @@ export default function AboutUsSection() {
         .fromTo(
           '.about-layer-1 .card',
           { y: 80, scale: 0.9, autoAlpha: 0 },
-          { y: 0, scale: 1, autoAlpha: 1, stagger: 0.12 },
+          { y: 0, scale: 1, autoAlpha: 1, stagger: 0.08 },
           0.05
         )
+        .fromTo(
+          '.about-layer-2 .card',
+          { y: 100, scale: 0.9, autoAlpha: 0 },
+          { y: 0, scale: 1, autoAlpha: 1, stagger: 0.08 },
+          0.18
+        )
+        .fromTo('.about-copy > *', { y: 32, autoAlpha: 0 }, { y: 0, autoAlpha: 1, stagger: 0.08 }, 0.1)
         .fromTo(
           '.about-layer-2 .card',
           { y: 100, scale: 0.9, autoAlpha: 0 },

@@ -42,7 +42,7 @@ export default function GallerySection({ initialImages }: GallerySectionProps) {
         scrollTrigger: {
           trigger: introRef.current,
           start: 'top top',
-          end: '+=140%',
+          end: '+=110%',
           scrub: true,
           pin: true,
         },
@@ -52,13 +52,13 @@ export default function GallerySection({ initialImages }: GallerySectionProps) {
         .fromTo(
           '.gallery-layer.is-1 .card',
           { y: 80, autoAlpha: 0, scale: 0.9 },
-          { y: 0, autoAlpha: 1, scale: 1, stagger: 0.1 },
+          { y: 0, autoAlpha: 1, scale: 1, stagger: 0.06 },
           0.05
         )
         .fromTo(
           '.gallery-layer.is-2 .card',
           { y: 120, autoAlpha: 0, scale: 0.9 },
-          { y: 0, autoAlpha: 1, scale: 1, stagger: 0.12 },
+          { y: 0, autoAlpha: 1, scale: 1, stagger: 0.06 },
           0.18
         )
     }, introRef)
