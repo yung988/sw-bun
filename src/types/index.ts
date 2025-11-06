@@ -43,14 +43,18 @@ export type Highlight = {
 }
 
 export type PriceItem = {
-  CategoryId: string
-  CategoryName: string
-  PackageName: string
-  Price: string
-  Sessions: string
-  Price_Cleaned: string
-  Image: string
-  Description: string
+  category: string
+  subcategory: string
+  serviceType: string
+  name: string
+  shortDescription: string
+  description: string
+  duration: number
+  sessions: number
+  price: string
+  benefits: string[]
+  image: string
+  images?: string[]
 }
 
 export type InstagramPost = {

@@ -1,9 +1,9 @@
 'use client'
 
-import { useEffect, type ReactNode } from 'react'
-import Lenis from 'lenis'
 import gsap from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
+import Lenis from 'lenis'
+import { type ReactNode, useEffect } from 'react'
 
 if (typeof window !== 'undefined') {
   gsap.registerPlugin(ScrollTrigger)
@@ -25,7 +25,7 @@ export default function SmoothScrollProvider({ children }: SmoothScrollProviderP
 
     const lenis = new Lenis({
       duration: 1.2,
-      easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+      easing: (t) => Math.min(1, 1.001 - 2 ** (-10 * t)),
       // @ts-expect-error - direction is a valid option in Lenis but not in types
       direction: 'vertical',
       smooth: true,

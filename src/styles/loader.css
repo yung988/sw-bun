@@ -1,0 +1,107 @@
+.loader {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100svh;
+  overflow: hidden;
+  background-color: #ffffff;
+}
+
+.overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+}
+
+.block {
+  height: 100%;
+  width: 50%;
+  transform: translateY(0%);
+  will-change: transform;
+  background-color: #fff;
+}
+
+.divider {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%) scaleY(0);
+  transform-origin: center top;
+  width: 1px;
+  height: 100%;
+  background-color: #000;
+}
+
+.counter,
+.count {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+}
+
+.count {
+  gap: 0.1em;
+}
+
+.digit {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  width: auto; /* was 100% -> caused digits to drift off screen */
+  height: auto; /* auto so the characters size themselves */
+}
+
+.digit h1 {
+  transform: translateY(100%);
+  line-height: 0.9;
+  font-size: clamp(12rem, 20vw, 25rem);
+  font-weight: 400;
+  font-family: var(--font-instrument-serif, serif);
+  color: #000 !important; /* enforce black digits */
+}
+
+/* remove duplicated .count block and rely on the one above */
+
+/* remove duplicated .digit block */
+
+.digit h1 {
+  transform: translateY(100%);
+  line-height: 0.9;
+  font-size: clamp(12rem, 20vw, 25rem);
+  font-weight: 400;
+  font-family: var(--font-instrument-serif, serif);
+  color: #000;
+}
+
+.spinner-container {
+  position: absolute;
+  bottom: 10%;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.spinner {
+  width: 50px;
+  height: 50px;
+  border: 1.4px solid #000;
+  border-top-color: rgba(0, 0, 0, 0.125);
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}

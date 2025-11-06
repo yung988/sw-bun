@@ -1,8 +1,9 @@
-import Link from 'next/link'
 import Container from '@/components/ui/Container'
 import Section from '@/components/ui/Section'
-import SectionTitle from './SectionTitle'
+import { getCategoryCoverServer } from '@/lib/server/images'
+import Link from 'next/link'
 import Carousel from './Carousel'
+import SectionTitle from './SectionTitle'
 import ServiceCard from './ServiceCard'
 
 type ServicesSectionProps = {
@@ -16,14 +17,12 @@ type ServicesSectionProps = {
   }[]
 }
 
-export default function ServicesSection({ categories }: ServicesSectionProps) {
-  const serviceImages = [
-    '/images/service-cosmetic.jpg',
-    '/images/service-cavitace.jpg',
-    '/images/service-hair.jpg',
-    '/images/service-ems.jpg',
-    '/images/service-endosphere.jpg',
-  ]
+export default async function ServicesSection({ categories }: ServicesSectionProps) {
+  // Resolve cover image for each category from existing files
+  const imagesByCategory = new Map<string, string>()
+  for (const c of categories) {
+    imagesByCategory.set(c.id, await getCategoryCoverServer(c.id))
+  }
 
   return (
     <Section id="sluzby">
@@ -48,8 +47,8 @@ export default function ServicesSection({ categories }: ServicesSectionProps) {
 
         <div>
           <Carousel auto autoSpeed={30}>
-            {categories.map((category, index) => {
-              const image = serviceImages[index % serviceImages.length]
+            {categories.map((category) => {
+              const image = imagesByCategory.get(category.id) as string
 
               return (
                 <div key={category.id} className="w-[320px] shrink-0 snap-start">

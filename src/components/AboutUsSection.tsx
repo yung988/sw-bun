@@ -1,7 +1,7 @@
-import Image from 'next/image'
-import { Heart } from 'lucide-react'
 import Container from '@/components/ui/Container'
 import Section from '@/components/ui/Section'
+import { Heart } from 'lucide-react'
+import Image from 'next/image'
 
 export default function AboutUsSection() {
   return (
@@ -56,7 +56,7 @@ export default function AboutUsSection() {
           <div className="relative">
             <div className="relative aspect-[3/4] overflow-hidden rounded-3xl shadow-2xl">
               <Image
-                src="/images/team/sabina.jpg"
+                src="/images/team/sabina-main.jpeg"
                 alt="Sabina - zakladatelka SW Beauty"
                 fill
                 sizes="(min-width: 1024px) 50vw, 100vw"

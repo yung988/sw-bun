@@ -3,22 +3,22 @@ import type { InstagramPost } from '@/types'
 export const instagramPosts: InstagramPost[] = [
   {
     id: 1,
-    image: '/images/service-hifu.jpg',
+    image: '/images/hifu/hifu-1.jpg',
     alt: 'HIFU ošetření v našem salonu',
     likes: 127,
     comments: 8,
   },
   {
     id: 2,
-    image: '/images/service-endosphere.jpg',
+    image: '/images/stylizované/details-1.jpeg',
     alt: 'Endos-roller terapie',
     likes: 89,
     comments: 12,
   },
   {
     id: 3,
-    image: '/images/service-hair.jpg',
-    alt: 'Profesionální péče o vlasy',
+    image: '/images/ems/budovani-svalu-1.jpeg',
+    alt: 'EMS trénink',
     likes: 156,
     comments: 15,
   },

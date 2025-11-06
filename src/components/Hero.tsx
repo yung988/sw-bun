@@ -1,6 +1,9 @@
 'use client'
+import { useIntroCompleteContext } from '@/components/IntroProvider'
+import WordReveal from '@/components/animations/WordReveal'
+import gsap from 'gsap'
 import Image from 'next/image'
-import { useEffect, useRef } from 'react'
+import { useEffect, useLayoutEffect, useMemo, useRef, useState } from 'react'
 
 type HeroProps = {
   title: string
@@ -9,38 +12,89 @@ type HeroProps = {
   trustedText: string
   trustedCount: string
   avatars: string[]
+  videos?: string[]
 }
 
-export default function Hero({ title, titleItalic, subtitle, trustedText, trustedCount, avatars }: HeroProps) {
+export default function Hero({
+  title,
+  titleItalic,
+  subtitle,
+  trustedText,
+  trustedCount,
+  avatars,
+  videos = [],
+}: HeroProps) {
+  const [introComplete] = useIntroCompleteContext()
+  const sectionRef = useRef<HTMLElement>(null)
+  const videoWrapperRef = useRef<HTMLDivElement>(null)
+  const titleGroupRef = useRef<HTMLDivElement>(null)
+  const subtitleRef = useRef<HTMLDivElement>(null)
+  const trustedRef = useRef<HTMLDivElement>(null)
   const videoRef = useRef<HTMLVideoElement>(null)
 
+  const videoList = useMemo<string[]>(() => (videos?.length ? videos : ['/movies/video-recepce.mp4']), [videos])
+  const [_index, _setIndex] = useState(0)
+  const [currentSrc, _setCurrentSrc] = useState<string>(videoList[0])
+  const [fade, _setFade] = useState(false)
+
   useEffect(() => {
-    // Video autoplay
-    if (videoRef.current) {
-      videoRef.current.play().catch((error) => {
-        console.log('Video autoplay was prevented:', error)
-      })
+    if (!videoRef.current) return
+    if (introComplete) {
+      videoRef.current.src = currentSrc
+      videoRef.current.load()
+      const playPromise = videoRef.current.play()
+      if (playPromise && typeof playPromise.catch === 'function') playPromise.catch(() => {})
+    } else {
+      videoRef.current.pause()
     }
-  }, [])
+  }, [introComplete, currentSrc])
+
+  // 📣 Spuštění hero animace po loaderu
+  useLayoutEffect(() => {
+    const startHeroIntro = () => {
+      if (!sectionRef.current) return
+      const ctx = gsap.context(() => {
+        const targets = [
+          videoWrapperRef.current,
+          titleGroupRef.current,
+          subtitleRef.current,
+          trustedRef.current,
+        ].filter(Boolean) as HTMLElement[]
+
+        gsap.set(targets, { autoAlpha: 0, y: 48 })
+        if (videoWrapperRef.current) gsap.set(videoWrapperRef.current, { scale: 1.05, autoAlpha: 0 })
+
+        const tl = gsap.timeline({ defaults: { ease: 'power2.out', duration: 1 } })
+        if (videoWrapperRef.current) tl.to(videoWrapperRef.current, { autoAlpha: 1, y: 0, scale: 1 }, 0)
+        tl.to(titleGroupRef.current, { autoAlpha: 1, y: 0 }, '-=0.6')
+        tl.to(subtitleRef.current, { autoAlpha: 1, y: 0 }, '-=0.55')
+        tl.to(trustedRef.current, { autoAlpha: 1, y: 0 }, '-=0.5')
+      }, sectionRef)
+      return () => ctx.revert()
+    }
+
+    if (introComplete) startHeroIntro()
+    window.addEventListener('intro:complete', startHeroIntro)
+    return () => window.removeEventListener('intro:complete', startHeroIntro)
+  }, [introComplete])
 
   return (
-    <section id="home" className="mx-auto max-w-[1250px] px-6 py-16 md:py-24 lg:py-28">
-      {/* Top Content - 3 Columns */}
+    <section ref={sectionRef} id="home" className="mx-auto max-w-[1250px] px-6 py-16 md:py-24 lg:py-28">
       <div className="grid gap-12 lg:grid-cols-3 lg:gap-16 mb-20 lg:mb-24">
-        {/* Column 1: Title */}
-        <div className="lg:col-span-1">
+        <div ref={titleGroupRef} className="lg:col-span-1 opacity-0">
           <h1 className="text-5xl md:text-6xl lg:text-7xl font-light leading-[1.15] tracking-tight text-slate-900">
-            {title} <em className="italic font-serif font-normal">{titleItalic}</em>
+            <WordReveal stagger={0.06}>{title}</WordReveal>{' '}
+            <WordReveal stagger={0.08} className="italic font-serif font-normal">
+              {titleItalic}
+            </WordReveal>
           </h1>
         </div>
 
-        {/* Column 2: Subtitle */}
-        <div className="lg:col-span-1 flex items-center">
+        <div ref={subtitleRef} className="lg:col-span-1 flex items-center opacity-0">
           <p className="text-base md:text-lg text-slate-600 leading-relaxed max-w-md">{subtitle}</p>
         </div>
 
-        {/* Column 3: Trusted */}
-        <div className="lg:col-span-1 flex items-center lg:justify-end">
+        <div ref={trustedRef} className="lg:col-span-1 flex items-center lg:justify-end opacity-0">
           <div className="flex items-center gap-4">
             <div className="flex -space-x-3">
               {avatars.map((avatar, index) => (
@@ -60,28 +114,20 @@ export default function Hero({ title, titleItalic, subtitle, trustedText, truste
         </div>
       </div>
 
-      {/* Hero Video */}
-      <div className="relative w-full aspect-[16/9] lg:aspect-[21/9] overflow-hidden rounded-[2rem] lg:rounded-[2.5rem] bg-slate-100 shadow-2xl border border-slate-200/50">
+      <div
+        ref={videoWrapperRef}
+        className="relative w-full aspect-[16/9] lg:aspect-[21/9] overflow-hidden rounded-[2rem] lg:rounded-[2.5rem] bg-slate-100 shadow-2xl border border-slate-200/50 opacity-0"
+      >
         <video
           ref={videoRef}
-          autoPlay
           loop
           muted
           playsInline
-          preload="auto"
+          preload="metadata"
+          poster="/images/salon/recepce.jpg"
           className="absolute inset-0 h-full w-full object-cover"
-          onError={(e) => {
-            console.error('Video failed to load:', e)
-            e.currentTarget.style.display = 'none'
-          }}
-          onLoadedData={() => {
-            console.log('Video loaded successfully')
-          }}
-        >
-          <source src="/hero_1.mp4" type="video/mp4" />
-          Video není podporováno vaším prohlížečem.
-        </video>
-        {/* Jemný overlay pro lepší kontrast textu, pokud je potřeba */}
+        />
+        {fade && <div className="absolute inset-0 bg-black/20 animate-[fade_0.6s_ease]" />}
         <div className="absolute inset-0 bg-gradient-to-t from-black/10 via-transparent to-transparent pointer-events-none" />
       </div>
     </section>

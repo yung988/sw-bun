@@ -1,6 +1,6 @@
 'use client'
 
-import { createContext, useContext, useState, type ReactNode } from 'react'
+import { type ReactNode, createContext, useContext, useState } from 'react'
 import BookingModal from './BookingModal'
 import VoucherModal from './VoucherModal'
 
@@ -8,7 +8,7 @@ type Service = {
   id: string
   name: string
   price: string
-  duration: number
+  duration: number | null
 }
 
 type ModalContextType = {

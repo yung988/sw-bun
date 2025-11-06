@@ -1,10 +1,10 @@
 'use client'
 
+import { formatPrice } from '@/lib/price'
 import type { Service } from '@/lib/services'
-import { useMemo, useState, useEffect } from 'react'
 import Link from 'next/link'
-import { useSearchParams, useRouter } from 'next/navigation'
-import { formatPrice } from '@/lib/services'
+import { useRouter, useSearchParams } from 'next/navigation'
+import { useEffect, useMemo, useState } from 'react'
 
 type CategoryFilter = 'all' | string
 
@@ -29,33 +29,8 @@ export default function PriceTable({ services }: Props) {
   const [searchQuery, setSearchQuery] = useState('')
   const [categoryFilter, setCategoryFilter] = useState<CategoryFilter>('all')
 
-  // Initialize filter from URL params
-  useEffect(() => {
-    const categoryParam = searchParams.get('category')
-    if (categoryParam && categories.includes(categoryParam as CategoryFilter)) {
-      setCategoryFilter(categoryParam as CategoryFilter)
-    }
-    const searchParam = searchParams.get('search')
-    if (searchParam) {
-      setSearchQuery(searchParam)
-    }
-  }, [searchParams, categories])
-
-  // Update URL when filters change
-  useEffect(() => {
-    const params = new URLSearchParams()
-    if (categoryFilter !== 'all') {
-      params.set('category', categoryFilter)
-    }
-    if (searchQuery) {
-      params.set('search', searchQuery)
-    }
-    const query = params.toString()
-    router.replace(`/cenik${query ? `?${query}` : ''}`, { scroll: false })
-  }, [categoryFilter, searchQuery, router])
-
   const allServices = useMemo(() => services, [services])
-  const categories = ['all', ...new Set(allServices.map((s) => s.categoryId))]
+  const categories = useMemo(() => ['all', ...new Set(allServices.map((s) => s.categoryId))], [allServices])
 
   // Initialize filter from URL params
   useEffect(() => {

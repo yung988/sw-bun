@@ -1,145 +1,146 @@
 'use client'
-import { AnimatePresence, motion, useReducedMotion } from 'framer-motion'
-import { useEffect, useRef, useState } from 'react'
-import gsap from 'gsap'
 
-const EASE = [0.16, 1, 0.3, 1] as const // Smooth easing
-const INTRO_DURATION_MS = 3000 // Increased for counter animation
-const SESSION_KEY = 'swbeauty_intro_seen'
+import { useIntroCompleteContext } from '@/components/IntroProvider'
+import gsap from 'gsap'
+import CustomEase from 'gsap/CustomEase'
+import { useLayoutEffect, useRef, useState } from 'react'
+import '@/styles/loader.css'
+
+if (typeof window !== 'undefined') {
+  gsap.registerPlugin(CustomEase)
+  CustomEase.create('hop', '0.9, 0, 0.1, 1')
+}
+
+const COUNTS = ['00', '27', '65', '98', '99']
 
 export default function LoadingScreen() {
-  const prefersReducedMotion = useReducedMotion()
-  const [isVisible, setIsVisible] = useState(false)
-  const [progress, setProgress] = useState(0)
-  const hasRunRef = useRef(false)
-  const counterRef = useRef<HTMLSpanElement>(null)
+  const [isVisible, setIsVisible] = useState(true)
+  const containerRef = useRef<HTMLDivElement>(null)
+  const [, setIntroComplete] = useIntroCompleteContext()
 
-  useEffect(() => {
-    if (hasRunRef.current) return
-    hasRunRef.current = true
+  useLayoutEffect(() => {
+    if (!isVisible || !containerRef.current) return
 
-    try {
-      if (typeof window !== 'undefined' && sessionStorage.getItem(SESSION_KEY) === '1') {
-        setIsVisible(false)
-        return
-      }
-    } catch {}
+    const ctx = gsap.context(() => {
+      // Ensure digits are visible and in the expected starting state
+      gsap.set('.count', { autoAlpha: 0 })
+      gsap.set('.digit h1', { y: '100%' })
+      const tl = gsap.timeline({
+        delay: 0.2,
+        defaults: { ease: 'hop' },
+        onComplete: () => {
+          setIntroComplete(true)
+          gsap.to(containerRef.current, {
+            opacity: 0,
+            duration: 0.6,
+            pointerEvents: 'none',
+            onComplete: () => setIsVisible(false),
+          })
+        },
+      })
 
-    if (prefersReducedMotion) {
-      setIsVisible(false)
-      try {
-        sessionStorage.setItem(SESSION_KEY, '1')
-      } catch {}
-      return
-    }
+      // 1️⃣ Čísla
+      const counts = gsap.utils.toArray<HTMLElement>('.count')
+      counts.forEach((count, index) => {
+        const digits = count.querySelectorAll('.digit h1')
+        tl.set(count, { autoAlpha: 1 }, index)
+        tl.to(digits, { y: '0%', duration: 0.9, stagger: 0.06 }, index)
+        if (index < counts.length - 1) {
+          tl.to(digits, { y: '-100%', duration: 0.9, stagger: 0.06 }, index + 0.8)
+          tl.set(count, { autoAlpha: 0 }, index + 0.8)
+        } else {
+          tl.set(count, { autoAlpha: 0 }, index + 0.8)
+        }
+      })
 
-    setIsVisible(true)
+      // 2️⃣ Skrýt spinner – čísla už jsou skrytá
+      tl.to('.spinner', { opacity: 0, duration: 0.3 })
 
-    // Animate counter from 0 to 100
-    const counter = { value: 0 }
-    gsap.to(counter, {
-      value: 100,
-      duration: INTRO_DURATION_MS / 1000,
-      ease: 'power2.inOut',
-      onUpdate: () => {
-        setProgress(Math.round(counter.value))
-      },
-    })
+      // 3️⃣ Logo – S zespodu, W shora
+      tl.to('.logo-left', { y: '0%', duration: 1 }, '+=0.2')
+      tl.to('.logo-right', { y: '0%', duration: 1 }, '<')
 
-    const timeout = setTimeout(() => {
-      setIsVisible(false)
-      try {
-        sessionStorage.setItem(SESSION_KEY, '1')
-      } catch {}
-    }, INTRO_DURATION_MS)
+      // 4️⃣ Čára
+      tl.to('.divider', { scaleY: 1, duration: 0.9, transformOrigin: 'center top' })
+      tl.to('.divider', { opacity: 0, duration: 0.4, delay: 0.2 })
 
-    return () => clearTimeout(timeout)
-  }, [prefersReducedMotion])
+      // 5️⃣ Logo odjede
+      tl.to('.logo-left', { y: '-100%', duration: 1 }, '+=0.3')
+      tl.to('.logo-right', { y: '100%', duration: 1 }, '<')
+
+      // 6️⃣ Půlky stránky (pravá strana nahoru, levá strana dolů)
+      tl.to('.block-left', {
+        y: '100%',
+        duration: 1.2,
+        ease: 'power3.inOut',
+      })
+      tl.to(
+        '.block-right',
+        {
+          y: '-100%',
+          duration: 1.2,
+          ease: 'power3.inOut',
+        },
+        '<'
+      )
+    }, containerRef)
+
+    return () => ctx.revert()
+  }, [isVisible, setIntroComplete])
 
   if (!isVisible) return null
 
   return (
-    <AnimatePresence mode="wait">
-      <motion.div
-        key="intro"
-        initial={{ opacity: 1 }}
-        exit={{ opacity: 0 }}
-        transition={{ duration: 0.8, ease: EASE }}
-        className="fixed inset-0 z-[9999] bg-white"
-        aria-hidden="true"
+    <div
+      ref={containerRef}
+      className="loader fixed inset-0 z-[9999] overflow-hidden bg-white text-black"
+      aria-hidden="true"
+    >
+      {/* Overlay – rozdělení na levou a pravou polovinu */}
+      <div className="overlay absolute inset-0 flex">
+        <div className="block block-left w-1/2 h-full bg-white" />
+        <div className="block block-right w-1/2 h-full bg-white" />
+      </div>
+
+      {/* Logo */}
+      <div
+        className="intro-logo absolute left-1/2 top-1/2 flex -translate-x-1/2 -translate-y-1/2 items-center"
+        style={{ gap: '-2rem' }}
       >
-        {/* Content center */}
-        <div className="absolute inset-0 flex items-center justify-center">
-          <div className="flex flex-col items-center gap-12">
-            {/* Brand logo with smooth fade */}
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{
-                duration: 0.8,
-                ease: EASE,
-                delay: 0.1,
-              }}
-              className="relative"
-            >
-              <motion.img
-                src="/logo.svg"
-                alt="SW Beauty logo"
-                width={180}
-                height={180}
-                loading="eager"
-                className="block"
-              />
-            </motion.div>
-
-            {/* Counter and progress bar */}
-            <motion.div
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ duration: 0.6, delay: 0.3, ease: EASE }}
-              className="flex flex-col items-center gap-6 w-64"
-            >
-              {/* Animated counter */}
-              <div className="text-center">
-                <span ref={counterRef} className="text-6xl font-light text-slate-900 tabular-nums">
-                  {progress.toString().padStart(2, '0')}
-                </span>
-                <span className="text-2xl font-light text-slate-400 ml-1">%</span>
-              </div>
-
-              {/* Progress bar */}
-              <div className="w-full h-[2px] bg-slate-200 rounded-full overflow-hidden">
-                <motion.div
-                  className="h-full bg-slate-900"
-                  initial={{ width: '0%' }}
-                  animate={{ width: `${progress}%` }}
-                  transition={{ duration: 0.1, ease: 'linear' }}
-                />
-              </div>
-
-              {/* Tagline */}
-              <motion.p
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                transition={{ duration: 0.6, delay: 0.5, ease: EASE }}
-                className="text-xs uppercase tracking-[0.3em] text-slate-600 font-light"
-              >
-                beauty in every detail
-              </motion.p>
-            </motion.div>
+        <div className="overflow-hidden">
+          <div className="logo-left translate-y-full">
+            <img src="/s.svg" alt="S" className="h-[200px] md:h-[250px] lg:h-[300px] w-auto object-contain" />
           </div>
         </div>
+        <div className="overflow-hidden">
+          <div className="logo-right -translate-y-full">
+            <img src="/w.svg" alt="W" className="h-[200px] md:h-[250px] lg:h-[300px] w-auto object-contain" />
+          </div>
+        </div>
+      </div>
 
-        {/* Smooth curtain exit */}
-        <motion.div
-          initial={{ y: '100%' }}
-          animate={{ y: '100%' }}
-          exit={{ y: 0 }}
-          transition={{ duration: 0.8, ease: EASE }}
-          className="pointer-events-none absolute inset-0 bg-white"
-          style={{ transformOrigin: 'bottom' }}
-        />
-      </motion.div>
-    </AnimatePresence>
+      {/* Čára */}
+      <div className="divider absolute left-1/2 top-0 h-full w-px bg-black opacity-100" />
+
+      {/* Spinner */}
+      <div className="spinner-container absolute bottom-[10%] left-1/2 -translate-x-1/2">
+        <div className="spinner h-12 w-12 rounded-full border border-black border-t-black/20" />
+      </div>
+
+      {/* Číselný loading */}
+      <div className="counter pointer-events-none absolute left-1/2 top-1/2 z-[1000] -translate-x-1/2 -translate-y-1/2">
+        {COUNTS.map((sequence, _i) => (
+          <div key={sequence} className="count absolute left-1/2 top-1/2 flex -translate-x-1/2 -translate-y-1/2">
+            {sequence.split('').map((digit, j) => (
+              <div key={`${sequence}-${j}`} className="digit overflow-hidden flex items-center justify-center">
+                <h1 className="translate-y-full text-[9rem] font-serif font-light text-black md:text-[13rem] lg:text-[15rem] leading-[1]">
+                  {digit}
+                </h1>
+              </div>
+            ))}
+          </div>
+        ))}
+      </div>
+    </div>
   )
 }

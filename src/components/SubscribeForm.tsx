@@ -1,4 +1,5 @@
 'use client'
+import { track } from '@/lib/analytics'
 import { useState } from 'react'
 
 export default function SubscribeForm() {
@@ -26,9 +27,11 @@ export default function SubscribeForm() {
 
       setSubmitted(true)
       setEmail('')
+      track('newsletter_submit', { status: 'success' })
       setTimeout(() => setSubmitted(false), 5000)
     } catch (err) {
       console.error('Newsletter subscription error:', err)
+      track('newsletter_submit', { status: 'error' })
       setError(err instanceof Error ? err.message : 'Nepodařilo se přihlásit k odběru. Zkuste to prosím znovu.')
     } finally {
       setIsSubmitting(false)
@@ -55,6 +58,9 @@ export default function SubscribeForm() {
               value={email}
               onChange={(e) => setEmail(e.target.value)}
               placeholder="vas@email.cz"
+              id="newsletter-email"
+              aria-describedby={error ? 'newsletter-error' : undefined}
+              aria-invalid={!!error}
               className="flex-1 rounded-full border border-slate-200 bg-white px-5 py-3 text-sm text-slate-900 outline-none transition focus:border-slate-900"
             />
             <button
@@ -66,7 +72,11 @@ export default function SubscribeForm() {
             </button>
           </div>
           {error && (
-            <div className="rounded-xl bg-red-50 border border-red-200 p-3 flex items-start gap-3">
+            <div
+              id="newsletter-error"
+              aria-live="assertive"
+              className="rounded-xl bg-red-50 border border-red-200 p-3 flex items-start gap-3"
+            >
               <svg
                 className="h-5 w-5 text-red-600 flex-shrink-0 mt-0.5"
                 fill="none"
@@ -85,7 +95,7 @@ export default function SubscribeForm() {
             </div>
           )}
           {submitted && (
-            <p className="text-sm text-slate-900 text-center flex items-center justify-center gap-2">
+            <p aria-live="polite" className="text-sm text-slate-900 text-center flex items-center justify-center gap-2">
               <svg className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
                 <title>Úspěch</title>
                 <path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" />

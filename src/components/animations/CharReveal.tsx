@@ -1,8 +1,8 @@
 'use client'
 
-import { useEffect, useRef } from 'react'
 import gsap from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
+import { useEffect, useRef } from 'react'
 
 if (typeof window !== 'undefined') {
   gsap.registerPlugin(ScrollTrigger)
@@ -58,16 +58,10 @@ export default function CharReveal({ children, delay = 0, stagger = 0.02, classN
 
   // Split text into characters, preserving spaces
   const chars = children.split('').map((char, index) => {
-    if (char === ' ') {
-      return (
-        <span key={index} className="char inline-block">
-          &nbsp;
-        </span>
-      )
-    }
+    const key = char === ' ' ? `space-${index}` : `char-${char}-${index}`
     return (
-      <span key={index} className="char inline-block">
-        {char}
+      <span key={key} className="char inline-block">
+        {char === ' ' ? '\u00A0' : char}
       </span>
     )
   })

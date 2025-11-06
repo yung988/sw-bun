@@ -1,0 +1,10 @@
+{
+  "mcpServers": {
+    "jarvis-mcp": {
+      "command": "bunx",
+      "args": [
+        "@shantur/jarvis-mcp"
+      ]
+    }
+  }
+}

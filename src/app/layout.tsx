@@ -1,14 +1,17 @@
 import type { Metadata } from 'next'
-import { Inter, Instrument_Serif } from 'next/font/google'
+import { Instrument_Serif, Inter } from 'next/font/google'
 import './globals.css'
 import 'lenis/dist/lenis.css'
-import Navbar from '@/components/Navbar'
+import { BrandProvider } from '@/components/BrandProvider'
 import Footer from '@/components/Footer'
-import { ModalProvider } from '@/components/ModalProvider'
-import LoadingScreen from '@/components/LoadingScreen'
+import { IntroProvider } from '@/components/IntroProvider'
 import LenisScroll from '@/components/LenisScroll'
-import ScrollProgress from '@/components/ScrollProgress'
+import LoadingScreen from '@/components/LoadingScreen'
 import MainContent from '@/components/MainContent'
+import { ModalProvider } from '@/components/ModalProvider'
+import Navbar from '@/components/Navbar'
+import ScrollProgress from '@/components/ScrollProgress'
+import { getBrandLogoServer, getFaviconServer } from '@/lib/server/images'
 import { Analytics } from '@vercel/analytics/react'
 import { SpeedInsights } from '@vercel/speed-insights/next'
 
@@ -69,7 +72,9 @@ const instrumentSerif = Instrument_Serif({
   display: 'swap',
 })
 
-export default function RootLayout({ children }: { children: React.ReactNode }) {
+export default async function RootLayout({ children }: { children: React.ReactNode }) {
+  const logoSrc = await getBrandLogoServer()
+  const favicon = await getFaviconServer()
   // JSON-LD structured data for SEO
   const jsonLd = {
     '@context': 'https://schema.org',
@@ -123,18 +128,23 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <script type="application/ld+json" suppressHydrationWarning>
           {jsonLdScript}
         </script>
+        <link rel="icon" href={favicon} />
       </head>
       <body className={inter.className}>
-        <LoadingScreen />
-        <LenisScroll />
-        <ScrollProgress />
-        <ModalProvider>
-          <Navbar />
-          <MainContent>{children}</MainContent>
-          <Footer />
-        </ModalProvider>
-        <Analytics />
-        <SpeedInsights />
+        <IntroProvider>
+          <LoadingScreen />
+          <LenisScroll />
+          <ScrollProgress />
+          <ModalProvider>
+            <BrandProvider value={{ logoSrc }}>
+              <Navbar />
+              <MainContent>{children}</MainContent>
+              <Footer />
+            </BrandProvider>
+          </ModalProvider>
+          <Analytics />
+          <SpeedInsights />
+        </IntroProvider>
       </body>
     </html>
   )

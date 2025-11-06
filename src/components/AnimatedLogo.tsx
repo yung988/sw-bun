@@ -1,7 +1,7 @@
 'use client'
 
-import { useEffect } from 'react'
 import { gsap } from 'gsap'
+import { useEffect } from 'react'
 
 interface AnimatedLogoProps {
   className?: string
@@ -44,6 +44,7 @@ export default function AnimatedLogo({ className = '' }: AnimatedLogoProps) {
 
   return (
     <svg viewBox="0 0 1024 1024" className={`w-full h-auto ${className}`} xmlns="http://www.w3.org/2000/svg">
+      <title>SW Beauty Logo</title>
       {/* S */}
       <path
         className="letter"

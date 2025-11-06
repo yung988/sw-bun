@@ -1,5 +1,7 @@
+'use client'
+
+import { Clock, Mail, MapPin, Phone } from 'lucide-react'
 import React, { useState } from 'react'
-import { MapPin, Phone, Mail, Clock } from 'lucide-react'
 
 export default function ContactSection() {
   const [hoveredButton, setHoveredButton] = useState<string | null>(null)
@@ -10,7 +12,7 @@ export default function ContactSection() {
         {/* Header */}
         <div className="mb-12">
           <div className="flex items-center gap-3 mb-4">
-            <div className="w-8 h-px bg-gray-300"></div>
+            <div className="w-8 h-px bg-gray-300" />
             <span className="text-gray-500 text-sm tracking-widest uppercase">Kontakt</span>
           </div>
           <h1 className="text-5xl md:text-6xl font-light">
@@ -91,16 +93,18 @@ export default function ContactSection() {
             {/* Buttons */}
             <div className="flex gap-4 pt-4">
               <button
+                type="button"
                 onMouseEnter={() => setHoveredButton('reserve')}
                 onMouseLeave={() => setHoveredButton(null)}
                 className="relative overflow-hidden bg-black text-white px-8 py-4 rounded-full font-light hover:bg-gray-900 transition-all duration-300 hover:scale-105 hover:shadow-xl"
               >
                 <span className="relative z-10">Rezervovat termín</span>
                 {hoveredButton === 'reserve' && (
-                  <div className="absolute inset-0 bg-gradient-to-r from-rose-600 to-pink-600 animate-pulse"></div>
+                  <div className="absolute inset-0 bg-gradient-to-r from-rose-600 to-pink-600 animate-pulse" />
                 )}
               </button>
               <button
+                type="button"
                 onMouseEnter={() => setHoveredButton('voucher')}
                 onMouseLeave={() => setHoveredButton(null)}
                 className="border-2 border-black text-black px-8 py-4 rounded-full font-light hover:bg-black hover:text-white transition-all duration-300 hover:scale-105"
@@ -115,6 +119,7 @@ export default function ContactSection() {
             <div className="bg-gray-50 rounded-2xl p-4 border border-gray-100 hover:border-gray-200 transition-colors overflow-hidden group">
               <div className="relative aspect-square rounded-xl overflow-hidden">
                 <iframe
+                  title="Mapa umístění SW Beauty"
                   src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2644.6507768!2d17.1256!3d48.8489!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zNDjCsDUwJzU2LjAiTiAxN8KwMDcnMzIuMiJF!5e0!3m2!1sen!2scz!4v1234567890"
                   width="100%"
                   height="100%"
@@ -123,7 +128,7 @@ export default function ContactSection() {
                   loading="lazy"
                   referrerPolicy="no-referrer-when-downgrade"
                   className="grayscale group-hover:grayscale-0 transition-all duration-500"
-                ></iframe>
+                />
               </div>
               <div className="mt-4 text-center">
                 <a

@@ -1,7 +1,7 @@
+import { checkRateLimit, formatResetTime, getClientIp } from '@/lib/rateLimit'
+import { sanitizeEmail } from '@/lib/sanitize'
 import { NextResponse } from 'next/server'
 import { Resend } from 'resend'
-import { checkRateLimit, getClientIp, formatResetTime } from '@/lib/rateLimit'
-import { sanitizeEmail } from '@/lib/sanitize'
 
 // Inicializace Resend pouze pokud API klíč existuje
 const getResend = () => {
@@ -60,7 +60,7 @@ export async function POST(request: Request) {
     const { error: ownerError } = await resend.emails.send({
       from: 'SW Beauty Newsletter <newsletter@swbeauty.cz>',
       to: 'info@swbeauty.cz',
-      subject: `📰 Nový odběratel newsletteru`,
+      subject: '📰 Nový odběratel newsletteru',
       html: `
         <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto;">
           <h2 style="color: #0f172a;">Nový odběratel newsletteru</h2>

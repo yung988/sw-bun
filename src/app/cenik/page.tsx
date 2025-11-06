@@ -1,10 +1,11 @@
+import OpenBookingButton from '@/components/OpenBookingButton'
+import OpenVoucherButton from '@/components/OpenVoucherButton'
 import PriceTable from '@/components/PriceTable'
 import SectionTitle from '@/components/SectionTitle'
-import OpenVoucherButton from '@/components/OpenVoucherButton'
-import OpenBookingButton from '@/components/OpenBookingButton'
+import { getAllServices } from '@/lib/services'
 import type { Metadata } from 'next'
 import Link from 'next/link'
-import { getAllServices } from '@/lib/services'
+import { Suspense } from 'react'
 
 export const metadata: Metadata = {
   title: 'Ceník služeb | SW Beauty Hodonín',
@@ -40,7 +41,18 @@ export default async function PriceListPage() {
 
       {/* Price Table Section */}
       <section className="mx-auto max-w-[1250px] px-6 py-8 md:py-12 lg:py-16">
-        <PriceTable services={services} />
+        <Suspense
+          fallback={
+            <div className="flex items-center justify-center py-12">
+              <div className="text-center">
+                <div className="inline-block h-8 w-8 animate-spin rounded-full border-4 border-solid border-slate-900 border-r-transparent" />
+                <p className="mt-4 text-sm text-slate-600">Načítání ceníku...</p>
+              </div>
+            </div>
+          }
+        >
+          <PriceTable services={services} />
+        </Suspense>
       </section>
 
       {/* Quick Actions */}

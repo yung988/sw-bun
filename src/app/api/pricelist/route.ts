@@ -39,16 +39,26 @@ function parseCSV(text: string): PriceItem[] {
   for (let l = 1; l < lines.length; l++) {
     const cols = parseLine(lines[l])
     const item: PriceItem = {
-      CategoryId: cols[idx('Category')] ?? '',
-      CategoryName: cols[idx('Category')] ?? '',
-      PackageName: cols[idx('PackageName')] ?? '',
-      Price: cols[idx('Price')] ?? '',
-      Sessions: cols[idx('Sessions')] ?? '',
-      Price_Cleaned: cols[idx('Price_Cleaned')] ?? '',
-      Image: cols[idx('Image')] ?? '',
-      Description: cols[idx('Description')] ?? '',
+      category: cols[idx('Category')] ?? '',
+      subcategory: cols[idx('Subcategory')] ?? '',
+      serviceType: cols[idx('ServiceType')] ?? 'single',
+      name: cols[idx('Name')] ?? '',
+      shortDescription: cols[idx('ShortDescription')] ?? '',
+      description: cols[idx('Description')] ?? '',
+      duration: Number.parseInt(cols[idx('Duration')] ?? '0', 10),
+      sessions: Number.parseInt(cols[idx('Sessions')] ?? '0', 10),
+      price: cols[idx('Price')] ?? '',
+      benefits: (cols[idx('Benefits')] ?? '')
+        .split(',')
+        .map((b) => b.trim())
+        .filter(Boolean),
+      image: cols[idx('Image')] ?? '',
+      images: (cols[idx('Images')] ?? '')
+        .split(',')
+        .map((i) => i.trim())
+        .filter(Boolean),
     }
-    if (item.CategoryId || item.CategoryName || item.PackageName) {
+    if (item.category || item.name) {
       res.push(item)
     }
   }

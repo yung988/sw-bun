@@ -1,17 +1,16 @@
 'use client'
 
-import { useEffect, useRef, type ReactNode } from 'react'
 import gsap from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
+import { type ReactNode, useEffect, useRef } from 'react'
 
 if (typeof window !== 'undefined') {
   gsap.registerPlugin(ScrollTrigger)
 }
 
 type SplitRevealProps = {
-  children: ReactNode
+  children: React.ReactNode
   direction?: 'horizontal' | 'vertical'
-  stagger?: number
   className?: string
 }
 
@@ -19,12 +18,7 @@ type SplitRevealProps = {
  * Split reveal animation - content splits and reveals from center
  * Great for dramatic section entrances
  */
-export default function SplitReveal({
-  children,
-  direction = 'horizontal',
-  stagger = 0.1,
-  className = '',
-}: SplitRevealProps) {
+export default function SplitReveal({ children, direction = 'horizontal', className = '' }: SplitRevealProps) {
   const ref = useRef<HTMLDivElement>(null)
   const leftRef = useRef<HTMLDivElement>(null)
   const rightRef = useRef<HTMLDivElement>(null)
@@ -89,7 +83,7 @@ export default function SplitReveal({
     }, ref)
 
     return () => ctx.revert()
-  }, [direction, stagger])
+  }, [direction])
 
   return (
     <div ref={ref} className={`relative overflow-hidden ${className}`}>

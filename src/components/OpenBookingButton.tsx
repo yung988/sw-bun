@@ -1,12 +1,13 @@
 'use client'
 
+import { track } from '@/lib/analytics'
 import { useModals } from './ModalProvider'
 
 type Service = {
   id: string
   name: string
   price: string
-  duration: number
+  duration: number | null
 }
 
 type Props = {
@@ -19,7 +20,23 @@ export default function OpenBookingButton({ service, children, className }: Prop
   const { openBooking } = useModals()
 
   return (
-    <button type="button" onClick={() => openBooking(service)} className={className}>
+    <button
+      type="button"
+      onClick={() => {
+        if (service) {
+          track('reserve_click', {
+            service_id: service.id,
+            service_name: service.name,
+            price: service.price,
+            duration: service.duration,
+          })
+        } else {
+          track('reserve_click', { service_id: 'unknown' })
+        }
+        openBooking(service)
+      }}
+      className={className}
+    >
       {children}
     </button>
   )
