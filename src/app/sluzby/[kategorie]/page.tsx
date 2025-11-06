@@ -1,11 +1,7 @@
-// app/sluzby/[kategorie]/page.tsx
-import type { Metadata } from 'next'
-import Link from 'next/link'
 import ImageGallery from '@/components/ImageGallery'
 import SectionTitle from '@/components/SectionTitle'
 import SubcategoryTOC from '@/components/SubcategoryTOC'
 import TrackedLink from '@/components/TrackedLink'
-import CategoryClient from './_client'
 import { getCategoryMosaicServer } from '@/lib/server/images'
 import {
   formatPrice,
@@ -15,7 +11,11 @@ import {
   getServicesBySubcategory,
   getSubcategoriesByCategory,
 } from '@/lib/services'
+// app/sluzby/[kategorie]/page.tsx
+import type { Metadata } from 'next'
+import Link from 'next/link'
 import { notFound } from 'next/navigation'
+import CategoryClient from './_client'
 
 type Props = { params: Promise<{ kategorie: string }> }
 
@@ -54,6 +54,7 @@ export default async function CategoryPage({ params }: Props) {
               className="inline-flex items-center text-sm text-slate-600 hover:text-slate-900 transition"
             >
               <svg className="mr-2 h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden>
+                <title>Zpět</title>
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
               </svg>
               Zpět na všechny služby
@@ -182,6 +183,7 @@ export default async function CategoryPage({ params }: Props) {
                                 stroke="currentColor"
                                 aria-hidden
                               >
+                                <title>Detail</title>
                                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
                               </svg>
                             </span>

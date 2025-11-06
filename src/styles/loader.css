@@ -49,13 +49,17 @@
   height: 100%;
 }
 
+.count {
+  gap: 0.1em;
+}
+
 .digit {
   display: flex;
   align-items: center;
   justify-content: center;
   overflow: hidden;
-  width: 100%;
-  height: 100%;
+  width: auto; /* was 100% -> caused digits to drift off screen */
+  height: auto; /* auto so the characters size themselves */
 }
 
 .digit h1 {
@@ -64,29 +68,12 @@
   font-size: clamp(12rem, 20vw, 25rem);
   font-weight: 400;
   font-family: var(--font-instrument-serif, serif);
-  color: #000;
+  color: #000 !important; /* enforce black digits */
 }
 
-.count {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  width: 100%;
-  height: 100%;
-}
+/* remove duplicated .count block and rely on the one above */
 
-.digit {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  overflow: hidden;
-  width: 100%;
-  height: 100%;
-}
+/* remove duplicated .digit block */
 
 .digit h1 {
   transform: translateY(100%);

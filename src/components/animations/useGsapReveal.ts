@@ -1,7 +1,7 @@
 'use client'
-import { useLayoutEffect, RefObject } from 'react'
 import gsap from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
+import { type RefObject, useLayoutEffect } from 'react'
 
 if (typeof window !== 'undefined') {
   gsap.registerPlugin(ScrollTrigger)

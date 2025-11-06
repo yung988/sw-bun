@@ -1,10 +1,10 @@
 'use client'
 
-import { useEffect, useRef, useState } from 'react'
-import Image from 'next/image'
-import Link from 'next/link'
 import { gsap } from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
+import Image from 'next/image'
+import Link from 'next/link'
+import { useEffect, useRef, useState } from 'react'
 
 if (typeof window !== 'undefined') {
   gsap.registerPlugin(ScrollTrigger)
@@ -16,79 +16,28 @@ type Service = {
   name: string
   description: string
   image: string
+  category?: string
 }
 
-const CSV_PATH = '/services/services.csv' // ← uprav, pokud máš jiné umístění
+type HProps = { categories: import('@/lib/services').ServiceCategory[]; coversByCategory: Record<string, string> }
 
-function parseCSV(text: string): Service[] {
-  // jednoduchý parser s podporou uvozovek
-  const rows: string[][] = []
-  let row: string[] = []
-  let cell = ''
-  let q = false
-  for (let i = 0; i < text.length; i++) {
-    const c = text[i]
-    if (c === '"') {
-      if (q && text[i + 1] === '"') {
-        cell += '"'
-        i++
-      } else {
-        q = !q
-      }
-    } else if (c === ',' && !q) {
-      row.push(cell.trim())
-      cell = ''
-    } else if ((c === '\n' || c === '\r') && !q) {
-      if (cell.length || row.length) {
-        row.push(cell.trim())
-        rows.push(row)
-        row = []
-        cell = ''
-      }
-    } else {
-      cell += c
-    }
-  }
-  if (cell.length || row.length) {
-    row.push(cell.trim())
-    rows.push(row)
-  }
-  const header = rows.shift() || []
-  return rows
-    .filter((r) => r.length)
-    .map((r, i) => {
-      const obj: Record<string, string> = {}
-      header.forEach((h, idx) => (obj[h] = r[idx] ?? ''))
-      return {
-        id: obj.id || String(i),
-        slug: obj.slug || '',
-        name: obj.name || '',
-        description: obj.description || '',
-        image: obj.image || '',
-          }
-        }
-}
-
-async function fetchServices(): Promise<Service[]> {
-  const res = await fetch(CSV_PATH, { cache: 'no-store' })
-  const text = await res.text()
-  return parseCSV(text)
-}
-
-export default function HorizontalScrollSection() {
+export default function HorizontalScrollSection({ categories, coversByCategory }: HProps) {
   const containerRef = useRef<HTMLDivElement>(null)
   const trackRef = useRef<HTMLDivElement>(null)
   const [services, setServices] = useState<Service[]>([])
   const [isMobile, setIsMobile] = useState(false)
 
-  // Načtení CSV
+  // Naplnění z kategorií (místo CSV služeb)
   useEffect(() => {
-    let mounted = true
-    fetchServices().then((data) => mounted && setServices(data))
-    return () => {
-      mounted = false
-    }
-  }, [])
+    const mapped: Service[] = (categories || []).map((c) => ({
+      id: c.id,
+      slug: c.slug,
+      name: c.name,
+      description: c.description,
+      image: coversByCategory[c.id] || '/images/salon/recepce.jpg',
+    }))
+    setServices(mapped)
+  }, [categories, coversByCategory])
 
   // Mobile detection
   useEffect(() => {
@@ -166,7 +115,7 @@ export default function HorizontalScrollSection() {
               }
             )
           }
-        })
+        }
 
         // Pokud používáš Lenis, někde v app už běží lenis.on('scroll', ScrollTrigger.update)
         // Jen zajistíme refresh po načtení obrázků a při resize:
@@ -174,7 +123,7 @@ export default function HorizontalScrollSection() {
         let pending = imgs.length
         const done = () => ScrollTrigger.refresh()
         if (!pending) done()
-        imgs.forEach((im) => {
+        for (const im of imgs) {
           if (im.complete) {
             if (--pending === 0) done()
           } else {
@@ -185,7 +134,7 @@ export default function HorizontalScrollSection() {
               if (--pending === 0) done()
             })
           }
-        })
+        }
 
         const onResize = () => {
           const w = track.scrollWidth - window.innerWidth
@@ -197,7 +146,9 @@ export default function HorizontalScrollSection() {
         return () => {
           window.removeEventListener('resize', onResize)
           tl.kill()
-          ScrollTrigger.getAll().forEach((s) => s.kill())
+          for (const s of ScrollTrigger.getAll()) {
+            s.kill()
+          }
         }
       }, container)
 

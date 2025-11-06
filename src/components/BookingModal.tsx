@@ -8,7 +8,7 @@ type Service = {
   id?: string
   name: string
   price?: string
-  duration?: number
+  duration?: number | null
 }
 
 type BookingModalProps = {
@@ -125,11 +125,15 @@ export default function BookingModal({ isOpen, onCloseAction, preselectedService
       onClick={(e) => {
         if (e.target === dialogRef.current) onCloseAction()
       }}
+      onKeyDown={(e) => {
+        if (e.key === 'Escape') onCloseAction()
+      }}
       onClose={onCloseAction}
     >
       {/* Modal */}
       <div
         onClick={(e) => e.stopPropagation()}
+        onKeyDown={(e) => e.stopPropagation()}
         className="relative w-full max-w-md bg-white/15 backdrop-blur-3xl rounded-3xl shadow-2xl overflow-hidden border border-white/30"
       >
         {/* Close Button */}

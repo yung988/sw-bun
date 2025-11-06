@@ -72,7 +72,7 @@ export default async function Home() {
       <div className="lg:hidden">
         <ServicesSection categories={categories} />
       </div>
-      {/* Desktop: pinned horizontální scroller napojený na data */}
+      {/* Desktop: pinned horizontální scroller – jen kategorie */}
       <div className="hidden lg:block">
         <HorizontalScrollSection categories={categories} coversByCategory={coversByCategory} />
       </div>

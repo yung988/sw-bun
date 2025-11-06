@@ -1,6 +1,7 @@
 import { getCategoryMosaicServer } from '@/lib/server/images'
 import type { PriceItem } from '@/types'
 import Papa from 'papaparse'
+import { formatPrice } from './price'
 
 type NumericRange = {
   min?: number
@@ -259,14 +260,8 @@ let servicesLoading: Promise<Service[]> | null = null
 async function getPriceListFile(): Promise<string | null> {
   if (typeof window === 'undefined') {
     try {
-      const { readFile, access } = await import('node:fs/promises')
-      const file = `${process.cwd()}/public/services/services.csv`
-      await access(file)
-      const text = await readFile(file, 'utf-8')
-      if (process.env.NODE_ENV !== 'production') {
-        console.info(`[services] Loaded CSV: ${file}`)
-      }
-      return text
+      const { getPriceListFile: serverGetPriceListFile } = await import('./server/csv')
+      return serverGetPriceListFile()
     } catch (error) {
       console.error('Nepodařilo se načíst public/services/services.csv:', error)
       return null
@@ -418,19 +413,4 @@ export async function getCategoryName(categoryId: string): Promise<string> {
   return services[0]?.category ?? categoryId
 }
 
-export function formatPrice(price: number | string): string {
-  if (typeof price === 'number') {
-    return `${price.toLocaleString('cs-CZ')} Kč`
-  }
-
-  const trimmed = price.trim()
-  if (!trimmed) return 'Na dotaz'
-  if (trimmed.toLowerCase() === 'na dotaz') return 'Na dotaz'
-
-  const numeric = Number.parseInt(trimmed.replace(/\s/g, ''), 10)
-  if (!Number.isNaN(numeric)) {
-    return `${numeric.toLocaleString('cs-CZ')} Kč`
-  }
-
-  return trimmed.endsWith('Kč') ? trimmed : `${trimmed} Kč`
-}
+export { formatPrice } from './price'

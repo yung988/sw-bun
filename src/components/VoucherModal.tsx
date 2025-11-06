@@ -124,10 +124,17 @@ export default function VoucherModal({ isOpen, onCloseAction }: VoucherModalProp
       onClick={(e) => {
         if (e.target === dialogRef.current) onCloseAction()
       }}
+      onKeyDown={(e) => {
+        if (e.key === 'Escape') onCloseAction()
+      }}
       onClose={onCloseAction}
     >
       {/* Modal Container */}
-      <div onClick={(e) => e.stopPropagation()} className="relative w-full max-w-6xl grid lg:grid-cols-5 gap-6">
+      <div
+        onClick={(e) => e.stopPropagation()}
+        onKeyDown={(e) => e.stopPropagation()}
+        className="relative w-full max-w-6xl grid lg:grid-cols-5 gap-6"
+      >
         {/* Form Section */}
         <div className="lg:col-span-3 relative bg-white/25 backdrop-blur-3xl rounded-3xl shadow-2xl border border-white/40 max-h-[90vh] overflow-y-auto">
           <button

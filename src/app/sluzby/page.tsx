@@ -1,12 +1,12 @@
 // app/sluzby/page.tsx
 import type { Metadata } from 'next'
 import Link from 'next/link'
-import dynamic from 'next/dynamic'
-import SectionTitle from '@/components/SectionTitle'
+
 import OpenBookingButton from '@/components/OpenBookingButton'
-import ServicesClient from './_client'
+import SectionTitle from '@/components/SectionTitle'
 import { getAllServices, getCategories, getCategoryName } from '@/lib/services'
-import { Sparkles, Dumbbell, ScanFace, Waves, Zap, Droplets, Scissors, Stars } from 'lucide-react'
+import { Droplets, Dumbbell, ScanFace, Scissors, Sparkles, Stars, Waves, Zap } from 'lucide-react'
+import ServicesClient, { ServiceSearch } from './_client'
 
 export const metadata: Metadata = {
   title: 'Služby | SW Beauty Hodonín',
@@ -28,8 +28,6 @@ function pickIcon(id: string) {
   if (key.includes('kosmet')) return Sparkles
   return Stars
 }
-
-const ServiceSearch = dynamic(() => import('@/components/ServiceSearch'), { ssr: false })
 
 export default async function ServicesPage() {
   const [categories, allServices] = await Promise.all([getCategories(), getAllServices()])

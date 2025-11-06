@@ -22,6 +22,9 @@ export default function LoadingScreen() {
     if (!isVisible || !containerRef.current) return
 
     const ctx = gsap.context(() => {
+      // Ensure digits are visible and in the expected starting state
+      gsap.set('.count', { autoAlpha: 0 })
+      gsap.set('.digit h1', { y: '100%' })
       const tl = gsap.timeline({
         delay: 0.2,
         defaults: { ease: 'hop' },
@@ -40,15 +43,18 @@ export default function LoadingScreen() {
       const counts = gsap.utils.toArray<HTMLElement>('.count')
       counts.forEach((count, index) => {
         const digits = count.querySelectorAll('.digit h1')
+        tl.set(count, { autoAlpha: 1 }, index)
         tl.to(digits, { y: '0%', duration: 0.9, stagger: 0.06 }, index)
         if (index < counts.length - 1) {
           tl.to(digits, { y: '-100%', duration: 0.9, stagger: 0.06 }, index + 0.8)
+          tl.set(count, { autoAlpha: 0 }, index + 0.8)
+        } else {
+          tl.set(count, { autoAlpha: 0 }, index + 0.8)
         }
       })
 
-      // 2️⃣ Skrýt čísla a spinner
-      tl.to('.spinner', { opacity: 0, duration: 0.3 }, '<')
-      tl.to('.count', { opacity: 0, duration: 0.5, stagger: 0.05 }, '<')
+      // 2️⃣ Skrýt spinner – čísla už jsou skrytá
+      tl.to('.spinner', { opacity: 0, duration: 0.3 })
 
       // 3️⃣ Logo – S zespodu, W shora
       tl.to('.logo-left', { y: '0%', duration: 1 }, '+=0.2')
@@ -62,16 +68,16 @@ export default function LoadingScreen() {
       tl.to('.logo-left', { y: '-100%', duration: 1 }, '+=0.3')
       tl.to('.logo-right', { y: '100%', duration: 1 }, '<')
 
-      // 6️⃣ Půlky stránky (rozjezd ze středu)
+      // 6️⃣ Půlky stránky (pravá strana nahoru, levá strana dolů)
       tl.to('.block-left', {
-        y: '-100%',
+        y: '100%',
         duration: 1.2,
         ease: 'power3.inOut',
       })
       tl.to(
         '.block-right',
         {
-          y: '100%',
+          y: '-100%',
           duration: 1.2,
           ease: 'power3.inOut',
         },
@@ -99,7 +105,7 @@ export default function LoadingScreen() {
       {/* Logo */}
       <div
         className="intro-logo absolute left-1/2 top-1/2 flex -translate-x-1/2 -translate-y-1/2 items-center"
-        style={{ gap: '-1rem' }}
+        style={{ gap: '-2rem' }}
       >
         <div className="overflow-hidden">
           <div className="logo-left translate-y-full">
@@ -122,11 +128,11 @@ export default function LoadingScreen() {
       </div>
 
       {/* Číselný loading */}
-      <div className="counter pointer-events-none absolute left-1/2 top-1/2 z-10 -translate-x-1/2 -translate-y-1/2">
+      <div className="counter pointer-events-none absolute left-1/2 top-1/2 z-[1000] -translate-x-1/2 -translate-y-1/2">
         {COUNTS.map((sequence, _i) => (
           <div key={sequence} className="count absolute left-1/2 top-1/2 flex -translate-x-1/2 -translate-y-1/2">
-            {sequence.split('').map((digit, _j) => (
-              <div key={digit} className="digit overflow-hidden flex items-center justify-center">
+            {sequence.split('').map((digit, j) => (
+              <div key={`${sequence}-${j}`} className="digit overflow-hidden flex items-center justify-center">
                 <h1 className="translate-y-full text-[9rem] font-serif font-light text-black md:text-[13rem] lg:text-[15rem] leading-[1]">
                   {digit}
                 </h1>

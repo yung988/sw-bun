@@ -1,7 +1,7 @@
 'use client'
 
+import { formatPrice } from '@/lib/price'
 import type { Service } from '@/lib/services'
-import { formatPrice } from '@/lib/services'
 import Link from 'next/link'
 import { useRouter, useSearchParams } from 'next/navigation'
 import { useEffect, useMemo, useState } from 'react'

@@ -8,7 +8,7 @@ type Service = {
   id: string
   name: string
   price: string
-  duration: number
+  duration: number | null
 }
 
 type ModalContextType = {

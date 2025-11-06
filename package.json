@@ -43,6 +43,7 @@
     "@biomejs/biome": "^1.9.4",
     "@tailwindcss/postcss": "^4.1.0",
     "@types/node": "^24.5.2",
+    "@types/papaparse": "^5.3.16",
     "@types/react": "^19",
     "@types/react-dom": "^19",
     "png-to-ico": "^3.0.1",

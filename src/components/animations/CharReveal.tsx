@@ -58,16 +58,10 @@ export default function CharReveal({ children, delay = 0, stagger = 0.02, classN
 
   // Split text into characters, preserving spaces
   const chars = children.split('').map((char, index) => {
-    if (char === ' ') {
-      return (
-        <span key={index} className="char inline-block">
-          &nbsp;
-        </span>
-      )
-    }
+    const key = char === ' ' ? `space-${index}` : `char-${char}-${index}`
     return (
-      <span key={index} className="char inline-block">
-        {char}
+      <span key={key} className="char inline-block">
+        {char === ' ' ? '\u00A0' : char}
       </span>
     )
   })

@@ -1,168 +1,114 @@
-'use client'
-
+import Container from '@/components/ui/Container'
+import Section from '@/components/ui/Section'
+import { Heart } from 'lucide-react'
 import Image from 'next/image'
-import { useLayoutEffect, useRef } from 'react'
-import { gsap, ScrollTrigger } from '@/lib/gsap'
 
 export default function AboutUsSection() {
-  const sectionRef = useRef<HTMLElement | null>(null)
-
-  useLayoutEffect(() => {
-    if (!sectionRef.current) return
-    const ctx = gsap.context(() => {
-      gsap.registerPlugin(ScrollTrigger)
-
-      const tl = gsap.timeline({
-        defaults: { ease: 'power2.out' },
-        scrollTrigger: {
-          trigger: sectionRef.current,
-          start: 'top top',
-          end: '+=120%',
-          scrub: true,
-          pin: true,
-        },
-      })
-
-      tl.fromTo(
-        '.about-scaler',
-        { scale: 1.12, borderRadius: '2rem', yPercent: 2 },
-        { scale: 1, borderRadius: '1.25rem', yPercent: 0 },
-        0
-      )
-        .fromTo(
-          '.about-layer-1 .card',
-          { y: 80, scale: 0.9, autoAlpha: 0 },
-          { y: 0, scale: 1, autoAlpha: 1, stagger: 0.08 },
-          0.05
-        )
-        .fromTo(
-          '.about-layer-2 .card',
-          { y: 100, scale: 0.9, autoAlpha: 0 },
-          { y: 0, scale: 1, autoAlpha: 1, stagger: 0.08 },
-          0.18
-        )
-        .fromTo('.about-copy > *', { y: 32, autoAlpha: 0 }, { y: 0, autoAlpha: 1, stagger: 0.08 }, 0.1)
-        .fromTo(
-          '.about-layer-2 .card',
-          { y: 100, scale: 0.9, autoAlpha: 0 },
-          { y: 0, scale: 1, autoAlpha: 1, stagger: 0.12 },
-          0.18
-        )
-        .fromTo('.about-copy > *', { y: 32, autoAlpha: 0 }, { y: 0, autoAlpha: 1, stagger: 0.12 }, 0.1)
-        .fromTo('.about-stats', { y: 40, autoAlpha: 0 }, { y: 0, autoAlpha: 1 }, 0.45)
-    }, sectionRef)
-
-    return () => ctx.revert()
-  }, [])
-
   return (
-    <section ref={sectionRef} id="o-nas" className="relative min-h-[180vh] bg-white">
-      <div className="sticky top-0 h-screen flex items-center">
-        <div className="mx-auto w-full max-w-7xl px-6">
-          <div className="grid grid-cols-12 gap-8 items-center">
-            {/* Copy */}
-            <div className="about-copy col-span-12 md:col-span-4 space-y-6">
-              <p className="text-sm text-slate-500 uppercase tracking-wider">O nás</p>
-              <h2 className="text-5xl md:text-6xl font-light leading-[1.1] text-slate-900">
-                Cítit se <em className="italic">krásně</em>, <br />
-                cítit se <em className="italic">sebevědomě</em>, <br />
-                cítit se <em className="italic">jako vy</em>.
+    <Section id="o-nas" className="relative bg-white">
+      <Container>
+        {/* Hero Statement */}
+        <div className="relative min-h-[80vh] overflow-hidden rounded-3xl mb-32 md:mb-48">
+          <div className="absolute inset-0 bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900" />
+
+          {/* Background Image */}
+          <div className="absolute inset-0 opacity-40">
+            <Image
+              src="/images/salon/kreslomistnostnaprocedury.jpg"
+              alt="SW Beauty salon"
+              fill
+              className="object-cover"
+              priority
+            />
+          </div>
+
+          <div className="relative z-10 flex items-center min-h-[80vh] px-10 md:px-20 lg:px-24 py-24 md:py-32">
+            <div className="max-w-4xl">
+              <div className="text-white/60 text-sm mb-10 flex items-center gap-2">
+                <Heart className="h-4 w-4" />
+                <span>O nás</span>
+              </div>
+
+              <h2 className="font-display text-4xl md:text-6xl lg:text-7xl font-light text-white mb-12 leading-[1.1]">
+                <span style={{ display: 'inline-block' }}>
+                  Cítit se <em className="italic">krásně.</em>
+                </span>
+                <br />
+                <span style={{ display: 'inline-block' }}>
+                  Cítit se <em className="italic">sebevědomě.</em>
+                </span>
+                <br />
+                <span style={{ display: 'inline-block' }}>
+                  Cítit se <em className="italic">jako vy.</em>
+                </span>
               </h2>
-              <p className="text-lg md:text-xl text-slate-600 max-w-md">
-                Nejen ošetření, ale rituál, který vám vrátí radost z vlastní krásy. Využíváme moderní technologie, ale
-                vždy s citem pro přirozenost.
+
+              <p className="text-xl md:text-2xl text-white/90 leading-relaxed max-w-2xl">
+                To je můj cíl. Ne jen ošetření, ale zážitek, který vám vrátí radost z vlastní krásy.
               </p>
             </div>
+          </div>
+        </div>
 
-            {/* Visual field (scaler + layers) */}
-            <div className="col-span-12 md:col-span-8 relative">
-              {/* Scaler */}
-              <div className="about-scaler relative aspect-[4/3] w-full overflow-hidden rounded-2xl shadow-2xl will-change-transform">
-                <Image
-                  src="/images/salon/kreslomistnostnaprocedury.jpg"
-                  alt="SW Beauty salon"
-                  fill
-                  className="object-cover"
-                  priority
-                />
-                <div className="pointer-events-none absolute inset-0 bg-gradient-to-tr from-black/25 via-transparent to-transparent" />
-              </div>
+        {/* Story Section */}
+        <div className="grid lg:grid-cols-2 gap-20 lg:gap-32 items-center mb-32 md:mb-48">
+          {/* Left - Image */}
+          <div className="relative">
+            <div className="relative aspect-[3/4] overflow-hidden rounded-3xl shadow-2xl">
+              <Image
+                src="/images/team/sabina-main.jpeg"
+                alt="Sabina - zakladatelka SW Beauty"
+                fill
+                sizes="(min-width: 1024px) 50vw, 100vw"
+                className="object-cover hover:scale-105 transition-transform duration-1000"
+              />
+            </div>
 
-              {/* Layer 1 (levý horní + pravý dolní) */}
-              <div className="about-layer-1 pointer-events-none absolute inset-0 grid grid-cols-12 gap-6">
-                <div className="card col-span-5 md:col-span-4 self-start">
-                  <div className="relative aspect-[3/4] overflow-hidden rounded-2xl shadow-2xl">
-                    <Image
-                      src="/images/team/sabina-main.jpeg"
-                      alt="Sabina – zakladatelka"
-                      fill
-                      className="object-cover"
-                      sizes="(min-width:1024px) 33vw, 50vw"
-                      priority
-                    />
-                  </div>
+            {/* Floating stats */}
+            <div className="absolute -bottom-10 -right-10 bg-white rounded-3xl shadow-2xl p-10 max-w-xs">
+              <div className="grid grid-cols-3 gap-8 text-center">
+                <div>
+                  <div className="text-4xl font-light text-slate-900 mb-2">10+</div>
+                  <div className="text-xs text-slate-600">let</div>
                 </div>
-                <div className="col-span-2 md:col-span-4" />
-                <div className="card col-span-5 md:col-span-4 self-end col-start-8">
-                  <div className="relative aspect-[3/4] overflow-hidden rounded-2xl shadow-2xl">
-                    <Image
-                      src="/images/salon/recepce.jpg"
-                      alt="Recepce SW Beauty"
-                      fill
-                      className="object-cover"
-                      sizes="(min-width:1024px) 33vw, 50vw"
-                    />
-                  </div>
+                <div>
+                  <div className="text-4xl font-light text-slate-900 mb-2">500+</div>
+                  <div className="text-xs text-slate-600">klientek</div>
                 </div>
-              </div>
-
-              {/* Layer 2 (pravý horní malý + levý dolní malý) */}
-              <div className="about-layer-2 pointer-events-none absolute inset-0 grid grid-cols-12 gap-6">
-                <div className="card col-span-3 md:col-span-3 col-start-9 self-start">
-                  <div className="relative aspect-[4/5] overflow-hidden rounded-xl shadow-xl">
-                    <Image
-                      src="/images/salon/recepce.jpg"
-                      alt="Detail interiéru"
-                      fill
-                      className="object-cover"
-                      sizes="(min-width:1024px) 25vw, 40vw"
-                    />
-                  </div>
-                </div>
-                <div className="card col-span-4 md:col-span-3 self-end">
-                  <div className="relative aspect-[4/5] overflow-hidden rounded-xl shadow-xl">
-                    <Image
-                      src="/images/team/sabina-main.jpeg"
-                      alt="Poradenství a péče"
-                      fill
-                      className="object-cover"
-                      sizes="(min-width:1024px) 25vw, 40vw"
-                    />
-                  </div>
-                </div>
-              </div>
-
-              {/* Stats badge */}
-              <div className="about-stats absolute -bottom-8 -left-6 rounded-2xl bg-white p-6 shadow-2xl border border-slate-200/60">
-                <div className="grid grid-cols-3 gap-6 text-center">
-                  <div>
-                    <div className="text-3xl font-light text-slate-900">10+</div>
-                    <div className="text-xs text-slate-500">let praxe</div>
-                  </div>
-                  <div>
-                    <div className="text-3xl font-light text-slate-900">500+</div>
-                    <div className="text-xs text-slate-500">klientek</div>
-                  </div>
-                  <div>
-                    <div className="text-3xl font-light text-slate-900">98%</div>
-                    <div className="text-xs text-slate-500">spokojenost</div>
-                  </div>
+                <div>
+                  <div className="text-4xl font-light text-slate-900 mb-2">98%</div>
+                  <div className="text-xs text-slate-600">spokojenost</div>
                 </div>
               </div>
             </div>
           </div>
+
+          {/* Right - Content */}
+          <div className="space-y-12">
+            <div className="space-y-8">
+              <h3 className="font-display text-4xl md:text-5xl lg:text-6xl font-light text-slate-900 leading-tight">
+                Jsem <em className="italic">Sabina</em>
+              </h3>
+              <div className="space-y-8 text-lg md:text-xl text-slate-600 leading-relaxed">
+                <p>
+                  Více než 10 let se věnuji tomu, co mě baví — pomáhat ženám cítit se skvěle. Ne jen vypadat, ale
+                  opravdu se <strong className="text-slate-900">cítit krásně a sebevědomě</strong>.
+                </p>
+                <p>
+                  Specializuji se na <strong className="text-slate-900">moderní technologie</strong> — HIFU lifting,
+                  Endosphere proti celulitidě, EMS pro budování svalů, kavitaci, kosmetiku i prodlužování vlasů. Ale
+                  nejde jen o přístroje. Jde o to, že každá z vás je jiná a potřebuje něco jiného.
+                </p>
+                <p>
+                  Proto vždy začínáme <strong className="text-slate-900">konzultací</strong>. Poslechnu si vás,
+                  probereme vaše cíle a společně najdeme cestu, která bude fungovat právě pro vás. Žádné univerzální
+                  řešení. Jen péče, která dává smysl.
+                </p>
+              </div>
+            </div>
+          </div>
         </div>
-      </div>
-    </section>
+      </Container>
+    </Section>
   )
 }

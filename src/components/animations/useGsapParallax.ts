@@ -1,7 +1,7 @@
 'use client'
-import { useLayoutEffect, RefObject } from 'react'
 import gsap from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
+import { type RefObject, useLayoutEffect } from 'react'
 
 if (typeof window !== 'undefined') gsap.registerPlugin(ScrollTrigger)
 
@@ -13,7 +13,7 @@ export function useGsapParallax(containerRef: RefObject<HTMLElement>, selector =
     if (reduce) return
 
     const ctx = gsap.context(() => {
-      gsap.utils.toArray<HTMLElement>(selector).forEach((el) => {
+      for (const el of gsap.utils.toArray<HTMLElement>(selector)) {
         gsap.fromTo(
           el,
           { yPercent: -3 },
@@ -28,7 +28,7 @@ export function useGsapParallax(containerRef: RefObject<HTMLElement>, selector =
             },
           }
         )
-      })
+      }
     }, root)
 
     return () => ctx.revert()

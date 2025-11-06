@@ -1,287 +1,180 @@
 'use client'
 
-import { Flip, gsap, ScrollTrigger } from '@/lib/gsap'
-import { ChevronLeft, ChevronRight, X } from 'lucide-react'
+import { gsap } from 'gsap'
+import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import Image from 'next/image'
-import { useLayoutEffect, useMemo, useRef, useState } from 'react'
+import { useLayoutEffect, useMemo, useRef } from 'react'
 
-type GalleryImage = { src: string; alt: string; category: string }
-export type GallerySectionProps = { initialImages: GalleryImage[] }
+if (typeof window !== 'undefined') {
+  gsap.registerPlugin(ScrollTrigger)
+}
 
-const categories = [
-  { id: 'all', label: 'Vše' },
-  { id: 'kosmetika', label: 'Kosmetika' },
-  { id: 'salon', label: 'Salon' },
-  { id: 'hifu', label: 'HIFU' },
-  { id: 'ems', label: 'EMS' },
-  { id: 'detail', label: 'Detaily' },
-]
+type GalleryImage = { src: string; alt: string }
 
-export default function GallerySection({ initialImages }: GallerySectionProps) {
-  const [selectedCategory, setSelectedCategory] = useState('all')
-  const [selectedImage, setSelectedImage] = useState<number | null>(null)
+export type GallerySectionProps = {
+  images?: {
+    hero: GalleryImage
+    layer1: GalleryImage[] // 6 obrázků
+    layer2: GalleryImage[] // 6 obrázků
+    layer3: GalleryImage[] // 2 obrázky
+  } | null
+  // Backward‑compat: původní prop používaný na homepage
+  initialImages?: Array<GalleryImage & { category?: string }>
+}
 
-  const gridRef = useRef<HTMLDivElement>(null)
-  const overlayRef = useRef<HTMLDivElement>(null)
-  const panelRef = useRef<HTMLDivElement>(null)
-  const introRef = useRef<HTMLDivElement>(null)
+export default function GallerySection({ images, initialImages }: GallerySectionProps) {
+  const sectionRef = useRef<HTMLElement>(null)
+  const scalerWrapRef = useRef<HTMLDivElement>(null)
 
-  const filteredImages = useMemo(
-    () => (selectedCategory === 'all' ? initialImages : initialImages.filter((i) => i.category === selectedCategory)),
-    [initialImages, selectedCategory]
-  )
+  // Normalize vstupu: pokud nedorazí `images`, slož vrstvy z `initialImages`
+  const normalized = useMemo(() => {
+    if (images?.hero && images.layer1 && images.layer2 && images.layer3) return images
+    const arr = initialImages ?? []
+    const hero = arr[0] ?? { src: '/images/salon/recepce.jpg', alt: 'Galerie' }
+    const rest = arr.slice(1)
+    const layer1 = rest.slice(0, 6)
+    const layer2 = rest.slice(6, 12)
+    const layer3 = rest.slice(12, 14)
+    return { hero, layer1, layer2, layer3 }
+  }, [images, initialImages])
 
-  // GSAP intro (pin + scaler + layers)
   useLayoutEffect(() => {
-    if (!introRef.current) return
+    if (!sectionRef.current || !scalerWrapRef.current) return
+
     const ctx = gsap.context(() => {
-      gsap.registerPlugin(ScrollTrigger)
-
-      const tl = gsap.timeline({
-        defaults: { ease: 'power2.out' },
-        scrollTrigger: {
-          trigger: introRef.current,
-          start: 'top top',
-          end: '+=110%',
-          scrub: true,
-          pin: true,
-        },
-      })
-
-      tl.fromTo('.gallery-scaler', { scale: 1.12, borderRadius: '2rem' }, { scale: 1, borderRadius: '1.25rem' }, 0)
-        .fromTo(
-          '.gallery-layer.is-1 .card',
-          { y: 80, autoAlpha: 0, scale: 0.9 },
-          { y: 0, autoAlpha: 1, scale: 1, stagger: 0.06 },
-          0.05
+      // Scaler animace - zvětšuje se z fullscreen na normální velikost
+      gsap
+        .timeline({
+          scrollTrigger: {
+            trigger: sectionRef.current,
+            start: 'top -10%',
+            end: 'bottom 80%',
+            scrub: true,
+          },
+        })
+        .from(
+          scalerWrapRef.current,
+          {
+            width: () => (typeof window !== 'undefined' ? Math.max(320, window.innerWidth - 64) : 1000),
+            ease: 'power2.out',
+          },
+          0
         )
-        .fromTo(
-          '.gallery-layer.is-2 .card',
-          { y: 120, autoAlpha: 0, scale: 0.9 },
-          { y: 0, autoAlpha: 1, scale: 1, stagger: 0.06 },
-          0.18
+        .from(
+          scalerWrapRef.current,
+          {
+            height: () => (typeof window !== 'undefined' ? Math.max(400, window.innerHeight - 64) : 700),
+            ease: 'power1.out',
+          },
+          0
         )
-    }, introRef)
+
+      // Layers animace - fade in + scale
+      gsap
+        .timeline({
+          scrollTrigger: {
+            trigger: sectionRef.current,
+            start: 'top -40%',
+            end: 'bottom bottom',
+            scrub: true,
+          },
+        })
+        // Layer 1
+        .from('.gallery-layer-1', { opacity: 0, ease: 'sine.out' }, 0)
+        .from('.gallery-layer-1', { scale: 0, ease: 'power1.out' }, 0)
+        // Layer 2
+        .from('.gallery-layer-2', { opacity: 0, ease: 'sine.out' }, 0)
+        .from('.gallery-layer-2', { scale: 0, ease: 'power3.out' }, 0)
+        // Layer 3
+        .from('.gallery-layer-3', { opacity: 0, ease: 'sine.out' }, 0)
+        .from('.gallery-layer-3', { scale: 0, ease: 'power4.out' }, 0)
+    }, sectionRef)
+
     return () => ctx.revert()
   }, [])
 
-  // FLIP reflow – spouštěj i při změně filtru
-  useLayoutEffect(() => {
-    if (!gridRef.current) return
-    const state = Flip.getState(gridRef.current.querySelectorAll('.gallery-item'))
-    requestAnimationFrame(() => {
-      Flip.from(state, { duration: 0.45, ease: 'power2.out', nested: true, absolute: true })
-    })
-  }, [filteredImages.length, selectedCategory])
-
-  // Lightbox open/close
-  useLayoutEffect(() => {
-    if (!overlayRef.current || !panelRef.current) return
-    if (selectedImage !== null) {
-      const tl = gsap.timeline({ defaults: { ease: 'power2.out' } })
-      gsap.set(overlayRef.current, { opacity: 0, display: 'flex' })
-      gsap.set(panelRef.current, { opacity: 0, scale: 0.96 })
-      tl.to(overlayRef.current, { opacity: 1, duration: 0.2 }, 0)
-      tl.to(panelRef.current, { opacity: 1, scale: 1, duration: 0.3 }, 0.05)
-    } else {
-      const tl = gsap.timeline({ defaults: { ease: 'power2.inOut' } })
-      tl.to(panelRef.current, { opacity: 0, scale: 0.96, duration: 0.2 }, 0)
-      tl.to(overlayRef.current, { opacity: 0, duration: 0.2 }, 0).add(() => {
-        if (overlayRef.current) overlayRef.current.style.display = 'none'
-      })
-    }
-  }, [selectedImage])
-
-  const hero = initialImages[0] ?? { src: '/images/salon/recepce.jpg', alt: 'Salon', category: 'salon' }
-  const layerA = initialImages.slice(1, 5)
-  const layerB = initialImages.slice(5, 9)
-
-  const handlePrevious = () => {
-    if (selectedImage !== null) setSelectedImage(selectedImage > 0 ? selectedImage - 1 : filteredImages.length - 1)
-  }
-  const handleNext = () => {
-    if (selectedImage !== null) setSelectedImage(selectedImage < filteredImages.length - 1 ? selectedImage + 1 : 0)
-  }
-
   return (
-    <section className="relative bg-gradient-to-b from-white to-slate-50">
-      {/* Intro: scaler + vrstvy (GSAP pin) */}
-      <div ref={introRef} className="relative min-h-[160vh]">
-        <div className="sticky top-0 h-screen">
-          <div className="mx-auto h-full w-full max-w-7xl px-6 grid items-center">
-            <div className="relative">
-              {/* Scaler */}
-              <div className="gallery-scaler relative aspect-[21/9] w-full overflow-hidden rounded-2xl shadow-2xl will-change-transform border border-slate-200/50">
-                <Image src={hero.src} alt={hero.alt} fill className="object-cover" sizes="100vw" priority />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/15 via-transparent to-transparent pointer-events-none" />
-              </div>
-
-              {/* Layer 1 */}
-              <div className="gallery-layer is-1 pointer-events-none absolute inset-0 grid grid-cols-12 gap-6">
-                {layerA.map((img, i) => (
-                  <div
-                    key={`la-${i}`}
-                    className={`card col-span-3 md:col-span-2 ${i % 2 ? 'self-end col-start-9' : 'self-start col-start-2'}`}
-                  >
-                    <div className="relative aspect-[3/4] overflow-hidden rounded-xl shadow-xl">
-                      <Image src={img.src} alt={img.alt} fill className="object-cover" sizes="25vw" />
-                    </div>
+    <div className="bg-white">
+      {/* Scroll efekt sekce */}
+      <section ref={sectionRef} className="relative min-h-[240vh]">
+        {/* Sticky container */}
+        <div className="sticky top-0 flex min-h-screen w-screen items-center overflow-hidden">
+          {/* Grid container */}
+          <div className="gallery-grid absolute left-1/2 top-1/2 mx-auto grid w-full max-w-[1600px] -translate-x-1/2 -translate-y-1/2 grid-cols-5 grid-rows-3 gap-[clamp(10px,7.35vw,80px)] px-8 md:px-16">
+            {/* Layer 1 - vnější sloupce (1 a 5) */}
+            <div className="gallery-layer-1 col-span-5 col-start-1 row-span-3 row-start-1 grid grid-cols-subgrid grid-rows-subgrid">
+              {(normalized.layer1 ?? []).map((img, i) => (
+                <div
+                  key={img.src || `l1-${i}`}
+                  className={i % 2 === 0 ? 'col-start-1' : 'col-start-5'}
+                  style={{
+                    gridRow: Math.floor(i / 2) + 1,
+                  }}
+                >
+                  <div className="relative aspect-[4/5] w-full overflow-hidden rounded-2xl">
+                    <Image src={img.src} alt={img.alt} fill className="object-cover" sizes="20vw" />
                   </div>
-                ))}
-              </div>
+                </div>
+              ))}
+            </div>
 
-              {/* Layer 2 */}
-              <div className="gallery-layer is-2 pointer-events-none absolute inset-0 grid grid-cols-12 gap-6">
-                {layerB.map((img, i) => (
-                  <div
-                    key={`lb-${i}`}
-                    className={`card col-span-4 md:col-span-3 ${i % 2 ? 'self-start col-start-8' : 'self-end col-start-1'}`}
-                  >
-                    <div className="relative aspect-[4/5] overflow-hidden rounded-xl shadow-xl">
-                      <Image src={img.src} alt={img.alt} fill className="object-cover" sizes="33vw" />
-                    </div>
+            {/* Layer 2 - střední sloupce (2 a 4) */}
+            <div className="gallery-layer-2 col-span-5 col-start-1 row-span-3 row-start-1 grid grid-cols-subgrid grid-rows-subgrid">
+              {(normalized.layer2 ?? []).map((img, i) => (
+                <div
+                  key={img.src || `l2-${i}`}
+                  className={i % 2 === 0 ? 'col-start-2' : 'col-start-4'}
+                  style={{
+                    gridRow: Math.floor(i / 2) + 1,
+                  }}
+                >
+                  <div className="relative aspect-[4/5] w-full overflow-hidden rounded-2xl">
+                    <Image src={img.src} alt={img.alt} fill className="object-cover" sizes="20vw" />
                   </div>
-                ))}
+                </div>
+              ))}
+            </div>
+
+            {/* Layer 3 - centrální sloupec (3) */}
+            <div className="gallery-layer-3 col-span-5 col-start-1 row-span-3 row-start-1 grid grid-cols-subgrid grid-rows-subgrid">
+              {(normalized.layer3 ?? []).map((img, i) => (
+                <div
+                  key={img.src || `l3-${i}`}
+                  className="col-start-3"
+                  style={{
+                    gridRow: i === 0 ? 1 : 3,
+                  }}
+                >
+                  <div className="relative aspect-[4/5] w-full overflow-hidden rounded-2xl">
+                    <Image src={img.src} alt={img.alt} fill className="object-cover" sizes="20vw" />
+                  </div>
+                </div>
+              ))}
+            </div>
+
+            {/* Scaler - hlavní obrázek uprostřed */}
+            <div className="col-span-5 col-start-1 row-span-3 row-start-1 grid grid-cols-subgrid grid-rows-subgrid">
+              <div className="relative z-10 col-start-3 row-start-2">
+                <div ref={scalerWrapRef} className="relative aspect-[4/5] w-full overflow-hidden rounded-2xl">
+                  <Image
+                    src={normalized.hero.src}
+                    alt={normalized.hero.alt}
+                    fill
+                    className="object-cover"
+                    sizes="25vw"
+                    priority
+                  />
+                </div>
               </div>
             </div>
           </div>
         </div>
-      </div>
+      </section>
 
-      {/* Header */}
-      <div className="mx-auto max-w-7xl px-6 pt-16 md:pt-24 lg:pt-28">
-        <div className="mb-12 text-center">
-          <div className="mb-4 flex items-center justify-center gap-3">
-            <div className="h-px w-12 bg-slate-300" />
-            <span className="text-sm font-medium uppercase tracking-wider text-slate-500">Galerie</span>
-            <div className="h-px w-12 bg-slate-300" />
-          </div>
-          <h2 className="mb-4 text-4xl font-light text-slate-900 md:text-5xl lg:text-6xl">
-            Naše <span className="font-serif italic">práce</span>
-          </h2>
-          <p className="mx-auto max-w-2xl text-lg text-slate-600">
-            Podívejte se na náš salon, procedury a výsledky péče o naše klientky
-          </p>
-        </div>
-
-        {/* Category Filter */}
-        <div className="mb-12 flex flex-wrap items-center justify-center gap-3">
-          {categories.map((category) => (
-            <button
-              type="button"
-              key={category.id}
-              onClick={() => setSelectedCategory(category.id)}
-              className={`rounded-full px-6 py-2.5 text-sm font-medium transition-all duration-300 ${
-                selectedCategory === category.id
-                  ? 'bg-slate-900 text-white shadow-lg'
-                  : 'border border-slate-200 bg-white text-slate-600 hover:border-slate-300 hover:bg-slate-50'
-              }`}
-            >
-              {category.label}
-            </button>
-          ))}
-        </div>
-
-        {/* Gallery Grid (FLIP) */}
-        <div ref={gridRef} className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
-          {filteredImages.map((image, index) => (
-            <button
-              key={image.src}
-              type="button"
-              className="gallery-item group relative aspect-square cursor-pointer overflow-hidden rounded-2xl bg-slate-100"
-              onClick={() => setSelectedImage(index)}
-            >
-              <Image
-                src={image.src}
-                alt={image.alt}
-                fill
-                className="object-cover transition-transform duration-500 group-hover:scale-110"
-                sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 25vw"
-              />
-              <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/0 to-black/0 opacity-0 transition-opacity duration-300 group-hover:opacity-100">
-                <div className="absolute bottom-0 left-0 right-0 p-4">
-                  <p className="text-sm font-medium text-white">{image.alt}</p>
-                </div>
-              </div>
-            </button>
-          ))}
-        </div>
-
-        {filteredImages.length === 0 && (
-          <div className="py-12 text-center">
-            <p className="text-slate-500">Žádné fotografie v této kategorii</p>
-          </div>
-        )}
-      </div>
-
-      {/* Lightbox Modal (beze změn, jen drobné animace) */}
-      <div
-        ref={overlayRef}
-        className="fixed inset-0 z-50 hidden items-center justify-center bg-black/95 p-4"
-        onClick={() => setSelectedImage(null)}
-        onKeyDown={(e) => {
-          if (e.key === 'Escape') setSelectedImage(null)
-        }}
-      >
-        <button
-          type="button"
-          onClick={() => setSelectedImage(null)}
-          className="absolute right-4 top-4 z-10 rounded-full bg-white/10 p-2 text-white backdrop-blur-sm transition-colors hover:bg-white/20"
-          aria-label="Zavřít"
-        >
-          <X size={24} />
-        </button>
-
-        <button
-          type="button"
-          onClick={(e) => {
-            e.stopPropagation()
-            handlePrevious()
-          }}
-          className="absolute left-4 top-1/2 z-10 -translate-y-1/2 rounded-full bg-white/10 p-3 text-white backdrop-blur-sm transition-colors hover:bg-white/20"
-          aria-label="Předchozí"
-        >
-          <ChevronLeft size={24} />
-        </button>
-
-        <button
-          type="button"
-          onClick={(e) => {
-            e.stopPropagation()
-            handleNext()
-          }}
-          className="absolute right-4 top-1/2 z-10 -translate-y-1/2 rounded-full bg-white/10 p-3 text-white backdrop-blur-sm transition-colors hover:bg-white/20"
-          aria-label="Další"
-        >
-          <ChevronRight size={24} />
-        </button>
-
-        <div
-          ref={panelRef}
-          className="relative h-[80vh] w-full max-w-5xl"
-          onClick={(e) => e.stopPropagation()}
-          onKeyDown={(e) => e.stopPropagation()}
-        >
-          {selectedImage !== null && (
-            <Image
-              src={filteredImages[selectedImage].src}
-              alt={filteredImages[selectedImage].alt}
-              fill
-              className="object-contain"
-              sizes="100vw"
-              priority
-            />
-          )}
-          <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/60 to-transparent p-6">
-            <p className="text-center text-lg text-white">
-              {selectedImage !== null ? filteredImages[selectedImage].alt : ''}
-            </p>
-            <p className="text-center text-sm text-white/70">
-              {selectedImage !== null ? selectedImage + 1 : 0} / {filteredImages.length}
-            </p>
-          </div>
-        </div>
-      </div>
-    </section>
+      {/* Fin. sekce */}
+      <section className="flex min-h-screen items-center justify-center bg-white">
+        <h2 className="text-[clamp(3rem,12vw,8rem)] font-light text-slate-900">fin.</h2>
+      </section>
+    </div>
   )
 }

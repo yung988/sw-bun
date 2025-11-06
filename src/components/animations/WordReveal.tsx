@@ -62,7 +62,7 @@ export default function WordReveal({ children, delay = 0, stagger = 0.05, classN
   return (
     <div ref={ref} className={className}>
       {words.map((word, index) => (
-        <span key={`${word}-${index}`} className="word inline-block mr-[0.25em]">
+        <span key={`word-${index}-${word}`} className="word inline-block mr-[0.25em]">
           {word}
         </span>
       ))}
