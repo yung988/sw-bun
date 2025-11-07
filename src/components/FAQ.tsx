@@ -3,7 +3,7 @@ import { useState } from 'react'
 
 type Item = { q: string; a: string }
 
-export default function FAQ({ items }: { items: Item[] }) {
+export default function FAQ({ items, idPrefix = '' }: { items: Item[]; idPrefix?: string }) {
   const [open, setOpen] = useState<number | null>(0)
   return (
     <div className="space-y-2">
@@ -20,11 +20,11 @@ export default function FAQ({ items }: { items: Item[] }) {
             type="button"
             onClick={() => setOpen(open === idx ? null : idx)}
             aria-expanded={open === idx}
-            aria-controls={`faq-answer-${idx}`}
+            aria-controls={`faq-answer-${idPrefix}${idx}`}
             className="w-full text-left flex items-start justify-between gap-4 p-4 lg:p-5 group"
           >
             <span
-              id={`faq-question-${idx}`}
+              id={`faq-question-${idPrefix}${idx}`}
               className="font-medium text-sm lg:text-base tracking-tight text-slate-900 transition-colors pr-2"
             >
               {it.q}
@@ -44,8 +44,8 @@ export default function FAQ({ items }: { items: Item[] }) {
             </span>
           </button>
           <section
-            id={`faq-answer-${idx}`}
-            aria-labelledby={`faq-question-${idx}`}
+            id={`faq-answer-${idPrefix}${idx}`}
+            aria-labelledby={`faq-question-${idPrefix}${idx}`}
             className={`overflow-hidden transition-all duration-300 ease-in-out ${
               open === idx ? 'max-h-[400px] opacity-100' : 'max-h-0 opacity-0'
             }`}

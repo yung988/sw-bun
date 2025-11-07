@@ -27,12 +27,10 @@ export const metadata: Metadata = {
 import AboutUsSection from '@/components/AboutUsSection'
 import ContactSection from '@/components/ContactSection'
 import FAQSection from '@/components/FAQSection'
-import GallerySection from '@/components/GallerySection'
 import HeroSection from '@/components/HeroSection'
 import HorizontalScrollSection from '@/components/HorizontalScrollSection'
 import InstagramFeed from '@/components/InstagramFeed'
 import NewsletterSection from '@/components/NewsletterSection'
-import ResultsSection from '@/components/ResultsSection'
 import ServicesSection from '@/components/ServicesSection'
 import TestimonialsSection from '@/components/TestimonialsSection'
 import VoucherCTASection from '@/components/VoucherCTASection'
@@ -53,31 +51,19 @@ export default async function Home() {
     coversByCategory[c.id] = fromCsv || (await getCategoryCoverServer(c.id))
   }
 
-  // Build small initial gallery: few images from key categories
-  const gallery: { src: string; alt: string; category: string }[] = []
-  const mosaicKosmetika = await getCategoryMosaicServer('kosmetika', 6)
-  gallery.push(...mosaicKosmetika.map((src) => ({ src, alt: 'Kosmetika', category: 'kosmetika' })))
-  const mosaicSalon = await getCategoryMosaicServer('ostatni-sluzby', 4)
-  gallery.push(...mosaicSalon.map((src) => ({ src, alt: 'Salon', category: 'salon' })))
-  const mosaicHifu = await getCategoryMosaicServer('hifu', 4)
-  gallery.push(...mosaicHifu.map((src) => ({ src, alt: 'HIFU', category: 'hifu' })))
+ 
 
   return (
-    <main id="main-content" className="min-h-screen bg-white pb-24 pt-32 md:pt-40 lg:pt-44">
+    <main id="main-content" className="min-h-screen bg-white pb-24 pt-20 md:pt-24 lg:pt-28">
       <HeroSection />
       <WhyUsSection />
       <AboutUsSection />
-      <ResultsSection />
-      {/* Mobile: klasický výpis služeb */}
       <div className="lg:hidden">
         <ServicesSection categories={categories} />
       </div>
-      {/* Desktop: pinned horizontální scroller – jen kategorie */}
       <div className="hidden lg:block">
         <HorizontalScrollSection categories={categories} coversByCategory={coversByCategory} />
       </div>
-      {/* Lightweight dynamic gallery */}
-      <GallerySection initialImages={gallery} />
       <VoucherCTASection />
       <TestimonialsSection />
       <FAQSection />

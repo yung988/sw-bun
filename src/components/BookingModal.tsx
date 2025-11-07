@@ -105,14 +105,69 @@ export default function BookingModal({ isOpen, onCloseAction, preselectedService
 
   useLayoutEffect(() => {
     if (!dialogRef.current) return
+    const modal = dialogRef.current.querySelector('.modal-content') as HTMLElement
+    const backdrop = dialogRef.current.querySelector('.modal-backdrop') as HTMLElement
+
     if (isOpen) {
       dialogRef.current.showModal()
-      const tl = gsap.timeline({ defaults: { ease: 'power2.out' } })
-      gsap.set(dialogRef.current, { opacity: 0, scale: 0.95 })
-      tl.to(dialogRef.current, { opacity: 1, scale: 1, duration: 0.25 }, 0)
+      const tl = gsap.timeline()
+
+      // Backdrop fade in - Apple style
+      gsap.set(backdrop, { opacity: 0 })
+      tl.to(
+        backdrop,
+        {
+          opacity: 1,
+          duration: 0.4,
+          ease: 'power2.out',
+        },
+        0
+      )
+
+      // Modal - Apple style: scale + fade + subtle y movement
+      gsap.set(modal, {
+        scale: 0.92,
+        opacity: 0,
+        y: 20,
+      })
+      tl.to(
+        modal,
+        {
+          scale: 1,
+          opacity: 1,
+          y: 0,
+          duration: 0.5,
+          ease: 'cubic-bezier(0.16, 1, 0.3, 1)', // Apple's spring-like easing
+        },
+        0.05
+      )
     } else {
-      const tl = gsap.timeline({ defaults: { ease: 'power2.inOut' } })
-      tl.to(dialogRef.current, { opacity: 0, scale: 0.95, duration: 0.2 }, 0).add(() => {
+      const tl = gsap.timeline()
+
+      // Modal fade out - Apple style
+      tl.to(
+        modal,
+        {
+          scale: 0.95,
+          opacity: 0,
+          y: 10,
+          duration: 0.25,
+          ease: 'power2.in',
+        },
+        0
+      )
+
+      tl.to(
+        backdrop,
+        {
+          opacity: 0,
+          duration: 0.3,
+          ease: 'power2.in',
+        },
+        0
+      )
+
+      tl.add(() => {
         dialogRef.current?.close()
       })
     }
@@ -121,7 +176,7 @@ export default function BookingModal({ isOpen, onCloseAction, preselectedService
   return (
     <dialog
       ref={dialogRef}
-      className="fixed inset-0 z-50 p-4 overflow-hidden bg-transparent"
+      className="fixed inset-0 z-50 overflow-hidden bg-transparent backdrop:bg-transparent"
       onClick={(e) => {
         if (e.target === dialogRef.current) onCloseAction()
       }}
@@ -130,12 +185,21 @@ export default function BookingModal({ isOpen, onCloseAction, preselectedService
       }}
       onClose={onCloseAction}
     >
-      {/* Modal */}
+      {/* Backdrop - rozmazané a ztmavené pozadí */}
       <div
-        onClick={(e) => e.stopPropagation()}
-        onKeyDown={(e) => e.stopPropagation()}
-        className="relative w-full max-w-md bg-white/15 backdrop-blur-3xl rounded-3xl shadow-2xl overflow-hidden border border-white/30"
-      >
+        className="modal-backdrop fixed inset-0 bg-black/60 backdrop-blur-md"
+        onClick={onCloseAction}
+        onKeyDown={(e) => e.key === 'Enter' && onCloseAction()}
+        aria-hidden="true"
+      />
+
+      {/* Modal Container - centered with side panel effect */}
+      <div className="fixed inset-0 flex items-center justify-center pointer-events-none p-6">
+        <div
+          onClick={(e) => e.stopPropagation()}
+          onKeyDown={(e) => e.stopPropagation()}
+          className="modal-content pointer-events-auto w-full max-w-md max-h-[95vh] bg-white/20 backdrop-blur-3xl shadow-2xl overflow-y-auto rounded-3xl border border-white/30"
+        >
         {/* Close Button */}
         <button
           type="button"
@@ -290,6 +354,7 @@ export default function BookingModal({ isOpen, onCloseAction, preselectedService
             </div>
           </div>
         </div>
+      </div>
       </div>
     </dialog>
   )

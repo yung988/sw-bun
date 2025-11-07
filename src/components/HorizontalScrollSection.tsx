@@ -27,7 +27,7 @@ export default function HorizontalScrollSection({ categories, coversByCategory }
   const [services, setServices] = useState<Service[]>([])
   const [isMobile, setIsMobile] = useState(false)
 
-  // Naplnění z kategorií (místo CSV služeb)
+  // Naplnění z kategorií
   useEffect(() => {
     const mapped: Service[] = (categories || []).map((c) => ({
       id: c.id,
@@ -48,14 +48,13 @@ export default function HorizontalScrollSection({ categories, coversByCategory }
     return () => mq.removeEventListener('change', apply)
   }, [])
 
-  // GSAP + ScrollTrigger (Lenis-friendly)
+  // GSAP ScrollTrigger
   useEffect(() => {
     if (!services.length) return
     const container = containerRef.current
     const track = trackRef.current
     if (!container || !track) return
 
-    // Skip on mobile
     if (isMobile) return
 
     const setup = () => {
@@ -74,42 +73,41 @@ export default function HorizontalScrollSection({ categories, coversByCategory }
         })
         tl.to(track, { x: -totalWidth })
 
-        // Per-card motion (parallax image + text fade)
-        for (const card of gsap.utils.toArray<HTMLElement>('.glass-card')) {
+        // Card animations
+        for (const card of gsap.utils.toArray<HTMLElement>('.service-card-item')) {
           const img = card.querySelector('img')
-          const text = card.querySelector('.text-block')
+          const content = card.querySelector('.card-content')
 
           if (img) {
             gsap.fromTo(
               img,
-              { scale: 1.05, y: 60, opacity: 0.5 },
+              { scale: 1.1, opacity: 0.7 },
               {
                 scale: 1,
-                y: 0,
                 opacity: 1,
                 scrollTrigger: {
                   trigger: card,
                   containerAnimation: tl,
-                  start: 'left 95%',
-                  end: 'left 55%',
+                  start: 'left 80%',
+                  end: 'left 40%',
                   scrub: true,
                 },
               }
             )
           }
 
-          if (text) {
+          if (content) {
             gsap.fromTo(
-              text,
-              { opacity: 0, y: 30 },
+              content,
+              { opacity: 0, y: 40 },
               {
                 opacity: 1,
                 y: 0,
                 scrollTrigger: {
                   trigger: card,
                   containerAnimation: tl,
-                  start: 'left 90%',
-                  end: 'left 60%',
+                  start: 'left 75%',
+                  end: 'left 45%',
                   scrub: true,
                 },
               }
@@ -117,8 +115,6 @@ export default function HorizontalScrollSection({ categories, coversByCategory }
           }
         }
 
-        // Pokud používáš Lenis, někde v app už běží lenis.on('scroll', ScrollTrigger.update)
-        // Jen zajistíme refresh po načtení obrázků a při resize:
         const imgs = Array.from(track.querySelectorAll('img')) as HTMLImageElement[]
         let pending = imgs.length
         const done = () => ScrollTrigger.refresh()
@@ -163,130 +159,139 @@ export default function HorizontalScrollSection({ categories, coversByCategory }
 
   if (isMobile) {
     return (
-      <section className="relative w-full bg-white overflow-hidden z-[1] pt-[84px] pb-10">
+      <section className="relative w-full bg-slate-50 overflow-hidden py-16">
         {/* Header */}
-        <div className="px-6 text-slate-900">
-          <p className="uppercase text-[10px] tracking-[0.28em] text-slate-500/90 mb-2">Naše služby</p>
-          <h2 className="text-4xl font-light leading-tight">
-            Objevte <span className="italic font-serif">dokonalost</span>
+        <div className="px-6 mb-10">
+          <div className="flex items-center gap-2 mb-3">
+            <span className="text-xs uppercase tracking-[0.3em] text-slate-500 font-medium">Naše služby</span>
+          </div>
+          <h2 className="font-display text-4xl font-light leading-tight tracking-tight text-slate-900">
+            Objevte <em className="italic">dokonalost</em>
           </h2>
         </div>
 
-        {/* Snap scroller */}
-        <div className="mt-6 flex gap-5 px-6 overflow-x-auto snap-x snap-mandatory hide-scrollbar touch-pan-x">
+        {/* Horizontal scroll */}
+        <div className="flex gap-4 px-6 overflow-x-auto snap-x snap-mandatory [-webkit-overflow-scrolling:touch] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden pb-4">
           {services.map((s, index) => (
             <Link
               key={s.id}
               href={`/sluzby/${s.slug}`}
-              className="snap-start relative flex-shrink-0 w-[82vw] h-[68vh] rounded-[22px] overflow-hidden group"
+              className="snap-center relative flex-shrink-0 w-[82vw] group active:scale-[0.98] transition-transform duration-200"
             >
-              {/* Image */}
-              <div className="absolute inset-0">
-                <Image
-                  src={s.image}
-                  alt={s.name}
-                  fill
-                  sizes="90vw"
-                  className="object-cover transition-transform duration-[1200ms] ease-[cubic-bezier(.16,.84,.44,1)] group-active:scale-[1.03]"
-                  priority={index === 0}
-                />
-              </div>
+              <div className="relative h-[480px] bg-white rounded-2xl overflow-hidden border border-slate-200 shadow-sm group-active:shadow-md transition-shadow">
+                {/* Image */}
+                <div className="relative h-[280px] overflow-hidden">
+                  <Image
+                    src={s.image}
+                    alt={s.name}
+                    fill
+                    sizes="85vw"
+                    className="object-cover transition-transform duration-700 group-active:scale-[1.05]"
+                    priority={index === 0}
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-b from-slate-900/40 via-transparent to-white/10" />
 
-              {/* Glass text panel */}
-              <div className="absolute inset-0 flex items-end p-5">
-                <div className="w-full rounded-[18px] border border-white/35 bg-white/25 backdrop-blur-[12px] shadow-[0_8px_36px_-12px_rgba(0,0,0,0.18)] p-5">
-                  <div className="text-slate-900">
-                    <p className="text-[2.6rem] font-light text-black/10 font-serif leading-none mb-1">0{index + 1}</p>
-                    <h3 className="text-[1.4rem] font-light mb-1">{s.name}</h3>
-                    <p className="text-[0.95rem] text-slate-700/95 mb-4 leading-relaxed line-clamp-3">
-                      {s.description}
-                    </p>
-                    <span className="inline-flex items-center gap-2 text-slate-900 text-xs font-medium uppercase tracking-[0.18em]">
-                      Zjistit více
-                      <svg
-                        width="16"
-                        height="16"
-                        viewBox="0 0 24 24"
-                        fill="none"
-                        stroke="currentColor"
-                        strokeWidth="1.5"
-                        aria-hidden="true"
-                      >
-                        <path d="M17 8l4 4-4 4M21 12H3" strokeLinecap="round" strokeLinejoin="round" />
-                      </svg>
-                    </span>
+                  {/* Number badge */}
+                  <div className="absolute top-5 left-5">
+                    <div className="text-5xl font-light text-white/95 tabular-nums drop-shadow-lg">
+                      {String(index + 1).padStart(2, '0')}
+                    </div>
+                  </div>
+                </div>
+
+                {/* Content */}
+                <div className="p-6">
+                  <h3 className="text-2xl font-light text-slate-900 mb-3 tracking-tight">{s.name}</h3>
+                  <p className="text-sm text-slate-600 leading-relaxed mb-5 line-clamp-3">{s.description}</p>
+
+                  <div className="flex items-center text-xs font-medium text-slate-900 uppercase tracking-[0.2em]">
+                    <span>Zjistit více</span>
+                    <svg
+                      className="ml-2 w-4 h-4 transition-transform group-active:translate-x-1"
+                      fill="none"
+                      viewBox="0 0 24 24"
+                      stroke="currentColor"
+                      strokeWidth={2}
+                    >
+                      <path strokeLinecap="round" strokeLinejoin="round" d="M17 8l4 4-4 4M21 12H3" />
+                    </svg>
                   </div>
                 </div>
               </div>
             </Link>
           ))}
+          <div className="w-2 flex-shrink-0" />
         </div>
       </section>
     )
   }
 
   return (
-    <section
-      ref={containerRef}
-      className="relative h-screen w-full bg-white overflow-hidden z-[1] pt-[96px] md:pt-[112px]"
-    >
-      {/* Fixní header (mírně vlevo, redakční feeling) */}
-      <div className="absolute top-28 left-16 md:left-20 z-20 text-slate-900 pointer-events-none">
-        <p className="uppercase text-[10px] tracking-[0.28em] text-slate-500/90 mb-3">Naše služby</p>
-        <h2 className="text-5xl md:text-6xl font-light leading-tight">
-          Objevte <span className="italic font-serif">dokonalost</span>
+    <section ref={containerRef} className="relative h-screen w-full bg-slate-50 overflow-hidden">
+      {/* Fixed header */}
+      <div className="absolute top-32 left-12 md:left-16 z-20 pointer-events-none">
+        <div className="flex items-center gap-2 mb-4">
+          <span className="text-xs uppercase tracking-[0.3em] text-slate-500 font-medium">Naše služby</span>
+        </div>
+        <h2 className="font-display text-5xl md:text-6xl font-light leading-tight tracking-tight text-slate-900">
+          Objevte <em className="italic">dokonalost</em>
         </h2>
       </div>
 
-      {/* Horizontální dráha */}
+      {/* Horizontal track */}
       <div
         ref={trackRef}
-        className="absolute top-0 left-0 flex h-full items-center gap-[10vw] pl-[20vw] pr-[20vw]"
-        style={{ width: `${services.length * 58}vw` }}
+        className="absolute top-0 left-0 flex h-full items-center gap-6 pl-[16vw] pr-[16vw]"
+        style={{ width: `${services.length * 50}vw` }}
       >
         {services.map((s, i) => (
           <Link
             key={s.id}
             href={`/sluzby/${s.slug}`}
-            className="glass-card relative flex-shrink-0 w-[44vw] h-[80vh] rounded-[28px] overflow-hidden group"
+            className="service-card-item relative flex-shrink-0 w-[38vw] h-[75vh] group cursor-pointer"
           >
-            {/* Foto */}
-            <Image
-              src={s.image}
-              alt={s.name}
-              fill
-              sizes="(min-width:1280px) 44vw, (min-width:1024px) 60vw, 90vw"
-              className="object-cover transition-transform duration-[2s] ease-[cubic-bezier(.16,.84,.44,1)] group-hover:scale-[1.05]"
-              priority={i < 2}
-            />
+            <div className="relative w-full h-full bg-white rounded-3xl overflow-hidden border border-slate-200 shadow-md transition-all duration-500 group-hover:shadow-xl group-hover:border-slate-300">
+              {/* Image */}
+              <div className="relative h-[55%] overflow-hidden">
+                <Image
+                  src={s.image}
+                  alt={s.name}
+                  fill
+                  sizes="40vw"
+                  className="object-cover"
+                  priority={i < 2}
+                />
+                <div className="absolute inset-0 bg-gradient-to-b from-slate-900/30 via-transparent to-white/5" />
 
-            {/* Glass panel (spodní) */}
-            <div className="absolute inset-0 flex items-end p-6 md:p-10">
-              <div className="text-block w-full rounded-[22px] border border-white/35 bg-white/20 backdrop-blur-[14px] shadow-[0_8px_40px_-10px_rgba(0,0,0,0.15)] p-6 md:p-8">
-                <p className="text-[3.5rem] md:text-[5rem] font-light text-black/10 font-serif leading-none mb-1">
-                  0{i + 1}
-                </p>
-                <h3 className="text-[1.8rem] md:text-[2.4rem] font-light text-slate-900 mb-2">{s.name}</h3>
-                <p className="text-[0.95rem] text-slate-700/95 mb-5 leading-relaxed line-clamp-3">{s.description}</p>
-                <span className="inline-flex items-center gap-2 text-slate-900 text-xs md:text-sm font-medium uppercase tracking-[0.18em] group-hover:gap-3 transition-all">
-                  Zjistit více
+                {/* Number badge */}
+                <div className="absolute top-8 left-8">
+                  <div className="text-7xl font-light text-white/95 tabular-nums drop-shadow-lg">
+                    {String(i + 1).padStart(2, '0')}
+                  </div>
+                </div>
+              </div>
+
+              {/* Content */}
+              <div className="card-content relative h-[45%] p-8 flex flex-col justify-between">
+                <div>
+                  <h3 className="text-3xl font-light text-slate-900 mb-4 tracking-tight leading-tight">{s.name}</h3>
+                  <p className="text-sm text-slate-600 leading-relaxed line-clamp-4">{s.description}</p>
+                </div>
+
+                <div className="flex items-center text-xs font-medium text-slate-900 uppercase tracking-[0.2em] group-hover:gap-1 transition-all">
+                  <span>Zjistit více</span>
                   <svg
-                    width="18"
-                    height="18"
-                    viewBox="0 0 24 24"
+                    className="ml-2 w-4 h-4 transition-transform group-hover:translate-x-1"
                     fill="none"
+                    viewBox="0 0 24 24"
                     stroke="currentColor"
-                    strokeWidth="1.5"
-                    aria-hidden="true"
+                    strokeWidth={2}
                   >
-                    <path d="M17 8l4 4-4 4M21 12H3" strokeLinecap="round" strokeLinejoin="round" />
+                    <path strokeLinecap="round" strokeLinejoin="round" d="M17 8l4 4-4 4M21 12H3" />
                   </svg>
-                </span>
+                </div>
               </div>
             </div>
-
-            {/* Jemná highlight aura */}
-            <div className="pointer-events-none absolute inset-0 rounded-[28px] ring-1 ring-white/10 group-hover:ring-white/25 transition-[ring] duration-500" />
           </Link>
         ))}
       </div>

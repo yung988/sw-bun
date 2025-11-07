@@ -49,50 +49,54 @@ export default async function HorizontalServicesSection() {
   const services = await buildServices()
   return (
     <Section className="relative bg-slate-50 overflow-hidden">
-      <Container className="mb-16">
-        <h2 className="text-4xl md:text-5xl lg:text-6xl font-light text-slate-900">
-          Naše <em className="italic font-serif">služby</em>
+      <Container className="mb-12">
+        <h2 className="text-4xl md:text-5xl lg:text-6xl font-normal tracking-tight text-slate-900">
+          Naše <em className="italic font-serif font-light">služby</em>
         </h2>
       </Container>
 
-      {/* Horizontal scroller */}
-      <div className="flex gap-8 px-6 overflow-x-auto">
+      {/* Apple-style horizontal scroller */}
+      <div className="flex gap-6 px-6 overflow-x-auto snap-x snap-mandatory [-webkit-overflow-scrolling:touch] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden pb-2">
         {services.map((service) => (
-          <Link key={service.number} href={service.href} className="service-card block w-[400px] md:w-[500px] shrink-0">
-            <div className="group relative h-[600px] bg-white rounded-3xl overflow-hidden border border-slate-200 transition-all duration-300 hover:shadow-2xl hover:border-slate-300">
-              {/* Number badge */}
+          <Link
+            key={service.number}
+            href={service.href}
+            className="service-card block w-[380px] md:w-[480px] shrink-0 snap-center group active:scale-[0.98] transition-transform duration-200"
+          >
+            <div className="relative h-[580px] bg-white rounded-[28px] overflow-hidden border border-slate-200/60 shadow-[0_2px_16px_rgba(0,0,0,0.06)] transition-all duration-500 group-hover:shadow-[0_8px_32px_rgba(0,0,0,0.12)] group-hover:border-slate-300/80">
+              {/* Number badge - Apple style */}
               <div className="absolute top-8 left-8 z-10">
-                <div className="text-7xl font-light text-white/90 tabular-nums">{service.number}</div>
+                <div className="text-[5rem] font-extralight text-white/95 tabular-nums tracking-tight drop-shadow-lg">{service.number}</div>
               </div>
 
               {/* Image */}
-              <div className="relative h-[350px] overflow-hidden">
+              <div className="relative h-[340px] overflow-hidden">
                 <Image
                   src={service.image}
                   alt={service.title}
                   fill
-                  className="object-cover transition-transform duration-700 group-hover:scale-105"
-                  sizes="(max-width: 768px) 400px, 500px"
+                  className="object-cover transition-transform duration-700 ease-out group-hover:scale-[1.04]"
+                  sizes="(max-width: 768px) 380px, 480px"
                 />
-                {/* Gradient overlay */}
-                <div className="absolute inset-0 bg-gradient-to-b from-slate-900/50 via-transparent to-transparent" />
+                {/* Gradient overlay - softer */}
+                <div className="absolute inset-0 bg-gradient-to-b from-slate-900/40 via-transparent to-white/5" />
               </div>
 
-              {/* Content */}
-              <div className="p-8 flex flex-col justify-between h-[250px]">
+              {/* Content - Apple style */}
+              <div className="p-8 flex flex-col justify-between h-[240px]">
                 <div>
-                  <h3 className="text-3xl font-semibold text-slate-900 mb-4 group-hover:text-slate-700 transition-colors">
+                  <h3 className="text-[2rem] font-normal tracking-tight text-slate-900 mb-3 transition-colors duration-300 group-hover:text-slate-700">
                     {service.title}
                   </h3>
-                  <p className="text-lg text-slate-600 leading-relaxed">{service.description}</p>
+                  <p className="text-[0.9375rem] text-slate-600 leading-relaxed">{service.description}</p>
                 </div>
 
-                {/* Arrow indicator */}
-                <div className="flex items-center text-sm font-medium text-slate-900 group-hover:translate-x-2 transition-transform duration-300">
-                  <span>Zjistit v\u00edce</span>
-                  <svg className="ml-2 w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                {/* Arrow indicator - Apple style */}
+                <div className="flex items-center text-[0.8125rem] font-medium text-slate-900 transition-all duration-300 group-hover:gap-1">
+                  <span>Zjistit více</span>
+                  <svg className="ml-1 w-4 h-4 transition-transform duration-300 group-hover:translate-x-1" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
                     <title>Zjistit více</title>
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
+                    <path strokeLinecap="round" strokeLinejoin="round" d="M17 8l4 4m0 0l-4 4m4-4H3" />
                   </svg>
                 </div>
               </div>
@@ -100,8 +104,8 @@ export default async function HorizontalServicesSection() {
           </Link>
         ))}
 
-        {/* Spacer for smooth end */}
-        <div className="w-6 shrink-0" />
+        {/* Spacer pro poslední kartu */}
+        <div className="w-2 shrink-0" />
       </div>
     </Section>
   )

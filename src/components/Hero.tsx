@@ -79,8 +79,8 @@ export default function Hero({
   }, [introComplete])
 
   return (
-    <section ref={sectionRef} id="home" className="mx-auto max-w-[1250px] px-6 py-16 md:py-24 lg:py-28">
-      <div className="grid gap-12 lg:grid-cols-3 lg:gap-16 mb-20 lg:mb-24">
+    <section ref={sectionRef} id="home" className="mx-auto max-w-[1250px] px-6 py-12 md:py-16 lg:py-20">
+      <div className="grid gap-8 lg:grid-cols-3 lg:gap-10 mb-10 lg:mb-12">
         <div ref={titleGroupRef} className="lg:col-span-1 opacity-0">
           <h1 className="text-5xl md:text-6xl lg:text-7xl font-light leading-[1.15] tracking-tight text-slate-900">
             <WordReveal stagger={0.06}>{title}</WordReveal>{' '}
@@ -116,7 +116,7 @@ export default function Hero({
 
       <div
         ref={videoWrapperRef}
-        className="relative w-full aspect-[16/9] lg:aspect-[21/9] overflow-hidden rounded-[2rem] lg:rounded-[2.5rem] bg-slate-100 shadow-2xl border border-slate-200/50 opacity-0"
+        className="relative w-full aspect-[16/10] lg:aspect-[21/10] overflow-hidden rounded-[1.5rem] lg:rounded-[2rem] bg-slate-100 shadow-2xl border border-slate-200/50 opacity-0"
       >
         <video
           ref={videoRef}
