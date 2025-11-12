@@ -24,7 +24,7 @@ export default function HighlightCard({ icon, title, description, index = 0 }: P
 
   return (
     <div className="w-[320px] shrink-0 highlight-card" data-index={index}>
-      <div className="h-full rounded-2xl border border-slate-200 bg-white p-8 transition-all duration-300 hover:shadow-xl hover:border-slate-300">
+      <div className="h-full rounded-2xl border border-slate-200 bg-white p-8 shadow-sm transition-all duration-300 hover:shadow-xl hover:border-slate-300">
         {IconComponent && (
           <div className="mb-6">
             <IconComponent className="h-8 w-8 text-slate-900" />

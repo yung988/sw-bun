@@ -1,5 +1,5 @@
 import type { Metadata } from 'next'
-import { Instrument_Serif, Inter } from 'next/font/google'
+import { Figtree, Source_Serif_4 } from 'next/font/google'
 import './globals.css'
 import 'lenis/dist/lenis.css'
 import { BrandProvider } from '@/components/BrandProvider'
@@ -57,17 +57,17 @@ export const metadata: Metadata = {
   },
 }
 
-const inter = Inter({
+const figtree = Figtree({
   subsets: ['latin', 'latin-ext'],
-  variable: '--font-inter',
-  weight: ['300', '400', '500', '600'],
+  variable: '--font-figtree',
+  weight: ['300', '400', '500', '600', '700', '800', '900'],
   display: 'swap',
 })
 
-const instrumentSerif = Instrument_Serif({
-  subsets: ['latin'],
-  variable: '--font-instrument-serif',
-  weight: ['400'],
+const sourceSerif4 = Source_Serif_4({
+  subsets: ['latin', 'latin-ext'],
+  variable: '--font-source-serif-4',
+  weight: ['300', '400', '500', '600', '700'],
   style: ['normal', 'italic'],
   display: 'swap',
 })
@@ -123,14 +123,14 @@ export default async function RootLayout({ children }: { children: React.ReactNo
   const jsonLdScript = JSON.stringify(jsonLd)
 
   return (
-    <html lang="cs" className={`scroll-smooth ${inter.variable} ${instrumentSerif.variable}`}>
+    <html lang="cs" className={`scroll-smooth ${figtree.variable} ${sourceSerif4.variable}`}>
       <head>
         <script type="application/ld+json" suppressHydrationWarning>
           {jsonLdScript}
         </script>
         <link rel="icon" href={favicon} />
       </head>
-      <body className={inter.className}>
+      <body className={figtree.className}>
         <IntroProvider>
           <LoadingScreen />
           <LenisScroll />

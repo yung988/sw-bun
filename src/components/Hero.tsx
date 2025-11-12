@@ -4,6 +4,7 @@ import WordReveal from '@/components/animations/WordReveal'
 import gsap from 'gsap'
 import Image from 'next/image'
 import { useEffect, useLayoutEffect, useMemo, useRef, useState } from 'react'
+import Container from '@/components/ui/Container'
 
 type HeroProps = {
   title: string
@@ -79,24 +80,25 @@ export default function Hero({
   }, [introComplete])
 
   return (
-    <section ref={sectionRef} id="home" className="mx-auto max-w-[1250px] px-6 py-12 md:py-16 lg:py-20">
-      <div className="grid gap-8 lg:grid-cols-3 lg:gap-10 mb-10 lg:mb-12">
+    <section ref={sectionRef} id="home" className="py-8 md:py-12 lg:py-16">
+      <Container>
+        <div className="grid gap-6 lg:grid-cols-3 lg:gap-8 mb-8 lg:mb-10">
         <div ref={titleGroupRef} className="lg:col-span-1 opacity-0">
-          <h1 className="text-5xl md:text-6xl lg:text-7xl font-light leading-[1.15] tracking-tight text-slate-900">
+          <h1 className="text-balance text-4xl md:text-5xl lg:text-6xl font-light leading-tight tracking-tight text-slate-900 max-w-[420px] md:max-w-[440px] lg:max-w-[460px]">
             <WordReveal stagger={0.06}>{title}</WordReveal>{' '}
-            <WordReveal stagger={0.08} className="italic font-serif font-normal">
+            <WordReveal stagger={0.08} className="italic font-serif font-light">
               {titleItalic}
             </WordReveal>
           </h1>
         </div>
 
         <div ref={subtitleRef} className="lg:col-span-1 flex items-center opacity-0">
-          <p className="text-base md:text-lg text-slate-600 leading-relaxed max-w-md">{subtitle}</p>
+          <p className="text-sm md:text-base text-slate-600 leading-relaxed max-w-sm">{subtitle}</p>
         </div>
 
         <div ref={trustedRef} className="lg:col-span-1 flex items-center lg:justify-end opacity-0">
-          <div className="flex items-center gap-4">
-            <div className="flex -space-x-3">
+          <div className="flex items-center gap-4 lg:justify-end">
+            <div className="flex space-x-3">
               {avatars.map((avatar, index) => (
                 <div
                   key={avatar}
@@ -106,9 +108,9 @@ export default function Hero({
                 </div>
               ))}
             </div>
-            <div>
-              <p className="text-sm text-slate-500 leading-tight">{trustedText}</p>
-              <p className="text-lg font-semibold text-slate-900">{trustedCount}</p>
+            <div className="flex items-center gap-1 text-sm font-medium text-slate-600 whitespace-nowrap">
+              <span>{trustedText}</span>
+              <span className="text-slate-900 font-semibold">{trustedCount}</span>
             </div>
           </div>
         </div>
@@ -130,6 +132,7 @@ export default function Hero({
         {fade && <div className="absolute inset-0 bg-black/20 animate-[fade_0.6s_ease]" />}
         <div className="absolute inset-0 bg-gradient-to-t from-black/10 via-transparent to-transparent pointer-events-none" />
       </div>
+      </Container>
     </section>
   )
 }

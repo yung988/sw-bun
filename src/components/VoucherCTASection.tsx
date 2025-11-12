@@ -7,10 +7,10 @@ export default function VoucherCTASection() {
   return (
     <Section id="poukazy">
       <Container>
-        <div className="relative overflow-hidden rounded-2xl border border-slate-200 bg-slate-50 p-12 md:p-16">
+        <div className="relative overflow-hidden rounded-2xl border border-slate-200 bg-slate-50 p-8 md:p-12 shadow-sm">
           <div className="relative z-10 grid gap-12 lg:grid-cols-2 items-center">
             <div>
-              <div className="mb-6 flex h-16 w-16 items-center justify-center rounded-2xl bg-white border-2 border-slate-200">
+              <div className="mb-6 flex h-16 w-16 items-center justify-center rounded-2xl bg-white border border-slate-200 shadow-sm">
                 <svg className="h-8 w-8 text-slate-900" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                   <title>Dárek</title>
                   <path
@@ -56,7 +56,7 @@ export default function VoucherCTASection() {
               </ul>
 
               <div>
-                <OpenVoucherButton className="inline-flex items-center gap-2 rounded-xl bg-slate-900 px-8 py-4 text-base font-semibold text-white transition-all duration-200 hover:bg-slate-800">
+                <OpenVoucherButton className="inline-flex items-center gap-2 rounded-xl bg-slate-900 px-8 py-4 text-base font-semibold text-white transition-all duration-200 hover:bg-slate-800 shadow-sm hover:shadow-md">
                   Objednat dárkový poukaz
                   <svg className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                     <title>Šipka</title>
@@ -67,9 +67,9 @@ export default function VoucherCTASection() {
             </div>
 
             <div className="relative hidden lg:block">
-              <div className="relative aspect-square overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-xl">
+              <div className="relative aspect-square overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-md">
                 <Image
-                  src="/images/poukaz/Image_fx (25).jpg"
+                  src="/images/poukaz/gift-card1.jpg"
                   alt="Dárkový poukaz SW Beauty"
                   fill
                   sizes="(min-width: 1024px) 50vw, 100vw"

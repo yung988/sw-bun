@@ -39,7 +39,7 @@ export default async function ServicesSection({ categories }: ServicesSectionPro
 
           <Link
             href="/sluzby"
-            className="rounded-xl border-2 border-slate-200 px-8 py-4 text-base font-semibold text-slate-900 transition-all duration-200 hover:bg-slate-900 hover:text-white hover:border-slate-900"
+            className="rounded-xl border-2 border-slate-200 px-8 py-4 text-base font-semibold text-slate-900 transition-all duration-200 hover:bg-slate-900 hover:text-white hover:border-slate-900 shadow-sm hover:shadow-md"
           >
             Všechny služby
           </Link>

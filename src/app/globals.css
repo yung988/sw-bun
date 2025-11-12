@@ -40,14 +40,17 @@
 
 :root {
   color-scheme: light;
-  --font-sans: var(--font-inter);
-  --font-display: var(--font-inter);
-  --font-serif: var(--font-instrument-serif);
+  --font-sans: var(--font-figtree);
+  --font-display: var(--font-figtree);
+  --font-serif: var(--font-source-serif-4);
   --radius-xl: 2.5rem;
   --radius-lg: 1.75rem;
   --radius: 0.625rem;
   --background: oklch(1 0 0);
   --foreground: oklch(0.145 0 0);
+}
+
+html {
   --card: oklch(1 0 0);
   --card-foreground: oklch(0.145 0 0);
   --popover: oklch(1 0 0);
@@ -80,9 +83,6 @@
 }
 
 @layer base {
-  html {
-    @apply scroll-smooth;
-  }
   body {
     @apply bg-white text-black font-sans text-base leading-7 antialiased;
   }
@@ -111,7 +111,8 @@
   h1 em,
   h2 em,
   h3 em {
-    @apply font-serif italic;
+    /* Ztenčená kurzíva napříč projektem */
+    @apply font-serif italic font-light;
   }
 
   /* Accessibility: Focus states for keyboard navigation */
@@ -136,6 +137,38 @@
 
   .scrollbar-hide::-webkit-scrollbar {
     display: none;
+  }
+
+  /* Thin scrollbar utility */
+  .scrollbar-thin {
+    scrollbar-width: thin;
+    scrollbar-color: #d4d4d4 transparent;
+  }
+
+  .scrollbar-thin::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+  }
+
+  .scrollbar-thin::-webkit-scrollbar-track {
+    background: transparent;
+  }
+
+  .scrollbar-thin::-webkit-scrollbar-thumb {
+    background: #d4d4d4;
+    border-radius: 3px;
+  }
+
+  .scrollbar-thin::-webkit-scrollbar-thumb:hover {
+    background: #a3a3a3;
+  }
+
+  .scrollbar-thumb-slate-300::-webkit-scrollbar-thumb {
+    background-color: #d4d4d4;
+  }
+
+  .scrollbar-track-transparent::-webkit-scrollbar-track {
+    background-color: transparent;
   }
 }
 

@@ -1,149 +1,147 @@
+// ContactSection.tsx
 'use client'
 
-import { Clock, Mail, MapPin, Phone } from 'lucide-react'
-import React, { useState } from 'react'
+import { useEffect, useRef } from 'react'
+import { gsap } from 'gsap'
+import { ScrollTrigger } from 'gsap/ScrollTrigger'
+import { MapPin, Phone, Mail, Clock } from 'lucide-react'
+
+gsap.registerPlugin(ScrollTrigger)
+
+const contactData = [
+    { icon: MapPin, label: 'Adresa', value: 'Masarykovo náměstí 59, 695 01 Hodonín' },
+    { icon: Phone, label: 'Telefon', value: '+420 773 577 899', href: 'tel:+420773577899' },
+    { icon: Mail, label: 'E-mail', value: 'info@swbeauty.cz', href: 'mailto:info@swbeauty.cz' },
+]
+
+const opening = [
+    { days: 'Pondělí – Pátek', time: '9:00 – 20:00' },
+    { days: 'Sobota', time: '10:00 – 18:00' },
+    { days: 'Neděle', time: 'zavřeno' },
+]
 
 export default function ContactSection() {
-  const [hoveredButton, setHoveredButton] = useState<string | null>(null)
+    const sectionRef = useRef<HTMLDivElement | null>(null)
+    const mapRef = useRef<HTMLDivElement | null>(null)
+    const cardRefs = useRef<(HTMLDivElement | null)[]>([])
+    const btnRef = useRef<HTMLDivElement | null>(null)
 
-  return (
-    <div className="min-h-screen bg-white">
-      <div className="max-w-7xl mx-auto px-6 py-16">
-        {/* Header */}
-        <div className="mb-12">
-          <div className="flex items-center gap-3 mb-4">
-            <div className="w-8 h-px bg-gray-300" />
-            <span className="text-gray-500 text-sm tracking-widest uppercase">Kontakt</span>
-          </div>
-          <h1 className="text-5xl md:text-6xl font-light">
-            Kde nás <span className="italic font-serif">najdete</span>
-          </h1>
-        </div>
+    useEffect(() => {
+        const ctx = gsap.context(() => {
+            const tl = gsap.timeline({
+                scrollTrigger: {
+                    trigger: sectionRef.current,
+                    start: 'top 85%',
+                    end: 'bottom 50%',
+                    scrub: 1,
+                },
+            })
 
-        <p className="text-gray-600 text-lg mb-16 max-w-xl">
-          Náš salon se nachází v centru Hodonína na Masarykově náměstí.
-        </p>
+            // 1️⃣ Mapa – jemný parallax
+            tl.to(mapRef.current, { yPercent: -8, ease: 'sine.out' }, 0)
 
-        {/* Main Grid */}
-        <div className="grid lg:grid-cols-2 gap-12">
-          {/* Left Column - Contact Info */}
-          <div className="space-y-12">
-            {/* Address */}
-            <div className="group">
-              <div className="flex items-start gap-4 mb-1">
-                <MapPin className="w-5 h-5 text-gray-400 mt-1 group-hover:text-rose-500 transition-colors" />
-                <div>
-                  <h3 className="text-sm text-gray-500 mb-2 font-medium">Adresa</h3>
-                  <p className="text-xl text-gray-900">Masarykovo náměstí 59, 695 01 Hodonín</p>
-                </div>
-              </div>
-            </div>
+            // 2️⃣ Karty – jemný stagger fade + slide
+            tl.from(
+                cardRefs.current,
+                {
+                    yPercent: 20,
+                    opacity: 0,
+                    stagger: 0.12,
+                    duration: 1,
+                    ease: 'power2.out',
+                },
+                0.2
+            )
 
-            {/* Phone */}
-            <div className="group">
-              <div className="flex items-start gap-4 mb-1">
-                <Phone className="w-5 h-5 text-gray-400 mt-1 group-hover:text-rose-500 transition-colors" />
-                <div>
-                  <h3 className="text-sm text-gray-500 mb-2 font-medium">Telefon</h3>
-                  <a href="tel:+420773577899" className="text-xl text-gray-900 hover:text-rose-600 transition-colors">
-                    +420 773 577 899
-                  </a>
-                </div>
-              </div>
-            </div>
+            // 3️⃣ Tlačítka – jemný fade + scale
+            tl.from(btnRef.current, {
+                scale: 0.9,
+                opacity: 0,
+                duration: 0.8,
+                ease: 'power2.out',
+            }, '-=0.3')
+        }, sectionRef)
 
-            {/* Email */}
-            <div className="group">
-              <div className="flex items-start gap-4 mb-1">
-                <Mail className="w-5 h-5 text-gray-400 mt-1 group-hover:text-rose-500 transition-colors" />
-                <div>
-                  <h3 className="text-sm text-gray-500 mb-2 font-medium">E-mail</h3>
-                  <a
-                    href="mailto:info@swbeauty.cz"
-                    className="text-xl text-gray-900 hover:text-rose-600 transition-colors"
-                  >
-                    info@swbeauty.cz
-                  </a>
-                </div>
-              </div>
-            </div>
+        return () => ctx.revert()
+    }, [])
 
-            {/* Opening Hours */}
-            <div className="bg-gray-50 rounded-2xl p-8 border border-gray-100 hover:border-gray-200 transition-colors">
-              <div className="flex items-center gap-3 mb-6">
-                <Clock className="w-5 h-5 text-gray-600" />
-                <h3 className="text-xl font-light text-gray-900">Otevírací doba</h3>
-              </div>
-              <div className="space-y-4">
-                <div className="flex justify-between items-center py-2 border-b border-gray-200">
-                  <span className="text-gray-600">Pondělí - Pátek</span>
-                  <span className="text-gray-900 font-medium">9:00 - 20:00</span>
-                </div>
-                <div className="flex justify-between items-center py-2 border-b border-gray-200">
-                  <span className="text-gray-600">Sobota</span>
-                  <span className="text-gray-900 font-medium">10:00 - 18:00</span>
-                </div>
-                <div className="flex justify-between items-center py-2">
-                  <span className="text-gray-600">Neděle</span>
-                  <span className="font-medium text-gray-500">Zavřeno</span>
-                </div>
-              </div>
-            </div>
-
-            {/* Buttons */}
-            <div className="flex gap-4 pt-4">
-              <button
-                type="button"
-                onMouseEnter={() => setHoveredButton('reserve')}
-                onMouseLeave={() => setHoveredButton(null)}
-                className="relative overflow-hidden bg-black text-white px-8 py-4 rounded-full font-light hover:bg-gray-900 transition-all duration-300 hover:scale-105 hover:shadow-xl"
-              >
-                <span className="relative z-10">Rezervovat termín</span>
-                {hoveredButton === 'reserve' && (
-                  <div className="absolute inset-0 bg-gradient-to-r from-rose-600 to-pink-600 animate-pulse" />
-                )}
-              </button>
-              <button
-                type="button"
-                onMouseEnter={() => setHoveredButton('voucher')}
-                onMouseLeave={() => setHoveredButton(null)}
-                className="border-2 border-black text-black px-8 py-4 rounded-full font-light hover:bg-black hover:text-white transition-all duration-300 hover:scale-105"
-              >
-                Objednat poukaz
-              </button>
-            </div>
-          </div>
-
-          {/* Right Column - Map */}
-          <div>
-            <div className="bg-gray-50 rounded-2xl p-4 border border-gray-100 hover:border-gray-200 transition-colors overflow-hidden group">
-              <div className="relative aspect-square rounded-xl overflow-hidden">
-                <iframe
-                  title="Mapa umístění SW Beauty"
-                  src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2644.6507768!2d17.1256!3d48.8489!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zNDjCsDUwJzU2LjAiTiAxN8KwMDcnMzIuMiJF!5e0!3m2!1sen!2scz!4v1234567890"
-                  width="100%"
-                  height="100%"
-                  style={{ border: 0 }}
-                  allowFullScreen
-                  loading="lazy"
-                  referrerPolicy="no-referrer-when-downgrade"
-                  className="grayscale group-hover:grayscale-0 transition-all duration-500"
-                />
-              </div>
-              <div className="mt-4 text-center">
-                <a
-                  href="https://goo.gl/maps/your-map-link"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="text-sm text-gray-600 hover:text-black transition-colors underline"
+    return (
+        <section ref={sectionRef} className="relative bg-white py-24">
+            <div className="max-w-7xl mx-auto px-6 grid lg:grid-cols-2 gap-12 lg:gap-20 items-start">
+                {/* Mapa – jemný parallax */}
+                <div
+                    ref={mapRef}
+                    className="relative rounded-2xl overflow-hidden shadow-sm border border-slate-200 will-change-transform"
                 >
-                  View larger map
-                </a>
-              </div>
+                    <iframe
+                        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2644.6507768!2d17.1256!3d48.8489!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zNDjCsDUwJzU2LjAiTiAxN8KwMDczMi4yIkU!5e0!3m2!1sen!2scz!4v1234567890"
+                        className="w-full h-80 lg:h-full min-h-[20rem] grayscale"
+                        allowFullScreen
+                        loading="lazy"
+                        referrerPolicy="no-referrer-when-downgrade"
+                    />
+                </div>
+
+                {/* Kontakty – jemný stagger */}
+                <div className="space-y-8">
+                    <div className="space-y-6">
+                        {contactData.map((item, i) => (
+                            <div
+                                key={item.label}
+                                ref={(el) => (cardRefs.current[i] = el)}
+                                className="flex items-start gap-4"
+                            >
+                                <item.icon className="w-5 h-5 text-slate-400 mt-1" />
+                                <div>
+                                    <p className="text-sm text-slate-500">{item.label}</p>
+                                    {item.href ? (
+                                        <a href={item.href} className="text-slate-900 hover:text-black">
+                                            {item.value}
+                                        </a>
+                                    ) : (
+                                        <p className="text-slate-900">{item.value}</p>
+                                    )}
+                                </div>
+                            </div>
+                        ))}
+                    </div>
+
+                    {/* Otevíračka */}
+                    <div
+                        ref={(el) => (cardRefs.current[3] = el)}
+                        className="bg-slate-50 rounded-2xl p-6 border border-slate-200"
+                    >
+                        <div className="flex items-center gap-3 mb-4">
+                            <Clock className="w-5 h-5 text-slate-600" />
+                            <h3 className="text-slate-900 font-medium">Otevírací doba</h3>
+                        </div>
+                        <div className="space-y-2 text-sm">
+                            {opening.map((o) => (
+                                <div key={o.days} className="flex justify-between">
+                                    <span className="text-slate-600">{o.days}</span>
+                                    <span className="text-slate-900 font-medium">{o.time}</span>
+                                </div>
+                            ))}
+                        </div>
+                    </div>
+
+                    {/* Tlačítka – jemný fade + scale */}
+                    <div ref={btnRef} className="flex gap-4 pt-2">
+                        <a
+                            href="/rezervace"
+                            className="grow inline-flex items-center justify-center bg-slate-900 text-white px-6 py-3 rounded-xl font-semibold hover:bg-black active:scale-95 transition"
+                        >
+                            Rezervovat
+                        </a>
+                        <a
+                            href="/poukazy"
+                            className="grow inline-flex items-center justify-center border-2 border-slate-200 text-slate-900 px-6 py-3 rounded-xl font-semibold hover:bg-slate-900 hover:text-white hover:border-slate-900 active:scale-95 transition"
+                        >
+                            Poukaz
+                        </a>
+                    </div>
+                </div>
             </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  )
+        </section>
+    )
 }

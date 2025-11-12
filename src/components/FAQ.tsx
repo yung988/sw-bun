@@ -10,10 +10,10 @@ export default function FAQ({ items, idPrefix = '' }: { items: Item[]; idPrefix?
       {items.map((it, idx) => (
         <div
           key={it.q}
-          className={`rounded-xl border transition-all duration-300 ${
+          className={`rounded-2xl border transition-all duration-300 ${
             open === idx
-              ? 'border-slate-300 bg-white shadow-md'
-              : 'border-slate-200/50 bg-white/50 hover:border-slate-300 hover:bg-white'
+              ? 'border-slate-300 bg-white shadow-sm'
+              : 'border-slate-200 bg-white shadow-sm hover:border-slate-300 hover:shadow-md'
           }`}
         >
           <button

@@ -1,7 +1,7 @@
 'use client'
 
 import { formatPrice } from '@/lib/price'
-import type { Service } from '@/lib/services'
+import type { MainService } from '@/lib/services'
 import Link from 'next/link'
 import { useRouter, useSearchParams } from 'next/navigation'
 import { useEffect, useMemo, useState } from 'react'
@@ -9,7 +9,7 @@ import { useEffect, useMemo, useState } from 'react'
 type CategoryFilter = 'all' | string
 
 type Props = {
-  services: Service[]
+  services: MainService[]
 }
 
 const categoryLabels: Record<string, string> = {
@@ -29,7 +29,77 @@ export default function PriceTable({ services }: Props) {
   const [searchQuery, setSearchQuery] = useState('')
   const [categoryFilter, setCategoryFilter] = useState<CategoryFilter>('all')
 
-  const allServices = useMemo(() => services, [services])
+  // Flatten pricing items for display
+  type FlatService = {
+    slug: string
+    name: string
+    description: string
+    category: string
+    categoryId: string
+    image: string
+    duration: number
+    sessions: number
+    price: number
+    isPackage: boolean
+  }
+
+  const flattenedServices = useMemo(() => {
+    const flattened: FlatService[] = []
+    for (const service of services) {
+      // If service has pricing, create items for each pricing variant
+      if (service.pricing.length > 0) {
+        for (const pricing of service.pricing) {
+          flattened.push({
+            slug: `${service.slug}-${pricing.sortOrder}`,
+            name: pricing.name || service.name,
+            description: pricing.description || service.shortDescription,
+            category: service.categoryName,
+            categoryId: service.serviceId,
+            image: service.image,
+            duration: pricing.duration,
+            sessions: pricing.sessions,
+            price: pricing.price,
+            isPackage: pricing.isPackage,
+          })
+        }
+      } else {
+        // No pricing, show service itself
+        flattened.push({
+          slug: service.slug,
+          name: service.name,
+          description: service.shortDescription,
+          category: service.categoryName,
+          categoryId: service.serviceId,
+          image: service.image,
+          duration: 0,
+          sessions: 1,
+          price: 0,
+          isPackage: false,
+        })
+      }
+
+      // Add subcategory pricing items
+      for (const sub of service.subcategories) {
+        for (const pricing of sub.pricing) {
+          flattened.push({
+            slug: `${sub.slug}-${pricing.sortOrder}`,
+            name: `${sub.name} - ${pricing.name}`,
+            description: pricing.description || sub.shortDescription,
+            category: sub.categoryName,
+            categoryId: sub.serviceId,
+            image: sub.image,
+            duration: pricing.duration,
+            sessions: pricing.sessions,
+            price: pricing.price,
+            isPackage: pricing.isPackage,
+          })
+        }
+      }
+    }
+    return flattened
+  }, [services])
+
+  const allServices = useMemo(() => flattenedServices, [flattenedServices])
   const categories = useMemo(() => ['all', ...new Set(allServices.map((s) => s.categoryId))], [allServices])
 
   // Initialize filter from URL params
@@ -244,7 +314,7 @@ export default function PriceTable({ services }: Props) {
                     </td>
                     <td className="px-6 py-4 text-right">
                       <Link
-                        href={`/sluzby/${service.categoryId}/${service.slug}`}
+                        href={`/sluzby/${service.categoryId}`}
                         className="inline-flex items-center gap-1 text-sm font-medium text-slate-900 hover:text-slate-600 transition"
                       >
                         Detail
@@ -322,7 +392,7 @@ export default function PriceTable({ services }: Props) {
                   <span>📅 {service.sessions}</span>
                 </div>
                 <Link
-                  href={`/sluzby/${service.categoryId}/${service.slug}`}
+                  href={`/sluzby/${service.categoryId}`}
                   className="inline-flex items-center gap-1 text-sm font-medium text-slate-900"
                 >
                   Detail

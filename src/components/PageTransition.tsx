@@ -9,11 +9,16 @@ type PageTransitionProps = {
 }
 
 export default function PageTransition({ children }: PageTransitionProps) {
-  const _pathname = usePathname()
+  const pathname = usePathname()
   const glassRef = useRef<HTMLDivElement>(null)
 
   useLayoutEffect(() => {
     if (!glassRef.current) return
+    
+    // Scroll to top immediately on route change
+    window.scrollTo({ top: 0, behavior: 'instant' })
+    
+    // Animate transition overlay
     const tl = gsap.timeline()
     tl.set(glassRef.current, { opacity: 0, pointerEvents: 'none', backdropFilter: 'blur(0px)' })
     tl.to(glassRef.current, {
@@ -30,12 +35,11 @@ export default function PageTransition({ children }: PageTransitionProps) {
       ease: 'power2.inOut',
       delay: 0.11,
     })
-    // Až skončí fade-out, stránka už je v nové routě
-    window.scrollTo({ top: 0, behavior: 'instant' })
+    
     return () => {
       gsap.killTweensOf(glassRef.current)
     }
-  }, [])
+  }, [pathname])
 
   return (
     <>

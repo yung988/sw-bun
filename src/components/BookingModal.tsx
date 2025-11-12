@@ -1,6 +1,7 @@
 'use client'
 
 import { gsap } from '@/lib/gsap'
+import type { MainService } from '@/lib/services'
 import { MessageCircle, Phone, X } from 'lucide-react'
 import { useEffect, useLayoutEffect, useRef, useState } from 'react'
 
@@ -27,31 +28,12 @@ type FormData = {
   time: string
 }
 
-const categories: Record<string, string[]> = {
-  'Péče o pleť': [
-    'Základní ošetření pleti',
-    'Hloubkové čištění',
-    'Anti-age ošetření',
-    'Hydratační ošetření',
-    'Lifting obličeje',
-  ],
-  Masáže: ['Masáž obličeje', 'Relaxační masáž hlavy', 'Lymfatická masáž', 'Kobido masáž'],
-  'Make-up': [
-    'Permanentní make-up obočí',
-    'Permanentní make-up rtů',
-    'Permanentní linky',
-    'Denní make-up',
-    'Večerní make-up',
-  ],
-  Depilace: ['Depilace obličej', 'Depilace nohy', 'Depilace celé tělo', 'Brazilská depilace'],
-  'Manikúra & Pedikúra': ['Klasická manikúra', 'Gel lak', 'Akrylové nehty', 'Pedikúra', 'Spa pedikúra'],
-  'Speciální procedury': ['Mikrojehlování', 'Chemický peeling', 'Mezoterapie', 'Ošetření IPL'],
-}
-
 const timeSlots = ['09:00', '10:00', '11:00', '12:00', '13:00', '14:00', '15:00', '16:00', '17:00', '18:00']
 
 export default function BookingModal({ isOpen, onCloseAction, preselectedService }: BookingModalProps) {
   const dialogRef = useRef<HTMLDialogElement>(null)
+  const [services, setServices] = useState<MainService[]>([])
+  const [loading, setLoading] = useState(true)
   const [formData, setFormData] = useState<FormData>({
     name: '',
     phone: '',
@@ -60,6 +42,39 @@ export default function BookingModal({ isOpen, onCloseAction, preselectedService
     service: preselectedService?.name || '',
     date: '',
     time: '',
+  })
+
+  // Load services from API
+  useEffect(() => {
+    const loadServices = async () => {
+      try {
+        const response = await fetch('/api/services')
+        if (response.ok) {
+          const data = await response.json()
+          setServices(data)
+        }
+      } catch (error) {
+        console.error('Error loading services:', error)
+      } finally {
+        setLoading(false)
+      }
+    }
+    loadServices()
+  }, [])
+
+  // Build categories map from services
+  const categories: Record<string, string[]> = {}
+  services.forEach((service) => {
+    if (service.subcategories && service.subcategories.length > 0) {
+      // Parent category with subcategories
+      categories[service.name] = service.subcategories.map((sub) => sub.name)
+    } else if (service.pricing && service.pricing.length > 0) {
+      // Service with pricing items
+      categories[service.name] = service.pricing.map((p) => p.name)
+    } else {
+      // Simple service
+      categories[service.name] = [service.name]
+    }
   })
 
   const handleSubmit = () => {
@@ -112,13 +127,13 @@ export default function BookingModal({ isOpen, onCloseAction, preselectedService
       dialogRef.current.showModal()
       const tl = gsap.timeline()
 
-      // Backdrop fade in - Apple style
+      // Backdrop fade in - light style
       gsap.set(backdrop, { opacity: 0 })
       tl.to(
         backdrop,
         {
           opacity: 1,
-          duration: 0.4,
+          duration: 0.3,
           ease: 'power2.out',
         },
         0
@@ -185,9 +200,9 @@ export default function BookingModal({ isOpen, onCloseAction, preselectedService
       }}
       onClose={onCloseAction}
     >
-      {/* Backdrop - rozmazané a ztmavené pozadí */}
+      {/* Backdrop - světlé rozmazané pozadí */}
       <div
-        className="modal-backdrop fixed inset-0 bg-black/60 backdrop-blur-md"
+        className="modal-backdrop fixed inset-0 bg-white/80 backdrop-blur-md"
         onClick={onCloseAction}
         onKeyDown={(e) => e.key === 'Enter' && onCloseAction()}
         aria-hidden="true"
@@ -198,13 +213,13 @@ export default function BookingModal({ isOpen, onCloseAction, preselectedService
         <div
           onClick={(e) => e.stopPropagation()}
           onKeyDown={(e) => e.stopPropagation()}
-          className="modal-content pointer-events-auto w-full max-w-md max-h-[95vh] bg-white/20 backdrop-blur-3xl shadow-2xl overflow-y-auto rounded-3xl border border-white/30"
+          className="modal-content pointer-events-auto w-full max-w-md max-h-[95vh] bg-white shadow-2xl overflow-y-auto rounded-3xl border border-slate-200"
         >
         {/* Close Button */}
         <button
           type="button"
           onClick={onCloseAction}
-          className="absolute top-5 right-5 text-white hover:text-white/70 transition-colors z-10 bg-black/20 rounded-full p-2"
+          className="absolute top-5 right-5 text-slate-600 hover:text-slate-900 transition-colors z-10 bg-slate-50 hover:bg-slate-100 rounded-full p-2"
           aria-label="Zavřít"
         >
           <X size={20} />
@@ -212,8 +227,8 @@ export default function BookingModal({ isOpen, onCloseAction, preselectedService
 
         <div className="p-8">
           {/* Title */}
-          <h2 className="text-4xl font-light text-white mb-2 drop-shadow-lg">Rezervace</h2>
-          <p className="text-white/80 text-sm font-light mb-8 drop-shadow">
+          <h2 className="text-4xl font-light text-slate-900 mb-2">Rezervace</h2>
+          <p className="text-slate-600 text-sm font-light mb-8">
             Vyplňte formulář a my vás budeme kontaktovat
           </p>
 
@@ -226,7 +241,7 @@ export default function BookingModal({ isOpen, onCloseAction, preselectedService
                 value={formData.name}
                 onChange={(e) => handleChange('name', e.target.value)}
                 placeholder="Jméno a příjmení"
-                className="w-full px-5 py-4 bg-white/20 backdrop-blur-xl border border-white/40 rounded-2xl focus:outline-none focus:border-white/60 focus:bg-white/25 transition-all text-white placeholder-white/70 shadow-lg"
+                className="w-full px-5 py-4 bg-slate-50 border border-slate-200 rounded-2xl focus:outline-none focus:border-slate-400 focus:bg-white focus:ring-2 focus:ring-slate-200 transition-all text-slate-900 placeholder-slate-400"
               />
             </div>
 
@@ -237,7 +252,7 @@ export default function BookingModal({ isOpen, onCloseAction, preselectedService
                 value={formData.phone}
                 onChange={(e) => handleChange('phone', e.target.value)}
                 placeholder="Telefon"
-                className="w-full px-5 py-4 bg-white/20 backdrop-blur-xl border border-white/40 rounded-2xl focus:outline-none focus:border-white/60 focus:bg-white/25 transition-all text-white placeholder-white/70 shadow-lg"
+                className="w-full px-5 py-4 bg-slate-50 border border-slate-200 rounded-2xl focus:outline-none focus:border-slate-400 focus:bg-white focus:ring-2 focus:ring-slate-200 transition-all text-slate-900 placeholder-slate-400"
               />
             </div>
 
@@ -248,7 +263,7 @@ export default function BookingModal({ isOpen, onCloseAction, preselectedService
                 value={formData.email}
                 onChange={(e) => handleChange('email', e.target.value)}
                 placeholder="E-mail"
-                className="w-full px-5 py-4 bg-white/20 backdrop-blur-xl border border-white/40 rounded-2xl focus:outline-none focus:border-white/60 focus:bg-white/25 transition-all text-white placeholder-white/70 shadow-lg"
+                className="w-full px-5 py-4 bg-slate-50 border border-slate-200 rounded-2xl focus:outline-none focus:border-slate-400 focus:bg-white focus:ring-2 focus:ring-slate-200 transition-all text-slate-900 placeholder-slate-400"
               />
             </div>
 
@@ -257,16 +272,14 @@ export default function BookingModal({ isOpen, onCloseAction, preselectedService
               <select
                 value={formData.category}
                 onChange={(e) => handleChange('category', e.target.value)}
-                className="w-full px-5 py-4 bg-white/20 backdrop-blur-xl border border-white/40 rounded-2xl focus:outline-none focus:border-white/60 focus:bg-white/25 transition-all text-white appearance-none cursor-pointer shadow-lg"
-                style={{
-                  color: formData.category ? 'white' : 'rgba(255,255,255,0.7)',
-                }}
+                disabled={loading}
+                className="w-full px-5 py-4 bg-slate-50 border border-slate-200 rounded-2xl focus:outline-none focus:border-slate-400 focus:bg-white focus:ring-2 focus:ring-slate-200 transition-all text-slate-900 appearance-none cursor-pointer"
               >
-                <option value="" style={{ color: '#333', background: '#fff' }}>
-                  Vyberte kategorii
+                <option value="">
+                  {loading ? 'Načítání...' : 'Vyberte kategorii'}
                 </option>
-                {Object.keys(categories).map((category, _index) => (
-                  <option key={category} value={category} style={{ color: '#333', background: '#fff' }}>
+                {Object.keys(categories).map((category) => (
+                  <option key={category} value={category}>
                     {category}
                   </option>
                 ))}
@@ -279,16 +292,11 @@ export default function BookingModal({ isOpen, onCloseAction, preselectedService
                 <select
                   value={formData.service}
                   onChange={(e) => handleChange('service', e.target.value)}
-                  className="w-full px-5 py-4 bg-white/20 backdrop-blur-xl border border-white/40 rounded-2xl focus:outline-none focus:border-white/60 focus:bg-white/25 transition-all text-white appearance-none cursor-pointer shadow-lg"
-                  style={{
-                    color: formData.service ? 'white' : 'rgba(255,255,255,0.7)',
-                  }}
+                  className="w-full px-5 py-4 bg-slate-50 border border-slate-200 rounded-2xl focus:outline-none focus:border-slate-400 focus:bg-white focus:ring-2 focus:ring-slate-200 transition-all text-slate-900 appearance-none cursor-pointer"
                 >
-                  <option value="" style={{ color: '#333', background: '#fff' }}>
-                    Vyberte proceduru
-                  </option>
-                  {categories[formData.category].map((service, _index) => (
-                    <option key={service} value={service} style={{ color: '#333', background: '#fff' }}>
+                  <option value="">Vyberte proceduru</option>
+                  {categories[formData.category].map((service) => (
+                    <option key={service} value={service}>
                       {service}
                     </option>
                   ))}
@@ -302,22 +310,16 @@ export default function BookingModal({ isOpen, onCloseAction, preselectedService
                 type="date"
                 value={formData.date}
                 onChange={(e) => handleChange('date', e.target.value)}
-                className="w-full px-5 py-4 bg-white/20 backdrop-blur-xl border border-white/40 rounded-2xl focus:outline-none focus:border-white/60 focus:bg-white/25 transition-all text-white shadow-lg"
-                style={{ colorScheme: 'dark' }}
+                className="w-full px-5 py-4 bg-slate-50 border border-slate-200 rounded-2xl focus:outline-none focus:border-slate-400 focus:bg-white focus:ring-2 focus:ring-slate-200 transition-all text-slate-900"
               />
               <select
                 value={formData.time}
                 onChange={(e) => handleChange('time', e.target.value)}
-                className="w-full px-5 py-4 bg-white/20 backdrop-blur-xl border border-white/40 rounded-2xl focus:outline-none focus:border-white/60 focus:bg-white/25 transition-all text-white appearance-none cursor-pointer shadow-lg"
-                style={{
-                  color: formData.time ? 'white' : 'rgba(255,255,255,0.7)',
-                }}
+                className="w-full px-5 py-4 bg-slate-50 border border-slate-200 rounded-2xl focus:outline-none focus:border-slate-400 focus:bg-white focus:ring-2 focus:ring-slate-200 transition-all text-slate-900 appearance-none cursor-pointer"
               >
-                <option value="" style={{ color: '#333', background: '#fff' }}>
-                  Čas
-                </option>
-                {timeSlots.map((time, _index) => (
-                  <option key={time} value={time} style={{ color: '#333', background: '#fff' }}>
+                <option value="">Čas</option>
+                {timeSlots.map((time) => (
+                  <option key={time} value={time}>
                     {time}
                   </option>
                 ))}
@@ -328,7 +330,7 @@ export default function BookingModal({ isOpen, onCloseAction, preselectedService
             <button
               type="button"
               onClick={handleSubmit}
-              className="w-full py-4 bg-white/25 backdrop-blur-xl border border-white/50 text-white rounded-2xl hover:bg-white/35 transition-all duration-300 text-base font-light tracking-wide shadow-xl mt-2"
+              className="w-full py-4 bg-slate-900 text-white rounded-2xl hover:bg-slate-800 transition-all duration-300 text-base font-medium tracking-wide shadow-lg mt-2"
             >
               Odeslat rezervaci
             </button>
@@ -338,7 +340,7 @@ export default function BookingModal({ isOpen, onCloseAction, preselectedService
               <button
                 type="button"
                 onClick={handleWhatsApp}
-                className="py-4 bg-green-500/30 backdrop-blur-xl border border-green-400/50 text-white rounded-2xl hover:bg-green-500/40 transition-all duration-300 text-sm font-light flex items-center justify-center gap-2 shadow-lg"
+                className="py-4 bg-emerald-500 text-white rounded-2xl hover:bg-emerald-600 transition-all duration-300 text-sm font-medium flex items-center justify-center gap-2 shadow-lg"
               >
                 <MessageCircle size={18} />
                 WhatsApp
@@ -346,7 +348,7 @@ export default function BookingModal({ isOpen, onCloseAction, preselectedService
               <button
                 type="button"
                 onClick={handleCall}
-                className="py-4 bg-white/20 backdrop-blur-xl border border-white/40 text-white rounded-2xl hover:bg-white/30 transition-all duration-300 text-sm font-light flex items-center justify-center gap-2 shadow-lg"
+                className="py-4 bg-slate-100 text-slate-900 rounded-2xl hover:bg-slate-200 transition-all duration-300 text-sm font-medium flex items-center justify-center gap-2 shadow-lg border border-slate-200"
               >
                 <Phone size={18} />
                 Zavolat

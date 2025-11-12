@@ -72,7 +72,7 @@ export default function InstagramFeed() {
             href="https://www.instagram.com/swbeautysalons/"
             target="_blank"
             rel="noopener noreferrer"
-            className="inline-flex items-center gap-2 rounded-full bg-slate-900 px-8 py-4 text-sm font-medium text-white transition hover:bg-slate-800"
+            className="inline-flex items-center gap-2 rounded-xl bg-slate-900 px-8 py-4 text-base font-semibold text-white transition-all duration-200 hover:bg-slate-800 shadow-sm hover:shadow-md"
           >
             <svg className="h-5 w-5" fill="currentColor" viewBox="0 0 24 24">
               <title>Instagram</title>

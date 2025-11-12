@@ -9,12 +9,5 @@ type MainContentProps = {
 }
 
 export default function MainContent({ children }: MainContentProps) {
-  const _pathname = usePathname()
-
-  useEffect(() => {
-    // Scroll to top on route change
-    window.scrollTo({ top: 0, behavior: 'smooth' })
-  }, [])
-
   return <PageTransition>{children}</PageTransition>
 }

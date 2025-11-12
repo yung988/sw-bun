@@ -1,5 +1,7 @@
+import Breadcrumbs from '@/components/Breadcrumbs'
 import OpenBookingButton from '@/components/OpenBookingButton'
 import OpenVoucherButton from '@/components/OpenVoucherButton'
+import PageLayout from '@/components/PageLayout'
 import PriceTable from '@/components/PriceTable'
 import SectionTitle from '@/components/SectionTitle'
 import { getAllServices } from '@/lib/services'
@@ -23,24 +25,28 @@ export default async function PriceListPage() {
   const services = await getAllServices()
 
   return (
-    <main className="min-h-screen bg-white pb-24 pt-32 md:pt-40 lg:pt-44">
+    <PageLayout maxWidth="default" paddingBottom={true}>
       {/* Hero Section */}
-      <section className="relative bg-gradient-to-br from-slate-50 to-white py-16 md:py-24 lg:py-28">
-        <div className="mx-auto max-w-[1250px] px-6">
-          <SectionTitle
-            eyebrow="Transparentní ceny"
-            title={
-              <>
-                Kompletní <em className="italic">ceník</em>
-              </>
-            }
-            subtitle="Všechny naše služby na jednom místě. Žádné skryté poplatky, žádná překvapení."
-          />
-        </div>
-      </section>
+      <div className="mb-8">
+        <Breadcrumbs
+          items={[
+            { label: 'Domů', href: '/' },
+            { label: 'Ceník' },
+          ]}
+        />
+        <SectionTitle
+          eyebrow="Transparentní ceny"
+          title={
+            <>
+              Kompletní <em className="italic">ceník</em>
+            </>
+          }
+          subtitle="Všechny naše služby na jednom místě. Žádné skryté poplatky, žádná překvapení."
+        />
+      </div>
 
       {/* Price Table Section */}
-      <section className="mx-auto max-w-[1250px] px-6 py-8 md:py-12 lg:py-16">
+      <div className="mb-8 md:mb-12 lg:mb-16">
         <Suspense
           fallback={
             <div className="flex items-center justify-center py-12">
@@ -53,10 +59,10 @@ export default async function PriceListPage() {
         >
           <PriceTable services={services} />
         </Suspense>
-      </section>
+      </div>
 
       {/* Quick Actions */}
-      <section className="mx-auto max-w-[1250px] px-6 py-8 md:py-12 lg:py-16">
+      <div className="mb-8 md:mb-12 lg:mb-16">
         <div className="grid gap-6 md:grid-cols-2">
           {/* Reservation CTA */}
           <div className="rounded-2xl border border-slate-200 bg-gradient-to-br from-slate-900 to-slate-800 p-8 text-white">
@@ -110,10 +116,10 @@ export default async function PriceListPage() {
             </OpenVoucherButton>
           </div>
         </div>
-      </section>
+      </div>
 
       {/* FAQ Section */}
-      <section className="mx-auto max-w-[1250px] px-6 py-8 md:py-12 lg:py-16">
+      <div className="mb-8 md:mb-12 lg:mb-16">
         <div className="rounded-2xl border border-slate-200 bg-slate-50 p-8">
           <h3 className="mb-6 text-2xl font-light text-slate-900">
             Často kladené <em className="font-serif italic">otázky</em>
@@ -195,7 +201,7 @@ export default async function PriceListPage() {
             </details>
           </div>
         </div>
-      </section>
-    </main>
+      </div>
+    </PageLayout>
   )
 }

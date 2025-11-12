@@ -70,7 +70,7 @@ export default function ImageGallery({ images, columns = 3, className = '' }: Im
   return (
     <div ref={galleryRef} className={`grid ${gridCols[columns]} gap-6 ${className}`}>
       {images.map((image, index) => (
-        <div key={image.src} className="gallery-item relative aspect-square overflow-hidden rounded-2xl bg-slate-100">
+        <div key={image.src} className="gallery-item relative aspect-square overflow-hidden rounded-2xl border border-slate-200 bg-slate-100 shadow-sm">
           <ImageReveal direction={index % 2 === 0 ? 'right' : 'left'}>
             <Image
               src={image.src}

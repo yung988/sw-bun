@@ -1,4 +1,4 @@
-import { getAllServices, getCategories } from '@/lib/services'
+import { getAllServices } from '@/lib/services'
 import type { MetadataRoute } from 'next'
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
@@ -24,26 +24,38 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       changeFrequency: 'monthly',
       priority: 0.8,
     },
+    {
+      url: `${baseUrl}/kontakt`,
+      lastModified: new Date(),
+      changeFrequency: 'monthly',
+      priority: 0.8,
+    },
   ]
 
-  // Dynamické stránky kategorií služeb
-  const categories = await getCategories()
-  const categoryPages: MetadataRoute.Sitemap = categories.map((categoryId) => ({
-    url: `${baseUrl}/sluzby/${categoryId}`,
-    lastModified: new Date(),
-    changeFrequency: 'monthly' as const,
-    priority: 0.8,
-  }))
-
-  // Dynamické stránky detailů služeb
+  // Dynamické stránky služeb (včetně kategorií a podkategorií)
   const services = await getAllServices()
-  const servicePages: MetadataRoute.Sitemap = services.map((service) => ({
-    url: `${baseUrl}/sluzby/${service.categoryId}/${service.slug}`,
-    lastModified: new Date(),
-    changeFrequency: 'monthly' as const,
-    priority: 0.7,
-  }))
+  const servicePages: MetadataRoute.Sitemap = []
+
+  for (const service of services) {
+    // Main service page
+    servicePages.push({
+      url: `${baseUrl}/sluzby/${service.slug}`,
+      lastModified: new Date(),
+      changeFrequency: 'monthly' as const,
+      priority: 0.8,
+    })
+
+    // Subcategory pages (e.g., Kosmetika subcategories)
+    for (const sub of service.subcategories) {
+      servicePages.push({
+        url: `${baseUrl}/sluzby/${sub.slug}`,
+        lastModified: new Date(),
+        changeFrequency: 'monthly' as const,
+        priority: 0.7,
+      })
+    }
+  }
 
   // Spojit všechny stránky
-  return [...staticPages, ...categoryPages, ...servicePages]
+  return [...staticPages, ...servicePages]
 }

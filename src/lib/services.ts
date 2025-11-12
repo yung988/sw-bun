@@ -1,149 +1,51 @@
 import { getCategoryMosaicServer } from '@/lib/server/images'
-import type { PriceItem } from '@/types'
 import Papa from 'papaparse'
 import { formatPrice } from './price'
 
-type NumericRange = {
-  min?: number
-  max?: number
+// ===== TYPES =====
+
+export type PricingItem = {
+  serviceId: string
+  name: string
+  description: string
+  duration: number
+  sessions: number
+  price: number
+  priceFormatted: string
+  isPackage: boolean
+  sortOrder: number
 }
 
-export type Service = {
-  slug: string
+export type MainService = {
+  serviceId: string
+  parentId: string | null
+  categoryName: string
   name: string
+  slug: string
   shortDescription: string
-  description: string
-  category: string
-  categoryId: string
-  subcategory: string
-  subcategoryId: string
-  serviceType: string
-  duration: number | null
-  sessions: number | null
-  price: string
-  priceNumber?: number
+  fullDescription: string
   benefits: string[]
+  indications: string[]
+  contraindications: string[]
   image: string
   images: string[]
-  isPackage: boolean
-  isVariablePrice: boolean
+  // Nested subcategories (only for parent categories like Kosmetika)
+  subcategories: MainService[]
+  // Pricing items
+  pricing: PricingItem[]
 }
 
-export type ServiceCategory = {
-  id: string
-  name: string
-  description: string
-  priceRange: string
-  slug: string
-  serviceCount: number
-}
-
-export type ServiceSubcategory = {
-  id: string
-  categoryId: string
-  name: string
-  description: string
-  priceRange: string
-  serviceCount: number
-}
+// ===== CONSTANTS =====
 
 const DEFAULT_IMAGE = '/images/service-ostatni.jpg'
 
-const CATEGORY_DESCRIPTIONS: Record<string, string> = {
-  kosmetika: 'Profesionální kosmetické ošetření pro zdravou, jasnou pleť.',
-  'budovani-svalu': 'Elektrostimulace a EMS tréninky pro efektivní posílení a formování těla.',
-  'hifu-tvar': 'Pokročilý HIFU lifting pro zpevnění kontur obličeje bez rekonvalescence.',
-  'hifu-telo': 'Hloubkové HIFU tvarování těla podle potřeb vaší postavy.',
-  endosphere: 'Kompresní mikro-vibrace Endosphere pro lymfatickou drenáž a redukci celulitidy.',
-  kavitace: 'Ultrazvuková kavitace pro šetrnou redukci problematických partií.',
-  lpg: 'Mechanická endermologie LPG pro vyhlazení pokožky a tvarování.',
-  'ostatni-sluzby': 'Komplementární služby, které doplní vaši péči o krásu.',
-  hydrafacial: 'Hydrafacial – okamžité hloubkové čištění, hydratace a rozjasnění pleti.',
-}
-
-function parseCSV(csvText: string): PriceItem[] {
-  const parsed = Papa.parse<Record<string, string>>(csvText, {
-    header: true,
-    skipEmptyLines: true,
-    dynamicTyping: false,
-  })
-
-  if (parsed.errors?.length) {
-    console.warn('CSV parse warnings:', parsed.errors.slice(0, 3))
-  }
-
-  const items: PriceItem[] = []
-
-  for (const rowRaw of parsed.data) {
-    if (!rowRaw) continue
-    // Lowercase, trimmed keys for robust access
-    const row: Record<string, string> = {}
-    for (const [k, v] of Object.entries(rowRaw)) {
-      if (!k) continue
-      row[k.trim().toLowerCase()] = (v ?? '').toString().trim()
-    }
-
-    const get = (...keys: string[]) => {
-      for (const k of keys) {
-        const val = row[k.toLowerCase()]
-        if (val !== undefined && val !== '') return val
-      }
-      return ''
-    }
-
-    const shortSuggested = get('short_description_suggested')
-    const descSuggested = get('description_suggested')
-
-    const benefitsRaw = get('benefits', 'benefit')
-    const benefits = benefitsRaw
-      ? benefitsRaw
-          .split(/[,•;\n]/)
-          .map((b) => b.trim())
-          .filter(Boolean)
-      : []
-
-    const imageCell = get('image', 'images', 'gallery', 'image_path')
-    const imageList = imageCell
-      ? imageCell
-          .split(/[;,]/)
-          .map((v) => v.trim())
-          .filter(Boolean)
-      : []
-
-    const durationRaw = get('duration_in_minutes', 'duration_minutes', 'duration')
-    const sessionsRaw = get('sessions', 'session')
-    const priceRaw = get('price_in_czk', 'price_czk', 'price')
-
-    const duration = Number.parseInt(durationRaw, 10)
-    const sessions = Number.parseInt(sessionsRaw, 10)
-
-    const item: PriceItem = {
-      category: get('category'),
-      subcategory: get('subcategory'),
-      serviceType: get('service_type', 'servicetype', 'type'),
-      name: get('name', 'title'),
-      shortDescription: shortSuggested || get('short_description', 'shortdescription', 'short'),
-      description: descSuggested || get('description', 'desc'),
-      duration: Number.isNaN(duration) ? 0 : duration,
-      sessions: Number.isNaN(sessions) ? 0 : sessions,
-      price: priceRaw,
-      benefits,
-      image: imageList[0] || imageCell,
-      images: imageList,
-    }
-
-    // Skip empty lines (e.g., if name/category missing)
-    if (!item.name || !item.category) continue
-    items.push(item)
-  }
-
-  return items
-}
+// ===== HELPER FUNCTIONS =====
 
 function createSlug(text: string): string {
   return text
     .toLowerCase()
     .normalize('NFD')
+    .replace(/[\u0300-\u036f]/g, '')
     .replace(/[^\w\s-]/g, '')
     .replace(/\s+/g, '-')
     .replace(/-+/g, '-')
@@ -158,131 +60,217 @@ function sanitizeImage(image: string): string {
   return `/images/${trimmed}`
 }
 
-function isGenericImage(path: string): boolean {
-  return path === DEFAULT_IMAGE || /\/images\/service-[\w-]+\.jpg$/.test(path)
-}
+function parseCSVGeneric<T = Record<string, string>>(csvText: string): T[] {
+  const parsed = Papa.parse<Record<string, string>>(csvText, {
+    header: true,
+    skipEmptyLines: true,
+    dynamicTyping: false,
+  })
 
-function hashString(input: string): number {
-  let hash = 0
-  for (let i = 0; i < input.length; i++) {
-    hash = (hash << 5) - hash + input.charCodeAt(i)
-    hash |= 0 // Convert to 32bit integer
-  }
-  return Math.abs(hash)
-}
-
-function parsePrice(price: string): { raw: string; value?: number } {
-  const trimmed = price.trim()
-  if (!trimmed) return { raw: 'Na dotaz' }
-
-  const normalized = trimmed.replace(/[^\d]/g, '')
-  const numeric = Number.parseInt(normalized, 10)
-  if (Number.isNaN(numeric)) {
-    return { raw: trimmed }
+  if (parsed.errors?.length) {
+    console.warn('CSV parse warnings:', parsed.errors.slice(0, 3))
   }
 
-  return { raw: trimmed, value: numeric }
-}
+  const items: T[] = []
 
-async function priceItemToService(item: PriceItem): Promise<Service> {
-  const categoryId = createSlug(item.category)
-  const subcategoryId = createSlug(item.subcategory || 'ostatni')
-  const { raw: rawPrice, value: priceNumber } = parsePrice(item.price)
-
-  const isPackage = item.serviceType.toLowerCase() === 'package' || item.name.toLowerCase().includes('balíček')
-
-  // Resolve primary image & gallery with fallbacks
-  const rawList = (item.images?.length ? item.images : [item.image]).filter(Boolean)
-  let images = rawList.map((p) => sanitizeImage(p))
-  // Resolve a mosaic dynamically from existing images under public/images
-  const mosaic = await getCategoryMosaicServer(categoryId)
-  if (!images.length || images.every(isGenericImage)) {
-    if (mosaic?.length) {
-      // pick 3 deterministic images from mosaic based on name hash
-      const base = hashString(item.name)
-      const picks = new Set<number>()
-      for (let k = 0; k < Math.min(3, mosaic.length); k++) {
-        picks.add((base + k) % mosaic.length)
-      }
-      images = Array.from(picks).map((i) => mosaic[i])
+  for (const rowRaw of parsed.data) {
+    if (!rowRaw) continue
+    // Lowercase, trimmed keys for robust access
+    const row: Record<string, string> = {}
+    for (const [k, v] of Object.entries(rowRaw)) {
+      if (!k) continue
+      row[k.trim().toLowerCase()] = (v ?? '').toString().trim()
     }
-  } else if (mosaic?.length) {
-    // Augment generics inside list with mosaic picks
-    images = images.map((img, idx) =>
-      isGenericImage(img) ? mosaic[(hashString(item.name) + idx) % mosaic.length] : img
-    )
+    items.push(row as T)
   }
-  const imagePath = images[0] || DEFAULT_IMAGE
 
-  return {
-    slug: `${categoryId}-${createSlug(item.name)}`,
-    name: item.name,
-    shortDescription: item.shortDescription,
-    description: item.description,
-    category: item.category,
-    categoryId,
-    subcategory: item.subcategory,
-    subcategoryId,
-    serviceType: item.serviceType.toLowerCase(),
-    duration: item.duration > 0 ? item.duration : null,
-    sessions: item.sessions > 0 ? item.sessions : null,
-    price: rawPrice,
-    priceNumber,
-    benefits: item.benefits,
-    image: imagePath,
-    images,
-    isPackage,
-    isVariablePrice: false,
-  }
+  return items
 }
 
-function calculatePriceRange(values: Array<number | undefined>): NumericRange {
-  const prices = values.filter((value): value is number => typeof value === 'number')
-  if (!prices.length) return {}
-  return {
-    min: Math.min(...prices),
-    max: Math.max(...prices),
-  }
+function splitByComma(value: string): string[] {
+  if (!value) return []
+  return value
+    .split(',')
+    .map((s) => s.trim())
+    .filter(Boolean)
 }
 
-function formatPriceRange(range: NumericRange): string {
-  if (range.min === undefined) return 'Na dotaz'
-  if (range.max === undefined || range.max === range.min) {
-    return formatPrice(range.min)
-  }
-  return `${formatPrice(range.min)} – ${formatPrice(range.max)}`
-}
+// ===== DATA LOADING =====
 
-// Cache pro parsované služby (zlepšuje výkon)
-let servicesCache: Service[] | null = null
-let servicesLoading: Promise<Service[]> | null = null
-
-async function getPriceListFile(): Promise<string | null> {
+async function getServicesFile(): Promise<string | null> {
   if (typeof window === 'undefined') {
     try {
-      const { getPriceListFile: serverGetPriceListFile } = await import('./server/csv')
-      return serverGetPriceListFile()
+      const fs = await import('fs/promises')
+      const path = await import('path')
+      const filePath = path.join(process.cwd(), 'public/services/pricelist_updated - services.csv')
+      return await fs.readFile(filePath, 'utf-8')
     } catch (error) {
-      console.error('Nepodařilo se načíst public/services/services.csv:', error)
+      console.error('Failed to load services.csv:', error)
       return null
     }
   }
   return null
 }
 
-async function loadServices(): Promise<Service[]> {
+async function getPricingFile(): Promise<string | null> {
+  if (typeof window === 'undefined') {
+    try {
+      const fs = await import('fs/promises')
+      const path = await import('path')
+      const filePath = path.join(process.cwd(), 'public/services/pricelist_updated - prices.csv')
+      return await fs.readFile(filePath, 'utf-8')
+    } catch (error) {
+      console.error('Failed to load pricing.csv:', error)
+      return null
+    }
+  }
+  return null
+}
+
+// ===== PARSING =====
+
+async function parseServicesCSV(csvText: string): Promise<MainService[]> {
+  const rows = parseCSVGeneric<{
+    service_id: string
+    parent_id: string
+    category_name: string
+    name: string
+    short_description: string
+    full_description: string
+    benefits: string
+    indications: string
+    contraindications: string
+    image: string
+  }>(csvText)
+
+  const services: MainService[] = []
+
+  for (const row of rows) {
+    const serviceId = row.service_id
+    if (!serviceId) continue
+
+    const rawImages = row.image ? row.image.split(';').map((s) => s.trim()).filter(Boolean) : []
+    let images = rawImages.map((p) => sanitizeImage(p))
+
+    // Try to get mosaic images
+    const mosaic = await getCategoryMosaicServer(serviceId)
+    if ((!images.length || images.every((img) => img === DEFAULT_IMAGE)) && mosaic?.length) {
+      images = mosaic.slice(0, 3)
+    }
+
+    services.push({
+      serviceId,
+      parentId: row.parent_id || null,
+      categoryName: row.category_name,
+      name: row.name,
+      slug: createSlug(serviceId),
+      shortDescription: row.short_description,
+      fullDescription: row.full_description,
+      benefits: splitByComma(row.benefits),
+      indications: splitByComma(row.indications),
+      contraindications: splitByComma(row.contraindications),
+      image: images[0] || DEFAULT_IMAGE,
+      images,
+      subcategories: [],
+      pricing: [],
+    })
+  }
+
+  return services
+}
+
+async function parsePricingCSV(csvText: string): Promise<PricingItem[]> {
+  const rows = parseCSVGeneric<{
+    serviceid: string
+    category: string
+    subcategory: string
+    service_type: string
+    name: string
+    duration_in_minutes: string
+    session: string
+    price_in_czk: string
+  }>(csvText)
+
+  const pricing: PricingItem[] = []
+
+  for (let i = 0; i < rows.length; i++) {
+    const row = rows[i]
+    const serviceId = row.serviceid
+    if (!serviceId) continue
+
+    const duration = Number.parseInt(row.duration_in_minutes, 10) || 0
+    const sessions = Number.parseInt(row.session, 10) || 1
+    const price = Number.parseInt(row.price_in_czk, 10) || 0
+    const isPackage = row.service_type === 'package'
+    const sortOrder = i + 1
+
+    pricing.push({
+      serviceId,
+      name: row.name,
+      description: row.subcategory || row.category || '',
+      duration,
+      sessions,
+      price,
+      priceFormatted: formatPrice(price),
+      isPackage,
+      sortOrder,
+    })
+  }
+
+  // Sort by sortOrder
+  pricing.sort((a, b) => a.sortOrder - b.sortOrder)
+
+  return pricing
+}
+
+// ===== CACHE =====
+
+let servicesCache: MainService[] | null = null
+let servicesLoading: Promise<MainService[]> | null = null
+
+async function loadAllServices(): Promise<MainService[]> {
   if (servicesCache) {
     return servicesCache
   }
 
   if (!servicesLoading) {
     servicesLoading = (async () => {
-      const csvContent = await getPriceListFile()
-      if (!csvContent) {
+      const [servicesCSV, pricingCSV] = await Promise.all([getServicesFile(), getPricingFile()])
+
+      if (!servicesCSV || !pricingCSV) {
+        console.error('Missing CSV files')
         return []
       }
-      const items = parseCSV(csvContent)
-      return Promise.all(items.map(priceItemToService))
+
+      const services = await parseServicesCSV(servicesCSV)
+      const pricing = await parsePricingCSV(pricingCSV)
+
+      // Attach pricing to services
+      for (const service of services) {
+        service.pricing = pricing.filter((p) => p.serviceId === service.serviceId)
+      }
+
+      // Build hierarchy - attach subcategories to parents
+      const parentMap = new Map<string, MainService>()
+      const children: MainService[] = []
+
+      for (const service of services) {
+        if (!service.parentId) {
+          parentMap.set(service.serviceId, service)
+        } else {
+          children.push(service)
+        }
+      }
+
+      for (const child of children) {
+        const parent = parentMap.get(child.parentId!)
+        if (parent) {
+          parent.subcategories.push(child)
+        }
+      }
+
+      // Return only top-level services (parents)
+      return Array.from(parentMap.values())
     })()
 
     try {
@@ -295,122 +283,56 @@ async function loadServices(): Promise<Service[]> {
   return servicesCache ?? []
 }
 
-export async function getAllServices(): Promise<Service[]> {
-  return loadServices()
+// ===== PUBLIC API =====
+
+export async function getAllServices(): Promise<MainService[]> {
+  return loadAllServices()
 }
 
-// Pomocník pro vyčištění cache (užitečné pro development nebo pokud se CSV změní)
-export function clearServicesCache() {
-  servicesCache = null
-}
-
-export async function getServiceBySlug(slug: string): Promise<Service | null> {
+export async function getServiceById(serviceId: string): Promise<MainService | null> {
   const services = await getAllServices()
-  return services.find((service) => service.slug === slug) ?? null
-}
 
-export async function getServicesByCategory(categoryId: string): Promise<Service[]> {
-  const services = await getAllServices()
-  return services.filter((service) => service.categoryId === categoryId)
-}
+  // Search in top-level services
+  const topLevel = services.find((s) => s.serviceId === serviceId)
+  if (topLevel) return topLevel
 
-export async function getServicesBySubcategory(categoryId: string, subcategoryId: string): Promise<Service[]> {
-  const services = await getAllServices()
-  return services.filter((service) => service.categoryId === categoryId && service.subcategoryId === subcategoryId)
-}
-
-export async function getServiceCategories(): Promise<ServiceCategory[]> {
-  const all = await getAllServices()
-  const categoryOrder: string[] = []
-  const categoryMap = new Map<string, Service[]>()
-
-  for (const service of all) {
-    if (!categoryMap.has(service.categoryId)) {
-      categoryMap.set(service.categoryId, [])
-      categoryOrder.push(service.categoryId)
-    }
-    categoryMap.get(service.categoryId)?.push(service)
-  }
-
-  return categoryOrder.map((categoryId) => {
-    const services = categoryMap.get(categoryId) ?? []
-    const priceRange = calculatePriceRange(services.map((service) => service.priceNumber))
-
-    // Derive a short, category-level claim from service shortDescriptions
-    const preferred = services.find((s) => s.serviceType === 'single' && s.shortDescription) ?? services[0]
-    const derivedClaim = preferred?.shortDescription?.trim()
-
-    return {
-      id: categoryId,
-      slug: categoryId,
-      name: services[0]?.category ?? categoryId,
-      description: derivedClaim || CATEGORY_DESCRIPTIONS[categoryId] || 'Profesionální péče o vaši krásu.',
-      priceRange: formatPriceRange(priceRange),
-      serviceCount: services.length,
-    }
-  })
-}
-
-export async function getSubcategoriesByCategory(categoryId: string): Promise<ServiceSubcategory[]> {
-  const services = await getServicesByCategory(categoryId)
-  const order: string[] = []
-  const subcategoryMap = new Map<string, Service[]>()
-
+  // Search in subcategories
   for (const service of services) {
-    if (!subcategoryMap.has(service.subcategoryId)) {
-      subcategoryMap.set(service.subcategoryId, [])
-      order.push(service.subcategoryId)
-    }
-    subcategoryMap.get(service.subcategoryId)?.push(service)
+    const sub = service.subcategories.find((s) => s.serviceId === serviceId)
+    if (sub) return sub
   }
 
-  return order.map((subcategoryId) => {
-    const list = subcategoryMap.get(subcategoryId) ?? []
-    const priceRange = calculatePriceRange(list.map((service) => service.priceNumber))
-    const first = list[0]
-
-    return {
-      id: subcategoryId,
-      categoryId,
-      name: first?.subcategory ?? subcategoryId,
-      description: first?.shortDescription ?? '',
-      priceRange: formatPriceRange(priceRange),
-      serviceCount: list.length,
-    }
-  })
+  return null
 }
 
-export async function getMainServices(): Promise<Service[]> {
-  const all = await getAllServices()
-  const seen = new Set<string>()
-  const featured: Service[] = []
+export async function getServiceBySlug(slug: string): Promise<MainService | null> {
+  const services = await getAllServices()
 
-  for (const service of all) {
-    if (seen.has(service.categoryId)) continue
-    seen.add(service.categoryId)
-    featured.push(service)
+  // Search in top-level services
+  const topLevel = services.find((s) => s.slug === slug)
+  if (topLevel) return topLevel
+
+  // Search in subcategories
+  for (const service of services) {
+    const sub = service.subcategories.find((s) => s.slug === slug)
+    if (sub) return sub
   }
 
-  return featured.slice(0, 8)
+  return null
 }
 
 export async function getCategories(): Promise<string[]> {
   const services = await getAllServices()
-  const ids: string[] = []
-  const seen = new Set<string>()
-
-  for (const service of services) {
-    if (seen.has(service.categoryId)) continue
-    seen.add(service.categoryId)
-    ids.push(service.categoryId)
-  }
-
-  return ids
+  return services.map((s) => s.serviceId)
 }
 
 export async function getCategoryName(categoryId: string): Promise<string> {
-  const services = await getServicesByCategory(categoryId)
-  return services[0]?.category ?? categoryId
+  const service = await getServiceById(categoryId)
+  return service?.name ?? categoryId
+}
+
+export function clearServicesCache() {
+  servicesCache = null
 }
 
 export { formatPrice } from './price'

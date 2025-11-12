@@ -20,8 +20,8 @@ export default function ServiceCard({ title, description, price, category, href,
   const [rotateY, setRotateY] = useState(0)
 
   const cardClasses = compact
-    ? 'group block w-[320px] shrink-0 overflow-hidden rounded-2xl border border-slate-200 bg-white transition-all hover:shadow-2xl'
-    : 'group block overflow-hidden rounded-2xl border border-slate-200 bg-white transition-all hover:shadow-2xl'
+    ? 'group block w-[320px] shrink-0 overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-sm transition-all hover:shadow-xl'
+    : 'group block overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-sm transition-all hover:shadow-xl'
 
   const handleMouseMove = (e: React.MouseEvent<HTMLAnchorElement>) => {
     if (!cardRef.current) return

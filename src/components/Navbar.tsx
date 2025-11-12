@@ -17,6 +17,8 @@ export default function Navbar() {
   const navRef = useRef<HTMLDivElement>(null)
   const menuRef = useRef<HTMLDivElement>(null)
   const backdropRef = useRef<HTMLDivElement>(null)
+  const lastScrollY = useRef(0)
+  const [isVisible, setIsVisible] = useState(true)
 
   const links = [
     { href: '/', label: 'Domů' },
@@ -25,10 +27,28 @@ export default function Navbar() {
     { href: '/kontakt', label: 'Kontakt' },
   ]
 
-  // Scroll efekt (mění intenzitu skla)
+  // Scroll efekt (mění intenzitu skla a hide/show navbar)
   useEffect(() => {
-    const handleScroll = () => setScrolled(window.scrollY > 20)
-    window.addEventListener('scroll', handleScroll)
+    const handleScroll = () => {
+      const currentScrollY = window.scrollY
+      setScrolled(currentScrollY > 20)
+
+      // Hide/show navbar logic
+      if (currentScrollY < 100) {
+        // Vždy zobrazit navbar nahoře
+        setIsVisible(true)
+      } else if (currentScrollY > lastScrollY.current) {
+        // Scrollování dolů - skrýt navbar
+        setIsVisible(false)
+      } else {
+        // Scrollování nahoru - zobrazit navbar
+        setIsVisible(true)
+      }
+
+      lastScrollY.current = currentScrollY
+    }
+
+    window.addEventListener('scroll', handleScroll, { passive: true })
     return () => window.removeEventListener('scroll', handleScroll)
   }, [])
 
@@ -39,6 +59,17 @@ export default function Navbar() {
   useLayoutEffect(() => {
     gsap.fromTo(navRef.current, { y: -100, opacity: 0 }, { y: 0, opacity: 1, duration: 0.6, ease: 'power3.out' })
   }, [])
+
+  // Hide/show navbar animace
+  useEffect(() => {
+    if (!navRef.current) return
+
+    gsap.to(navRef.current, {
+      y: isVisible ? 0 : -120,
+      duration: 0.4,
+      ease: 'power2.out',
+    })
+  }, [isVisible])
 
   // Mobilní menu (slide z pravé strany)
   useLayoutEffect(() => {
@@ -75,32 +106,33 @@ export default function Navbar() {
         <div className="max-w-[1400px] mx-auto px-4 sm:px-6 py-3">
           <div
             className={`
-              relative overflow-hidden rounded-full border border-black/10
-              backdrop-blur-3xl backdrop-saturate-150
+              relative overflow-hidden rounded-full border border-white/30
+              backdrop-blur-[40px] backdrop-saturate-[180%]
               transition-all duration-500
               shadow-[0_8px_32px_rgba(0,0,0,0.08)]
             `}
             style={{
               background: scrolled
-                ? 'linear-gradient(to bottom right, rgba(255,255,255,0.55), rgba(255,255,255,0.25))'
-                : 'linear-gradient(to bottom right, rgba(255,255,255,0.4), rgba(255,255,255,0.2))',
+                ? 'linear-gradient(to bottom right, rgba(255,255,255,0.35), rgba(255,255,255,0.15))'
+                : 'linear-gradient(to bottom right, rgba(255,255,255,0.25), rgba(255,255,255,0.1))',
               boxShadow: scrolled
-                ? '0 12px 40px rgba(0,0,0,0.12), inset 0 1px 1px rgba(255,255,255,0.6), inset 0 -1px 1px rgba(0,0,0,0.05)'
-                : '0 8px 32px rgba(0,0,0,0.08), inset 0 1px 1px rgba(255,255,255,0.5), inset 0 -1px 1px rgba(0,0,0,0.05)',
+                ? '0 12px 40px rgba(0,0,0,0.12), inset 0 1px 2px rgba(255,255,255,0.8), inset 0 -1px 1px rgba(0,0,0,0.1)'
+                : '0 8px 32px rgba(0,0,0,0.08), inset 0 1px 2px rgba(255,255,255,0.7), inset 0 -1px 1px rgba(0,0,0,0.08)',
             }}
           >
             {/* vrchní glass vrstvy */}
-            <div className="absolute inset-0 bg-gradient-to-br from-white/40 via-white/20 to-white/5 pointer-events-none" />
-            <div className="absolute inset-0 bg-gradient-to-t from-white/20 to-transparent pointer-events-none" />
+            <div className="absolute inset-0 bg-gradient-to-br from-white/50 via-white/10 to-transparent pointer-events-none" />
+            <div className="absolute inset-0 bg-gradient-to-t from-white/30 to-transparent pointer-events-none" />
+            <div className="absolute top-0 left-0 right-0 h-[1px] bg-gradient-to-r from-transparent via-white/60 to-transparent pointer-events-none" />
 
-            <div className="relative flex items-center px-4 sm:px-6 py-2 text-black">
+            <div className="relative flex items-center px-4 sm:px-6 py-2 text-black h-[88px] overflow-hidden">
               {/* LOGO */}
               <Link href="/" className="flex items-center z-10">
                 <Image
                   src={logoSrc}
                   alt="SW Beauty"
-                  width={70}
-                  height={70}
+                  width={95}
+                  height={95}
                   className="transition-transform duration-500 hover:scale-105 active:scale-95"
                   priority
                 />
@@ -115,7 +147,7 @@ export default function Navbar() {
                   return (
                     <Link key={link.href} href={link.href}>
                       <div
-                        className={`relative px-4 py-1.5 rounded-full text-[14px] font-medium transition-all duration-300 ${
+                        className={`relative px-4 py-1.5 rounded-full text-[13px] font-medium transition-all duration-300 ${
                           isActive ? 'bg-black/5 text-black' : 'text-black/70 hover:text-black hover:bg-black/5'
                         }`}
                       >
@@ -128,7 +160,7 @@ export default function Navbar() {
 
               {/* CTA */}
               <div className="hidden lg:flex items-center gap-2">
-                <OpenBookingButton className="px-4 py-1.5 rounded-full text-[14px] font-medium border border-black/20 text-black hover:border-black/40 hover:bg-black/5 transition-all">
+                <OpenBookingButton className="px-4 py-1.5 rounded-full text-[13px] font-medium border border-black/20 text-black hover:border-black/40 hover:bg-black/5 transition-all">
                   Rezervace
                 </OpenBookingButton>
                 <a href="tel:+420773577899">

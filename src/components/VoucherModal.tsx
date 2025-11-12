@@ -111,13 +111,13 @@ export default function VoucherModal({ isOpen, onCloseAction }: VoucherModalProp
       dialogRef.current.showModal()
       const tl = gsap.timeline()
 
-      // Backdrop fade in - Apple style
+      // Backdrop fade in - light style
       gsap.set(backdrop, { opacity: 0 })
       tl.to(
         backdrop,
         {
           opacity: 1,
-          duration: 0.4,
+          duration: 0.3,
           ease: 'power2.out',
         },
         0
@@ -184,9 +184,9 @@ export default function VoucherModal({ isOpen, onCloseAction }: VoucherModalProp
       }}
       onClose={onCloseAction}
     >
-      {/* Backdrop - rozmazané a ztmavené pozadí */}
+      {/* Backdrop - světlé rozmazané pozadí */}
       <div
-        className="modal-backdrop fixed inset-0 bg-black/60 backdrop-blur-md"
+        className="modal-backdrop fixed inset-0 bg-white/80 backdrop-blur-md"
         onClick={onCloseAction}
         onKeyDown={(e) => e.key === 'Enter' && onCloseAction()}
         aria-hidden="true"
@@ -197,23 +197,23 @@ export default function VoucherModal({ isOpen, onCloseAction }: VoucherModalProp
         <div
           onClick={(e) => e.stopPropagation()}
           onKeyDown={(e) => e.stopPropagation()}
-          className="modal-content pointer-events-auto w-full max-w-6xl max-h-[90vh] overflow-hidden rounded-3xl"
+          className="modal-content pointer-events-auto w-full max-w-6xl max-h-[90vh] overflow-hidden rounded-3xl bg-white shadow-2xl border border-slate-200"
         >
           <div className="relative w-full h-full grid lg:grid-cols-5 gap-6 p-8 overflow-y-auto">
             {/* Form Section */}
-            <div className="lg:col-span-3 relative bg-white/25 backdrop-blur-3xl rounded-3xl shadow-2xl border border-white/40">
+            <div className="lg:col-span-3 relative bg-white rounded-3xl">
               <button
                 type="button"
                 onClick={onCloseAction}
-                className="absolute top-5 right-5 text-white bg-black/30 rounded-full p-2 hover:text-white/70 z-10"
+                className="absolute top-5 right-5 text-slate-600 bg-slate-50 hover:bg-slate-100 rounded-full p-2 hover:text-slate-900 z-10 transition-colors"
                 aria-label="Zavřít"
               >
                 <X size={22} />
               </button>
 
               <div className="p-10">
-                <h2 className="text-5xl font-light text-white mb-3 drop-shadow-lg">Dárkový poukaz</h2>
-                <p className="text-white text-base font-light mb-10 drop-shadow">Darujte radost a krásu svým blízkým</p>
+                <h2 className="text-5xl font-light text-slate-900 mb-3">Dárkový poukaz</h2>
+                <p className="text-slate-600 text-base font-light mb-10">Darujte radost a krásu svým blízkým</p>
 
                 <div className="space-y-4">
                   {/* Name inputs */}
@@ -222,7 +222,7 @@ export default function VoucherModal({ isOpen, onCloseAction }: VoucherModalProp
                     value={formData.buyerName}
                     onChange={(e) => handleChange('buyerName', e.target.value)}
                     placeholder="Vaše jméno"
-                    className="w-full px-5 py-4 bg-white/20 backdrop-blur-xl border border-white/40 rounded-2xl focus:outline-none text-white placeholder-white/70 shadow-lg"
+                    className="w-full px-5 py-4 bg-slate-50 border border-slate-200 rounded-2xl focus:outline-none focus:border-slate-400 focus:bg-white focus:ring-2 focus:ring-slate-200 transition-all text-slate-900 placeholder-slate-400"
                   />
 
                   <input
@@ -230,7 +230,7 @@ export default function VoucherModal({ isOpen, onCloseAction }: VoucherModalProp
                     value={formData.recipientName}
                     onChange={(e) => handleChange('recipientName', e.target.value)}
                     placeholder="Pro koho je poukaz"
-                    className="w-full px-5 py-4 bg-white/20 backdrop-blur-xl border border-white/40 rounded-2xl focus:outline-none text-white placeholder-white/70 shadow-lg"
+                    className="w-full px-5 py-4 bg-slate-50 border border-slate-200 rounded-2xl focus:outline-none focus:border-slate-400 focus:bg-white focus:ring-2 focus:ring-slate-200 transition-all text-slate-900 placeholder-slate-400"
                   />
 
                   {/* Email and Phone */}
@@ -240,14 +240,14 @@ export default function VoucherModal({ isOpen, onCloseAction }: VoucherModalProp
                       value={formData.buyerEmail}
                       onChange={(e) => handleChange('buyerEmail', e.target.value)}
                       placeholder="Váš e-mail"
-                      className="w-full px-5 py-4 bg-white/20 backdrop-blur-xl border border-white/40 rounded-2xl focus:outline-none text-white placeholder-white/70 shadow-lg"
+                      className="w-full px-5 py-4 bg-slate-50 border border-slate-200 rounded-2xl focus:outline-none focus:border-slate-400 focus:bg-white focus:ring-2 focus:ring-slate-200 transition-all text-slate-900 placeholder-slate-400"
                     />
                     <input
                       type="tel"
                       value={formData.buyerPhone}
                       onChange={(e) => handleChange('buyerPhone', e.target.value)}
                       placeholder="Váš telefon"
-                      className="w-full px-5 py-4 bg-white/20 backdrop-blur-xl border border-white/40 rounded-2xl focus:outline-none text-white placeholder-white/70 shadow-lg"
+                      className="w-full px-5 py-4 bg-slate-50 border border-slate-200 rounded-2xl focus:outline-none focus:border-slate-400 focus:bg-white focus:ring-2 focus:ring-slate-200 transition-all text-slate-900 placeholder-slate-400"
                     />
                   </div>
 
@@ -257,7 +257,7 @@ export default function VoucherModal({ isOpen, onCloseAction }: VoucherModalProp
                     onChange={(e) => handleChange('message', e.target.value)}
                     placeholder="Osobní vzkaz (volitelné)"
                     rows={2}
-                    className="w-full px-5 py-4 bg-white/20 backdrop-blur-xl border border-white/40 rounded-2xl focus:outline-none text-white placeholder-white/70 shadow-lg resize-none"
+                    className="w-full px-5 py-4 bg-slate-50 border border-slate-200 rounded-2xl focus:outline-none focus:border-slate-400 focus:bg-white focus:ring-2 focus:ring-slate-200 transition-all text-slate-900 placeholder-slate-400 resize-none"
                   />
 
                   {/* Value selection */}
@@ -267,10 +267,10 @@ export default function VoucherModal({ isOpen, onCloseAction }: VoucherModalProp
                         type="button"
                         key={value}
                         onClick={() => handleChange('value', value)}
-                        className={`py-3 px-2 rounded-xl backdrop-blur-xl border text-sm transition-all shadow-lg ${
+                        className={`py-3 px-2 rounded-xl border text-sm transition-all ${
                           formData.value === value
-                            ? 'bg-white/30 border-white/60 text-white font-medium'
-                            : 'bg-white/20 border-white/40 text-white/80 hover:bg-white/25'
+                            ? 'bg-slate-900 border-slate-900 text-white font-medium shadow-lg'
+                            : 'bg-slate-50 border-slate-200 text-slate-700 hover:bg-slate-100 hover:border-slate-300'
                         }`}
                       >
                         {label}
@@ -285,7 +285,7 @@ export default function VoucherModal({ isOpen, onCloseAction }: VoucherModalProp
                       value={formData.customValue}
                       onChange={(e) => handleChange('customValue', e.target.value)}
                       placeholder="Zadejte částku v Kč"
-                      className="w-full px-5 py-4 bg-white/20 backdrop-blur-xl border border-white/40 rounded-2xl focus:outline-none text-white placeholder-white/70 shadow-lg"
+                      className="w-full px-5 py-4 bg-slate-50 border border-slate-200 rounded-2xl focus:outline-none focus:border-slate-400 focus:bg-white focus:ring-2 focus:ring-slate-200 transition-all text-slate-900 placeholder-slate-400"
                     />
                   )}
 
@@ -296,10 +296,10 @@ export default function VoucherModal({ isOpen, onCloseAction }: VoucherModalProp
                         type="button"
                         key={d.id}
                         onClick={() => handleChange('design', d.id)}
-                        className={`py-3 rounded-xl backdrop-blur-xl border shadow-lg transition-all ${
+                        className={`py-3 rounded-xl border transition-all ${
                           formData.design === d.id
-                            ? 'bg-white/30 border-white/60'
-                            : 'bg-white/20 border-white/40 hover:bg-white/25'
+                            ? 'bg-slate-100 border-slate-400 shadow-md'
+                            : 'bg-slate-50 border-slate-200 hover:bg-slate-100 hover:border-slate-300'
                         }`}
                         aria-label={`Vybrat ${d.name} design`}
                       >
@@ -313,12 +313,12 @@ export default function VoucherModal({ isOpen, onCloseAction }: VoucherModalProp
                     type="button"
                     onClick={handleSubmit}
                     disabled={isSending}
-                    className="w-full py-4 bg-white/25 backdrop-blur-xl border border-white/50 text-white rounded-2xl hover:bg-white/35 transition-all duration-300 text-base font-light tracking-wide shadow-xl mt-2 disabled:opacity-50"
+                    className="w-full py-4 bg-slate-900 text-white rounded-2xl hover:bg-slate-800 transition-all duration-300 text-base font-medium tracking-wide shadow-lg mt-2 disabled:opacity-50 disabled:cursor-not-allowed"
                   >
                     {isSending ? 'Odesílám...' : 'Objednat poukaz'}
                   </button>
 
-                  <p className="text-white/60 text-xs text-center mt-2 drop-shadow">
+                  <p className="text-slate-500 text-xs text-center mt-2">
                     Po odeslání vás budeme kontaktovat pro dokončení
                   </p>
                 </div>
@@ -328,42 +328,33 @@ export default function VoucherModal({ isOpen, onCloseAction }: VoucherModalProp
             {/* Preview Section */}
             <div className="lg:col-span-2 hidden lg:flex items-center justify-center">
               <div className="w-full max-w-md relative">
-                <div className="absolute inset-0 bg-white/5 rounded-3xl blur-3xl" />
                 <div
-                  className={`relative bg-gradient-to-br ${selectedDesign?.gradient} rounded-3xl shadow-2xl p-8 aspect-[1.6/1] flex flex-col justify-between overflow-hidden`}
+                  className={`relative bg-gradient-to-br ${selectedDesign?.gradient} rounded-3xl shadow-xl p-8 aspect-[1.6/1] flex flex-col justify-between overflow-hidden border border-slate-200`}
                 >
                   {/* Decorative circles */}
-                  <div className="absolute top-0 right-0 w-32 h-32 bg-white/20 rounded-full -translate-y-16 translate-x-16" />
-                  <div className="absolute bottom-0 left-0 w-24 h-24 bg-white/20 rounded-full translate-y-12 -translate-x-12" />
+                  <div className="absolute top-0 right-0 w-32 h-32 bg-white/30 rounded-full -translate-y-16 translate-x-16" />
+                  <div className="absolute bottom-0 left-0 w-24 h-24 bg-white/30 rounded-full translate-y-12 -translate-x-12" />
 
                   {/* Content */}
                   <div className="relative z-10">
                     <div className="flex items-center gap-2 mb-6">
-                      <Gift className={formData.design === 'elegant' ? 'text-gray-700' : 'text-white/90'} size={28} />
-                      <span
-                        className={`${formData.design === 'elegant' ? 'text-gray-700' : 'text-white/90'} font-light text-lg`}
-                      >
+                      <Gift className="text-slate-700" size={28} />
+                      <span className="text-slate-700 font-light text-lg">
                         Dárkový poukaz
                       </span>
                     </div>
 
                     <div>
-                      <p
-                        className={`${formData.design === 'elegant' ? 'text-gray-600' : 'text-white/70'} text-sm font-light mb-1`}
-                      >
+                      <p className="text-slate-600 text-sm font-light mb-1">
                         Pro:
                       </p>
-                      <p
-                        className={`${formData.design === 'elegant' ? 'text-gray-800' : 'text-white'} text-2xl font-light mb-4`}
-                      >
+                      <p className="text-slate-900 text-2xl font-light mb-4">
                         {formData.recipientName || 'Jméno obdarovaného'}
                       </p>
 
                       {formData.message && (
-                        <div className="bg-white/20 backdrop-blur-sm rounded-xl p-3 mb-4">
-                          <p
-                            className={`${formData.design === 'elegant' ? 'text-gray-700' : 'text-white/90'} text-sm italic leading-relaxed`}
-                          >
+                        <div className="bg-white/60 backdrop-blur-sm rounded-xl p-3 mb-4 border border-white/40">
+                          <p className="text-slate-700 text-sm italic leading-relaxed">
                             "{formData.message}"
                           </p>
                         </div>
@@ -374,18 +365,14 @@ export default function VoucherModal({ isOpen, onCloseAction }: VoucherModalProp
                   {/* Footer */}
                   <div className="relative z-10 flex justify-between items-end">
                     <div>
-                      <p
-                        className={`${formData.design === 'elegant' ? 'text-gray-600' : 'text-white/70'} text-xs font-light mb-1`}
-                      >
+                      <p className="text-slate-600 text-xs font-light mb-1">
                         Hodnota
                       </p>
-                      <p
-                        className={`${formData.design === 'elegant' ? 'text-gray-800' : 'text-white'} text-4xl font-light`}
-                      >
+                      <p className="text-slate-900 text-4xl font-light">
                         {displayValue ? `${displayValue} Kč` : '--- Kč'}
                       </p>
                     </div>
-                    <p className={`${formData.design === 'elegant' ? 'text-gray-500' : 'text-white/60'} text-xs`}>
+                    <p className="text-slate-500 text-xs">
                       SW Beauty
                     </p>
                   </div>

@@ -230,7 +230,7 @@ export const imagesManifest: ImagesManifest = {
       '/images/salon/stul_detail.jpg',
       '/images/salon/kreslomistnostnaprocedury.jpg',
     ],
-    team: ['/images/team/sabina-main.jpeg', '/images/team/sabina.jpg', '/images/team/Enhanced Sabina.png'],
+    team: ['/images/team/sabina.jpg'],
   },
 }
 

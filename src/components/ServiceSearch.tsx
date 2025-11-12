@@ -1,13 +1,22 @@
 'use client'
 
-import type { Service } from '@/lib/services'
+import type { MainService } from '@/lib/services'
 import { Search, X } from 'lucide-react'
 import Image from 'next/image'
 import Link from 'next/link'
 import { useMemo, useState } from 'react'
 
 type Props = {
-  services: Service[]
+  services: MainService[]
+}
+
+type SearchableService = {
+  name: string
+  slug: string
+  categoryName: string
+  shortDescription: string
+  image: string
+  priceRange: string
 }
 
 // Mapování kategorií na obrázky
@@ -26,22 +35,67 @@ export default function ServiceSearch({ services }: Props) {
   const [query, setQuery] = useState('')
   const [isOpen, setIsOpen] = useState(false)
 
+  // Flatten services including subcategories for search
+  const searchableServices = useMemo(() => {
+    const flattened: SearchableService[] = []
+
+    for (const service of services) {
+      // Add main service
+      const prices = service.pricing.map(p => p.price).filter(p => p > 0)
+      const priceRange = prices.length > 0
+        ? prices.length === 1
+          ? `${prices[0]} Kč`
+          : `od ${Math.min(...prices)} Kč`
+        : 'Na vyžádání'
+
+      flattened.push({
+        name: service.name,
+        slug: service.slug,
+        categoryName: service.categoryName,
+        shortDescription: service.shortDescription,
+        image: service.image,
+        priceRange,
+      })
+
+      // Add subcategories
+      for (const sub of service.subcategories) {
+        const subPrices = sub.pricing.map(p => p.price).filter(p => p > 0)
+        const subPriceRange = subPrices.length > 0
+          ? subPrices.length === 1
+            ? `${subPrices[0]} Kč`
+            : `od ${Math.min(...subPrices)} Kč`
+          : 'Na vyžádání'
+
+        flattened.push({
+          name: sub.name,
+          slug: sub.slug,
+          categoryName: sub.categoryName,
+          shortDescription: sub.shortDescription,
+          image: sub.image,
+          priceRange: subPriceRange,
+        })
+      }
+    }
+
+    return flattened
+  }, [services])
+
   // Filtrování služeb podle vyhledávacího dotazu
   const filteredServices = useMemo(() => {
     if (!query.trim()) return []
 
     const searchTerm = query.toLowerCase().trim()
 
-    return services
+    return searchableServices
       .filter((service) => {
         const nameMatch = service.name.toLowerCase().includes(searchTerm)
-        const categoryMatch = service.category.toLowerCase().includes(searchTerm)
-        const descriptionMatch = service.description?.toLowerCase().includes(searchTerm)
+        const categoryMatch = service.categoryName.toLowerCase().includes(searchTerm)
+        const descriptionMatch = service.shortDescription?.toLowerCase().includes(searchTerm)
 
         return nameMatch || categoryMatch || descriptionMatch
       })
       .slice(0, 8) // Omezit na 8 výsledků
-  }, [query, services])
+  }, [query, searchableServices])
 
   const handleClear = () => {
     setQuery('')
@@ -97,14 +151,14 @@ export default function ServiceSearch({ services }: Props) {
               {filteredServices.map((service) => (
                 <Link
                   key={service.slug}
-                  href={`/sluzby/${service.categoryId}/${service.slug}`}
+                  href={`/sluzby/${service.slug}`}
                   className="flex items-center gap-4 p-4 rounded-xl hover:bg-slate-50 transition group"
                   onClick={() => handleClear()}
                 >
                   {/* Service Image */}
                   <div className="relative w-16 h-16 rounded-lg overflow-hidden flex-shrink-0 bg-slate-100">
                     <Image
-                      src={categoryImages[service.categoryId] || '/images/service-default.jpg'}
+                      src={service.image || '/images/service-default.jpg'}
                       alt={service.name}
                       fill
                       className="object-cover group-hover:scale-110 transition-transform duration-300"
@@ -118,11 +172,10 @@ export default function ServiceSearch({ services }: Props) {
                         <h3 className="text-sm font-medium text-slate-900 group-hover:text-slate-700 transition truncate">
                           {service.name}
                         </h3>
-                        <p className="text-xs text-slate-500 mt-0.5">{service.category}</p>
+                        <p className="text-xs text-slate-500 mt-0.5">{service.categoryName}</p>
                       </div>
                       <div className="text-right flex-shrink-0">
-                        <div className="text-sm font-medium text-slate-900">{service.price}</div>
-                        <div className="text-xs text-slate-500">{service.duration} min</div>
+                        <div className="text-sm font-medium text-slate-900">{service.priceRange}</div>
                       </div>
                     </div>
                   </div>

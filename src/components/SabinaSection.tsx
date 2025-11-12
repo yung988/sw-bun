@@ -1,62 +1,17 @@
 import Container from '@/components/ui/Container'
 import Section from '@/components/ui/Section'
-import { Heart } from 'lucide-react'
 import Image from 'next/image'
 
-export default function AboutUsSection() {
+export default function SabinaSection() {
   return (
-    <Section id="o-nas" className="relative bg-white">
+    <Section className="relative bg-white">
       <Container>
-        {/* Hero Statement */}
-        <div className="relative min-h-[80vh] overflow-hidden rounded-3xl mb-32 md:mb-48">
-          <div className="absolute inset-0 bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900" />
-
-          {/* Background Image */}
-          <div className="absolute inset-0 opacity-40">
-            <Image
-              src="/images/salon/kreslomistnostnaprocedury.jpg"
-              alt="SW Beauty salon"
-              fill
-              className="object-cover"
-              priority
-            />
-          </div>
-
-          <div className="relative z-10 flex items-center min-h-[80vh] px-10 md:px-20 lg:px-24 py-24 md:py-32">
-            <div className="max-w-4xl">
-              <div className="text-white/60 text-sm mb-10 flex items-center gap-2">
-                <Heart className="h-4 w-4" />
-                <span>O nás</span>
-              </div>
-
-              <h2 className="font-display text-4xl md:text-6xl lg:text-7xl font-light text-white mb-12 leading-[1.1]">
-                <span style={{ display: 'inline-block' }}>
-                  Cítit se <em className="italic">krásně.</em>
-                </span>
-                <br />
-                <span style={{ display: 'inline-block' }}>
-                  Cítit se <em className="italic">sebevědomě.</em>
-                </span>
-                <br />
-                <span style={{ display: 'inline-block' }}>
-                  Cítit se <em className="italic">jako vy.</em>
-                </span>
-              </h2>
-
-              <p className="text-xl md:text-2xl text-white/90 leading-relaxed max-w-2xl">
-                To je můj cíl. Ne jen ošetření, ale zážitek, který vám vrátí radost z vlastní krásy.
-              </p>
-            </div>
-          </div>
-        </div>
-
-        {/* Story Section */}
-        <div className="grid lg:grid-cols-2 gap-20 lg:gap-32 items-center mb-32 md:mb-48">
+        <div className="grid lg:grid-cols-2 gap-16 lg:gap-24 items-center">
           {/* Left - Image */}
           <div className="relative">
-            <div className="relative aspect-[3/4] overflow-hidden rounded-3xl shadow-2xl">
+            <div className="relative aspect-[3/4] overflow-hidden rounded-2xl shadow-xl border border-slate-200">
               <Image
-                src="/images/team/sabina-main.jpeg"
+                src="/images/team/sabina.jpg"
                 alt="Sabina - zakladatelka SW Beauty"
                 fill
                 sizes="(min-width: 1024px) 50vw, 100vw"
@@ -65,7 +20,7 @@ export default function AboutUsSection() {
             </div>
 
             {/* Floating stats */}
-            <div className="absolute -bottom-10 -right-10 bg-white rounded-3xl shadow-2xl p-10 max-w-xs">
+            <div className="absolute -bottom-10 -right-10 bg-white rounded-2xl shadow-xl border border-slate-200 p-10 max-w-xs">
               <div className="grid grid-cols-3 gap-8 text-center">
                 <div>
                   <div className="text-4xl font-light text-slate-900 mb-2">10+</div>
@@ -112,3 +67,6 @@ export default function AboutUsSection() {
     </Section>
   )
 }
+
+
+
