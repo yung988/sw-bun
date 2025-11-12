@@ -24,7 +24,6 @@ export const metadata: Metadata = {
   },
 }
 
-
 import FeelBeautifulSection from '@/components/FeelBeautifulSection'
 import HeroSection from '@/components/HeroSection'
 import ScrollGalleryCSS from '@/components/ScrollGalleryCSS'
@@ -43,11 +42,8 @@ export default async function Home() {
   // Build category list with covers
   const categories = services.map((s) => {
     const prices = s.pricing.map((p) => p.price).filter((p) => p > 0)
-    const priceRange = prices.length > 0
-      ? prices.length === 1
-        ? `${prices[0]} Kč`
-        : `od ${Math.min(...prices)} Kč`
-      : 'Na vyžádání'
+    const priceRange =
+      prices.length > 0 ? (prices.length === 1 ? `${prices[0]} Kč` : `od ${Math.min(...prices)} Kč`) : 'Na vyžádání'
 
     return {
       id: s.serviceId,
@@ -75,7 +71,7 @@ export default async function Home() {
       <HorizontalScrollSection categories={categories} coversByCategory={coversByCategory} />
       <VoucherCTASection />
       <TestimonialsSection />
-      <InstagramFeed categories={categories} coversByCategory={coversByCategory} />
+      <InstagramFeed />
     </main>
   )
 }

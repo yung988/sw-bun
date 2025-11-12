@@ -4,7 +4,7 @@ import OpenBookingButton from '@/components/OpenBookingButton'
 import ScrollableImageGallery from '@/components/ScrollableImageGallery'
 import { getCategoryMosaic } from '@/data/imagesManifest'
 import { gsap } from '@/lib/gsap'
-import type { MainService } from '@/lib/services'
+import type { MainService, PricingItem } from '@/lib/services'
 import Image from 'next/image'
 import { useEffect, useRef, useState } from 'react'
 import { useModals } from '@/components/ModalProvider'
@@ -24,8 +24,13 @@ export default function ServicesLayout({ services }: Props) {
     }
   }, [selectedService])
 
-  const handlePricingClick = (pricingName: string) => {
-    openBooking(`${selectedService.name} - ${pricingName}`)
+  const handlePricingClick = (pricing: PricingItem) => {
+    openBooking({
+      id: pricing.serviceId,
+      name: `${selectedService.name} - ${pricing.name}`,
+      price: pricing.priceFormatted,
+      duration: pricing.duration,
+    })
   }
 
   if (!services || services.length === 0) {
@@ -156,7 +161,7 @@ export default function ServicesLayout({ services }: Props) {
               {selectedService.pricing.map((item, idx) => (
                 <button
                   key={idx}
-                  onClick={() => handlePricingClick(item.name)}
+                  onClick={() => handlePricingClick(item)}
                   className="group w-full bg-white rounded-xl p-3 md:p-4 border border-slate-200 hover:border-slate-900 hover:shadow-md transition-all duration-300 text-left"
                 >
                   <div className="flex items-center justify-between gap-3">
