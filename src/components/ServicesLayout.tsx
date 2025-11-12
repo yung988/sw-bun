@@ -7,6 +7,7 @@ import { gsap } from '@/lib/gsap'
 import type { MainService, PricingItem } from '@/lib/services'
 import Image from 'next/image'
 import { useEffect, useRef, useState } from 'react'
+import { useSearchParams } from 'next/navigation'
 import { useModals } from '@/components/ModalProvider'
 
 type Props = {
@@ -17,6 +18,17 @@ export default function ServicesLayout({ services }: Props) {
   const [selectedService, setSelectedService] = useState<MainService>(services[0])
   const contentRef = useRef<HTMLDivElement>(null)
   const { openBooking } = useModals()
+  const searchParams = useSearchParams()
+
+  useEffect(() => {
+    const serviceParam = searchParams.get('service')
+    if (serviceParam) {
+      const service = services.find((s) => s.slug === serviceParam)
+      if (service) {
+        setSelectedService(service)
+      }
+    }
+  }, [searchParams, services])
 
   useEffect(() => {
     if (contentRef.current) {

@@ -81,13 +81,13 @@ export default function HorizontalScrollSection() {
           </h2>
         </div>
 
-        {/* Carousel */}
-        <Carousel auto={true} autoSpeed={50} showArrows={true}>
+        {/* Services Grid/Carousel */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:hidden gap-6">
           {services.map((s, i) => (
-            <Link key={s.id} href={`/sluzby/${s.slug}`} className="group flex-shrink-0 w-72 md:w-80">
+            <Link key={s.id} href={`/sluzby?service=${s.slug}`} className="group">
               <div className="bg-white rounded-2xl overflow-hidden shadow-sm hover:shadow-xl transition-all duration-300 border border-slate-200">
                 {/* Image */}
-                <div className="relative h-56 md:h-64 overflow-hidden">
+                <div className="relative h-48 overflow-hidden">
                   <Image
                     src={s.image || '/placeholder.svg'}
                     alt={s.name}
@@ -100,11 +100,9 @@ export default function HorizontalScrollSection() {
                 </div>
 
                 {/* Content */}
-                <div className="p-6 lg:p-8">
-                  <h3 className="text-xl lg:text-2xl font-light text-slate-900 mb-3 tracking-tight leading-tight">
-                    {s.name}
-                  </h3>
-                  <p className="text-sm text-slate-600 leading-relaxed line-clamp-3 mb-6">{s.description}</p>
+                <div className="p-4">
+                  <h3 className="text-lg font-light text-slate-900 mb-2 tracking-tight leading-tight">{s.name}</h3>
+                  <p className="text-sm text-slate-600 leading-relaxed line-clamp-2 mb-4">{s.description}</p>
 
                   <div className="flex items-center text-xs font-medium text-slate-900 uppercase tracking-wider">
                     <span>Zjistit více</span>
@@ -122,7 +120,52 @@ export default function HorizontalScrollSection() {
               </div>
             </Link>
           ))}
-        </Carousel>
+        </div>
+
+        {/* Desktop Carousel */}
+        <div className="hidden lg:block">
+          <Carousel auto={true} autoSpeed={50} showArrows={true}>
+            {services.map((s, i) => (
+              <Link key={s.id} href={`/sluzby?service=${s.slug}`} className="group flex-shrink-0 w-72 md:w-80">
+                <div className="bg-white rounded-2xl overflow-hidden shadow-sm hover:shadow-xl transition-all duration-300 border border-slate-200">
+                  {/* Image */}
+                  <div className="relative h-56 md:h-64 overflow-hidden">
+                    <Image
+                      src={s.image || '/placeholder.svg'}
+                      alt={s.name}
+                      fill
+                      sizes="320px"
+                      className="object-cover group-hover:scale-105 transition-transform duration-700"
+                      priority={i < 3}
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-b from-black/10 via-transparent to-transparent" />
+                  </div>
+
+                  {/* Content */}
+                  <div className="p-6 lg:p-8">
+                    <h3 className="text-xl lg:text-2xl font-light text-slate-900 mb-3 tracking-tight leading-tight">
+                      {s.name}
+                    </h3>
+                    <p className="text-sm text-slate-600 leading-relaxed line-clamp-3 mb-6">{s.description}</p>
+
+                    <div className="flex items-center text-xs font-medium text-slate-900 uppercase tracking-wider">
+                      <span>Zjistit více</span>
+                      <svg
+                        className="ml-2 w-4 h-4 transition-transform group-hover:translate-x-1"
+                        fill="none"
+                        viewBox="0 0 24 24"
+                        stroke="currentColor"
+                        strokeWidth={2}
+                      >
+                        <path strokeLinecap="round" strokeLinejoin="round" d="M17 8l4 4-4 4" />
+                      </svg>
+                    </div>
+                  </div>
+                </div>
+              </Link>
+            ))}
+          </Carousel>
+        </div>
       </Container>
     </Section>
   )

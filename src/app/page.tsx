@@ -39,10 +39,10 @@ export default function Home() {
   return (
     <main id="main-content" className="min-h-screen bg-white pb-24 pt-[56px] md:pt-[68px] lg:pt-[80px]">
       <HeroSection />
-      <WhyUsSection />
       <SabinaSection />
       <HorizontalScrollSection />
       <VoucherCTASection />
+      <WhyUsSection />
       <TestimonialsSection />
       <InstagramFeed />
     </main>

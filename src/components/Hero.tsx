@@ -70,7 +70,7 @@ export default function Hero({
   }, [introComplete])
 
   return (
-    <section ref={sectionRef} id="home" className="pt-16 pb-8 md:py-12 lg:py-16">
+    <section ref={sectionRef} id="home" className="pt-20 pb-8 md:py-12 lg:py-16">
       <Container>
         {/* Content above video - Okare style */}
         <div ref={contentWrapperRef} className="mb-6 lg:mb-10 opacity-0">

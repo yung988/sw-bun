@@ -28,7 +28,7 @@ export default function LenisScroll() {
       smoothWheel: true,
       wheelMultiplier: 1,
       // @ts-expect-error - smoothTouch is a valid option in Lenis but not in types
-      smoothTouch: true,
+      smoothTouch: false,
       touchMultiplier: 2,
       infinite: false,
     })
