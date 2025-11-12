@@ -28,8 +28,8 @@ export default function InstagramFeed() {
           </p>
         </div>
 
-        <div className="grid gap-4 grid-cols-2 md:grid-cols-3 lg:grid-cols-5">
-          {instagramPosts.map((post) => (
+        <div className="grid gap-4 grid-cols-5">
+          {instagramPosts.slice(0, 5).map((post) => (
             <Link
               key={post.id}
               href="https://www.instagram.com/swbeautysalons/"

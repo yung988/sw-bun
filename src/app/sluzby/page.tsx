@@ -1,5 +1,3 @@
-import FadeIn from '@/components/animations/FadeIn'
-import SectionTitle from '@/components/SectionTitle'
 import ServicesLayout from '@/components/ServicesLayout'
 import Container from '@/components/ui/Container'
 import Section from '@/components/ui/Section'
@@ -22,23 +20,7 @@ export default async function ServicesPage() {
   return (
     <main className="min-h-screen bg-white pb-24 pt-[56px] md:pt-[68px] lg:pt-[80px]">
       <Section className="pt-16 md:pt-20 lg:pt-24">
-        <Container>
-          <FadeIn y={20} duration={0.7}>
-            <SectionTitle
-              eyebrow="Kompletní nabídka"
-              title={
-                <>
-                  Naše služby <em className="italic">a ceny</em>
-                </>
-              }
-              subtitle="Vyberte službu ze seznamu a prohlédněte si detaily, výhody a ceník."
-            />
-          </FadeIn>
-
-          <div className="mt-12 md:mt-16">
-            <ServicesLayout services={allServices} />
-          </div>
-        </Container>
+        <ServicesLayout services={allServices} />
       </Section>
     </main>
   )

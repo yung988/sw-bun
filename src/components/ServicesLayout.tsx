@@ -20,11 +20,7 @@ export default function ServicesLayout({ services }: Props) {
 
   useEffect(() => {
     if (contentRef.current) {
-      gsap.fromTo(
-        contentRef.current,
-        { opacity: 0, y: 20 },
-        { opacity: 1, y: 0, duration: 0.5, ease: 'power2.out' }
-      )
+      gsap.fromTo(contentRef.current, { opacity: 0, y: 20 }, { opacity: 1, y: 0, duration: 0.5, ease: 'power2.out' })
     }
   }, [selectedService])
 
@@ -53,7 +49,7 @@ export default function ServicesLayout({ services }: Props) {
   const mainImage = galleryImages[0]?.src || '/images/placeholder.jpg'
 
   return (
-    <div className="grid grid-cols-1 lg:grid-cols-[280px_1fr_320px] xl:grid-cols-[320px_1fr_400px] gap-6 lg:gap-8 xl:gap-10">
+    <div className="grid grid-cols-1 lg:grid-cols-[280px_1fr_320px] xl:grid-cols-[320px_1fr_400px] gap-6 lg:gap-8 xl:gap-10 px-6 md:px-8 lg:px-10">
       {/* Left: Fixed Service List */}
       <aside className="lg:sticky lg:top-24 lg:self-start lg:h-[calc(100vh-120px)]">
         <div className="rounded-3xl border border-slate-200 bg-white/80 backdrop-blur-sm p-6 shadow-lg h-full flex flex-col">
@@ -87,8 +83,12 @@ export default function ServicesLayout({ services }: Props) {
       <main ref={contentRef} className="space-y-8 md:space-y-10">
         {/* Header */}
         <div>
-          <div className="text-sm font-semibold text-slate-500 uppercase tracking-wider mb-3">{selectedService.categoryName}</div>
-          <h1 className="text-4xl md:text-5xl lg:text-6xl font-light text-slate-900 mb-4 tracking-tight leading-tight">{selectedService.name}</h1>
+          <div className="text-sm font-semibold text-slate-500 uppercase tracking-wider mb-3">
+            {selectedService.categoryName}
+          </div>
+          <h1 className="text-4xl md:text-5xl lg:text-6xl font-light text-slate-900 mb-4 tracking-tight leading-tight">
+            {selectedService.name}
+          </h1>
           <p className="text-lg md:text-xl text-slate-600 leading-relaxed">{selectedService.shortDescription}</p>
         </div>
 
@@ -134,11 +134,7 @@ export default function ServicesLayout({ services }: Props) {
             <ul className="space-y-2.5">
               {selectedService.contraindications.map((contra, idx) => (
                 <li key={idx} className="flex items-start gap-3">
-                  <svg
-                    className="w-5 h-5 text-red-600 mt-0.5 flex-shrink-0"
-                    fill="currentColor"
-                    viewBox="0 0 20 20"
-                  >
+                  <svg className="w-5 h-5 text-red-600 mt-0.5 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
                     <path
                       fillRule="evenodd"
                       d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z"
@@ -210,14 +206,7 @@ export default function ServicesLayout({ services }: Props) {
       {/* Right: Fixed Image */}
       <aside className="hidden lg:block lg:sticky lg:top-24 lg:self-start lg:h-[calc(100vh-120px)]">
         <div className="rounded-3xl overflow-hidden shadow-xl h-full relative">
-          <Image
-            src={mainImage}
-            alt={selectedService.name}
-            fill
-            sizes="400px"
-            className="object-cover"
-            priority
-          />
+          <Image src={mainImage} alt={selectedService.name} fill sizes="400px" className="object-cover" priority />
         </div>
       </aside>
     </div>

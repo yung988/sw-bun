@@ -35,6 +35,7 @@ import VoucherCTASection from '@/components/VoucherCTASection'
 import WhyUsSection from '@/components/WhyUsSection'
 import { getCategoryCoverServer, resolveExisting } from '@/lib/server/images'
 import { getAllServices } from '@/lib/services'
+import HorizontalScrollSection from '@/components/HorizontalScrollSection'
 
 export default async function Home() {
   const services = await getAllServices()
@@ -70,12 +71,11 @@ export default async function Home() {
     <main id="main-content" className="min-h-screen bg-white pb-24 pt-[56px] md:pt-[68px] lg:pt-[80px]">
       <HeroSection />
       <WhyUsSection />
-      <FeelBeautifulSection />
       <SabinaSection />
-      <ScrollGalleryCSS />
+      <HorizontalScrollSection categories={categories} coversByCategory={coversByCategory} />
       <VoucherCTASection />
       <TestimonialsSection />
-      <InstagramFeed />
+      <InstagramFeed categories={categories} coversByCategory={coversByCategory} />
     </main>
   )
 }
