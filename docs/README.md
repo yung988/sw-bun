@@ -68,6 +68,35 @@ bun run build
 bun run start
 ```
 
+## Designové konvence (layout & typografie)
+
+Pro konzistentní rozložení a textové styly napříč projektem používejte následující lehké UI komponenty:
+
+- components/ui/Container – zajišťuje jednotný max-width a horizontální odsazení (px-6 / md:px-8 / lg:px-10).
+- components/ui/Section – sjednocený vertikální spacing sekcí (py-24 md:py-28).
+- components/SectionTitle – jednotná hierarchie nadpisů (eyebrow/title/subtitle) s jemnou serif kurzívou pro zvýraznění.
+
+Příklad struktury sekce:
+
+```tsx
+<Section>
+  <Container>
+    <SectionTitle
+      eyebrow="Proč přijít právě k nám"
+      title={<>
+        Co nás <em className="italic">odlišuje</em>
+      </>}
+      subtitle="Krátké vysvětlení sekce."
+      center={false}
+    />
+    {/* obsah sekce */}
+  </Container>
+  
+</Section>
+```
+
+Tento přístup udržuje konzistentní whitespace a typografii napříč stránkami v duchu referenčního vizuálu.
+
 ## Struktura Dokumentace
 
 ### [1. Getting Started](./01-getting-started/installation.md)

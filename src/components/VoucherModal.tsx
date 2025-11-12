@@ -81,15 +81,36 @@ export default function VoucherModal({ isOpen, onCloseAction }: VoucherModalProp
     setIsSending(true)
 
     try {
-      const response = await fetch('/api/send-gift-card', {
+      const response = await fetch('/api/voucher', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ ...formData, finalValue }),
+        body: JSON.stringify({
+          name: formData.buyerName,
+          email: formData.buyerEmail,
+          phone: formData.buyerPhone,
+          recipient: formData.recipientName,
+          message: formData.message,
+          amount: finalValue === formData.value ? formData.value : 'custom',
+          customAmount: formData.value === 'custom' ? formData.customValue : undefined,
+        }),
       })
 
-      if (!response.ok) throw new Error('Chyba při odesílání')
+      if (!response.ok) {
+        const errorData = await response.json()
+        throw new Error(errorData.error || 'Chyba při odesílání')
+      }
 
       alert('Děkujeme! Vaše objednávka byla odeslána. Brzy vás budeme kontaktovat.')
+      setFormData({
+        buyerName: '',
+        buyerEmail: '',
+        buyerPhone: '',
+        recipientName: '',
+        message: '',
+        value: '',
+        customValue: '',
+        design: 'rose',
+      })
       onCloseAction()
     } catch (error) {
       console.error(error)

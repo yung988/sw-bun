@@ -52,6 +52,7 @@ type Props = {
 export default function BookingForm({ preselectedService }: Props) {
   const [isSubmitting, setIsSubmitting] = useState(false)
   const [isSuccess, setIsSuccess] = useState(false)
+  const [errorMessage, setErrorMessage] = useState<string>('')
   const [allServices, setAllServices] = useState<ServiceFromAPI[]>([])
   const [selectedDate, setSelectedDate] = useState<Date>()
   const [timeSlots, setTimeSlots] = useState<string[]>([])
@@ -104,11 +105,13 @@ export default function BookingForm({ preselectedService }: Props) {
   const onSubmit = async (data: BookingFormData) => {
     // Validace, že datum není neděle
     if (isSunday(data.preferredDate)) {
-      alert('Salon je v neděli zavřený. Vyberte prosím jiný den.')
+      setErrorMessage('Salon je v neděli zavřený. Vyberte prosím jiný den.')
       return
     }
 
     setIsSubmitting(true)
+    setErrorMessage('')
+
     try {
       const response = await fetch('/api/booking', {
         method: 'POST',
@@ -116,14 +119,29 @@ export default function BookingForm({ preselectedService }: Props) {
         body: JSON.stringify(data),
       })
 
-      if (response.ok) {
+      const responseData = await response.json()
+
+      if (response.ok || response.status === 202) {
+        // 200 OK = úplný úspěch
+        // 202 Accepted = rezervace přijata, ale email chyba
         setIsSuccess(true)
+        if (responseData.error) {
+          setErrorMessage(responseData.error)
+        } else {
+          setErrorMessage('')
+        }
         reset()
         setSelectedDate(undefined)
-        setTimeout(() => setIsSuccess(false), 5000)
+        setTimeout(() => {
+          setIsSuccess(false)
+          setErrorMessage('')
+        }, 6000)
+      } else {
+        setErrorMessage(responseData.error || 'Chyba při odesílání rezervace. Zkuste to prosím znovu.')
       }
     } catch (error) {
       console.error('Booking error:', error)
+      setErrorMessage('Nastala chyba při odesílání. Zkuste to prosím znovu nebo nás kontaktujte.')
     } finally {
       setIsSubmitting(false)
     }
@@ -174,9 +192,9 @@ export default function BookingForm({ preselectedService }: Props) {
       </div>
 
       {isSuccess && (
-        <div className="mb-6 rounded-xl bg-slate-50  border border-slate-200  p-4 flex items-start gap-3">
+        <div className="mb-6 rounded-xl bg-slate-50 border border-slate-200 p-4 flex items-start gap-3">
           <svg
-            className="h-5 w-5 text-slate-900  flex-shrink-0 mt-0.5"
+            className="h-5 w-5 text-slate-900 flex-shrink-0 mt-0.5"
             fill="none"
             viewBox="0 0 24 24"
             stroke="currentColor"
@@ -185,8 +203,26 @@ export default function BookingForm({ preselectedService }: Props) {
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
           </svg>
           <div>
-            <p className="font-medium text-slate-900  text-sm">Rezervace odeslána!</p>
-            <p className="text-slate-700  text-sm mt-1">Děkujeme! Brzy Vás budeme kontaktovat pro potvrzení termínu.</p>
+            <p className="font-medium text-slate-900 text-sm">Rezervace odeslána!</p>
+            <p className="text-slate-700 text-sm mt-1">Děkujeme! Brzy Vás budeme kontaktovat pro potvrzení termínu.</p>
+          </div>
+        </div>
+      )}
+
+      {errorMessage && (
+        <div className="mb-6 rounded-xl bg-red-50 border border-red-200 p-4 flex items-start gap-3">
+          <svg
+            className="h-5 w-5 text-red-600 flex-shrink-0 mt-0.5"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke="currentColor"
+          >
+            <title>Chyba</title>
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
+          </svg>
+          <div>
+            <p className="font-medium text-red-900 text-sm">Chyba při odesílání</p>
+            <p className="text-red-700 text-sm mt-1">{errorMessage}</p>
           </div>
         </div>
       )}

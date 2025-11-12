@@ -1,6 +1,8 @@
-import PageLayout from '@/components/PageLayout'
+import FadeIn from '@/components/animations/FadeIn'
 import SectionTitle from '@/components/SectionTitle'
 import ServicesLayout from '@/components/ServicesLayout'
+import Container from '@/components/ui/Container'
+import Section from '@/components/ui/Section'
 import { getAllServices } from '@/lib/services'
 import type { Metadata } from 'next'
 
@@ -18,24 +20,26 @@ export default async function ServicesPage() {
   const allServices = await getAllServices()
 
   return (
-    <main className="min-h-screen lg:h-screen lg:overflow-hidden bg-white">
-      <div className="pt-24 md:pt-32 lg:pt-40 px-4 md:px-6 lg:px-8 max-w-[1920px] mx-auto lg:h-full lg:flex lg:flex-col">
-        <div className="mb-8 lg:mb-6 flex-shrink-0">
-          <SectionTitle
-            eyebrow="Kompletní nabídka"
-            title={
-              <>
-                Naše služby <em className="italic">a ceny</em>
-              </>
-            }
-            subtitle="Vyberte službu ze seznamu a prohlédněte si detaily, výhody a ceník."
-          />
-        </div>
+    <main className="min-h-screen bg-white pb-24 pt-[56px] md:pt-[68px] lg:pt-[80px]">
+      <Section className="pt-16 md:pt-20 lg:pt-24">
+        <Container>
+          <FadeIn y={20} duration={0.7}>
+            <SectionTitle
+              eyebrow="Kompletní nabídka"
+              title={
+                <>
+                  Naše služby <em className="italic">a ceny</em>
+                </>
+              }
+              subtitle="Vyberte službu ze seznamu a prohlédněte si detaily, výhody a ceník."
+            />
+          </FadeIn>
 
-        <div className="lg:flex-1 lg:min-h-0">
-          <ServicesLayout services={allServices} />
-        </div>
-      </div>
+          <div className="mt-12 md:mt-16">
+            <ServicesLayout services={allServices} />
+          </div>
+        </Container>
+      </Section>
     </main>
   )
 }

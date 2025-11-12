@@ -139,12 +139,19 @@ export async function POST(request: Request) {
 
     if (clientError) {
       console.error('Client email error:', clientError)
-      throw clientError
+      return NextResponse.json(
+        {
+          error: 'Vaše rezervace byla přijata, ale nepodařilo se poslat potvrzovací email. Kontaktujeme vás.',
+          partial: true
+        },
+        { status: 202 }
+      )
     }
 
+    console.log('✅ Booking email sent successfully')
     return NextResponse.json({ success: true })
   } catch (error) {
-    console.error('Booking API error:', error)
+    console.error('❌ Booking API error:', error)
     return NextResponse.json({ error: 'Nepodařilo se odeslat rezervaci' }, { status: 500 })
   }
 }

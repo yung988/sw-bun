@@ -34,6 +34,7 @@ export default function BookingModal({ isOpen, onCloseAction, preselectedService
   const dialogRef = useRef<HTMLDialogElement>(null)
   const [services, setServices] = useState<MainService[]>([])
   const [loading, setLoading] = useState(true)
+  const [isSubmitting, setIsSubmitting] = useState(false)
   const [formData, setFormData] = useState<FormData>({
     name: '',
     phone: '',
@@ -77,7 +78,7 @@ export default function BookingModal({ isOpen, onCloseAction, preselectedService
     }
   })
 
-  const handleSubmit = () => {
+  const handleSubmit = async () => {
     if (
       !formData.name ||
       !formData.phone ||
@@ -90,9 +91,46 @@ export default function BookingModal({ isOpen, onCloseAction, preselectedService
       alert('Prosím vyplňte všechna pole')
       return
     }
-    console.log('Rezervace:', formData)
-    alert('Děkujeme! Vaše rezervace byla odeslána. Brzy vás budeme kontaktovat.')
-    onCloseAction()
+
+    setIsSubmitting(true)
+
+    try {
+      const response = await fetch('/api/booking', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          service: `${formData.category} - ${formData.service}`,
+          name: formData.name,
+          email: formData.email,
+          phone: formData.phone,
+          preferredDate: formData.date,
+          preferredTime: formData.time,
+        }),
+      })
+
+      const data = await response.json()
+
+      if (response.ok || response.status === 202) {
+        alert('Děkujeme! Vaše rezervace byla odeslána. Brzy vás budeme kontaktovat.')
+        setFormData({
+          name: '',
+          phone: '',
+          email: '',
+          category: '',
+          service: '',
+          date: '',
+          time: '',
+        })
+        onCloseAction()
+      } else {
+        alert(data.error || 'Chyba při odesílání rezervace. Zkuste to prosím znovu.')
+      }
+    } catch (error) {
+      console.error('Booking error:', error)
+      alert('Nastala chyba při odesílání. Zkuste to prosím znovu nebo nás kontaktujte.')
+    } finally {
+      setIsSubmitting(false)
+    }
   }
 
   const handleChange = (field: keyof FormData, value: string) => {
@@ -330,9 +368,10 @@ export default function BookingModal({ isOpen, onCloseAction, preselectedService
             <button
               type="button"
               onClick={handleSubmit}
-              className="w-full py-4 bg-slate-900 text-white rounded-2xl hover:bg-slate-800 transition-all duration-300 text-base font-medium tracking-wide shadow-lg mt-2"
+              disabled={isSubmitting}
+              className="w-full py-4 bg-slate-900 text-white rounded-2xl hover:bg-slate-800 transition-all duration-300 text-base font-medium tracking-wide shadow-lg mt-2 disabled:opacity-50 disabled:cursor-not-allowed"
             >
-              Odeslat rezervaci
+              {isSubmitting ? 'Odesílám...' : 'Odeslat rezervaci'}
             </button>
 
             {/* Contact Buttons */}

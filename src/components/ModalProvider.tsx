@@ -44,8 +44,10 @@ export function ModalProvider({ children }: { children: ReactNode }) {
   return (
     <ModalContext.Provider value={{ openBooking, openVoucher }}>
       {children}
-      <BookingModal isOpen={bookingOpen} onCloseAction={closeBooking} preselectedService={selectedService} />
-      <VoucherModal isOpen={voucherOpen} onCloseAction={closeVoucher} />
+      {bookingOpen && (
+        <BookingModal isOpen={bookingOpen} onCloseAction={closeBooking} preselectedService={selectedService} />
+      )}
+      {voucherOpen && <VoucherModal isOpen={voucherOpen} onCloseAction={closeVoucher} />}
     </ModalContext.Provider>
   )
 }

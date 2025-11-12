@@ -24,13 +24,11 @@ export const metadata: Metadata = {
   },
 }
 
-import ContactSection from '@/components/ContactSection'
-import FAQSection from '@/components/FAQSection'
+
 import FeelBeautifulSection from '@/components/FeelBeautifulSection'
 import HeroSection from '@/components/HeroSection'
-import HorizontalScrollSection from '@/components/HorizontalScrollSection'
+import ScrollGalleryCSS from '@/components/ScrollGalleryCSS'
 import InstagramFeed from '@/components/InstagramFeed'
-import NewsletterSection from '@/components/NewsletterSection'
 import SabinaSection from '@/components/SabinaSection'
 import TestimonialsSection from '@/components/TestimonialsSection'
 import VoucherCTASection from '@/components/VoucherCTASection'
@@ -74,13 +72,10 @@ export default async function Home() {
       <WhyUsSection />
       <FeelBeautifulSection />
       <SabinaSection />
-      <HorizontalScrollSection categories={categories} coversByCategory={coversByCategory} />
+      <ScrollGalleryCSS />
       <VoucherCTASection />
       <TestimonialsSection />
-      <FAQSection />
       <InstagramFeed />
-      <ContactSection />
-      <NewsletterSection />
     </main>
   )
 }

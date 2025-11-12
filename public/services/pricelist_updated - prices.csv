@@ -1,0 +1,66 @@
+serviceid,category,subcategory,service_type,name,duration_in_minutes,session,price_in_czk
+kosmetika-osetreni,Kosmetika,Ošetření pleti,single,Hydratační ošetření pleti,60,1,1150
+kosmetika-osetreni,Kosmetika,Ošetření pleti,single,Anti-age ošetření s kolagenem,60,1,1350
+kosmetika-osetreni,Kosmetika,Ošetření pleti,single,Ošetření rozšířených pórů,60,1,1350
+kosmetika-osetreni,Kosmetika,Ošetření pleti,single,Ošetření problematické pleti,60,1,1350
+kosmetika-osetreni,Kosmetika,Ošetření pleti,single,Zklidňující ošetření pleti s propolisem,60,1,1490
+kosmetika-osetreni,Kosmetika,Ošetření pleti,single,Premium ošetření s kyselinou hyaluronovou,60,1,1700
+dermapen,Kosmetika,Dermapen mikrojehličkování,single,Dermapen mikrojehličkování – Pleť,60,1,1800
+dermapen,Kosmetika,Dermapen mikrojehličkování,single,Dermapen mikrojehličkování – Rty,60,1,700
+oboci-a-rasy,Kosmetika,Obočí a řasy,single,Barvení obočí,15,1,200
+oboci-a-rasy,Kosmetika,Obočí a řasy,single,Barvení řas,15,1,200
+oboci-a-rasy,Kosmetika,Obočí a řasy,single,Lifting řas,45,1,1000
+oboci-a-rasy,Kosmetika,Obočí a řasy,single,Laminace obočí,45,1,600
+oboci-a-rasy,Kosmetika,Obočí a řasy,single,Laminace obočí s barvením,50,1,1000
+oboci-a-rasy,Kosmetika,Obočí a řasy,package,Laminace obočí + Lifting řas,90,1,1500
+oboci-a-rasy,Kosmetika,Obočí a řasy,package,Lifting řas + Ošetření pleti,90,1,800
+oboci-a-rasy,Kosmetika,Obočí a řasy,package,Laminace obočí + Ošetření pleti,75,1,500
+oboci-a-rasy,Kosmetika,Obočí a řasy,package,Laminace obočí s barvením + Ošetření pleti,80,1,750
+oboci-a-rasy,Kosmetika,Obočí a řasy,package,Ošetření pleti + Barvení řas a obočí,75,1,1250
+ems,Budování svalů,Budování svalů,single,Budování svalů – 1 partie,60,1,1300
+ems,Budování svalů,Budování svalů,single,Budování svalů – 2 partie,60,1,1300
+ems,Budování svalů,Budování svalů,package,Budování svalů – balíček 2 partie (5 ošetření),60,5,6175
+ems,Budování svalů,Budování svalů,package,Budování svalů – kombo 2 partie,60,1,6060
+ems,Budování svalů,Budování svalů,package,Budování svalů – balíček kombo (5 ošetření),60,5,9450
+ems,Budování svalů,Budování svalů,package,Budování svalů – balíček kombo (10 ošetření),60,10,17850
+ems,Budování svalů,Budování svalů,package,Budování svalů – balíček 2 partie (8 ošetření),60,8,9880
+kosmetika,Kosmetika,Depilace obličeje,single,Depilace obličeje,20,1,150
+hifu-facelift,HIFU Facelift,HIFU tvář,single,HIFU facelift – celý obličej,60,1,5500
+hifu-facelift,HIFU Facelift,HIFU tvář,package,HIFU facelift – obličej + krk,90,1,6500
+hifu-facelift,HIFU Facelift,HIFU tvář,package,HIFU facelift – krk a podbradek,45,1,3900
+hifu-facelift,HIFU Facelift,HIFU tvář,package,HIFU facelift – čelo a oční okolí,30,1,2900
+hifu-facelift,HIFU Facelift,HIFU tvář,single,HIFU facelift – dolní část obličeje,60,1,4500
+hifu-facelift,HIFU Facelift,HIFU tvář,single,HIFU facelift – oblast očí,30,1,2000
+hifu-facelift,HIFU Facelift,HIFU tělo,single,HIFU formování břicha – celé břicho,60,1,6500
+hifu-facelift,HIFU Facelift,HIFU tělo,single,HIFU formování břicha – horní část,60,1,3900
+hifu-facelift,HIFU Facelift,HIFU tělo,single,HIFU formování břicha – dolní část,60,1,3900
+hifu-facelift,HIFU Facelift,HIFU tělo,single,HIFU formování paží,60,1,4900
+hifu-facelift,HIFU Facelift,HIFU tělo,single,HIFU formování stehen – jedna oblast,60,1,6500
+hifu-facelift,HIFU Facelift,HIFU tělo,single,HIFU formování stehen – obě části,60,1,9000
+hifu-facelift,HIFU Facelift,HIFU tělo,single,HIFU omlazení kolen,60,1,3500
+hifu-facelift,HIFU Facelift,HIFU tělo,package,HIFU facelift – balíček obličej + krk + dekolt,60,1,8900
+hifu-facelift,HIFU Facelift,HIFU tělo,package,HIFU tvarování těla – individuální balíček,60,1,12900
+endos,Endos-roller,Endos-roller,single,Endos-roller – paže a předloktí,45,1,850
+endos,Endos-roller,Endos-roller,single,Endos-roller – 1 partie,45,1,1050
+endos,Endos-roller,Endos-roller,package,Endos-roller – balíček 5 ošetření (1 partie),45,5,4725
+endos,Endos-roller,Endos-roller,package,Endos-roller – balíček 10 ošetření (1 partie),45,10,8925
+endos,Endos-roller,Endos-roller,single,Endos-roller – 2 partie,60,1,1500
+endos,Endos-roller,Endos-roller,single,Endos-roller – celé tělo,75,1,1900
+endos,Endos-roller,Endos-roller,package,Endos-roller – balíček 6 ošetření (celé tělo),75,6,10260
+endos,Endos-roller,Endos-roller,package,Endos-roller – balíček 10 ošetření (celé tělo),75,10,16150
+endos,Endos-roller,Endos-roller,single,Endos-roller – obličej a dekolt,30,1,600
+endos,Endos-roller,Endos-roller,package,Endos-roller – balíček 6 ošetření (obličej a dekolt),30,6,3240
+endos,Endos-roller,Endos-roller,package,Endos-roller – balíček 10 ošetření (obličej a dekolt),30,10,5100
+kavitace,Kavitace,Kavitace,single,Kavitace – paže,60,1,900
+kavitace,Kavitace,Kavitace,single,Kavitace – břicho,60,1,1100
+kavitace,Kavitace,Kavitace,single,Kavitace – nohy,60,1,1100
+kavitace,Kavitace,Kavitace,single,Kavitace – hýždě,60,1,1100
+kavitace,Kavitace,Kavitace,single,Kavitace – 2 partie,100,1,2000
+lpg,LPG endermologie,LPG endermologie,single,LPG – celé tělo,60,1,1600
+kosmetika,Kosmetika,Obličejová modelace,single,Obličejová modelace + lifting,60,1,700
+vlasy,Péče o vlasy,Péče o vlasy,single,Prodloužení vlasů – nové nasazení,180,1,26
+vlasy,Péče o vlasy,Péče o vlasy,single,Prodloužení vlasů – posunutí,120,1,29
+vlasy,Péče o vlasy,Péče o vlasy,single,Rozčesání dredů,30,1,300
+hydrafacial,Hydrafacial,Hydrafacial,single,Basic,60,1,1650
+hydrafacial,Hydrafacial,Hydrafacial,single,Standard,60,1,1900
+hydrafacial,Hydrafacial,Hydrafacial,single,Premium,60,1,2350

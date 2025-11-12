@@ -1,10 +1,9 @@
 import FadeIn from '@/components/animations/FadeIn'
-import ScrollReveal from '@/components/animations/ScrollReveal'
 import Container from '@/components/ui/Container'
 import Section from '@/components/ui/Section'
 import { highlights } from '@/data/highlights'
-import Carousel from './Carousel'
 import HighlightCard from './HighlightCard'
+import HorizontalScrollCarousel from './HorizontalScrollCarousel'
 import SectionTitle from './SectionTitle'
 
 export default function WhyUsSection() {
@@ -24,15 +23,13 @@ export default function WhyUsSection() {
           />
         </FadeIn>
 
-        <ScrollReveal direction="up" duration={0.8}>
-          <div className="mt-16">
-            <Carousel auto autoSpeed={25}>
-              {highlights.map((b, index) => (
-                <HighlightCard key={b.t} icon={b.icon} title={b.t} description={b.d} index={index} />
-              ))}
-            </Carousel>
-          </div>
-        </ScrollReveal>
+        <div className="mt-16">
+          <HorizontalScrollCarousel>
+            {highlights.map((b, index) => (
+              <HighlightCard key={b.t} icon={b.icon} title={b.t} description={b.d} index={index} />
+            ))}
+          </HorizontalScrollCarousel>
+        </div>
       </Container>
     </Section>
   )
