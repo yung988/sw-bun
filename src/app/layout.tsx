@@ -132,8 +132,8 @@ export default async function RootLayout({ children }: { children: React.ReactNo
       </head>
       <body className={figtree.className}>
         <IntroProvider>
-          <LoadingScreen />
           <LenisScroll />
+          <LoadingScreen />
           <ScrollProgress />
           <ModalProvider>
             <BrandProvider value={{ logoSrc }}>

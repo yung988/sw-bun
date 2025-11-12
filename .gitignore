@@ -41,8 +41,8 @@ pnpm-debug.log*
 *.tsbuildinfo
 next-env.d.ts
 
-# Ignore all public assets except some key files
-/public/*
-!/public/logo.svg
-!/public/favicon.svg
-!/public/services/
+# Temporarily allow all public assets for upload
+# /public/*
+# !/public/logo.svg
+# !/public/favicon.svg
+# !/public/services/

@@ -1,213 +1,170 @@
-"use client"
+// HorizontalScrollSection.tsx
+'use client'
 
 import { useEffect, useRef, useState } from 'react'
-import Link from "next/link"
-import Image from "next/image"
+import Link from 'next/link'
+import Image from 'next/image'
+import { gsap } from 'gsap'
+import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import Container from './ui/Container'
+import Section from './ui/Section'
 
-type ServiceCategory = {
-  id: string
+gsap.registerPlugin(ScrollTrigger)
+
+type Service = {
+  serviceId: string
   name: string
   slug: string
-  description: string
-  priceRange: string
-  serviceCount: number
+  shortDescription: string
+  images: string[]
+  pricing: { price: number }[]
+  subcategories: any[]
 }
 
-type HProps = {
-  categories: ServiceCategory[]
-  coversByCategory: Record<string, string>
-}
-
-export default function HorizontalScrollSection({ categories, coversByCategory }: HProps) {
+export default function HorizontalScrollSection() {
+  const sectionRef = useRef<HTMLDivElement | null>(null)
   const trackRef = useRef<HTMLDivElement | null>(null)
-  const [isDragging, setIsDragging] = useState(false)
-  const [startX, setStartX] = useState(0)
-  const [deltaX, setDeltaX] = useState(0)
-  const [isHovered, setIsHovered] = useState(false)
-  const rafRef = useRef<number | null>(null)
-  const speedRef = useRef(0.5)
-  const momentumRef = useRef(0)
-
-  const services = categories.map((c) => ({
-    id: c.id,
-    slug: c.slug,
-    name: c.name,
-    description: c.description,
-    image: coversByCategory[c.id] || "/images/salon/recepce.jpg",
-  }))
-
-  const duplicatedServices = [...services, ...services, ...services]
+  const [services, setServices] = useState<any[]>([])
+  const [coversByCategory, setCoversByCategory] = useState<Record<string, string>>({})
 
   useEffect(() => {
-    if (!trackRef.current) return
+    const fetchServices = async () => {
+      try {
+        const response = await fetch('/api/services')
+        const data: Service[] = await response.json()
+        const categories = data.map((s) => {
+          const prices = s.pricing.map((p) => p.price).filter((p) => p > 0)
+          const priceRange =
+            prices.length > 0
+              ? prices.length === 1
+                ? `${prices[0]} Kč`
+                : `od ${Math.min(...prices)} Kč`
+              : 'Na vyžádání'
 
-    const animate = () => {
-      if (isDragging || isHovered) {
-        rafRef.current = requestAnimationFrame(animate)
-        return
-      }
+          return {
+            id: s.serviceId,
+            name: s.name,
+            slug: s.slug,
+            description: s.shortDescription,
+            priceRange,
+            serviceCount: s.subcategories.length > 0 ? s.subcategories.length : s.pricing.length,
+          }
+        })
 
-      setDeltaX(prev => {
-        const trackWidth = trackRef.current!.scrollWidth / 3
-        let newDelta = prev - speedRef.current
-
-        if (Math.abs(newDelta) >= trackWidth) {
-          newDelta = 0
+        // Build covers from CSV service images first, fallback to folder-based cover
+        const covers: Record<string, string> = {}
+        for (const service of data) {
+          const candidates = service.images.filter(Boolean)
+          // Since we can't call resolveExisting on client, use first image or fallback
+          covers[service.serviceId] = candidates.length ? candidates[0] : '/images/salon/recepce.jpg'
         }
+        setCoversByCategory(covers)
 
-        return newDelta
-      })
-
-      rafRef.current = requestAnimationFrame(animate)
+        const serviceItems = categories.map((c) => ({
+          id: c.id,
+          slug: c.slug,
+          name: c.name,
+          description: c.description,
+          image: covers[c.id] || '/images/salon/recepce.jpg',
+        }))
+        setServices(serviceItems)
+      } catch (error) {
+        console.error('Error fetching services:', error)
+      }
     }
+    fetchServices()
+  }, [])
 
-    rafRef.current = requestAnimationFrame(animate)
+  useEffect(() => {
+    if (!services.length || !trackRef.current || !sectionRef.current) return
+
+    const track = trackRef.current
+    const cards = Array.from(track.children) as HTMLElement[]
+
+    const lastCard = cards[cards.length - 1]
+    const trackWidth = lastCard.offsetLeft + lastCard.offsetWidth
+
+    const scrollDistance = trackWidth - window.innerWidth
+
+    const tl = gsap.timeline({
+      scrollTrigger: {
+        trigger: sectionRef.current,
+        start: 'top top',
+        end: `+=${scrollDistance}`,
+        scrub: 1.5, // Optimální hodnota pro Lenis
+        pin: true,
+        anticipatePin: 1,
+        invalidateOnRefresh: true,
+      },
+    })
+
+    tl.to(track, {
+      x: -scrollDistance,
+      ease: 'power2.inOut',
+    })
 
     return () => {
-      if (rafRef.current) {
-        cancelAnimationFrame(rafRef.current)
-      }
+      tl.kill()
+      ScrollTrigger.getAll().forEach((st) => st.kill())
     }
-  }, [isDragging, isHovered, services.length])
-
-  const handleMouseDown = (e: React.MouseEvent) => {
-    if (!trackRef.current) return
-    setIsDragging(true)
-    setStartX(e.pageX + deltaX)
-    setIsHovered(true)
-  }
-
-  const handleMouseMove = (e: React.MouseEvent) => {
-    if (!isDragging || !trackRef.current) return
-    e.preventDefault()
-
-    const currentX = e.pageX
-    const newDelta = currentX - startX
-
-    momentumRef.current = newDelta - deltaX
-
-    setDeltaX(newDelta)
-  }
-
-  const handleMouseUp = () => {
-    setIsDragging(false)
-    const momentum = momentumRef.current * 0.95
-    if (Math.abs(momentum) > 0.5) {
-      setDeltaX(prev => prev + momentum)
-    }
-    setTimeout(() => setIsHovered(false), 800)
-  }
-
-  const handleMouseLeave = () => {
-    setIsDragging(false)
-    setTimeout(() => setIsHovered(false), 800)
-  }
-
-  const handleTouchStart = (e: React.TouchEvent) => {
-    if (!trackRef.current) return
-    setIsDragging(true)
-    setStartX(e.touches[0].pageX + deltaX)
-    setIsHovered(true)
-  }
-
-  const handleTouchMove = (e: React.TouchEvent) => {
-    if (!isDragging || !trackRef.current) return
-    const currentX = e.touches[0].pageX
-    const newDelta = currentX - startX
-
-    momentumRef.current = newDelta - deltaX
-
-    setDeltaX(newDelta)
-  }
-
-  const handleTouchEnd = () => {
-    setIsDragging(false)
-    const momentum = momentumRef.current * 0.95
-    if (Math.abs(momentum) > 0.5) {
-      setDeltaX(prev => prev + momentum)
-    }
-    setTimeout(() => setIsHovered(false), 800)
-  }
+  }, [services])
 
   if (!services.length) return null
 
   return (
-    <section className="relative bg-gradient-to-br from-slate-50 via-white to-slate-100 py-20 lg:py-32">
-      <Container>
+    <Section className="relative bg-white mt-32 md:mt-40 lg:mt-48" ref={sectionRef}>
+      <Container className="py-20 md:py-24 lg:py-32">
         {/* Header */}
-        <div className="mb-12 lg:mb-16">
+        <div className="mb-16 md:mb-20">
           <span className="text-xs uppercase tracking-[0.3em] text-slate-500 font-medium">Naše služby</span>
-          <h2 className="font-display font-light text-4xl md:text-5xl lg:text-6xl leading-tight tracking-tight text-slate-900 mt-2">
+          <h2 className="font-display text-4xl md:text-5xl lg:text-6xl font-light leading-tight tracking-tight text-slate-900 mt-2">
             Objevte <em className="italic">dokonalost</em>
           </h2>
         </div>
-      </Container>
 
-      {/* Horizontal track - full width */}
-      <div
-        className="relative overflow-hidden cursor-grab active:cursor-grabbing"
-        onMouseEnter={() => !isDragging && setIsHovered(true)}
-        onMouseLeave={handleMouseLeave}
-      >
-        <div
-          ref={trackRef}
-          className="flex gap-6 lg:gap-8 select-none py-2"
-          style={{
-            width: 'max-content',
-            transform: `translateX(${deltaX}px)`,
-            transition: isDragging ? 'none' : 'transform 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94)',
-          }}
-          onMouseDown={handleMouseDown}
-          onMouseMove={handleMouseMove}
-          onMouseUp={handleMouseUp}
-          onMouseLeave={handleMouseLeave}
-          onTouchStart={handleTouchStart}
-          onTouchMove={handleTouchMove}
-          onTouchEnd={handleTouchEnd}
-        >
-          {duplicatedServices.map((s, i) => (
-            <div key={`${s.id}-${i}`} className="flex-shrink-0 w-80 md:w-96">
-              <Link href={`/sluzby/${s.slug}`} className="block group">
-                <div className="relative overflow-hidden rounded-2xl h-[28rem] shadow-soft hover:shadow-elevated transition-all duration-500">
+        {/* Horizontal track */}
+        <div ref={trackRef} className="flex gap-6 lg:gap-8" style={{ width: 'max-content' }}>
+          {services.map((s, i) => (
+            <Link key={s.id} href={`/sluzby/${s.slug}`} className="group flex-shrink-0 w-72 md:w-80">
+              <div className="bg-white rounded-2xl overflow-hidden shadow-sm hover:shadow-xl transition-all duration-300 border border-slate-200">
+                {/* Image */}
+                <div className="relative h-56 md:h-64 overflow-hidden">
                   <Image
-                    src={s.image}
+                    src={s.image || '/placeholder.svg'}
                     alt={s.name}
                     fill
-                    sizes="(max-width: 768px) 320px, 384px"
-                    className="object-cover group-hover:scale-110 transition-transform duration-700"
+                    sizes="320px"
+                    className="object-cover group-hover:scale-105 transition-transform duration-700"
                     priority={i < 3}
                   />
+                  <div className="absolute inset-0 bg-gradient-to-b from-black/10 via-transparent to-transparent" />
+                </div>
 
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent" />
+                {/* Content */}
+                <div className="p-6 lg:p-8">
+                  <h3 className="text-xl lg:text-2xl font-light text-slate-900 mb-3 tracking-tight leading-tight">
+                    {s.name}
+                  </h3>
+                  <p className="text-sm text-slate-600 leading-relaxed line-clamp-3 mb-6">{s.description}</p>
 
-                  <div className="absolute inset-0 flex flex-col justify-end p-6 lg:p-8">
-                    <h3 className="font-display text-2xl lg:text-3xl font-light text-white mb-3 tracking-tight leading-tight">
-                      {s.name}
-                    </h3>
-                    <p className="text-sm text-white/90 leading-relaxed line-clamp-2 mb-6">
-                      {s.description}
-                    </p>
-
-                    <div className="inline-flex items-center gap-2 text-xs font-medium text-white uppercase tracking-wider group-hover:gap-3 transition-all">
-                      <span>Zjistit více</span>
-                      <svg
-                        className="w-4 h-4 transition-transform group-hover:translate-x-1"
-                        fill="none"
-                        viewBox="0 0 24 24"
-                        stroke="currentColor"
-                        strokeWidth={2}
-                      >
-                        <path strokeLinecap="round" strokeLinejoin="round" d="M17 8l4 4-4 4" />
-                      </svg>
-                    </div>
+                  <div className="flex items-center text-xs font-medium text-slate-900 uppercase tracking-wider">
+                    <span>Zjistit více</span>
+                    <svg
+                      className="ml-2 w-4 h-4 transition-transform group-hover:translate-x-1"
+                      fill="none"
+                      viewBox="0 0 24 24"
+                      stroke="currentColor"
+                      strokeWidth={2}
+                    >
+                      <path strokeLinecap="round" strokeLinejoin="round" d="M17 8l4 4-4 4" />
+                    </svg>
                   </div>
                 </div>
-              </Link>
-            </div>
+              </div>
+            </Link>
           ))}
         </div>
-      </div>
-    </section>
+      </Container>
+    </Section>
   )
 }
