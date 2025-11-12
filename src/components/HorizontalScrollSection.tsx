@@ -1,15 +1,12 @@
 // HorizontalScrollSection.tsx
 'use client'
 
-import { useEffect, useRef, useState } from 'react'
+import { useEffect, useState } from 'react'
 import Link from 'next/link'
 import Image from 'next/image'
-import { gsap } from 'gsap'
-import { ScrollTrigger } from 'gsap/ScrollTrigger'
+import Carousel from './Carousel'
 import Container from './ui/Container'
 import Section from './ui/Section'
-
-gsap.registerPlugin(ScrollTrigger)
 
 type Service = {
   serviceId: string
@@ -22,10 +19,7 @@ type Service = {
 }
 
 export default function HorizontalScrollSection() {
-  const sectionRef = useRef<HTMLDivElement | null>(null)
-  const trackRef = useRef<HTMLDivElement | null>(null)
   const [services, setServices] = useState<any[]>([])
-  const [coversByCategory, setCoversByCategory] = useState<Record<string, string>>({})
 
   useEffect(() => {
     const fetchServices = async () => {
@@ -58,7 +52,6 @@ export default function HorizontalScrollSection() {
           // Since we can't call resolveExisting on client, use first image or fallback
           covers[service.serviceId] = candidates.length ? candidates[0] : '/images/salon/recepce.jpg'
         }
-        setCoversByCategory(covers)
 
         const serviceItems = categories.map((c) => ({
           id: c.id,
@@ -75,44 +68,10 @@ export default function HorizontalScrollSection() {
     fetchServices()
   }, [])
 
-  useEffect(() => {
-    if (!services.length || !trackRef.current || !sectionRef.current) return
-
-    const track = trackRef.current
-    const cards = Array.from(track.children) as HTMLElement[]
-
-    const lastCard = cards[cards.length - 1]
-    const trackWidth = lastCard.offsetLeft + lastCard.offsetWidth
-
-    const scrollDistance = trackWidth - window.innerWidth
-
-    const tl = gsap.timeline({
-      scrollTrigger: {
-        trigger: sectionRef.current,
-        start: 'top top',
-        end: `+=${scrollDistance}`,
-        scrub: 1.5, // Optimální hodnota pro Lenis
-        pin: true,
-        anticipatePin: 1,
-        invalidateOnRefresh: true,
-      },
-    })
-
-    tl.to(track, {
-      x: -scrollDistance,
-      ease: 'power2.inOut',
-    })
-
-    return () => {
-      tl.kill()
-      ScrollTrigger.getAll().forEach((st) => st.kill())
-    }
-  }, [services])
-
   if (!services.length) return null
 
   return (
-    <Section className="relative bg-white mt-32 md:mt-40 lg:mt-48" ref={sectionRef}>
+    <Section className="relative bg-white mt-32 md:mt-40 lg:mt-48">
       <Container className="py-20 md:py-24 lg:py-32">
         {/* Header */}
         <div className="mb-16 md:mb-20">
@@ -122,8 +81,8 @@ export default function HorizontalScrollSection() {
           </h2>
         </div>
 
-        {/* Horizontal track */}
-        <div ref={trackRef} className="flex gap-6 lg:gap-8" style={{ width: 'max-content' }}>
+        {/* Carousel */}
+        <Carousel auto={true} autoSpeed={50} showArrows={true}>
           {services.map((s, i) => (
             <Link key={s.id} href={`/sluzby/${s.slug}`} className="group flex-shrink-0 w-72 md:w-80">
               <div className="bg-white rounded-2xl overflow-hidden shadow-sm hover:shadow-xl transition-all duration-300 border border-slate-200">
@@ -163,7 +122,7 @@ export default function HorizontalScrollSection() {
               </div>
             </Link>
           ))}
-        </div>
+        </Carousel>
       </Container>
     </Section>
   )

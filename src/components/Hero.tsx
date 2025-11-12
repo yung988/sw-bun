@@ -70,7 +70,7 @@ export default function Hero({
   }, [introComplete])
 
   return (
-    <section ref={sectionRef} id="home" className="py-8 md:py-12 lg:py-16">
+    <section ref={sectionRef} id="home" className="pt-16 pb-8 md:py-12 lg:py-16">
       <Container>
         {/* Content above video - Okare style */}
         <div ref={contentWrapperRef} className="mb-6 lg:mb-10 opacity-0">
@@ -101,19 +101,12 @@ export default function Hero({
                       className="relative h-7 w-7 overflow-hidden rounded-full border-2 border-white shadow-sm transition-transform hover:scale-110 hover:z-10"
                       style={{ zIndex: avatars.length - index }}
                     >
-                      <Image 
-                        src={avatar} 
-                        alt={`Klientka ${index + 1}`} 
-                        fill 
-                        sizes="28px" 
-                        className="object-cover" 
-                      />
+                      <Image src={avatar} alt={`Klientka ${index + 1}`} fill sizes="28px" className="object-cover" />
                     </div>
                   ))}
                 </div>
                 <div className="text-xs font-medium text-slate-700 whitespace-nowrap">
-                  {trustedText}{' '}
-                  <span className="text-slate-900 font-semibold">{trustedCount}</span>
+                  {trustedText} <span className="text-slate-900 font-semibold">{trustedCount}</span>
                 </div>
               </div>
             </div>

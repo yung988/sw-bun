@@ -209,8 +209,7 @@ export default function Navbar() {
             'inset 0 1px 1px rgba(255,255,255,0.5), inset 0 -1px 1px rgba(0,0,0,0.05), 0 12px 40px rgba(0,0,0,0.2)',
         }}
       >
-        <div className="flex justify-between items-center mb-6">
-          <Image src={logoSrc} alt="SW Beauty" width={60} height={60} />
+        <div className="flex justify-end items-center mb-6">
           <button
             type="button"
             onClick={() => setMenuOpen(false)}
