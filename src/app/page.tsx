@@ -24,26 +24,25 @@ export const metadata: Metadata = {
   },
 }
 
-import FeelBeautifulSection from '@/components/FeelBeautifulSection'
 import HeroSection from '@/components/HeroSection'
-import ScrollGalleryCSS from '@/components/ScrollGalleryCSS'
-import InstagramFeed from '@/components/InstagramFeed'
-import SabinaSection from '@/components/SabinaSection'
-import TestimonialsSection from '@/components/TestimonialsSection'
-import VoucherCTASection from '@/components/VoucherCTASection'
-import WhyUsSection from '@/components/WhyUsSection'
-
 import HorizontalScrollSection from '@/components/HorizontalScrollSection'
+import AboutSection from '@/components/AboutSection'
+import TestimonialsSection from '@/components/TestimonialsSection'
+import Gallery from '@/components/Gallery'
+import VoucherSection from '@/components/VoucherSection'
+import ContactSection from '@/components/ContactSection'
+import InstagramFeed from '@/components/InstagramFeed'
 
 export default function Home() {
   return (
-    <main id="main-content" className="min-h-screen bg-white pb-24 pt-[56px] md:pt-[68px] lg:pt-[80px]">
+    <main id="main-content" className="min-h-screen bg-[#f8f3f0] pb-24 pt-[56px] md:pt-[68px] lg:pt-[80px]">
       <HeroSection />
-      <SabinaSection />
       <HorizontalScrollSection />
-      <VoucherCTASection />
-      <WhyUsSection />
+      <AboutSection />
       <TestimonialsSection />
+      <Gallery />
+      <VoucherSection />
+      <ContactSection />
       <InstagramFeed />
     </main>
   )

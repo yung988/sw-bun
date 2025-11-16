@@ -1,5 +1,5 @@
 import type { Metadata } from 'next'
-import { Figtree, Source_Serif_4 } from 'next/font/google'
+import { Playfair_Display, Cormorant_Garamond, Roboto } from 'next/font/google'
 import './globals.css'
 import 'lenis/dist/lenis.css'
 import { BrandProvider } from '@/components/BrandProvider'
@@ -57,18 +57,26 @@ export const metadata: Metadata = {
   },
 }
 
-const figtree = Figtree({
+const playfairDisplay = Playfair_Display({
   subsets: ['latin', 'latin-ext'],
-  variable: '--font-figtree',
-  weight: ['300', '400', '500', '600', '700', '800', '900'],
+  variable: '--font-playfair',
+  weight: ['400', '500', '600', '700', '800', '900'],
+  style: ['normal', 'italic'],
   display: 'swap',
 })
 
-const sourceSerif4 = Source_Serif_4({
+const cormorantGaramond = Cormorant_Garamond({
   subsets: ['latin', 'latin-ext'],
-  variable: '--font-source-serif-4',
+  variable: '--font-cormorant',
   weight: ['300', '400', '500', '600', '700'],
   style: ['normal', 'italic'],
+  display: 'swap',
+})
+
+const roboto = Roboto({
+  subsets: ['latin', 'latin-ext'],
+  variable: '--font-roboto',
+  weight: ['100', '300', '400', '500', '700'],
   display: 'swap',
 })
 
@@ -123,14 +131,17 @@ export default async function RootLayout({ children }: { children: React.ReactNo
   const jsonLdScript = JSON.stringify(jsonLd)
 
   return (
-    <html lang="cs" className={`scroll-smooth ${figtree.variable} ${sourceSerif4.variable}`}>
+    <html
+      lang="cs"
+      className={`scroll-smooth ${playfairDisplay.variable} ${cormorantGaramond.variable} ${roboto.variable}`}
+    >
       <head>
         <script type="application/ld+json" suppressHydrationWarning>
           {jsonLdScript}
         </script>
         <link rel="icon" href={favicon} />
       </head>
-      <body className={figtree.className}>
+      <body className={roboto.className}>
         <IntroProvider>
           <LenisScroll />
           <LoadingScreen />

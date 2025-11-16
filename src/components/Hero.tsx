@@ -3,63 +3,44 @@ import { useIntroCompleteContext } from '@/components/IntroProvider'
 import WordReveal from '@/components/animations/WordReveal'
 import gsap from 'gsap'
 import Image from 'next/image'
-import { useEffect, useLayoutEffect, useMemo, useRef, useState } from 'react'
+import { useLayoutEffect, useRef } from 'react'
 import Container from '@/components/ui/Container'
+import { Quote } from 'lucide-react'
 
 type HeroProps = {
   title: string
   titleItalic: string
   subtitle: string
-  trustedText: string
-  trustedCount: string
-  avatars: string[]
-  videos?: string[]
+  testimonialText: string
+  testimonialAuthor: string
+  heroImage: string
 }
 
 export default function Hero({
   title,
   titleItalic,
   subtitle,
-  trustedText,
-  trustedCount,
-  avatars,
-  videos = [],
+  testimonialText,
+  testimonialAuthor,
+  heroImage,
 }: HeroProps) {
   const [introComplete] = useIntroCompleteContext()
   const sectionRef = useRef<HTMLElement>(null)
-  const videoWrapperRef = useRef<HTMLDivElement>(null)
+  const imageWrapperRef = useRef<HTMLDivElement>(null)
   const contentWrapperRef = useRef<HTMLDivElement>(null)
-  const videoRef = useRef<HTMLVideoElement>(null)
-
-  const videoList = useMemo<string[]>(() => (videos?.length ? videos : ['/movies/video-recepce.mp4']), [videos])
-  const [_index, _setIndex] = useState(0)
-  const [currentSrc, _setCurrentSrc] = useState<string>(videoList[0])
-  const [fade, _setFade] = useState(false)
-
-  useEffect(() => {
-    if (!videoRef.current) return
-    if (introComplete) {
-      videoRef.current.src = currentSrc
-      videoRef.current.load()
-      const playPromise = videoRef.current.play()
-      if (playPromise && typeof playPromise.catch === 'function') playPromise.catch(() => {})
-    } else {
-      videoRef.current.pause()
-    }
-  }, [introComplete, currentSrc])
 
   useLayoutEffect(() => {
     const startHeroIntro = () => {
       if (!sectionRef.current) return
       const ctx = gsap.context(() => {
-        const targets = [contentWrapperRef.current, videoWrapperRef.current].filter(Boolean) as HTMLElement[]
+        const targets = [contentWrapperRef.current, imageWrapperRef.current].filter(Boolean) as HTMLElement[]
 
         gsap.set(targets, { autoAlpha: 0, y: 48 })
-        if (videoWrapperRef.current) gsap.set(videoWrapperRef.current, { scale: 1.05, autoAlpha: 0 })
+        if (imageWrapperRef.current) gsap.set(imageWrapperRef.current, { scale: 1.05, autoAlpha: 0 })
 
         const tl = gsap.timeline({ defaults: { ease: 'power2.out', duration: 1 } })
         tl.to(contentWrapperRef.current, { autoAlpha: 1, y: 0 }, 0)
-        tl.to(videoWrapperRef.current, { autoAlpha: 1, y: 0, scale: 1 }, '-=0.6')
+        tl.to(imageWrapperRef.current, { autoAlpha: 1, y: 0, scale: 1 }, '-=0.6')
       }, sectionRef)
       return () => ctx.revert()
     }
@@ -70,65 +51,66 @@ export default function Hero({
   }, [introComplete])
 
   return (
-    <section ref={sectionRef} id="home" className="pt-20 pb-8 md:py-12 lg:py-16">
+    <section ref={sectionRef} id="home" className="pt-32 pb-20 md:pt-40 md:pb-32 bg-[#f8f3f0] relative overflow-hidden">
+      {/* Decorative elements - luxury pastel blobs */}
+      <div className="absolute top-20 right-10 w-96 h-96 rounded-full bg-[#f9f0f2]/30 blur-3xl z-0 animate-pulse" />
+      <div className="absolute bottom-20 left-10 w-80 h-80 rounded-full bg-[#e8f4f8]/20 blur-3xl z-0 animate-pulse" style={{ animationDelay: '1s' }} />
+
       <Container>
-        {/* Content above video - Okare style */}
-        <div ref={contentWrapperRef} className="mb-6 lg:mb-10 opacity-0">
-          <div className="flex flex-col lg:flex-row lg:items-center gap-6 lg:gap-12 xl:gap-16">
-            {/* Title group - more compact */}
-            <div className="flex-shrink-0">
-              <h1 className="text-4xl md:text-5xl lg:text-5xl xl:text-6xl font-light leading-[1.2] tracking-tight text-slate-900">
+        <div className="relative z-10">
+          {/* Content - luxury style */}
+          <div ref={contentWrapperRef} className="grid grid-cols-1 md:grid-cols-2 gap-12 items-center mb-16 opacity-0">
+            {/* Left column - Title and text */}
+            <div>
+              <h1 className="text-5xl md:text-7xl font-serif leading-tight mb-6 text-gray-800">
                 <WordReveal stagger={0.06}>{title}</WordReveal>{' '}
-                <WordReveal stagger={0.08} className="italic font-serif font-light text-slate-600">
+                <WordReveal stagger={0.08} className="italic font-serif font-light">
                   {titleItalic}
                 </WordReveal>
               </h1>
-            </div>
 
-            {/* Subtitle & Badge - closer together */}
-            <div className="flex flex-col sm:flex-row items-start sm:items-center gap-5 lg:gap-6">
-              {/* Subtitle */}
-              <p className="text-sm md:text-[15px] text-slate-600 leading-relaxed max-w-[260px] lg:max-w-[300px]">
+              <p className="text-lg md:text-xl font-light text-gray-600 mb-8 leading-relaxed">
                 {subtitle}
               </p>
 
-              {/* Trust Badge - Okare style */}
-              <div className="inline-flex items-center gap-2.5 px-3.5 py-2 bg-white rounded-full shadow-sm border border-slate-200/80 hover:shadow-md transition-shadow flex-shrink-0">
-                <div className="flex -space-x-2">
-                  {avatars.map((avatar, index) => (
-                    <div
-                      key={avatar}
-                      className="relative h-7 w-7 overflow-hidden rounded-full border-2 border-white shadow-sm transition-transform hover:scale-110 hover:z-10"
-                      style={{ zIndex: avatars.length - index }}
-                    >
-                      <Image src={avatar} alt={`Klientka ${index + 1}`} fill sizes="28px" className="object-cover" />
-                    </div>
-                  ))}
-                </div>
-                <div className="text-xs font-medium text-slate-700 whitespace-nowrap">
-                  {trustedText} <span className="text-slate-900 font-semibold">{trustedCount}</span>
-                </div>
+              {/* Luxury buttons - Rezervovat termín first */}
+              <div className="flex flex-col sm:flex-row gap-4">
+                <a href="#kontakt" className="btn-primary text-center">
+                  Rezervovat termín
+                </a>
+                <a href="#sluzby" className="btn-secondary text-center">
+                  Prozkoumat služby
+                </a>
+              </div>
+            </div>
+
+            {/* Right column - Hero image with testimonial badge */}
+            <div className="relative hidden md:block">
+              <div
+                ref={imageWrapperRef}
+                className="relative rounded-lg overflow-hidden aspect-[4/5] shadow-2xl opacity-0"
+              >
+                <Image
+                  src={heroImage}
+                  alt="SW Beauty Salon"
+                  fill
+                  priority
+                  sizes="(max-width: 768px) 100vw, 50vw"
+                  className="object-cover"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/30 to-transparent" />
+              </div>
+
+              {/* Testimonial Badge - luxury card */}
+              <div className="absolute -bottom-6 -left-6 bg-white/90 backdrop-blur-sm p-6 rounded-2xl shadow-xl max-w-xs">
+                <Quote className="w-8 h-8 text-accent mb-3" />
+                <p className="text-sm italic text-gray-700 mb-3 leading-relaxed">
+                  {testimonialText}
+                </p>
+                <p className="text-xs text-gray-600 font-medium">— {testimonialAuthor}</p>
               </div>
             </div>
           </div>
-        </div>
-
-        {/* Video */}
-        <div
-          ref={videoWrapperRef}
-          className="relative w-full aspect-[16/10] lg:aspect-[21/10] overflow-hidden rounded-[1.5rem] lg:rounded-[2rem] bg-slate-100 shadow-2xl border border-slate-200/50 opacity-0"
-        >
-          <video
-            ref={videoRef}
-            loop
-            muted
-            playsInline
-            preload="metadata"
-            poster="/images/salon/recepce.jpg"
-            className="absolute inset-0 h-full w-full object-cover"
-          />
-          {fade && <div className="absolute inset-0 bg-black/20 animate-[fade_0.6s_ease]" />}
-          <div className="absolute inset-0 bg-gradient-to-t from-black/10 via-transparent to-transparent pointer-events-none" />
         </div>
       </Container>
     </section>

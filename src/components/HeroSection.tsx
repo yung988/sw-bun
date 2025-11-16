@@ -1,19 +1,14 @@
 import Hero from '@/components/Hero'
-import { getAvatars } from '@/lib/server/images'
 
-export default async function HeroSection() {
-  const avatars = await getAvatars(3)
-  // Explicitly set hero_1.mp4 as the main hero video
-  const videos = ['/movies/hero_1.mp4']
+export default function HeroSection() {
   return (
     <Hero
-      title="Krása, která vám"
-      titleItalic="sluší"
-      subtitle="Profesionální kosmetika s moderními technologiemi v centru Hodonína."
-      trustedText="Důvěřuje nám přes"
-      trustedCount="500+ klientek"
-      avatars={avatars}
-      videos={videos}
+      title="Vstupte do světa"
+      titleItalic="zdravého sebevědomí a krásy"
+      subtitle="Objevte revoluční technologie pro péči o pleť a tělo. Nabízíme širokou škálu služeb od kosmetických ošetření až po nejmodernější estetické procedury."
+      testimonialText="Nejlepší péče, jakou jsem kdy zažila. Výsledky jsou naprosto úžasné!"
+      testimonialAuthor="Karolína H."
+      heroImage="/images/salon/salon-main.jpeg"
     />
   )
 }

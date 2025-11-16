@@ -68,35 +68,36 @@ export default function Footer() {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 mb-20">
           {/* Column 1 - About */}
           <div>
-            <h3 className="mb-6 text-sm font-semibold text-slate-900 uppercase tracking-widest">O nás</h3>
+            <h3 className="mb-6 text-sm font-semibold text-slate-900 uppercase tracking-widest">Menu</h3>
             <ul className="space-y-3">
               <li>
-                <a href="/#o-nas" className="text-sm text-slate-600 hover:text-slate-900 transition-colors">
-                  O salonu
-                </a>
-              </li>
-              <li>
-                <a href="/#kontakt" className="text-sm text-slate-600 hover:text-slate-900 transition-colors">
-                  Kontakt
+                <a href="/#home" className="text-sm text-slate-600 hover:text-slate-900 transition-colors">
+                  Domů
                 </a>
               </li>
               <li>
                 <Link href="/sluzby" className="text-sm text-slate-600 hover:text-slate-900 transition-colors">
-                  Všechny služby
+                  Služby
                 </Link>
               </li>
               <li>
-                <p className="text-sm text-slate-600">U Cihelny 1326/2</p>
-                <p className="text-sm text-slate-600">695 01 Hodonín</p>
-              </li>
-              <li>
-                <a href="tel:+420773577899" className="text-sm text-slate-600 hover:text-slate-900 transition-colors">
-                  +420 773 577 899
+                <a href="/#o-nas" className="text-sm text-slate-600 hover:text-slate-900 transition-colors">
+                  O nás
                 </a>
               </li>
               <li>
-                <a href="mailto:info@swbeauty.cz" className="text-sm text-slate-600 hover:text-slate-900 transition-colors">
-                  info@swbeauty.cz
+                <a href="/#galerie" className="text-sm text-slate-600 hover:text-slate-900 transition-colors">
+                  Galerie
+                </a>
+              </li>
+              <li>
+                <Link href="/cenik" className="text-sm text-slate-600 hover:text-slate-900 transition-colors">
+                  Ceník
+                </Link>
+              </li>
+              <li>
+                <a href="/#kontakt" className="text-sm text-slate-600 hover:text-slate-900 transition-colors">
+                  Kontakt
                 </a>
               </li>
             </ul>
@@ -136,30 +137,33 @@ export default function Footer() {
             </ul>
           </div>
 
-          {/* Column 4 - Newsletter */}
+          {/* Column 4 - Opening Hours & Contact */}
           <div>
-            <h3 className="mb-6 text-sm font-semibold text-slate-900 uppercase tracking-widest">Zůstanete v kontaktu</h3>
-            <p className="text-sm text-slate-600 mb-6">
-              Přihlaste se k odběru novinek a získejte tipy na péči a speciální nabídky.
-            </p>
-            <form
-              onSubmit={(e) => {
-                e.preventDefault()
-              }}
-              className="space-y-3"
-            >
-              <input
-                type="email"
-                placeholder="Váš e-mail"
-                className="w-full border-b border-slate-300 bg-transparent px-0 py-2 text-sm text-slate-900 placeholder:text-slate-400 focus:outline-none focus:border-slate-900 transition-colors"
-              />
-              <button
-                type="submit"
-                className="text-sm font-medium text-slate-900 hover:text-slate-600 transition-colors underline"
-              >
-                Odebírat
-              </button>
-            </form>
+            <h3 className="mb-6 text-sm font-semibold text-slate-900 uppercase tracking-widest">Otevírací doba</h3>
+            <ul className="space-y-3 mb-6">
+              <li className="flex justify-between text-sm">
+                <span className="text-slate-600">Pondělí - Pátek:</span>
+                <span className="text-slate-900 font-medium">7:00 - 20:00</span>
+              </li>
+              <li className="flex justify-between text-sm">
+                <span className="text-slate-600">Sobota:</span>
+                <span className="text-slate-900 font-medium">9:00 - 16:00</span>
+              </li>
+              <li className="flex justify-between text-sm">
+                <span className="text-slate-600">Neděle:</span>
+                <span className="text-slate-900 font-medium">dle dohody</span>
+              </li>
+            </ul>
+            <div className="space-y-2 pt-4 border-t border-slate-200">
+              <p className="text-sm text-slate-600">U Cihelny 1326/2</p>
+              <p className="text-sm text-slate-600">695 01 Hodonín</p>
+              <a href="tel:+420773577899" className="text-sm text-slate-600 hover:text-slate-900 transition-colors block">
+                +420 773 577 899
+              </a>
+              <a href="mailto:info@swbeauty.cz" className="text-sm text-slate-600 hover:text-slate-900 transition-colors block">
+                info@swbeauty.cz
+              </a>
+            </div>
           </div>
         </div>
 

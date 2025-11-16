@@ -5,9 +5,9 @@
 @custom-variant dark (&:is(.dark *));
 
 @theme {
-  /* Vlastní barevné schéma - černo-bílo-šedé */
+  /* Luxury color palette - warm and elegant */
   --color-slate-50: #fbfbfb;
-  --color-slate-100: #f5f5f5;
+  --color-slate-100: #f8f3f0;
   --color-slate-200: #e5e5e5;
   --color-slate-300: #d4d4d4;
   --color-slate-400: #a3a3a3;
@@ -17,21 +17,25 @@
   --color-slate-800: #4c4c4c;
   --color-slate-900: #000000;
 
-  /* Černá a bílá */
+  /* Core colors */
   --color-black: #000000;
   --color-white: #ffffff;
 
-  /* Okare-inspired: Mléčně bílá (milk white) */
-  --color-milk: #faf9f6;
+  /* Luxury accent - gold/bronze */
+  --color-accent: #d4af7a;
 
-  /* Spacing - 4px grid systém */
+  /* Warm cream background */
+  --color-background: #f8f3f0;
+
+  /* Spacing - 4px grid system */
   --spacing-90: 90px;
 
-  /* Shadows - Okare soft & elevated */
+  /* Shadows - soft & elevated */
   --shadow-soft: 0 2px 8px rgba(0, 0, 0, 0.06);
   --shadow-elevated: 0 10px 24px rgba(0, 0, 0, 0.12);
+  --shadow-elegant: 0 10px 30px -10px rgba(0, 0, 0, 0.1);
 
-  /* Transitions - Okare easing */
+  /* Transitions - smooth easing */
   --transition-timing-function-okare: cubic-bezier(0.2, 0.8, 0.2, 1);
 
   /* Container max-width */
@@ -40,13 +44,24 @@
 
 :root {
   color-scheme: light;
-  --font-sans: var(--font-figtree);
-  --font-display: var(--font-figtree);
-  --font-serif: var(--font-source-serif-4);
+  --font-sans: var(--font-roboto);
+  --font-display: var(--font-playfair);
+  --font-serif: var(--font-cormorant);
+
+  /* Luxury color variables */
+  --primary: #000000;
+  --secondary: #ffffff;
+  --accent: #d4af7a;
+  --background: #f8f3f0;
+  --text-primary: #1f2937;
+  --text-secondary: #4b5563;
+
+  /* Border radius */
   --radius-xl: 2.5rem;
   --radius-lg: 1.75rem;
   --radius: 0.625rem;
-  --background: oklch(1 0 0);
+
+  /* Base colors for shadcn/ui compatibility */
   --foreground: oklch(0.145 0 0);
 }
 
@@ -83,25 +98,49 @@ html {
 }
 
 @layer base {
+  * {
+    @apply border-border outline-ring/50;
+  }
+
   body {
-    @apply bg-white text-black font-sans text-base leading-7 antialiased;
+    @apply font-sans text-base leading-7 antialiased;
+    background-color: #f8f3f0;
+    color: #374151;
+    letter-spacing: 0.02em;
+    font-weight: 300;
   }
 
   h1 {
-    @apply text-4xl md:text-5xl lg:text-6xl font-light tracking-tight;
+    @apply font-serif tracking-tight;
+    font-size: clamp(2.5rem, 8vw, 6rem);
+    font-weight: 400;
+    letter-spacing: -0.02em;
   }
+
   h2 {
-    @apply text-3xl md:text-4xl font-light tracking-tight;
+    @apply font-serif tracking-tight;
+    font-size: clamp(2rem, 6vw, 4rem);
+    font-weight: 400;
+    letter-spacing: -0.02em;
   }
+
   h3 {
-    @apply text-xl font-medium;
+    @apply font-serif;
+    font-size: clamp(1.5rem, 4vw, 2rem);
+    font-weight: 500;
   }
+
   h4 {
-    @apply text-lg font-medium;
+    @apply font-serif;
+    font-size: 1.25rem;
+    font-weight: 500;
   }
+
   h5,
   h6 {
-    @apply text-base font-medium;
+    @apply font-serif;
+    font-size: 1rem;
+    font-weight: 500;
   }
 
   em,
@@ -111,7 +150,6 @@ html {
   h1 em,
   h2 em,
   h3 em {
-    /* Ztenčená kurzíva napříč projektem */
     @apply font-serif italic font-light;
   }
 
@@ -127,6 +165,248 @@ html {
   select:focus-visible {
     @apply outline outline-2 outline-offset-2 outline-slate-900;
   }
+}
+
+/* ============================================
+   LUXURY DESIGN SYSTEM CLASSES
+   ============================================ */
+
+/* Text shadow for better visibility */
+.text-shadow {
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+/* Font family utilities */
+.font-serif {
+  font-family: "Cormorant Garamond", var(--font-serif), Georgia, serif;
+}
+
+.font-sans {
+  font-family: "Lato", var(--font-sans), sans-serif;
+}
+
+.font-display {
+  font-family: "Playfair Display", var(--font-display), Georgia, serif;
+}
+
+.font-italic {
+  font-style: italic;
+  font-family: "Cormorant Garamond", var(--font-serif), Georgia, serif;
+  font-weight: 300;
+}
+
+/* High contrast elements */
+.high-contrast {
+  color: var(--primary);
+  background-color: var(--secondary);
+}
+
+.high-contrast-reverse {
+  color: var(--secondary);
+  background-color: var(--primary);
+}
+
+/* Luxury text treatments */
+.luxury-headline {
+  font-size: clamp(3rem, 10vw, 12rem);
+  line-height: 0.9;
+  letter-spacing: -0.03em;
+  font-weight: 400;
+  text-align: center;
+}
+
+.luxury-subheadline {
+  font-size: clamp(1.5rem, 5vw, 3rem);
+  line-height: 1.1;
+  letter-spacing: 0.01em;
+  font-weight: 300;
+  text-align: center;
+}
+
+/* Elegant buttons */
+.btn-primary {
+  display: inline-block;
+  padding: 0.75rem 2.5rem;
+  font-size: 0.875rem;
+  font-weight: 300;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  border: 1px solid var(--primary);
+  transition: all 0.5s ease;
+  background-color: transparent;
+  color: var(--primary);
+  cursor: pointer;
+}
+
+.btn-primary:hover {
+  background-color: var(--primary);
+  color: var(--secondary);
+}
+
+.btn-secondary {
+  display: inline-block;
+  padding: 0.75rem 2.5rem;
+  font-size: 0.875rem;
+  font-weight: 300;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  background-color: var(--primary);
+  color: var(--secondary);
+  transition: all 0.5s ease;
+  cursor: pointer;
+}
+
+.btn-secondary:hover {
+  background-color: transparent;
+  color: var(--primary);
+  border: 1px solid var(--primary);
+}
+
+/* Subtitle styling */
+.subtitle {
+  font-size: 0.875rem;
+  font-weight: 300;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--accent);
+  text-align: center;
+}
+
+/* Section title styling */
+.section-title {
+  font-size: clamp(2.5rem, 8vw, 9rem);
+  line-height: 1;
+  margin-bottom: 3rem;
+  font-weight: 400;
+  text-align: center;
+  position: relative;
+}
+
+.section-title::after {
+  content: "";
+  position: absolute;
+  bottom: -1rem;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 3rem;
+  height: 1px;
+  background-color: var(--accent);
+}
+
+/* Modal backdrop blur */
+.backdrop-blur-sm {
+  backdrop-filter: blur(12px);
+}
+
+/* Circular images */
+.circular-image {
+  border-radius: 50%;
+  overflow: hidden;
+  aspect-ratio: 1 / 1;
+}
+
+/* Subtle hover effects */
+.subtle-hover {
+  transition: transform 0.7s ease, opacity 0.7s ease;
+}
+
+.subtle-hover:hover {
+  transform: translateY(-5px);
+  opacity: 0.9;
+}
+
+/* Luxury grid layout */
+.luxury-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 4rem;
+}
+
+/* Decorative elements */
+.decorative-dot {
+  display: inline-block;
+  width: 4px;
+  height: 4px;
+  border-radius: 50%;
+  background-color: var(--accent);
+  margin: 0 0.5rem;
+  vertical-align: middle;
+}
+
+/* Thin divider */
+.thin-divider {
+  width: 100%;
+  height: 1px;
+  background-color: rgba(0, 0, 0, 0.1);
+  margin: 3rem 0;
+}
+
+/* Centered container */
+.centered-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 2rem;
+  text-align: center;
+}
+
+/* Luxury spacing */
+.luxury-spacing {
+  padding: 8rem 0;
+}
+
+/* Subtle animations */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-fade-in {
+  animation: fadeIn 1.2s ease forwards;
+}
+
+/* Category cards */
+.category-card {
+  border-radius: 0;
+  overflow: hidden;
+  position: relative;
+  transition: all 0.7s ease;
+}
+
+.category-card:hover {
+  transform: scale(1.02);
+}
+
+/* Product display */
+.product-display {
+  padding: 3rem;
+  text-align: center;
+  transition: all 0.5s ease;
+}
+
+.product-display:hover {
+  background-color: rgba(0, 0, 0, 0.02);
+}
+
+/* Elegant form elements */
+.elegant-input {
+  width: 100%;
+  padding: 1rem 0;
+  border: none;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+  background-color: transparent;
+  transition: all 0.3s ease;
+  font-weight: 300;
+}
+
+.elegant-input:focus {
+  outline: none;
+  border-bottom: 1px solid var(--accent);
 }
 
 @layer utilities {
@@ -244,14 +524,6 @@ html {
   --sidebar-ring: oklch(0.556 0 0);
 }
 
-@layer base {
-  * {
-    @apply border-border outline-ring/50;
-  }
-  body {
-    @apply bg-background text-foreground;
-  }
-}
 @keyframes fade {
   0% {
     opacity: 1;

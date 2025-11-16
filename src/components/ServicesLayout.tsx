@@ -6,7 +6,7 @@ import { getCategoryMosaic } from '@/data/imagesManifest'
 import { gsap } from '@/lib/gsap'
 import type { MainService, PricingItem } from '@/lib/services'
 import Image from 'next/image'
-import { useEffect, useRef, useState } from 'react'
+import { useEffect, useRef, useState, Suspense } from 'react'
 import { useSearchParams } from 'next/navigation'
 import { useModals } from '@/components/ModalProvider'
 
@@ -14,7 +14,7 @@ type Props = {
   services: MainService[]
 }
 
-export default function ServicesLayout({ services }: Props) {
+function ServicesLayoutInner({ services }: Props) {
   const [selectedService, setSelectedService] = useState<MainService>(services[0])
   const contentRef = useRef<HTMLDivElement>(null)
   const { openBooking } = useModals()
@@ -227,5 +227,13 @@ export default function ServicesLayout({ services }: Props) {
         </div>
       </aside>
     </div>
+  )
+}
+
+export default function ServicesLayout(props: Props) {
+  return (
+    <Suspense fallback={<div className="text-center py-12">Načítání...</div>}>
+      <ServicesLayoutInner {...props} />
+    </Suspense>
   )
 }
