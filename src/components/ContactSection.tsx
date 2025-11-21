@@ -147,69 +147,79 @@ export default function ContactSection() {
               Napište nám
             </h3>
 
-            <form onSubmit={handleSubmit} className="space-y-4">
-              <div>
-                <label htmlFor="name" className="block text-sm font-medium text-gray-700 mb-2">
-                  Jméno a příjmení *
-                </label>
-                <input
-                  type="text"
-                  id="name"
-                  required
-                  value={formData.name}
-                  onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-                  className="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:border-transparent transition-all text-sm sm:text-base"
-                  placeholder="Jan Novák"
-                />
-              </div>
+            <form onSubmit={handleSubmit} className="space-y-8">
+              <div className="space-y-6">
+                <div className="relative">
+                  <input
+                    type="text"
+                    id="name"
+                    required
+                    value={formData.name}
+                    onChange={(e) => setFormData({ ...formData, name: e.target.value })}
+                    className="elegant-input peer placeholder-transparent"
+                    placeholder="Jméno a příjmení"
+                  />
+                  <label
+                    htmlFor="name"
+                    className="absolute left-0 -top-3.5 text-sm text-gray-500 transition-all peer-placeholder-shown:text-base peer-placeholder-shown:text-gray-400 peer-placeholder-shown:top-2 peer-focus:-top-3.5 peer-focus:text-gray-600 peer-focus:text-sm"
+                  >
+                    JMÉNO A PŘÍJMENÍ *
+                  </label>
+                </div>
 
-              <div>
-                <label htmlFor="email" className="block text-sm font-medium text-gray-700 mb-2">
-                  Email *
-                </label>
-                <input
-                  type="email"
-                  id="email"
-                  required
-                  value={formData.email}
-                  onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-                  className="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:border-transparent transition-all text-sm sm:text-base"
-                  placeholder="jan@example.com"
-                />
-              </div>
+                <div className="relative">
+                  <input
+                    type="email"
+                    id="email"
+                    required
+                    value={formData.email}
+                    onChange={(e) => setFormData({ ...formData, email: e.target.value })}
+                    className="elegant-input peer placeholder-transparent"
+                    placeholder="Email"
+                  />
+                  <label
+                    htmlFor="email"
+                    className="absolute left-0 -top-3.5 text-sm text-gray-500 transition-all peer-placeholder-shown:text-base peer-placeholder-shown:text-gray-400 peer-placeholder-shown:top-2 peer-focus:-top-3.5 peer-focus:text-gray-600 peer-focus:text-sm"
+                  >
+                    EMAIL *
+                  </label>
+                </div>
 
-              <div>
-                <label htmlFor="message" className="block text-sm font-medium text-gray-700 mb-2">
-                  Zpráva *
-                </label>
-                <textarea
-                  id="message"
-                  required
-                  rows={6}
-                  value={formData.message}
-                  onChange={(e) => setFormData({ ...formData, message: e.target.value })}
-                  className="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:border-transparent transition-all resize-none text-sm sm:text-base"
-                  placeholder="Vaše zpráva..."
-                />
+                <div className="relative">
+                  <textarea
+                    id="message"
+                    required
+                    rows={4}
+                    value={formData.message}
+                    onChange={(e) => setFormData({ ...formData, message: e.target.value })}
+                    className="elegant-input peer placeholder-transparent resize-none"
+                    placeholder="Zpráva"
+                  />
+                  <label
+                    htmlFor="message"
+                    className="absolute left-0 -top-3.5 text-sm text-gray-500 transition-all peer-placeholder-shown:text-base peer-placeholder-shown:text-gray-400 peer-placeholder-shown:top-2 peer-focus:-top-3.5 peer-focus:text-gray-600 peer-focus:text-sm"
+                  >
+                    ZPRÁVA *
+                  </label>
+                </div>
               </div>
 
               <button
                 type="submit"
                 disabled={status === 'loading'}
-                className="w-full py-3 sm:py-4 px-6 rounded-xl font-semibold text-white transition-all duration-200 shadow-md hover:shadow-lg disabled:opacity-50 disabled:cursor-not-allowed text-sm sm:text-base"
-                style={{ backgroundColor: 'var(--accent)' }}
+                className="btn-primary w-full border-slate-900 text-slate-900 hover:bg-slate-900 hover:text-white disabled:opacity-50 disabled:cursor-not-allowed"
               >
-                {status === 'loading' ? 'Odesílám...' : 'ODESLAT ZPRÁVU'}
+                {status === 'loading' ? 'ODESÍLÁM...' : 'ODESLAT ZPRÁVU'}
               </button>
 
               {status === 'success' && (
-                <p className="text-green-600 text-sm sm:text-base text-center">
-                  ✓ Zpráva byla úspěšně odeslána!
+                <p className="text-green-600 text-sm text-center font-medium tracking-wide uppercase">
+                  ✓ Zpráva byla úspěšně odeslána
                 </p>
               )}
               {status === 'error' && (
-                <p className="text-red-600 text-sm sm:text-base text-center">
-                  ✕ Chyba při odesílání. Zkuste to prosím znovu.
+                <p className="text-red-600 text-sm text-center font-medium tracking-wide uppercase">
+                  ✕ Chyba při odesílání
                 </p>
               )}
             </form>

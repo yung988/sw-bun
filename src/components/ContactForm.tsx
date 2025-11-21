@@ -42,124 +42,112 @@ export default function ContactForm() {
   }
 
   return (
-    <form onSubmit={handleSubmit} className="space-y-6">
+    <form onSubmit={handleSubmit} className="space-y-8">
       {/* Helper text */}
-      <div className="mb-6">
-        <p className="text-sm text-slate-600">
+      <div className="mb-8">
+        <p className="text-sm text-slate-600 font-light leading-relaxed">
           Máte dotaz nebo potřebujete poradit? Napište nám a my se vám ozveme do 24 hodin.
         </p>
       </div>
 
       {/* Success message */}
       {submitted && (
-        <div className="rounded-xl bg-slate-50 border border-slate-200 p-4 flex items-start gap-3">
-          <svg
-            className="h-5 w-5 text-slate-900 flex-shrink-0 mt-0.5"
-            fill="none"
-            viewBox="0 0 24 24"
-            stroke="currentColor"
-          >
-            <title>Úspěch</title>
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
-          </svg>
-          <div>
-            <p className="font-medium text-slate-900 text-sm">Zpráva odeslána!</p>
-            <p className="text-slate-700 text-sm mt-1">Děkujeme! Brzy se Vám ozveme.</p>
-          </div>
+        <div className="bg-slate-50 border-l-2 border-slate-900 p-4">
+          <p className="font-medium text-slate-900 text-sm uppercase tracking-wide">Zpráva odeslána</p>
+          <p className="text-slate-600 text-sm mt-1 font-light">Děkujeme! Brzy se Vám ozveme.</p>
         </div>
       )}
 
       {/* Error message */}
       {error && (
-        <div className="rounded-xl bg-red-50 border border-red-200 p-4 flex items-start gap-3">
-          <svg
-            className="h-5 w-5 text-red-600 flex-shrink-0 mt-0.5"
-            fill="none"
-            viewBox="0 0 24 24"
-            stroke="currentColor"
-          >
-            <title>Chyba</title>
-            <path
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              strokeWidth={2}
-              d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
-            />
-          </svg>
-          <p className="text-red-800 text-sm">{error}</p>
+        <div className="bg-red-50 border-l-2 border-red-500 p-4">
+          <p className="text-red-800 text-sm font-medium">{error}</p>
         </div>
       )}
 
-      <div>
-        <label htmlFor="name" className="block text-sm font-medium text-slate-700  mb-2">
-          Jméno a příjmení
-        </label>
-        <input
-          type="text"
-          id="name"
-          required
-          value={formData.name}
-          onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-          className="w-full rounded-xl border border-slate-200  bg-white  px-4 py-3 text-sm text-slate-900  outline-none transition focus:border-slate-900"
-          placeholder="Jan Novák"
-        />
-      </div>
+      <div className="space-y-6">
+        <div className="relative">
+          <input
+            type="text"
+            id="name"
+            required
+            value={formData.name}
+            onChange={(e) => setFormData({ ...formData, name: e.target.value })}
+            className="elegant-input peer placeholder-transparent"
+            placeholder="Jméno a příjmení"
+          />
+          <label
+            htmlFor="name"
+            className="absolute left-0 -top-3.5 text-sm text-slate-500 transition-all peer-placeholder-shown:text-base peer-placeholder-shown:text-slate-400 peer-placeholder-shown:top-2 peer-focus:-top-3.5 peer-focus:text-slate-600 peer-focus:text-sm uppercase tracking-wider"
+          >
+            Jméno a příjmení
+          </label>
+        </div>
 
-      <div>
-        <label htmlFor="email" className="block text-sm font-medium text-slate-700  mb-2">
-          Email
-        </label>
-        <input
-          type="email"
-          id="email"
-          inputMode="email"
-          autoComplete="email"
-          required
-          value={formData.email}
-          onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-          className="w-full rounded-xl border border-slate-200  bg-white  px-4 py-3 text-sm text-slate-900  outline-none transition focus:border-slate-900"
-          placeholder="jan@email.cz"
-        />
-      </div>
+        <div className="relative">
+          <input
+            type="email"
+            id="email"
+            inputMode="email"
+            autoComplete="email"
+            required
+            value={formData.email}
+            onChange={(e) => setFormData({ ...formData, email: e.target.value })}
+            className="elegant-input peer placeholder-transparent"
+            placeholder="Email"
+          />
+          <label
+            htmlFor="email"
+            className="absolute left-0 -top-3.5 text-sm text-slate-500 transition-all peer-placeholder-shown:text-base peer-placeholder-shown:text-slate-400 peer-placeholder-shown:top-2 peer-focus:-top-3.5 peer-focus:text-slate-600 peer-focus:text-sm uppercase tracking-wider"
+          >
+            Email
+          </label>
+        </div>
 
-      <div>
-        <label htmlFor="phone" className="block text-sm font-medium text-slate-700  mb-2">
-          Telefon (volitelné)
-        </label>
-        <input
-          type="tel"
-          id="phone"
-          inputMode="tel"
-          autoComplete="tel"
-          value={formData.phone}
-          onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
-          className="w-full rounded-xl border border-slate-200  bg-white  px-4 py-3 text-sm text-slate-900  outline-none transition focus:border-slate-900"
-          placeholder="+420 773 577 899"
-        />
-        <p className="mt-1.5 text-xs text-slate-500">Pro rychlejší odpověď můžete přidat telefon</p>
-      </div>
+        <div className="relative">
+          <input
+            type="tel"
+            id="phone"
+            inputMode="tel"
+            autoComplete="tel"
+            value={formData.phone}
+            onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
+            className="elegant-input peer placeholder-transparent"
+            placeholder="Telefon"
+          />
+          <label
+            htmlFor="phone"
+            className="absolute left-0 -top-3.5 text-sm text-slate-500 transition-all peer-placeholder-shown:text-base peer-placeholder-shown:text-slate-400 peer-placeholder-shown:top-2 peer-focus:-top-3.5 peer-focus:text-slate-600 peer-focus:text-sm uppercase tracking-wider"
+          >
+            Telefon (volitelné)
+          </label>
+        </div>
 
-      <div>
-        <label htmlFor="message" className="block text-sm font-medium text-slate-700  mb-2">
-          Zpráva
-        </label>
-        <textarea
-          id="message"
-          required
-          rows={4}
-          value={formData.message}
-          onChange={(e) => setFormData({ ...formData, message: e.target.value })}
-          className="w-full rounded-xl border border-slate-200  bg-white  px-4 py-3 text-sm text-slate-900  outline-none transition focus:border-slate-900"
-          placeholder="Chtěl/a bych se objednat na..."
-        />
+        <div className="relative">
+          <textarea
+            id="message"
+            required
+            rows={4}
+            value={formData.message}
+            onChange={(e) => setFormData({ ...formData, message: e.target.value })}
+            className="elegant-input peer placeholder-transparent resize-none"
+            placeholder="Zpráva"
+          />
+          <label
+            htmlFor="message"
+            className="absolute left-0 -top-3.5 text-sm text-slate-500 transition-all peer-placeholder-shown:text-base peer-placeholder-shown:text-slate-400 peer-placeholder-shown:top-2 peer-focus:-top-3.5 peer-focus:text-slate-600 peer-focus:text-sm uppercase tracking-wider"
+          >
+            Zpráva
+          </label>
+        </div>
       </div>
 
       <button
         type="submit"
         disabled={isSubmitting}
-        className="w-full rounded-full bg-slate-900 px-6 py-3.5 text-sm font-medium text-white transition hover:bg-slate-800 disabled:opacity-50 disabled:cursor-not-allowed"
+        className="btn-primary w-full border-slate-900 text-slate-900 hover:bg-slate-900 hover:text-white disabled:opacity-50 disabled:cursor-not-allowed"
       >
-        {isSubmitting ? 'Odesílám...' : 'Odeslat zprávu'}
+        {isSubmitting ? 'ODESÍLÁM...' : 'ODESLAT ZPRÁVU'}
       </button>
     </form>
   )

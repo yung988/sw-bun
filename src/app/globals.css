@@ -57,9 +57,9 @@
   --text-secondary: #4b5563;
 
   /* Border radius */
-  --radius-xl: 2.5rem;
-  --radius-lg: 1.75rem;
-  --radius: 0.625rem;
+  --radius-xl: 0rem;
+  --radius-lg: 0rem;
+  --radius: 0rem;
 
   /* Base colors for shadcn/ui compatibility */
   --foreground: oklch(0.145 0 0);

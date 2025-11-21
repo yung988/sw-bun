@@ -48,13 +48,12 @@ export default function VoucherSection() {
 
             {/* CTA */}
             <div className="flex flex-col sm:flex-row gap-4">
-              <OpenVoucherButton className="bg-slate-900 text-white px-8 py-4 rounded-xl font-semibold hover:bg-slate-800 transition-all duration-200 shadow-lg hover:shadow-xl text-center min-w-[200px]">
+              <OpenVoucherButton className="btn-primary min-w-[200px] bg-slate-900 text-white hover:bg-slate-800 border-slate-900">
                 Objednat poukaz
               </OpenVoucherButton>
               <a
                 href="#kontakt"
-                className="px-8 py-4 rounded-xl border-2 font-semibold transition-all duration-200 hover:bg-gray-50 text-center min-w-[200px]"
-                style={{ borderColor: 'var(--accent)', color: 'var(--accent)' }}
+                className="btn-primary min-w-[200px] border-accent text-accent hover:bg-accent hover:text-white"
               >
                 Kontaktujte nás
               </a>
