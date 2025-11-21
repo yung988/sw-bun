@@ -84,14 +84,14 @@ export default function TermsPage() {
           <h2 className="text-2xl font-medium text-slate-900 mt-12 mb-4">Kontakt</h2>
           <p className="text-slate-600 leading-relaxed mb-6">
             SW Beauty s.r.o.
-            <br />U Cihelny 1326/2, 695 01 Hodonín
+            <br />U Cihelny 1326/4, 695 01 Hodonín
             <br />
             E-mail:{' '}
             <a href="mailto:info@swbeauty.cz" className="text-slate-900 hover:underline">
               info@swbeauty.cz
             </a>
             <br />
-            Tel: +420 773 577 899
+            Tel: +420 776 632 498
           </p>
 
           <p className="text-sm text-slate-500 mt-12">

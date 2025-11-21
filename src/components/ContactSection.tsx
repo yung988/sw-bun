@@ -74,7 +74,7 @@ export default function ContactSection() {
                     <p className="text-gray-600 text-sm sm:text-base leading-relaxed">
                       SW Beauty s.r.o.
                       <br />
-                      U Cihelny 1326/2
+                      U Cihelny 1326/4
                       <br />
                       695 01 Hodonín
                     </p>
@@ -92,10 +92,10 @@ export default function ContactSection() {
                   <div>
                     <p className="font-semibold text-gray-800 mb-1">Telefon</p>
                     <a
-                      href="tel:+420773577899"
+                      href="tel:+420776632498"
                       className="text-gray-600 hover:text-gray-800 transition-colors text-sm sm:text-base"
                     >
-                      +420 773 577 899
+                      +420 776 632 498
                     </a>
                   </div>
                 </div>
@@ -131,16 +131,8 @@ export default function ContactSection() {
                     <p className="font-semibold text-gray-800 mb-2">Otevírací doba</p>
                     <div className="text-gray-600 text-sm sm:text-base space-y-1">
                       <p>
-                        <span className="inline-block w-32">Pondělí - Pátek:</span>
-                        <span className="font-medium text-gray-800">7:00 - 20:00</span>
-                      </p>
-                      <p>
-                        <span className="inline-block w-32">Sobota:</span>
-                        <span className="font-medium text-gray-800">9:00 - 16:00</span>
-                      </p>
-                      <p>
-                        <span className="inline-block w-32">Neděle:</span>
-                        <span className="font-medium text-gray-800">dle dohody</span>
+                        <span className="inline-block w-32">Otevírací doba:</span>
+                        <span className="font-medium text-gray-800">na objednávku</span>
                       </p>
                     </div>
                   </div>

@@ -142,23 +142,15 @@ export default function Footer() {
             <h3 className="mb-6 text-sm font-semibold text-slate-900 uppercase tracking-widest">Otevírací doba</h3>
             <ul className="space-y-3 mb-6">
               <li className="flex justify-between text-sm">
-                <span className="text-slate-600">Pondělí - Pátek:</span>
-                <span className="text-slate-900 font-medium">7:00 - 20:00</span>
-              </li>
-              <li className="flex justify-between text-sm">
-                <span className="text-slate-600">Sobota:</span>
-                <span className="text-slate-900 font-medium">9:00 - 16:00</span>
-              </li>
-              <li className="flex justify-between text-sm">
-                <span className="text-slate-600">Neděle:</span>
-                <span className="text-slate-900 font-medium">dle dohody</span>
+                <span className="text-slate-600">Otevírací doba:</span>
+                <span className="text-slate-900 font-medium">na objednávku</span>
               </li>
             </ul>
             <div className="space-y-2 pt-4 border-t border-slate-200">
-              <p className="text-sm text-slate-600">U Cihelny 1326/2</p>
+              <p className="text-sm text-slate-600">U Cihelny 1326/4</p>
               <p className="text-sm text-slate-600">695 01 Hodonín</p>
-              <a href="tel:+420773577899" className="text-sm text-slate-600 hover:text-slate-900 transition-colors block">
-                +420 773 577 899
+              <a href="tel:+420776632498" className="text-sm text-slate-600 hover:text-slate-900 transition-colors block">
+                +420 776 632 498
               </a>
               <a href="mailto:info@swbeauty.cz" className="text-sm text-slate-600 hover:text-slate-900 transition-colors block">
                 info@swbeauty.cz
