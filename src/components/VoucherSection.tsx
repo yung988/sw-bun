@@ -1,32 +1,7 @@
 import Container from '@/components/ui/Container'
 import Section from '@/components/ui/Section'
-import { Gift, Heart, Star, Check } from 'lucide-react'
+import { Check, Gift } from 'lucide-react'
 import OpenVoucherButton from './OpenVoucherButton'
-import { cn } from '@/lib/utils'
-
-const voucherProducts = [
-  {
-    icon: Gift,
-    name: 'Dárkový poukaz na libovolnou službu',
-    price: 'od 1000 Kč',
-    description: 'Perfektní dárek pro vaše blízké. Poukaz lze využít na jakoukoliv službu v našem salonu.',
-    popular: false,
-  },
-  {
-    icon: Heart,
-    name: 'Relax balíček',
-    price: '2500 Kč',
-    description: 'Kompletní kosmetické ošetření s relaxační masáží. Ideální pro odpočinek a regeneraci.',
-    popular: true,
-  },
-  {
-    icon: Star,
-    name: 'Premium péče',
-    price: '4000 Kč',
-    description: 'Luxusní balíček zahrnující nejnovější technologie péče o pleť a tělo.',
-    popular: false,
-  },
-]
 
 const advantages = [
   'Platnost 12 měsíců od zakoupení',
@@ -40,114 +15,95 @@ export default function VoucherSection() {
   return (
     <Section id="poukazy" className="relative bg-gradient-to-b from-gray-50 to-white luxury-spacing">
       <Container>
-        {/* Heading */}
-        <div className="text-center mb-12 lg:mb-16">
-          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-serif text-gray-800 mb-4">
-            Dárkové poukazy
-          </h2>
-          <div className="w-20 h-1 mx-auto mb-6" style={{ backgroundColor: 'var(--accent)' }} />
-          <p className="text-base sm:text-lg text-gray-600 max-w-2xl mx-auto font-light">
-            Darujte zážitek krásy a relaxace. Vyberte si z našich připravených balíčků nebo zvolte vlastní hodnotu.
-          </p>
-        </div>
+        <div className="grid lg:grid-cols-2 gap-12 lg:gap-20 items-center">
+          {/* Left Column - Content */}
+          <div className="order-2 lg:order-1">
+            <div className="mb-8">
+              <h2 className="text-3xl sm:text-4xl lg:text-5xl font-serif text-gray-800 mb-6">
+                Dárkový poukaz
+              </h2>
+              <div className="w-20 h-1 mb-8" style={{ backgroundColor: 'var(--accent)' }} />
+              <p className="text-base sm:text-lg text-gray-600 leading-relaxed font-light mb-8">
+                Darujte svým blízkým to nejcennější – čas pro sebe a péči, která je rozzáří.
+                Náš dárkový poukaz je vstupenkou do světa relaxace a krásy.
+                Můžete si zvolit libovolnou hodnotu a obdarovaný si sám vybere proceduru,
+                která mu udělá největší radost.
+              </p>
+            </div>
 
-        {/* Voucher Products Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 lg:gap-8 mb-16">
-          {voucherProducts.map((product, index) => {
-            const Icon = product.icon
-            return (
-              <div
-                key={index}
-                className={cn(
-                  'relative bg-white rounded-2xl p-8 shadow-lg hover:shadow-xl transition-all duration-300',
-                  product.popular && 'ring-2 md:scale-105'
-                )}
-                style={product.popular ? { borderColor: 'var(--accent)' } : {}}
-              >
-                {/* Popular Badge */}
-                {product.popular && (
-                  <span
-                    className="absolute -top-3 left-1/2 -translate-x-1/2 px-4 py-1 rounded-full text-xs sm:text-sm font-semibold text-white whitespace-nowrap"
-                    style={{ backgroundColor: 'var(--accent)' }}
-                  >
-                    NEJOBLÍBENĚJŠÍ
-                  </span>
-                )}
-
-                {/* Icon */}
-                <div className="mb-6">
+            {/* Advantages List */}
+            <div className="space-y-4 mb-10">
+              {advantages.map((advantage, index) => (
+                <div key={index} className="flex items-start gap-3">
                   <div
-                    className="inline-flex items-center justify-center w-14 h-14 rounded-full"
-                    style={{ backgroundColor: 'var(--accent)', opacity: 0.1 }}
+                    className="mt-1 w-5 h-5 rounded-full flex items-center justify-center shrink-0"
+                    style={{ backgroundColor: 'var(--accent)', opacity: 0.2 }}
                   >
-                    <Icon className="w-8 h-8" style={{ color: 'var(--accent)' }} />
+                    <Check className="w-3 h-3" style={{ color: 'var(--accent)' }} />
+                  </div>
+                  <p className="text-sm sm:text-base text-gray-700">{advantage}</p>
+                </div>
+              ))}
+            </div>
+
+            {/* CTA */}
+            <div className="flex flex-col sm:flex-row gap-4">
+              <OpenVoucherButton className="bg-slate-900 text-white px-8 py-4 rounded-xl font-semibold hover:bg-slate-800 transition-all duration-200 shadow-lg hover:shadow-xl text-center min-w-[200px]">
+                Objednat poukaz
+              </OpenVoucherButton>
+              <a
+                href="#kontakt"
+                className="px-8 py-4 rounded-xl border-2 font-semibold transition-all duration-200 hover:bg-gray-50 text-center min-w-[200px]"
+                style={{ borderColor: 'var(--accent)', color: 'var(--accent)' }}
+              >
+                Kontaktujte nás
+              </a>
+            </div>
+          </div>
+
+          {/* Right Column - Visual Representation */}
+          <div className="order-1 lg:order-2 flex justify-center">
+            <div className="relative w-full max-w-md aspect-[1.6/1] perspective-1000">
+              {/* Card Visual */}
+              <div
+                className="relative w-full h-full rounded-2xl shadow-2xl p-8 flex flex-col justify-between overflow-hidden transform transition-transform hover:scale-[1.02] duration-500"
+                style={{
+                  background: 'linear-gradient(135deg, #fdfbf7 0%, #f4f0ec 100%)',
+                  border: '1px solid rgba(0,0,0,0.05)'
+                }}
+              >
+                {/* Decorative Elements */}
+                <div className="absolute top-0 right-0 w-40 h-40 bg-gradient-to-br from-rose-100/50 to-transparent rounded-full blur-2xl -translate-y-1/2 translate-x-1/2" />
+                <div className="absolute bottom-0 left-0 w-32 h-32 bg-gradient-to-tr from-amber-100/50 to-transparent rounded-full blur-2xl translate-y-1/3 -translate-x-1/3" />
+
+                {/* Card Content */}
+                <div className="relative z-10">
+                  <div className="flex justify-between items-start mb-8">
+                    <div className="flex items-center gap-3">
+                      <div className="p-2 bg-white/80 backdrop-blur-sm rounded-lg shadow-sm">
+                        <Gift className="w-6 h-6 text-slate-700" />
+                      </div>
+                      <span className="text-sm font-medium tracking-widest uppercase text-slate-500">Voucher</span>
+                    </div>
+                    <div className="text-right">
+                      <p className="text-xs text-slate-400 uppercase tracking-wider mb-1">Hodnota</p>
+                      <p className="text-2xl font-serif text-slate-900">Volitelná</p>
+                    </div>
+                  </div>
+
+                  <div className="mt-auto">
+                    <h3 className="text-3xl font-serif text-slate-900 mb-2">Dárkový poukaz</h3>
+                    <p className="text-slate-500 font-light">SW Beauty Salon</p>
                   </div>
                 </div>
-
-                {/* Content */}
-                <h3 className="text-xl sm:text-2xl font-serif text-gray-800 mb-3">
-                  {product.name}
-                </h3>
-                <p className="text-3xl sm:text-4xl font-bold mb-2" style={{ color: 'var(--accent)' }}>
-                  {product.price}
-                </p>
-                <p className="text-xs sm:text-sm text-gray-500 mb-4">Platnost: 12 měsíců</p>
-                <p className="text-sm sm:text-base text-gray-600 mb-6 leading-relaxed min-h-[4rem]">
-                  {product.description}
-                </p>
-
-                {/* CTA Button */}
-                <div
-                  className={cn(product.popular && 'voucher-button-popular')}
-                  style={
-                    product.popular
-                      ? { '--accent-color': 'var(--accent)' } as React.CSSProperties
-                      : undefined
-                  }
-                >
-                  <OpenVoucherButton
-                    className={cn(
-                      'w-full py-3 px-6 rounded-xl font-semibold transition-all duration-200 text-sm sm:text-base',
-                      product.popular
-                        ? 'text-white shadow-md hover:shadow-lg bg-[var(--accent)]'
-                        : 'bg-white border-2 text-gray-800 hover:bg-gray-50 border-[var(--accent)]'
-                    )}
-                  >
-                    Objednat poukaz
-                  </OpenVoucherButton>
-                </div>
               </div>
-            )
-          })}
-        </div>
 
-        {/* Advantages Section */}
-        <div className="bg-white rounded-3xl p-8 sm:p-10 lg:p-12 shadow-md">
-          <h3 className="text-2xl sm:text-3xl font-serif text-gray-800 mb-8 text-center">
-            Výhody našich dárkových poukazů
-          </h3>
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-            {advantages.map((advantage, index) => (
-              <div key={index} className="flex items-start gap-3">
-                <Check className="w-5 h-5 shrink-0 mt-1" style={{ color: 'var(--accent)' }} />
-                <p className="text-sm sm:text-base text-gray-700 leading-relaxed">{advantage}</p>
-              </div>
-            ))}
+              {/* Background Elements for Depth */}
+              <div
+                className="absolute -inset-4 bg-slate-900/5 rounded-[2rem] -z-10 blur-xl transform translate-y-4"
+              />
+            </div>
           </div>
-        </div>
-
-        {/* Bottom CTA */}
-        <div className="mt-12 text-center">
-          <p className="text-base sm:text-lg text-gray-600 mb-4">
-            Máte dotazy k dárkovým poukazům?
-          </p>
-          <a
-            href="#kontakt"
-            className="inline-block py-3 px-8 rounded-xl border-2 font-semibold transition-all duration-200 hover:bg-gray-50 text-sm sm:text-base"
-            style={{ borderColor: 'var(--accent)', color: 'var(--accent)' }}
-          >
-            Kontaktujte nás
-          </a>
         </div>
       </Container>
     </Section>

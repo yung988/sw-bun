@@ -8,7 +8,7 @@ export default function HeroSection() {
       subtitle="Objevte revoluční technologie pro péči o pleť a tělo. Nabízíme širokou škálu služeb od kosmetických ošetření až po nejmodernější estetické procedury."
       testimonialText="Nejlepší péče, jakou jsem kdy zažila. Výsledky jsou naprosto úžasné!"
       testimonialAuthor="Karolína H."
-      heroImage="/images/salon/salon-main.jpeg"
+      heroImage="/images/hero_1.jpg"
     />
   )
 }
