@@ -1697,21 +1697,24 @@
         }
         requestAnimationFrame(raf);
 
-        // Stop Lenis when modal is open (prevented inside modal with data-lenis-prevent)
+        // Stop Lenis when modal is open to allow scrolling inside modals
         function openModal() {
             const modal = document.getElementById('giftModal');
             modal.classList.remove('hidden');
+            lenis.stop();
             lucide.createIcons();
         }
 
         function closeModal() {
             const modal = document.getElementById('giftModal');
             modal.classList.add('hidden');
+            lenis.start();
         }
 
         function openBookingModal() {
             const modal = document.getElementById('bookingModal');
             modal.classList.remove('hidden');
+            lenis.stop();
             currentStep = 1;
             updateSteps();
             lucide.createIcons();
@@ -1720,17 +1723,20 @@
         function closeBookingModal() {
             const modal = document.getElementById('bookingModal');
             modal.classList.add('hidden');
+            lenis.start();
         }
 
         function openPriceList() {
             const modal = document.getElementById('priceListModal');
             modal.classList.remove('hidden');
+            lenis.stop();
             lucide.createIcons();
         }
 
         function closePriceList() {
             const modal = document.getElementById('priceListModal');
             modal.classList.add('hidden');
+            lenis.start();
         }
     </script>
 </body>
