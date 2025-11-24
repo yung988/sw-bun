@@ -37,6 +37,7 @@
         /* Custom Range Slider Styling */
         input[type=range] {
             -webkit-appearance: none;
+            appearance: none;
             width: 100%;
             background: transparent;
         }
@@ -577,45 +578,132 @@
         </div>
     </section>
 
-    <!-- Reviews Section -->
-    <section class="py-24 px-6 md:px-12 max-w-4xl mx-auto text-center">
-        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
-            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" data-lucide="quote"
-            class="lucide lucide-quote w-8 h-8 text-stone-300 mx-auto mb-8">
-            <path
-                d="M16 3a2 2 0 0 0-2 2v6a2 2 0 0 0 2 2 1 1 0 0 1 1 1v1a2 2 0 0 1-2 2 1 1 0 0 0-1 1v2a1 1 0 0 0 1 1 6 6 0 0 0 6-6V5a2 2 0 0 0-2-2z">
-            </path>
-            <path
-                d="M5 3a2 2 0 0 0-2 2v6a2 2 0 0 0 2 2 1 1 0 0 1 1 1v1a2 2 0 0 1-2 2 1 1 0 0 0-1 1v2a1 1 0 0 0 1 1 6 6 0 0 0 6-6V5a2 2 0 0 0-2-2z">
-            </path>
-        </svg>
-        <h2 class="sr-only font-geist">
-            Reference
-        </h2>
-
-        <div class="space-y-12">
-            <figure class="">
-                <blockquote
-                    class="text-2xl md:text-3xl text-stone-800 leading-normal tracking-tight mb-6 font-medium font-cormorant">
-                    "Absolutně profesionální přístup. Po sérii ošetření Endosphere se
-                    cítím jako znovuzrozená. Prostředí je nádherné a uklidňující."
-                </blockquote>
-                <figcaption class="text-stone-500 uppercase text-xs tracking-widest font-medium font-geist">
-                    — Petra K., Klientka
-                </figcaption>
-            </figure>
-
-            <figure class="hidden md:block pt-8 border-t border-stone-100">
-                <blockquote
-                    class="text-2xl md:text-3xl text-stone-800 leading-normal tracking-tight mb-6 font-medium font-cormorant">
-                    "SW Beauty navštěvuji pravidelně. Sabina přesně ví, co moje pleť
-                    potřebuje. Není to jen kosmetika, je to zážitek."
-                </blockquote>
-                <figcaption class="text-stone-500 uppercase text-xs tracking-widest font-medium font-geist">
-                    — Veronika M., Klientka
-                </figcaption>
-            </figure>
+    <!-- Reviews Section - Editorial Carousel -->
+    <section id="reviews" class="py-32 bg-[#F9F8F6] relative overflow-hidden">
+        <!-- Decorative Background Element -->
+        <div class="absolute top-0 left-1/2 -translate-x-1/2 w-full h-full max-w-7xl pointer-events-none">
+            <div class="absolute top-10 left-10 text-[20rem] leading-none text-stone-200/20 font-cormorant select-none">
+                "</div>
         </div>
+
+        <div class="max-w-4xl mx-auto px-6 text-center relative z-10">
+            <h2 class="sr-only">Reference klientů</h2>
+
+            <!-- Carousel Container -->
+            <div class="relative min-h-[400px] flex flex-col justify-center items-center">
+
+                <!-- Review 1 -->
+                <div class="review-slide absolute inset-0 flex flex-col justify-center items-center transition-opacity duration-1000 ease-in-out opacity-100"
+                    data-index="0">
+                    <blockquote class="max-w-3xl mx-auto">
+                        <p
+                            class="text-3xl md:text-4xl lg:text-5xl leading-tight font-medium font-cormorant text-stone-900 mb-8">
+                            "Absolutně profesionální přístup. Po sérii ošetření Endosphere se cítím jako znovuzrozená.
+                            Prostředí je nádherné a uklidňující."
+                        </p>
+                    </blockquote>
+                    <cite class="not-italic">
+                        <span
+                            class="block text-xs font-geist uppercase tracking-[0.2em] text-stone-500 mb-2">Klientka</span>
+                        <span class="block text-lg font-cormorant text-stone-900">Petra K.</span>
+                    </cite>
+                </div>
+
+                <!-- Review 2 -->
+                <div class="review-slide absolute inset-0 flex flex-col justify-center items-center transition-opacity duration-1000 ease-in-out opacity-0"
+                    data-index="1">
+                    <blockquote class="max-w-3xl mx-auto">
+                        <p
+                            class="text-3xl md:text-4xl lg:text-5xl leading-tight font-medium font-cormorant text-stone-900 mb-8">
+                            "SW Beauty navštěvuji pravidelně. Sabina přesně ví, co moje pleť potřebuje. Není to jen
+                            kosmetika, je to zážitek."
+                        </p>
+                    </blockquote>
+                    <cite class="not-italic">
+                        <span
+                            class="block text-xs font-geist uppercase tracking-[0.2em] text-stone-500 mb-2">Klientka</span>
+                        <span class="block text-lg font-cormorant text-stone-900">Veronika M.</span>
+                    </cite>
+                </div>
+
+                <!-- Review 3 -->
+                <div class="review-slide absolute inset-0 flex flex-col justify-center items-center transition-opacity duration-1000 ease-in-out opacity-0"
+                    data-index="2">
+                    <blockquote class="max-w-3xl mx-auto">
+                        <p
+                            class="text-3xl md:text-4xl lg:text-5xl leading-tight font-medium font-cormorant text-stone-900 mb-8">
+                            "Konečně místo, kde se snoubí medicínská efektivita s luxusním relaxem. Výsledky HIFU
+                            ošetření předčily má očekávání."
+                        </p>
+                    </blockquote>
+                    <cite class="not-italic">
+                        <span
+                            class="block text-xs font-geist uppercase tracking-[0.2em] text-stone-500 mb-2">Klientka</span>
+                        <span class="block text-lg font-cormorant text-stone-900">Jana S.</span>
+                    </cite>
+                </div>
+
+            </div>
+
+            <!-- Navigation Dots -->
+            <div class="flex justify-center gap-4 mt-8 z-20 relative">
+                <button onclick="setReview(0)"
+                    class="review-dot w-2 h-2 rounded-full bg-stone-800 transition-all duration-300 hover:scale-125"
+                    aria-label="Review 1"></button>
+                <button onclick="setReview(1)"
+                    class="review-dot w-2 h-2 rounded-full bg-stone-300 transition-all duration-300 hover:scale-125"
+                    aria-label="Review 2"></button>
+                <button onclick="setReview(2)"
+                    class="review-dot w-2 h-2 rounded-full bg-stone-300 transition-all duration-300 hover:scale-125"
+                    aria-label="Review 3"></button>
+            </div>
+        </div>
+
+        <script>
+            let currentReview = 0;
+            const reviews = document.querySelectorAll('.review-slide');
+            const dots = document.querySelectorAll('.review-dot');
+            const totalReviews = reviews.length;
+            let reviewInterval;
+
+            function showReview(index) {
+                // Reset all
+                reviews.forEach(review => {
+                    review.classList.remove('opacity-100', 'z-10');
+                    review.classList.add('opacity-0', 'z-0');
+                });
+                dots.forEach(dot => {
+                    dot.classList.remove('bg-stone-800');
+                    dot.classList.add('bg-stone-300');
+                });
+
+                // Activate current
+                reviews[index].classList.remove('opacity-0', 'z-0');
+                reviews[index].classList.add('opacity-100', 'z-10');
+                dots[index].classList.remove('bg-stone-300');
+                dots[index].classList.add('bg-stone-800');
+
+                currentReview = index;
+            }
+
+            function nextReview() {
+                let next = (currentReview + 1) % totalReviews;
+                showReview(next);
+            }
+
+            function setReview(index) {
+                clearInterval(reviewInterval); // Stop auto-rotation on manual interaction
+                showReview(index);
+                startRotation(); // Restart auto-rotation
+            }
+
+            function startRotation() {
+                reviewInterval = setInterval(nextReview, 5000); // Change every 5 seconds
+            }
+
+            // Initialize
+            startRotation();
+        </script>
     </section>
 
     <!-- Footer -->
@@ -1525,6 +1613,27 @@
 
     <!-- Data Loading Script -->
     <script src="app.js"></script>
+    <!-- Lenis Smooth Scroll -->
+    <script src="https://unpkg.com/lenis@1.1.18/dist/lenis.min.js"></script>
+    <script>
+        const lenis = new Lenis({
+            duration: 1.2,
+            easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+            direction: 'vertical',
+            gestureDirection: 'vertical',
+            smooth: true,
+            mouseMultiplier: 1,
+            smoothTouch: false,
+            touchMultiplier: 2,
+        })
+
+        function raf(time) {
+            lenis.raf(time)
+            requestAnimationFrame(raf)
+        }
+
+        requestAnimationFrame(raf)
+    </script>
 </body>
 
 </html>
