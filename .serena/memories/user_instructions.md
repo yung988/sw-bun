@@ -1,1 +1,0 @@
-User explicitly instructed: "nikdy nestartuj server" (never start the server). Always respect this and do not run dev server or start commands.
