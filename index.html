@@ -31,11 +31,6 @@
 
         /* Smooth scroll */
         /* Smooth scroll removed for Lenis compatibility */
-        html.lenis,
-        html.lenis body {
-            height: auto;
-        }
-
         .lenis.lenis-smooth {
             scroll-behavior: auto !important;
         }
@@ -1634,23 +1629,10 @@
     <!-- Lenis Smooth Scroll -->
     <script src="https://unpkg.com/lenis@1.1.18/dist/lenis.min.js"></script>
     <script>
+        // Initialize Lenis with default settings
         const lenis = new Lenis({
-            duration: 1.2,
-            easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
-            direction: 'vertical',
-            gestureDirection: 'vertical',
-            smooth: true,
-            mouseMultiplier: 1,
-            smoothTouch: false,
-            touchMultiplier: 2,
-        })
-
-        function raf(time) {
-            lenis.raf(time)
-            requestAnimationFrame(raf)
-        }
-
-        requestAnimationFrame(raf)
+            autoRaf: true,
+        });
     </script>
 </body>
 
