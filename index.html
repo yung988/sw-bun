@@ -407,7 +407,7 @@
     </section>
 
     <!-- Philosophy Section -->
-    <section id="filozofie" class="bg-white py-24 md:py-32">
+    <section id="filozofie" class="bg-white py-24 md:py-32 min-h-screen flex items-center">
         <div class="max-w-screen-2xl mx-auto px-6 md:px-12 flex flex-col lg:flex-row items-center gap-16 lg:gap-24">
             <div class="w-full lg:w-1/2 relative">
                 <div class="aspect-[4/5] bg-stone-100 overflow-hidden">
@@ -444,7 +444,7 @@
     </section>
 
     <!-- Founder Section -->
-    <section id="majitelka" class="py-24 md:py-32 px-6 md:px-12 bg-[#F9F8F6]">
+    <section id="majitelka" class="py-24 md:py-32 px-6 md:px-12 bg-[#F9F8F6] min-h-screen flex items-center">
         <div class="max-w-5xl mx-auto">
             <div class="flex flex-col md:flex-row gap-12 items-center">
                 <div class="w-full md:w-5/12">
@@ -478,67 +478,71 @@
     </section>
 
     <!-- FAQ Section (NEW) -->
-    <section id="faq" class="py-24 px-6 md:px-12 max-w-3xl mx-auto">
-        <div class="text-center mb-16">
-            <h2 class="text-4xl md:text-5xl font-medium tracking-tight font-cormorant mb-4">
-                Časté dotazy
-            </h2>
-        </div>
+    <section id="faq" class="py-24 px-6 md:px-12 min-h-screen flex items-center">
+        <div class="max-w-3xl mx-auto w-full">
+            <div class="text-center mb-16">
+                <h2 class="text-4xl md:text-5xl font-medium tracking-tight font-cormorant mb-4">
+                    Časté dotazy
+                </h2>
+            </div>
 
-        <div class="space-y-4">
-            <details class="group border-b border-stone-200 pb-4">
-                <summary
-                    class="flex justify-between items-center cursor-pointer py-4 list-none text-xl font-cormorant text-stone-900">
-                    <span>Je ošetření Endosphere bolestivé?</span>
-                    <span class="transition group-open:rotate-180">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
-                            stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"
-                            class="lucide lucide-chevron-down text-stone-400">
-                            <path d="m6 9 6 6 6-6"></path>
-                        </svg>
-                    </span>
-                </summary>
-                <p class="text-stone-500 font-light font-geist mt-2 leading-relaxed pb-4">
-                    Vůbec ne. Endospheres Therapy je neinvazivní a klienti ji často popisují jako intenzivní hlubokou
-                    masáž. Intenzitu vždy přizpůsobujeme vašemu prahu citlivosti.
-                </p>
-            </details>
+            <div class="space-y-4">
+                <details class="group border-b border-stone-200 pb-4">
+                    <summary
+                        class="flex justify-between items-center cursor-pointer py-4 list-none text-xl font-cormorant text-stone-900">
+                        <span>Je ošetření Endosphere bolestivé?</span>
+                        <span class="transition group-open:rotate-180">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                                fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"
+                                stroke-linejoin="round" class="lucide lucide-chevron-down text-stone-400">
+                                <path d="m6 9 6 6 6-6"></path>
+                            </svg>
+                        </span>
+                    </summary>
+                    <p class="text-stone-500 font-light font-geist mt-2 leading-relaxed pb-4">
+                        Vůbec ne. Endospheres Therapy je neinvazivní a klienti ji často popisují jako intenzivní
+                        hlubokou
+                        masáž. Intenzitu vždy přizpůsobujeme vašemu prahu citlivosti.
+                    </p>
+                </details>
 
-            <details class="group border-b border-stone-200 pb-4">
-                <summary
-                    class="flex justify-between items-center cursor-pointer py-4 list-none text-xl font-cormorant text-stone-900">
-                    <span>Jak dlouho trvá rekonvalescence po HIFU?</span>
-                    <span class="transition group-open:rotate-180">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
-                            stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"
-                            class="lucide lucide-chevron-down text-stone-400">
-                            <path d="m6 9 6 6 6-6"></path>
-                        </svg>
-                    </span>
-                </summary>
-                <p class="text-stone-500 font-light font-geist mt-2 leading-relaxed pb-4">
-                    HIFU je tzv. "lunch-time" procedura. Můžete se okamžitě vrátit do práce nebo společnosti. Mírné
-                    zarudnutí zmizí do hodiny po ošetření.
-                </p>
-            </details>
+                <details class="group border-b border-stone-200 pb-4">
+                    <summary
+                        class="flex justify-between items-center cursor-pointer py-4 list-none text-xl font-cormorant text-stone-900">
+                        <span>Jak dlouho trvá rekonvalescence po HIFU?</span>
+                        <span class="transition group-open:rotate-180">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                                fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"
+                                stroke-linejoin="round" class="lucide lucide-chevron-down text-stone-400">
+                                <path d="m6 9 6 6 6-6"></path>
+                            </svg>
+                        </span>
+                    </summary>
+                    <p class="text-stone-500 font-light font-geist mt-2 leading-relaxed pb-4">
+                        HIFU je tzv. "lunch-time" procedura. Můžete se okamžitě vrátit do práce nebo společnosti. Mírné
+                        zarudnutí zmizí do hodiny po ošetření.
+                    </p>
+                </details>
 
-            <details class="group border-b border-stone-200 pb-4">
-                <summary
-                    class="flex justify-between items-center cursor-pointer py-4 list-none text-xl font-cormorant text-stone-900">
-                    <span>Musím se objednat předem?</span>
-                    <span class="transition group-open:rotate-180">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
-                            stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"
-                            class="lucide lucide-chevron-down text-stone-400">
-                            <path d="m6 9 6 6 6-6"></path>
-                        </svg>
-                    </span>
-                </summary>
-                <p class="text-stone-500 font-light font-geist mt-2 leading-relaxed pb-4">
-                    Ano, pracujeme výhradně na objednání, abychom každé klientce zaručili 100% soukromí a čas. Rezervaci
-                    můžete provést online nebo telefonicky.
-                </p>
-            </details>
+                <details class="group border-b border-stone-200 pb-4">
+                    <summary
+                        class="flex justify-between items-center cursor-pointer py-4 list-none text-xl font-cormorant text-stone-900">
+                        <span>Musím se objednat předem?</span>
+                        <span class="transition group-open:rotate-180">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                                fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"
+                                stroke-linejoin="round" class="lucide lucide-chevron-down text-stone-400">
+                                <path d="m6 9 6 6 6-6"></path>
+                            </svg>
+                        </span>
+                    </summary>
+                    <p class="text-stone-500 font-light font-geist mt-2 leading-relaxed pb-4">
+                        Ano, pracujeme výhradně na objednání, abychom každé klientce zaručili 100% soukromí a čas.
+                        Rezervaci
+                        můžete provést online nebo telefonicky.
+                    </p>
+                </details>
+            </div>
         </div>
     </section>
 
@@ -598,7 +602,7 @@
     </section>
 
     <!-- Reviews Section - Editorial Carousel -->
-    <section id="reviews" class="py-32 bg-[#F9F8F6] relative overflow-hidden">
+    <section id="reviews" class="py-32 bg-[#F9F8F6] relative overflow-hidden min-h-screen flex items-center">
         <!-- Decorative Background Element -->
         <div class="absolute top-0 left-1/2 -translate-x-1/2 w-full h-full max-w-7xl pointer-events-none">
             <div class="absolute top-10 left-10 text-[20rem] leading-none text-stone-200/20 font-cormorant select-none">
