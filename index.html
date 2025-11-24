@@ -1101,6 +1101,7 @@
                         navbar.style.backdropFilter = 'blur(12px)';
 
                         const scale = 1 - (scrollProgress * 0.5);
+                        navbarLogo.style.transformOrigin = 'left center';
                         navbarLogo.style.transform = `scale(${scale})`;
 
                         navbarContainer.style.paddingTop = '0.75rem';
@@ -1109,6 +1110,7 @@
                         navbar.style.backgroundColor = 'transparent';
                         navbar.style.backdropFilter = 'none';
 
+                        navbarLogo.style.transformOrigin = 'left center';
                         navbarLogo.style.transform = 'scale(1)';
 
                         navbarContainer.style.paddingTop = '1.25rem';
