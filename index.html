@@ -1222,6 +1222,8 @@
                                 id="step-indicator-3"></div>
                             <div class="h-1 w-12 bg-stone-200 rounded-full transition-all duration-300"
                                 id="step-indicator-4"></div>
+                            <div class="h-1 w-12 bg-stone-200 rounded-full transition-all duration-300"
+                                id="step-indicator-5"></div>
                         </div>
                     </div>
                     <button onclick="closeBookingModal()"
@@ -1281,8 +1283,21 @@
                         </div>
                     </div>
 
-                    <!-- Step 2: Date & Time -->
+                    <!-- Step 2: Package Selection (NEW) -->
                     <div id="booking-step-2" class="hidden space-y-8">
+                        <div class="mb-6 text-center">
+                            <p class="text-stone-500 font-light italic font-geist text-sm">
+                                Vyberte balíček, který vám vyhovuje
+                            </p>
+                        </div>
+                        <h3 class="text-xl font-geist font-medium text-stone-900 mb-6">Vyberte balíček</h3>
+                        <div id="package-selection-grid" class="space-y-4">
+                            <!-- Dynamicky generováno pomocí JavaScript -->
+                        </div>
+                    </div>
+
+                    <!-- Step 3: Date & Time -->
+                    <div id="booking-step-3" class="hidden space-y-8">
                         <div class="mb-6 text-center">
                             <p class="text-stone-500 font-light italic font-geist text-sm">
                                 Vyberte termín, který vám vyhovuje
@@ -1318,8 +1333,8 @@
                         </div>
                     </div>
 
-                    <!-- Step 3: Contact -->
-                    <div id="booking-step-3" class="hidden space-y-8">
+                    <!-- Step 4: Contact -->
+                    <div id="booking-step-4" class="hidden space-y-8">
                         <div class="mb-6 text-center">
                             <p class="text-stone-500 font-light italic font-geist text-sm">
                                 Zanechte nám prosím své kontaktní údaje
@@ -1362,8 +1377,8 @@
                         </div>
                     </div>
 
-                    <!-- Step 4: Summary -->
-                    <div id="booking-step-4" class="hidden space-y-8">
+                    <!-- Step 5: Summary -->
+                    <div id="booking-step-5" class="hidden space-y-8">
                         <div class="bg-stone-50 p-8 text-center">
                             <div
                                 class="w-16 h-16 bg-stone-200 rounded-full flex items-center justify-center mx-auto mb-6">
@@ -1449,7 +1464,7 @@
         // Booking Modal Logic
         const bookingModal = document.getElementById('bookingModal');
         let currentStep = 1;
-        const totalSteps = 4;
+        const totalSteps = 5;
 
         function resetBooking() {
             currentStep = 1;
@@ -1457,8 +1472,8 @@
         }
 
         async function nextStep() {
-            // If on step 3 (last interactive step), submit booking
-            if (currentStep === 3) {
+            // If on step 4 (last interactive step), submit booking
+            if (currentStep === 4) {
                 await submitBooking();
                 return;
             }
@@ -1569,7 +1584,7 @@
                 nextBtn.classList.add('hidden');
             } else {
                 nextBtn.classList.remove('hidden');
-                if (currentStep === 3) {
+                if (currentStep === 4) {
                     nextBtn.textContent = "Dokončit rezervaci";
                 } else {
                     nextBtn.textContent = "Pokračovat";
@@ -1578,8 +1593,68 @@
         }
 
         // Selection Logic
-        function selectService(name, price) {
-            // Visual feedback could be added here
+        function selectService(serviceId, serviceName) {
+            // Store selected service
+            window.selectedService = {
+                id: serviceId,
+                name: serviceName
+            };
+
+            // Load packages for this service
+            loadPackagesForService(serviceId);
+
+            // Move to step 2 (package selection)
+            nextStep();
+        }
+
+        function loadPackagesForService(serviceId) {
+            const packagesGrid = document.getElementById('package-selection-grid');
+            if (!packagesGrid) return;
+
+            // Get packages from pricesData (from app.js)
+            const packages = pricesData.filter(p => p.service_id === serviceId);
+
+            if (packages.length === 0) {
+                packagesGrid.innerHTML = '<p class="text-stone-500 text-center">Žádné balíčky nejsou k dispozici</p>';
+                return;
+            }
+
+            packagesGrid.innerHTML = packages.map(pkg => {
+                const duration = pkg.duration_in_minutes
+                    ? `${pkg.duration_in_minutes} min`
+                    : '';
+                const sessions = pkg.session > 1
+                    ? `${pkg.session}x ošetření`
+                    : '1x ošetření';
+
+                return `
+                    <button onclick="selectPackage('${pkg.service_id}', '${pkg.name.replace(/'/g, "\\'").replace(/"/g, '&quot;')}', '${pkg.price_in_czk}', '${pkg.duration_in_minutes || ''}')"
+                            class="text-left p-6 border border-stone-200 hover:border-stone-900 hover:bg-stone-50 transition-all group w-full">
+                        <div class="flex justify-between items-start mb-2">
+                            <span class="block font-cormorant text-2xl text-stone-900">${pkg.name}</span>
+                            <span class="block font-geist font-medium text-stone-900">${pkg.price_in_czk} Kč</span>
+                        </div>
+                        <div class="flex gap-4 text-sm text-stone-500">
+                            ${duration ? `<span>⏱ ${duration}</span>` : ''}
+                            ${sessions ? `<span>📦 ${sessions}</span>` : ''}
+                        </div>
+                        <span class="block font-geist text-xs uppercase tracking-widest text-stone-400 group-hover:text-stone-900 mt-4">
+                            Vybrat
+                        </span>
+                    </button>
+                `;
+            }).join('');
+        }
+
+        function selectPackage(serviceId, packageName, price, duration) {
+            window.selectedPackage = {
+                serviceId: serviceId,
+                packageName: packageName,
+                price: price,
+                duration: duration
+            };
+
+            // Move to step 3 (date & time)
             nextStep();
         }
 

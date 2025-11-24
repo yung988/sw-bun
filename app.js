@@ -607,7 +607,7 @@ function renderBookingServices() {
     });
 
     servicesGrid.innerHTML = serviceOptions.map(service => `
-        <button onclick="selectService('${service.name}', '${service.priceRange}')" 
+        <button onclick="selectService('${service.id}', '${service.name.replace(/'/g, "\\'")}')" 
                 class="text-left p-6 border border-stone-200 hover:border-stone-900 hover:bg-stone-50 transition-all group">
             <span class="block font-cormorant text-2xl mb-2 text-stone-900">${service.name}</span>
             <span class="block font-geist text-sm text-stone-500 mb-4">${service.description}</span>
