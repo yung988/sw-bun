@@ -800,8 +800,8 @@
 
         <!-- Modal Content -->
         <div class="absolute inset-0 flex items-center justify-center p-4">
-            <div
-                class="bg-stone-50 w-full max-w-5xl h-auto max-h-[90vh] overflow-y-auto shadow-2xl flex flex-col lg:flex-row relative animate-fade-in-up">
+            <div class="bg-stone-50 w-full max-w-5xl h-auto max-h-[90vh] overflow-y-auto shadow-2xl flex flex-col lg:flex-row relative animate-fade-in-up"
+                data-lenis-prevent>
                 <button onclick="closeModal()"
                     class="absolute top-4 right-4 z-10 p-2 text-stone-400 hover:text-stone-900 transition-colors">
                     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
@@ -1236,7 +1236,7 @@
                 </div>
 
                 <!-- Body (Scrollable) -->
-                <div class="flex-1 overflow-y-auto p-8 lg:p-12">
+                <div class="flex-1 overflow-y-auto p-8 lg:p-12" data-lenis-prevent>
 
                     <!-- Step 1: Service Selection -->
                     <div id="booking-step-1" class="space-y-8">
@@ -1427,7 +1427,7 @@
                 </div>
 
                 <!-- Body (Scrollable) - Dynamically populated by app.js -->
-                <div class="flex-1 overflow-y-auto p-6 md:p-8 lg:p-12">
+                <div class="flex-1 overflow-y-auto p-6 md:p-8 lg:p-12" data-lenis-prevent>
                     <!-- Content will be dynamically generated -->
                 </div>
 
@@ -1621,24 +1621,21 @@
         }
         requestAnimationFrame(raf);
 
-        // Stop Lenis when modal is open
+        // Stop Lenis when modal is open (prevented inside modal with data-lenis-prevent)
         function openModal() {
             const modal = document.getElementById('giftModal');
             modal.classList.remove('hidden');
-            lenis.stop();
             lucide.createIcons();
         }
 
         function closeModal() {
             const modal = document.getElementById('giftModal');
             modal.classList.add('hidden');
-            lenis.start();
         }
 
         function openBookingModal() {
             const modal = document.getElementById('bookingModal');
             modal.classList.remove('hidden');
-            lenis.stop();
             currentStep = 1;
             updateSteps();
             lucide.createIcons();
@@ -1647,20 +1644,17 @@
         function closeBookingModal() {
             const modal = document.getElementById('bookingModal');
             modal.classList.add('hidden');
-            lenis.start();
         }
 
         function openPriceList() {
             const modal = document.getElementById('priceListModal');
             modal.classList.remove('hidden');
-            lenis.stop();
             lucide.createIcons();
         }
 
         function closePriceList() {
             const modal = document.getElementById('priceListModal');
             modal.classList.add('hidden');
-            lenis.start();
         }
     </script>
 </body>
