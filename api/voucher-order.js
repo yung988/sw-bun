@@ -1,4 +1,4 @@
-import { resend, generateHash, ownerEmailTemplate } from './utils/email-templates.js';
+import { resend, generateHash, ownerEmailTemplate } from '../lib/utils/email-templates.js';
 
 export default async function handler(req, res) {
     if (req.method !== 'POST') {

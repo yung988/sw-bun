@@ -1,5 +1,5 @@
-import { resend, generateHash } from './utils/email-templates.js';
-import { bookingOwnerEmailTemplate, bookingClientInitialEmailTemplate } from './utils/booking-templates.js';
+import { resend, generateHash } from '../lib/utils/email-templates.js';
+import { bookingOwnerEmailTemplate, bookingClientInitialEmailTemplate } from '../lib/utils/booking-templates.js';
 
 export default async function handler(req, res) {
     if (req.method !== 'POST') {

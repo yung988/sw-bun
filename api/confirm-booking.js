@@ -1,17 +1,17 @@
-import { resend, generateHash } from './utils/email-templates.js';
-import { bookingClientConfirmedEmailTemplate } from './utils/booking-templates.js';
+import { resend, generateHash } from '../lib/utils/email-templates.js';
+import { bookingClientConfirmedEmailTemplate } from '../lib/utils/booking-templates.js';
 
 export default async function handler(req, res) {
-    const { service, date, time, name, email, phone, key } = req.query;
-    const packageName = req.query.package || '';
-    const note = req.query.note || '';
+  const { service, date, time, name, email, phone, key } = req.query;
+  const packageName = req.query.package || '';
+  const note = req.query.note || '';
 
-    // For GET request, show the confirmation form
-    if (req.method === 'GET') {
-        // Verify the security hash
-        const expectedHash = generateHash(email, date, time);
-        if (key !== expectedHash) {
-            return res.status(403).send(`
+  // For GET request, show the confirmation form
+  if (req.method === 'GET') {
+    // Verify the security hash
+    const expectedHash = generateHash(email, date, time);
+    if (key !== expectedHash) {
+      return res.status(403).send(`
         <!DOCTYPE html>
         <html>
           <body style="font-family: sans-serif; text-align: center; padding: 50px; color: #44403c;">
@@ -20,10 +20,10 @@ export default async function handler(req, res) {
           </body>
         </html>
       `);
-        }
+    }
 
-        // Show confirmation form with editable date/time
-        return res.status(200).send(`
+    // Show confirmation form with editable date/time
+    return res.status(200).send(`
       <!DOCTYPE html>
       <html>
         <head>
@@ -244,42 +244,42 @@ export default async function handler(req, res) {
         </body>
       </html>
     `);
+  }
+
+  // For POST request, send confirmation email to client
+  if (req.method === 'POST') {
+    try {
+      const body = req.body;
+      const finalDate = body.finalDate;
+      const finalTime = body.finalTime;
+
+      // Verify the security hash with original date/time
+      const expectedHash = generateHash(body.email, body.originalDate, body.originalTime);
+      if (body.key !== expectedHash) {
+        return res.status(403).json({ error: 'Invalid key' });
+      }
+
+      // Send confirmation email to client with final date/time
+      await resend.emails.send({
+        from: 'SW Beauty <noreply@swbeauty.cz>',
+        to: body.email,
+        subject: 'Potvrzení termínu - SW Beauty',
+        html: bookingClientConfirmedEmailTemplate(
+          body.name,
+          body.service,
+          body.packageName,
+          finalDate,
+          finalTime
+        )
+      });
+
+      return res.status(200).json({ success: true });
+
+    } catch (error) {
+      console.error('Error confirming booking:', error);
+      return res.status(500).json({ error: 'Internal server error' });
     }
+  }
 
-    // For POST request, send confirmation email to client
-    if (req.method === 'POST') {
-        try {
-            const body = req.body;
-            const finalDate = body.finalDate;
-            const finalTime = body.finalTime;
-
-            // Verify the security hash with original date/time
-            const expectedHash = generateHash(body.email, body.originalDate, body.originalTime);
-            if (body.key !== expectedHash) {
-                return res.status(403).json({ error: 'Invalid key' });
-            }
-
-            // Send confirmation email to client with final date/time
-            await resend.emails.send({
-                from: 'SW Beauty <noreply@swbeauty.cz>',
-                to: body.email,
-                subject: 'Potvrzení termínu - SW Beauty',
-                html: bookingClientConfirmedEmailTemplate(
-                    body.name,
-                    body.service,
-                    body.packageName,
-                    finalDate,
-                    finalTime
-                )
-            });
-
-            return res.status(200).json({ success: true });
-
-        } catch (error) {
-            console.error('Error confirming booking:', error);
-            return res.status(500).json({ error: 'Internal server error' });
-        }
-    }
-
-    return res.status(405).json({ error: 'Method not allowed' });
+  return res.status(405).json({ error: 'Method not allowed' });
 }

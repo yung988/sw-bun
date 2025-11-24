@@ -1,6 +1,7 @@
 {
   "name": "sw-beauty",
   "version": "1.0.0",
+  "type": "module",
   "description": "SW Beauty - Luxusní kosmetický salon | One-page website s booking systémem",
   "scripts": {
     "dev": "vercel dev",

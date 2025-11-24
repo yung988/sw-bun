@@ -1,10 +1,10 @@
-import { resend, generateHash } from './utils/email-templates.js';
+import { resend, generateHash } from '../lib/utils/email-templates.js';
 
 // Voucher email template function
 function voucherEmailTemplate(recipientName, voucherType, amount, service, message) {
-    const voucherValue = voucherType === 'cash' ? `${amount} Kč` : service;
+  const voucherValue = voucherType === 'cash' ? `${amount} Kč` : service;
 
-    return `
+  return `
     <!DOCTYPE html>
     <html>
       <head>
@@ -65,22 +65,22 @@ function voucherEmailTemplate(recipientName, voucherType, amount, service, messa
 }
 
 export default async function handler(req, res) {
-    if (req.method !== 'GET') {
-        return res.status(405).send('Method not allowed');
+  if (req.method !== 'GET') {
+    return res.status(405).send('Method not allowed');
+  }
+
+  try {
+    const { email, name, type, amount, service, message, key } = req.query;
+
+    // Validate required parameters
+    if (!email || !name || !type || !key) {
+      return res.status(400).send('Missing required parameters');
     }
 
-    try {
-        const { email, name, type, amount, service, message, key } = req.query;
-
-        // Validate required parameters
-        if (!email || !name || !type || !key) {
-            return res.status(400).send('Missing required parameters');
-        }
-
-        // Verify the security hash
-        const expectedHash = generateHash(email, amount || '', service || '');
-        if (key !== expectedHash) {
-            return res.status(403).send(`
+    // Verify the security hash
+    const expectedHash = generateHash(email, amount || '', service || '');
+    if (key !== expectedHash) {
+      return res.status(403).send(`
         <!DOCTYPE html>
         <html>
           <body style="font-family: sans-serif; text-align: center; padding: 50px; color: #44403c;">
@@ -89,18 +89,18 @@ export default async function handler(req, res) {
           </body>
         </html>
       `);
-        }
+    }
 
-        // Send voucher email to client
-        await resend.emails.send({
-            from: 'SW Beauty <noreply@swbeauty.cz>',
-            to: email,
-            subject: 'Váš dárkový poukaz SW Beauty',
-            html: voucherEmailTemplate(name, type, amount || '', service || '', message || '')
-        });
+    // Send voucher email to client
+    await resend.emails.send({
+      from: 'SW Beauty <noreply@swbeauty.cz>',
+      to: email,
+      subject: 'Váš dárkový poukaz SW Beauty',
+      html: voucherEmailTemplate(name, type, amount || '', service || '', message || '')
+    });
 
-        // Return success page
-        return res.status(200).send(`
+    // Return success page
+    return res.status(200).send(`
       <!DOCTYPE html>
       <html>
         <head>
@@ -157,9 +157,9 @@ export default async function handler(req, res) {
       </html>
     `);
 
-    } catch (error) {
-        console.error('Error confirming payment:', error);
-        return res.status(500).send(`
+  } catch (error) {
+    console.error('Error confirming payment:', error);
+    return res.status(500).send(`
       <!DOCTYPE html>
       <html>
         <body style="font-family: sans-serif; text-align: center; padding: 50px; color: #44403c;">
@@ -168,5 +168,5 @@ export default async function handler(req, res) {
         </body>
       </html>
     `);
-    }
+  }
 }
