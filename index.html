@@ -1773,11 +1773,12 @@
             // HERO SECTION
             // ====================
 
-            // Hero parallax effect on image
+            // Hero parallax effect on image with scale
             const heroImage = document.querySelector('header img');
             if (heroImage) {
                 gsap.to(heroImage, {
                     yPercent: 30,
+                    scale: 1.1,
                     ease: "none",
                     scrollTrigger: {
                         trigger: "header",
@@ -1788,15 +1789,16 @@
                 });
             }
 
-            // Stagger fade-in on CTA buttons
+            // Dramatic stagger with scale and blur on CTA buttons
             const heroCTAs = document.querySelectorAll('header .flex.flex-col.sm\\:flex-row > *');
             if (heroCTAs.length > 0) {
                 gsap.from(heroCTAs, {
                     opacity: 0,
-                    y: 30,
-                    stagger: 0.15,
-                    duration: 0.8,
-                    ease: "power2.out",
+                    y: 50,
+                    scale: 0.8,
+                    stagger: 0.2,
+                    duration: 1.2,
+                    ease: "back.out(1.4)",
                     scrollTrigger: {
                         trigger: "header",
                         start: "top 80%"
@@ -1808,15 +1810,17 @@
             // SERVICES SECTION
             // ====================
 
-            // Fade-in for service items list
+            // Dramatic fade-in with scale and rotation for service items
             const serviceItems = document.querySelectorAll('#sluzby .space-y-6 > div');
             if (serviceItems.length > 0) {
                 gsap.from(serviceItems, {
                     opacity: 0,
-                    y: 50,
-                    stagger: 0.2,
-                    duration: 0.8,
-                    ease: "power2.out",
+                    y: 80,
+                    scale: 0.9,
+                    rotationX: -15,
+                    stagger: 0.15,
+                    duration: 1,
+                    ease: "power3.out",
                     scrollTrigger: {
                         trigger: "#sluzby",
                         start: "top 70%"
@@ -1847,13 +1851,19 @@
             // PHILOSOPHY SECTION
             // ====================
 
-            // Parallax on philosophy image
+            // FIX: Wrap philosophy image in overflow-hidden container
+            const philosophyImageContainer = document.querySelector('#filozofie .aspect-\\[4\\/5\\]');
+            if (philosophyImageContainer) {
+                philosophyImageContainer.style.overflow = 'hidden';
+            }
+
+            // Parallax on philosophy image (subtle, no overflow)
             ScrollTrigger.matchMedia({
                 "(min-width: 768px)": function () {
                     const philosophyImage = document.querySelector('#filozofie img');
                     if (philosophyImage) {
                         gsap.to(philosophyImage, {
-                            yPercent: 20,
+                            yPercent: 10, // Reduced from 20 to prevent overflow
                             ease: "none",
                             scrollTrigger: {
                                 trigger: "#filozofie",
@@ -1866,14 +1876,16 @@
                 }
             });
 
-            // Fade-in from left on text
+            // Enhanced fade-in from left on text with scale
             const philosophyText = document.querySelector('#filozofie .lg\\:w-1\\/2:last-child');
             if (philosophyText) {
-                gsap.from(philosophyText, {
+                gsap.from(philosophyText.children, {
                     opacity: 0,
-                    x: -80,
-                    duration: 1,
-                    ease: "power2.out",
+                    x: -100,
+                    scale: 0.95,
+                    stagger: 0.2,
+                    duration: 1.2,
+                    ease: "power3.out",
                     scrollTrigger: {
                         trigger: "#filozofie",
                         start: "top 60%"
@@ -1885,14 +1897,16 @@
             // FOUNDER SECTION
             // ====================
 
-            // Fade-in from right on image
+            // Dramatic fade-in from right on image with scale
             const founderImage = document.querySelector('#majitelka .aspect-\\[3\\/4\\]');
             if (founderImage) {
                 gsap.from(founderImage, {
                     opacity: 0,
-                    x: 100,
-                    duration: 1,
-                    ease: "power2.out",
+                    x: 150,
+                    scale: 0.85,
+                    rotation: 3,
+                    duration: 1.4,
+                    ease: "power3.out",
                     scrollTrigger: {
                         trigger: "#majitelka",
                         start: "top 70%"
@@ -1900,14 +1914,16 @@
                 });
             }
 
-            // Fade-in from left on text
+            // Dramatic fade-in from left on text with scale
             const founderText = document.querySelector('#majitelka .md\\:w-7\\/12');
             if (founderText) {
-                gsap.from(founderText, {
+                gsap.from(founderText.children, {
                     opacity: 0,
-                    x: -100,
-                    duration: 1,
-                    ease: "power2.out",
+                    x: -150,
+                    scale: 0.9,
+                    stagger: 0.15,
+                    duration: 1.4,
+                    ease: "power3.out",
                     scrollTrigger: {
                         trigger: "#majitelka",
                         start: "top 70%"
@@ -1919,15 +1935,16 @@
             // FAQ SECTION
             // ====================
 
-            // Stagger fade-in on FAQ items
+            // Dramatic stagger with slide and scale on FAQ items
             const faqItems = document.querySelectorAll('#faq details');
             if (faqItems.length > 0) {
                 gsap.from(faqItems, {
                     opacity: 0,
-                    y: 30,
-                    stagger: 0.15,
-                    duration: 0.6,
-                    ease: "power2.out",
+                    x: -60,
+                    scale: 0.95,
+                    stagger: 0.1,
+                    duration: 0.8,
+                    ease: "power3.out",
                     scrollTrigger: {
                         trigger: "#faq",
                         start: "top 70%"
@@ -1978,14 +1995,15 @@
             // REVIEWS SECTION
             // ====================
 
-            // Fade-in for reviews carousel
+            // Dramatic fade-in for reviews carousel with scale
             const reviewsCarousel = document.querySelector('#reviews .relative.min-h-\\[500px\\]');
             if (reviewsCarousel) {
                 gsap.from(reviewsCarousel, {
                     opacity: 0,
-                    y: 50,
-                    duration: 1,
-                    ease: "power2.out",
+                    y: 80,
+                    scale: 0.9,
+                    duration: 1.4,
+                    ease: "power4.out",
                     scrollTrigger: {
                         trigger: "#reviews",
                         start: "top 70%"
