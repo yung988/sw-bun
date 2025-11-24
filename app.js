@@ -180,18 +180,25 @@ window.openServiceDetail = function (serviceId) {
                             <h3 class="text-2xl font-cormorant text-stone-900 mb-4">Ceník</h3>
                             <div class="space-y-3">
                                 ${servicePrices.map(price => `
-                                    <div class="flex justify-between items-baseline border-b border-stone-100 pb-2">
-                                        <div>
+                                    <div class="flex justify-between items-center gap-4 border-b border-stone-100 pb-3">
+                                        <div class="flex-1">
                                             <span class="font-geist text-stone-900">${price.name}</span>
                                             ${price.duration_in_minutes ? `<span class="text-sm text-stone-400 ml-2">(${price.duration_in_minutes} min)</span>` : ''}
                                             ${price.session > 1 ? `<span class="text-sm text-stone-400 ml-2">• ${price.session}x</span>` : ''}
                                         </div>
-                                        <span class="font-geist font-medium text-stone-900">${price.price_in_czk} Kč</span>
+                                        <div class="flex items-center gap-3 flex-shrink-0">
+                                            <span class="font-geist font-medium text-stone-900 whitespace-nowrap">${price.price_in_czk} Kč</span>
+                                            <button onclick="event.stopPropagation(); closeServiceDetail(); bookPackage('${serviceId}', '${price.name.replace(/'/g, "\\'")}', '${price.price_in_czk}');"
+                                                    class="px-3 py-1.5 text-xs uppercase tracking-widest font-geist border border-stone-300 text-stone-600 hover:border-stone-900 hover:bg-stone-900 hover:text-white transition-all">
+                                                Rezervovat
+                                            </button>
+                                        </div>
                                     </div>
                                 `).join('')}
                             </div>
                         </div>
                     ` : ''}
+                    
                     
                     <!-- CTA -->
                     <div class="pt-6 flex gap-4">
@@ -247,6 +254,72 @@ window.filterPriceList = function (category) {
                 cat.style.display = 'none';
             }
         });
+    }
+};
+
+// Select a service and show its packages dynamically on the same page
+window.selectService = function (serviceId) {
+    const service = servicesData.find(s => s.service_id === serviceId);
+    if (!service) return;
+
+    // Find all packages for this service
+    const packages = pricesData.filter(p => p.service_id === serviceId);
+
+    // Update step 1 to show packages
+    const step1 = document.getElementById('booking-step-1');
+    if (step1) {
+        step1.innerHTML = `
+            <div class="mb-6 text-center">
+                <p class="text-stone-500 font-light italic font-geist text-sm">
+                    Vyberte balíček, který vám vyhovuje
+                </p>
+            </div>
+            <div class="flex items-center justify-between mb-6">
+                <h3 class="text-xl font-geist font-medium text-stone-900">${service.category_name}</h3>
+                <button onclick="resetBookingToStepOne()" class="text-xs uppercase tracking-widest text-stone-500 hover:text-stone-900 transition-colors font-geist">
+                    ← Změnit službu
+                </button>
+            </div>
+            <div class="space-y-3">
+                ${packages.map(pkg => `
+                    <div class="flex justify-between items-center gap-4 p-4 border border-stone-200 hover:border-stone-900 transition-colors cursor-pointer group"
+                         onclick="bookPackageFromStep1('${serviceId}', '${pkg.name.replace(/'/g, "\\'")}', '${pkg.price_in_czk}')">
+                        <div class="flex-1">
+                            <span class="font-geist text-stone-900 group-hover:text-stone-900">${pkg.name}</span>
+                            ${pkg.duration_in_minutes ? `<span class="text-sm text-stone-400 ml-2">(${pkg.duration_in_minutes} min)</span>` : ''}
+                            ${pkg.session > 1 ? `<span class="text-sm text-stone-400 ml-2">• ${pkg.session}x</span>` : ''}
+                        </div>
+                        <div class="flex items-center gap-3">
+                            <span class="font-geist font-medium text-stone-900 whitespace-nowrap">${pkg.price_in_czk} Kč</span>
+                            <span class="text-xs uppercase tracking-widest text-stone-400 group-hover:text-stone-900 font-geist">Vybrat</span>
+                        </div>
+                    </div>
+                `).join('')}
+            </div>
+        `;
+    }
+};
+
+// Book package from step 1 (when user selects service first)
+window.bookPackageFromStep1 = function (serviceId, packageName, price) {
+    // Find the package in pricesData to get duration
+    const packageData = pricesData.find(p =>
+        p.service_id === serviceId && p.name === packageName
+    );
+    const duration = packageData ? packageData.duration_in_minutes : null;
+
+    // Store selected package info
+    window.selectedPackage = {
+        serviceId: serviceId,
+        packageName: packageName,
+        price: price,
+        duration: duration
+    };
+
+    // Move to step 2 (date selection)
+    if (typeof currentStep !== 'undefined' && typeof updateSteps === 'function') {
+        currentStep = 2;
+        updateSteps();
     }
 };
 
@@ -319,12 +392,28 @@ window.bookPackage = function (serviceId, packageName, price) {
     // Use the global openBookingModal function that handles Lenis properly
     if (typeof openBookingModal === 'function') {
         openBookingModal();
+
+        // Skip to step 2 (date selection) since package is already selected
+        // Wait a bit for modal to open, then update step
+        setTimeout(() => {
+            if (typeof currentStep !== 'undefined' && typeof updateSteps === 'function') {
+                currentStep = 2;
+                updateSteps();
+            }
+        }, 100);
     }
 };
+
 
 // Reset booking to step one with service selection
 window.resetBookingToStepOne = function () {
     window.selectedPackage = null;
+
+    // Reset to step 1
+    if (typeof currentStep !== 'undefined' && typeof updateSteps === 'function') {
+        currentStep = 1;
+        updateSteps();
+    }
 
     // Restore original HTML structure for step 1
     const step1 = document.getElementById('booking-step-1');
@@ -606,7 +695,7 @@ function renderBookingServices() {
     });
 
     servicesGrid.innerHTML = serviceOptions.map(service => `
-        <button onclick="selectService('${service.id}', '${service.name.replace(/'/g, "\\'")}')" 
+        <button onclick="selectService('${service.id}')" 
                 class="text-left p-6 border border-stone-200 hover:border-stone-900 hover:bg-stone-50 transition-all group">
             <span class="block font-cormorant text-2xl mb-2 text-stone-900">${service.name}</span>
             <span class="block font-geist text-sm text-stone-500 mb-4">${service.description}</span>

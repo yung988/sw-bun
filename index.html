@@ -1265,7 +1265,7 @@
                 <!-- Body (Scrollable) -->
                 <div class="flex-1 overflow-y-auto p-8 lg:p-12" data-lenis-prevent>
 
-                    <!-- Step 1: Service Selection -->
+                    <!-- Step 1: Service + Package Selection (Combined) -->
                     <div id="booking-step-1" class="space-y-8">
                         <div class="mb-6 text-center">
                             <p class="text-stone-500 font-light italic font-geist text-sm">
@@ -1274,55 +1274,12 @@
                         </div>
                         <h3 class="text-xl font-geist font-medium text-stone-900 mb-6">Vyberte službu</h3>
                         <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                            <button onclick="selectService('Endosphere Therapy - Tělo', '2 200 Kč')"
-                                class="text-left p-6 border border-stone-200 hover:border-stone-900 hover:bg-stone-50 transition-all group">
-                                <span class="block font-cormorant text-2xl mb-2 text-stone-900">Endosphere
-                                    Therapy</span>
-                                <span class="block font-geist text-sm text-stone-500 mb-4">Tělo / Obličej</span>
-                                <span
-                                    class="block font-geist text-xs uppercase tracking-widest text-stone-400 group-hover:text-stone-900">Vybrat</span>
-                            </button>
-                            <button onclick="selectService('HIFU Lifting', '8 500 Kč')"
-                                class="text-left p-6 border border-stone-200 hover:border-stone-900 hover:bg-stone-50 transition-all group">
-                                <span class="block font-cormorant text-2xl mb-2 text-stone-900">HIFU Lifting</span>
-                                <span class="block font-geist text-sm text-stone-500 mb-4">Celý obličej /
-                                    Parciální</span>
-                                <span
-                                    class="block font-geist text-xs uppercase tracking-widest text-stone-400 group-hover:text-stone-900">Vybrat</span>
-                            </button>
-                            <button onclick="selectService('Vlasová péče', 'Individuálně')"
-                                class="text-left p-6 border border-stone-200 hover:border-stone-900 hover:bg-stone-50 transition-all group">
-                                <span class="block font-cormorant text-2xl mb-2 text-stone-900">Vlasová péče</span>
-                                <span class="block font-geist text-sm text-stone-500 mb-4">Mezoterapie /
-                                    Prodlužování</span>
-                                <span
-                                    class="block font-geist text-xs uppercase tracking-widest text-stone-400 group-hover:text-stone-900">Vybrat</span>
-                            </button>
-                            <button onclick="selectService('Konzultace', '500 Kč')"
-                                class="text-left p-6 border border-stone-200 hover:border-stone-900 hover:bg-stone-50 transition-all group">
-                                <span class="block font-cormorant text-2xl mb-2 text-stone-900">Konzultace</span>
-                                <span class="block font-geist text-sm text-stone-500 mb-4">Diagnostika a plán</span>
-                                <span
-                                    class="block font-geist text-xs uppercase tracking-widest text-stone-400 group-hover:text-stone-900">Vybrat</span>
-                            </button>
+                            <!-- Will be populated by renderBookingServices() -->
                         </div>
                     </div>
 
-                    <!-- Step 2: Package Selection (NEW) -->
+                    <!-- Step 2: Date & Time -->
                     <div id="booking-step-2" class="hidden space-y-8">
-                        <div class="mb-6 text-center">
-                            <p class="text-stone-500 font-light italic font-geist text-sm">
-                                Vyberte balíček, který vám vyhovuje
-                            </p>
-                        </div>
-                        <h3 class="text-xl font-geist font-medium text-stone-900 mb-6">Vyberte balíček</h3>
-                        <div id="package-selection-grid" class="space-y-4">
-                            <!-- Dynamicky generováno pomocí JavaScript -->
-                        </div>
-                    </div>
-
-                    <!-- Step 3: Date & Time -->
-                    <div id="booking-step-3" class="hidden space-y-8">
                         <div class="mb-6 text-center">
                             <p class="text-stone-500 font-light italic font-geist text-sm">
                                 Vyberte termín, který vám vyhovuje
@@ -1358,8 +1315,8 @@
                         </div>
                     </div>
 
-                    <!-- Step 4: Contact -->
-                    <div id="booking-step-4" class="hidden space-y-8">
+                    <!-- Step 3: Contact Information -->
+                    <div id="booking-step-3" class="hidden space-y-8">
                         <div class="mb-6 text-center">
                             <p class="text-stone-500 font-light italic font-geist text-sm">
                                 Zanechte nám prosím své kontaktní údaje
@@ -1402,8 +1359,8 @@
                         </div>
                     </div>
 
-                    <!-- Step 5: Summary -->
-                    <div id="booking-step-5" class="hidden space-y-8">
+                    <!-- Step 4: Confirmation -->
+                    <div id="booking-step-4" class="hidden space-y-8">
                         <div class="bg-stone-50 p-8 text-center">
                             <div
                                 class="w-16 h-16 bg-stone-200 rounded-full flex items-center justify-center mx-auto mb-6">
@@ -1489,7 +1446,7 @@
         // Booking Modal Logic
         const bookingModal = document.getElementById('bookingModal');
         let currentStep = 1;
-        const totalSteps = 5;
+        const totalSteps = 4;
 
         function resetBooking() {
             currentStep = 1;
@@ -1497,8 +1454,8 @@
         }
 
         async function nextStep() {
-            // If on step 4 (last interactive step), submit booking
-            if (currentStep === 4) {
+            // If on step 3 (last interactive step), submit booking
+            if (currentStep === 3) {
                 await submitBooking();
                 return;
             }
