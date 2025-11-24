@@ -1751,7 +1751,7 @@
         };
 
         // ====================
-        // GSAP SCROLL ANIMATIONS
+        // LUXURY CONTINUOUS ANIMATIONS
         // ====================
 
         // Register ScrollTrigger plugin
@@ -1770,268 +1770,290 @@
         document.addEventListener('DOMContentLoaded', () => {
 
             // ====================
-            // HERO SECTION
+            // CONTINUOUS FLOATING ANIMATIONS
             // ====================
 
-            // Hero parallax effect on image with scale
+            // Hero image - slow zoom + float
             const heroImage = document.querySelector('header img');
             if (heroImage) {
+                // Continuous slow zoom (breathe effect)
                 gsap.to(heroImage, {
-                    yPercent: 30,
-                    scale: 1.1,
+                    scale: 1.05,
+                    duration: 8,
+                    ease: "sine.inOut",
+                    yoyo: true,
+                    repeat: -1
+                });
+
+                // Parallax on scroll
+                gsap.to(heroImage, {
+                    yPercent: 20,
                     ease: "none",
                     scrollTrigger: {
                         trigger: "header",
                         start: "top top",
                         end: "bottom top",
-                        scrub: true
-                    }
-                });
-            }
-
-            // Dramatic stagger with scale and blur on CTA buttons
-            const heroCTAs = document.querySelectorAll('header .flex.flex-col.sm\\:flex-row > *');
-            if (heroCTAs.length > 0) {
-                gsap.from(heroCTAs, {
-                    opacity: 0,
-                    y: 50,
-                    scale: 0.8,
-                    stagger: 0.2,
-                    duration: 1.2,
-                    ease: "back.out(1.4)",
-                    scrollTrigger: {
-                        trigger: "header",
-                        start: "top 80%"
+                        scrub: 1
                     }
                 });
             }
 
             // ====================
-            // SERVICES SECTION
+            // PHILOSOPHY IMAGE - Slow Zoom + 3D Tilt
             // ====================
 
-            // Dramatic fade-in with scale and rotation for service items
-            const serviceItems = document.querySelectorAll('#sluzby .space-y-6 > div');
-            if (serviceItems.length > 0) {
-                gsap.from(serviceItems, {
-                    opacity: 0,
-                    y: 80,
-                    scale: 0.9,
-                    rotationX: -15,
-                    stagger: 0.15,
-                    duration: 1,
-                    ease: "power3.out",
-                    scrollTrigger: {
-                        trigger: "#sluzby",
-                        start: "top 70%"
-                    }
-                });
-            }
-
-            // Parallax on services image container (desktop only)
-            ScrollTrigger.matchMedia({
-                "(min-width: 768px)": function () {
-                    const servicesImage = document.querySelector('#sluzby .sticky');
-                    if (servicesImage) {
-                        gsap.to(servicesImage, {
-                            yPercent: -15,
-                            ease: "none",
-                            scrollTrigger: {
-                                trigger: "#sluzby",
-                                start: "top bottom",
-                                end: "bottom top",
-                                scrub: 1
-                            }
-                        });
-                    }
-                }
-            });
-
-            // ====================
-            // PHILOSOPHY SECTION
-            // ====================
-
-            // FIX: Wrap philosophy image in overflow-hidden container
             const philosophyImageContainer = document.querySelector('#filozofie .aspect-\\[4\\/5\\]');
             if (philosophyImageContainer) {
                 philosophyImageContainer.style.overflow = 'hidden';
+                philosophyImageContainer.style.perspective = '1000px';
             }
 
-            // Parallax on philosophy image (subtle, no overflow)
-            ScrollTrigger.matchMedia({
-                "(min-width: 768px)": function () {
-                    const philosophyImage = document.querySelector('#filozofie img');
-                    if (philosophyImage) {
-                        gsap.to(philosophyImage, {
-                            yPercent: 10, // Reduced from 20 to prevent overflow
-                            ease: "none",
-                            scrollTrigger: {
-                                trigger: "#filozofie",
-                                start: "top bottom",
-                                end: "bottom top",
-                                scrub: true
-                            }
-                        });
-                    }
-                }
-            });
+            const philosophyImage = document.querySelector('#filozofie img');
+            if (philosophyImage) {
+                // Continuous slow zoom
+                gsap.to(philosophyImage, {
+                    scale: 1.08,
+                    duration: 10,
+                    ease: "sine.inOut",
+                    yoyo: true,
+                    repeat: -1
+                });
 
-            // Enhanced fade-in from left on text with scale
-            const philosophyText = document.querySelector('#filozofie .lg\\:w-1\\/2:last-child');
-            if (philosophyText) {
-                gsap.from(philosophyText.children, {
-                    opacity: 0,
-                    x: -100,
-                    scale: 0.95,
-                    stagger: 0.2,
-                    duration: 1.2,
-                    ease: "power3.out",
+                // 3D tilt on scroll
+                gsap.to(philosophyImage, {
+                    rotateY: 5,
+                    rotateX: -3,
                     scrollTrigger: {
                         trigger: "#filozofie",
-                        start: "top 60%"
+                        start: "top bottom",
+                        end: "bottom top",
+                        scrub: 2
                     }
                 });
             }
 
             // ====================
-            // FOUNDER SECTION
+            // FOUNDER IMAGE - Slow Zoom + Float
             // ====================
 
-            // Dramatic fade-in from right on image with scale
-            const founderImage = document.querySelector('#majitelka .aspect-\\[3\\/4\\]');
+            const founderImage = document.querySelector('#majitelka .aspect-\\[3\\/4\\] img');
             if (founderImage) {
-                gsap.from(founderImage, {
-                    opacity: 0,
-                    x: 150,
-                    scale: 0.85,
-                    rotation: 3,
-                    duration: 1.4,
-                    ease: "power3.out",
-                    scrollTrigger: {
-                        trigger: "#majitelka",
-                        start: "top 70%"
-                    }
-                });
-            }
-
-            // Dramatic fade-in from left on text with scale
-            const founderText = document.querySelector('#majitelka .md\\:w-7\\/12');
-            if (founderText) {
-                gsap.from(founderText.children, {
-                    opacity: 0,
-                    x: -150,
-                    scale: 0.9,
-                    stagger: 0.15,
-                    duration: 1.4,
-                    ease: "power3.out",
-                    scrollTrigger: {
-                        trigger: "#majitelka",
-                        start: "top 70%"
-                    }
-                });
-            }
-
-            // ====================
-            // FAQ SECTION
-            // ====================
-
-            // Dramatic stagger with slide and scale on FAQ items
-            const faqItems = document.querySelectorAll('#faq details');
-            if (faqItems.length > 0) {
-                gsap.from(faqItems, {
-                    opacity: 0,
-                    x: -60,
-                    scale: 0.95,
-                    stagger: 0.1,
-                    duration: 0.8,
-                    ease: "power3.out",
-                    scrollTrigger: {
-                        trigger: "#faq",
-                        start: "top 70%"
-                    }
-                });
-            }
-
-            // ====================
-            // GIFT CARDS SECTION
-            // ====================
-
-            // Parallax on sticky gift card image (desktop only)
-            ScrollTrigger.matchMedia({
-                "(min-width: 1024px)": function () {
-                    const giftCardImage = document.querySelector('#poukazy .sticky img');
-                    if (giftCardImage) {
-                        gsap.to(giftCardImage, {
-                            yPercent: 15,
-                            ease: "none",
-                            scrollTrigger: {
-                                trigger: "#poukazy",
-                                start: "top bottom",
-                                end: "bottom top",
-                                scrub: true
-                            }
-                        });
-                    }
+                // Container overflow
+                const founderContainer = document.querySelector('#majitelka .aspect-\\[3\\/4\\]');
+                if (founderContainer) {
+                    founderContainer.style.overflow = 'hidden';
                 }
+
+                // Continuous slow zoom
+                gsap.to(founderImage, {
+                    scale: 1.06,
+                    duration: 9,
+                    ease: "sine.inOut",
+                    yoyo: true,
+                    repeat: -1,
+                    delay: 0.5 // Offset from other zooms
+                });
+
+                // Float effect
+                gsap.to(founderImage, {
+                    y: -10,
+                    duration: 4,
+                    ease: "sine.inOut",
+                    yoyo: true,
+                    repeat: -1
+                });
+            }
+
+            // ====================
+            // SERVICES - Floating Cards
+            // ====================
+
+            const serviceItems = document.querySelectorAll('#sluzby .space-y-6 > div');
+            serviceItems.forEach((item, index) => {
+                // Floating animation with offset
+                gsap.to(item, {
+                    y: -15,
+                    duration: 3 + (index * 0.2),
+                    ease: "sine.inOut",
+                    yoyo: true,
+                    repeat: -1,
+                    delay: index * 0.3
+                });
+
+                // Hover effect - lift up
+                item.addEventListener('mouseenter', () => {
+                    gsap.to(item, {
+                        y: -25,
+                        scale: 1.02,
+                        duration: 0.4,
+                        ease: "power2.out",
+                        overwrite: 'auto'
+                    });
+                });
+
+                item.addEventListener('mouseleave', () => {
+                    gsap.to(item, {
+                        y: -15,
+                        scale: 1,
+                        duration: 0.6,
+                        ease: "elastic.out(1, 0.5)",
+                        overwrite: 'auto'
+                    });
+                });
             });
 
-            // Fade-in on gift card content
+            // Services sticky image - multi-layer parallax
+            const servicesImage = document.querySelector('#sluzby .sticky');
+            if (servicesImage) {
+                gsap.to(servicesImage, {
+                    y: -50,
+                    scrollTrigger: {
+                        trigger: "#sluzby",
+                        start: "top bottom",
+                        end: "bottom top",
+                        scrub: 1.5
+                    }
+                });
+            }
+
+            // ====================
+            // FAQ - Wave Effect
+            // ====================
+
+            const faqItems = document.querySelectorAll('#faq details');
+            faqItems.forEach((item, index) => {
+                // Wave float effect
+                gsap.to(item, {
+                    x: Math.sin(index) * 10,
+                    y: Math.cos(index) * 8,
+                    duration: 4 + (index * 0.3),
+                    ease: "sine.inOut",
+                    yoyo: true,
+                    repeat: -1,
+                    delay: index * 0.2
+                });
+            });
+
+            // ====================
+            // GIFT CARDS - Parallax Layers
+            // ====================
+
+            const giftCardImage = document.querySelector('#poukazy .sticky img');
+            if (giftCardImage) {
+                const giftContainer = document.querySelector('#poukazy .sticky');
+                if (giftContainer) {
+                    giftContainer.style.overflow = 'hidden';
+                }
+
+                // Slow zoom
+                gsap.to(giftCardImage, {
+                    scale: 1.07,
+                    duration: 12,
+                    ease: "sine.inOut",
+                    yoyo: true,
+                    repeat: -1
+                });
+
+                // Parallax
+                gsap.to(giftCardImage, {
+                    yPercent: 15,
+                    scrollTrigger: {
+                        trigger: "#poukazy",
+                        start: "top bottom",
+                        end: "bottom top",
+                        scrub: 2
+                    }
+                });
+            }
+
+            // Gift card content - subtle fade in on scroll
             const giftCardContent = document.querySelector('#poukazy .lg\\:w-1\\/2.py-32');
             if (giftCardContent) {
                 gsap.from(giftCardContent.children, {
                     opacity: 0,
-                    y: 40,
-                    stagger: 0.1,
-                    duration: 0.8,
-                    ease: "power2.out",
+                    y: 30,
+                    stagger: 0.2,
+                    duration: 1,
                     scrollTrigger: {
                         trigger: "#poukazy",
-                        start: "top 60%"
+                        start: "top 70%",
+                        once: true
                     }
                 });
             }
 
             // ====================
-            // REVIEWS SECTION
+            // REVIEWS - Floating Container
             // ====================
 
-            // Dramatic fade-in for reviews carousel with scale
             const reviewsCarousel = document.querySelector('#reviews .relative.min-h-\\[500px\\]');
             if (reviewsCarousel) {
-                gsap.from(reviewsCarousel, {
-                    opacity: 0,
-                    y: 80,
-                    scale: 0.9,
-                    duration: 1.4,
-                    ease: "power4.out",
-                    scrollTrigger: {
-                        trigger: "#reviews",
-                        start: "top 70%"
-                    }
+                // Gentle float
+                gsap.to(reviewsCarousel, {
+                    y: -20,
+                    duration: 6,
+                    ease: "sine.inOut",
+                    yoyo: true,
+                    repeat: -1
                 });
             }
 
             // ====================
-            // CONTACT SECTION
+            // TEXT ANIMATIONS - Fade in on scroll (subtle)
             // ====================
 
-            // Fade-in for contact info
-            const contactInfo = document.querySelector('#kontakt');
-            if (contactInfo) {
-                gsap.from(contactInfo.children, {
+            // Philosophy text
+            const philosophyText = document.querySelector('#filozofie .lg\\:w-1\\/2:last-child');
+            if (philosophyText) {
+                gsap.from(philosophyText.children, {
                     opacity: 0,
-                    y: 30,
+                    y: 40,
                     stagger: 0.15,
-                    duration: 0.8,
+                    duration: 1,
                     ease: "power2.out",
                     scrollTrigger: {
-                        trigger: "#kontakt",
-                        start: "top 75%"
+                        trigger: "#filozofie",
+                        start: "top 60%",
+                        once: true
                     }
                 });
             }
 
-            console.log('✨ GSAP scroll animations initialized');
+            // Founder text
+            const founderText = document.querySelector('#majitelka .md\\:w-7\\/12');
+            if (founderText) {
+                gsap.from(founderText.children, {
+                    opacity: 0,
+                    y: 40,
+                    stagger: 0.15,
+                    duration: 1,
+                    ease: "power2.out",
+                    scrollTrigger: {
+                        trigger: "#majitelka",
+                        start: "top 60%",
+                        once: true
+                    }
+                });
+            }
+
+            // ====================
+            // NAVBAR - Blur on scroll
+            // ====================
+
+            const navbar = document.getElementById('navbar');
+            if (navbar) {
+                ScrollTrigger.create({
+                    start: 0,
+                    end: 'max',
+                    onUpdate: (self) => {
+                        const progress = self.progress;
+                        const blur = Math.min(progress * 10, 8);
+                        navbar.style.backdropFilter = `blur(${blur}px)`;
+                    }
+                });
+            }
+
+            console.log('✨ Luxury continuous animations initialized');
         });
     </script>
 </body>
