@@ -252,8 +252,7 @@
 
                 <div class="space-y-12" id="servicesList">
                     <!-- Service 1 -->
-                    <div class="service-item group cursor-pointer"
-                        onmouseenter="changeServiceImage('img-endosphere-body')">
+                    <div class="service-item group cursor-pointer" data-service-index="0">
                         <h3
                             class="text-5xl md:text-6xl lg:text-7xl font-medium font-cormorant text-stone-200 group-hover:text-stone-900 transition-colors duration-500">
                             Endosphere Therapy Tělo
@@ -261,8 +260,7 @@
                     </div>
 
                     <!-- Service 2 -->
-                    <div class="service-item group cursor-pointer"
-                        onmouseenter="changeServiceImage('img-endosphere-face')">
+                    <div class="service-item group cursor-pointer" data-service-index="1">
                         <h3
                             class="text-5xl md:text-6xl lg:text-7xl font-medium font-cormorant text-stone-200 group-hover:text-stone-900 transition-colors duration-500">
                             Endosphere Therapy Obličej
@@ -270,7 +268,7 @@
                     </div>
 
                     <!-- Service 3 -->
-                    <div class="service-item group cursor-pointer" onmouseenter="changeServiceImage('img-hifu')">
+                    <div class="service-item group cursor-pointer" data-service-index="2">
                         <h3
                             class="text-5xl md:text-6xl lg:text-7xl font-medium font-cormorant text-stone-200 group-hover:text-stone-900 transition-colors duration-500">
                             HIFU Lifting
@@ -278,7 +276,7 @@
                     </div>
 
                     <!-- Service 4 -->
-                    <div class="service-item group cursor-pointer" onmouseenter="changeServiceImage('img-hair-meso')">
+                    <div class="service-item group cursor-pointer" data-service-index="3">
                         <h3
                             class="text-5xl md:text-6xl lg:text-7xl font-medium font-cormorant text-stone-200 group-hover:text-stone-900 transition-colors duration-500">
                             Vlasová mezoterapie
@@ -286,7 +284,7 @@
                     </div>
 
                     <!-- Service 5 -->
-                    <div class="service-item group cursor-pointer" onmouseenter="changeServiceImage('img-hair-ext')">
+                    <div class="service-item group cursor-pointer" data-service-index="4">
                         <h3
                             class="text-5xl md:text-6xl lg:text-7xl font-medium font-cormorant text-stone-200 group-hover:text-stone-900 transition-colors duration-500">
                             Prodlužování vlasů
@@ -294,7 +292,7 @@
                     </div>
 
                     <!-- Service 6 -->
-                    <div class="service-item group cursor-pointer" onmouseenter="changeServiceImage('img-lashes')">
+                    <div class="service-item group cursor-pointer" data-service-index="5">
                         <h3
                             class="text-5xl md:text-6xl lg:text-7xl font-medium font-cormorant text-stone-200 group-hover:text-stone-900 transition-colors duration-500">
                             Lash Lift & Tint
@@ -302,7 +300,7 @@
                     </div>
 
                     <!-- Service 7 -->
-                    <div class="service-item group cursor-pointer" onmouseenter="changeServiceImage('img-brows')">
+                    <div class="service-item group cursor-pointer" data-service-index="6">
                         <h3
                             class="text-5xl md:text-6xl lg:text-7xl font-medium font-cormorant text-stone-200 group-hover:text-stone-900 transition-colors duration-500">
                             Brow Lamination
@@ -310,8 +308,7 @@
                     </div>
 
                     <!-- Service 8 -->
-                    <div class="service-item group cursor-pointer"
-                        onmouseenter="changeServiceImage('img-consultation')">
+                    <div class="service-item group cursor-pointer" data-service-index="7">
                         <h3
                             class="text-5xl md:text-6xl lg:text-7xl font-medium font-cormorant text-stone-200 group-hover:text-stone-900 transition-colors duration-500">
                             Konzultace
@@ -336,49 +333,49 @@
                         <!-- Endosphere Body -->
                         <img id="img-endosphere-body"
                             src="https://hoirqrkdgbmvpwutwuwj.supabase.co/storage/v1/object/public/assets/assets/917d6f93-fb36-439a-8c48-884b67b35381_1600w.jpg"
-                            class="absolute inset-0 w-full h-full object-contain transition-opacity duration-700 opacity-100"
+                            class="absolute inset-0 w-full h-full object-cover transition-opacity duration-700 opacity-100"
                             alt="Endosphere Body">
 
                         <!-- Endosphere Face -->
                         <img id="img-endosphere-face"
                             src="https://hoirqrkdgbmvpwutwuwj.supabase.co/storage/v1/object/public/assets/assets/917d6f93-fb36-439a-8c48-884b67b35381_1600w.jpg"
-                            class="absolute inset-0 w-full h-full object-contain transition-opacity duration-700 opacity-0"
+                            class="absolute inset-0 w-full h-full object-cover transition-opacity duration-700 opacity-0"
                             alt="Endosphere Face">
 
                         <!-- HIFU Image -->
                         <img id="img-hifu"
                             src="https://images.unsplash.com/photo-1616394584738-fc6e612e71b9?q=80&w=2070&auto=format&fit=crop"
-                            class="absolute inset-0 w-full h-full object-contain transition-opacity duration-700 opacity-0"
+                            class="absolute inset-0 w-full h-full object-cover transition-opacity duration-700 opacity-0"
                             alt="HIFU">
 
                         <!-- Hair Meso -->
                         <img id="img-hair-meso"
                             src="https://hoirqrkdgbmvpwutwuwj.supabase.co/storage/v1/object/public/assets/assets/4734259a-bad7-422f-981e-ce01e79184f2_1600w.jpg"
-                            class="absolute inset-0 w-full h-full object-contain transition-opacity duration-700 opacity-0"
+                            class="absolute inset-0 w-full h-full object-cover transition-opacity duration-700 opacity-0"
                             alt="Hair Meso">
 
                         <!-- Hair Ext -->
                         <img id="img-hair-ext"
                             src="https://hoirqrkdgbmvpwutwuwj.supabase.co/storage/v1/object/public/assets/assets/4734259a-bad7-422f-981e-ce01e79184f2_1600w.jpg"
-                            class="absolute inset-0 w-full h-full object-contain transition-opacity duration-700 opacity-0"
+                            class="absolute inset-0 w-full h-full object-cover transition-opacity duration-700 opacity-0"
                             alt="Hair Ext">
 
                         <!-- Lashes -->
                         <img id="img-lashes"
                             src="https://images.unsplash.com/photo-1587776536548-2287c2a78482?q=80&w=1974&auto=format&fit=crop"
-                            class="absolute inset-0 w-full h-full object-contain transition-opacity duration-700 opacity-0"
+                            class="absolute inset-0 w-full h-full object-cover transition-opacity duration-700 opacity-0"
                             alt="Lashes">
 
                         <!-- Brows -->
                         <img id="img-brows"
                             src="https://images.unsplash.com/photo-1587776536548-2287c2a78482?q=80&w=1974&auto=format&fit=crop"
-                            class="absolute inset-0 w-full h-full object-contain transition-opacity duration-700 opacity-0"
+                            class="absolute inset-0 w-full h-full object-cover transition-opacity duration-700 opacity-0"
                             alt="Brows">
 
                         <!-- Consultation Image -->
                         <img id="img-consultation"
                             src="https://hoirqrkdgbmvpwutwuwj.supabase.co/storage/v1/object/public/assets/assets/eab40de0-94a4-45eb-b924-345850d0201b_800w.jpg"
-                            class="absolute inset-0 w-full h-full object-contain transition-opacity duration-700 opacity-0 grayscale-[20%]"
+                            class="absolute inset-0 w-full h-full object-cover transition-opacity duration-700 opacity-0 grayscale-[20%]"
                             alt="Consultation">
 
                         <!-- Overlay Gradient (Optional, lighter for this design) -->
