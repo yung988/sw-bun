@@ -31,21 +31,7 @@
 
         /* Smooth scroll */
         /* Smooth scroll removed for Lenis compatibility */
-        .lenis.lenis-smooth {
-            scroll-behavior: auto !important;
-        }
 
-        .lenis.lenis-smooth [data-lenis-prevent] {
-            overscroll-behavior: contain;
-        }
-
-        .lenis.lenis-stopped {
-            overflow: hidden;
-        }
-
-        .lenis.lenis-scrolling iframe {
-            pointer-events: none;
-        }
 
         /* Custom Range Slider Styling */
         input[type=range] {
@@ -143,6 +129,7 @@
             font-family: 'Playfair Display', serif !important;
         }
     </style>
+    <link rel="stylesheet" href="https://unpkg.com/lenis@1.1.18/dist/lenis.css">
 </head>
 
 <body class="antialiased selection:bg-stone-200 selection:text-stone-900 text-stone-800 relative">
