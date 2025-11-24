@@ -1,19 +1,6 @@
 {
-    "rewrites": [
-        {
-            "source": "/api/(.*)",
-            "destination": "/api/$1"
-        }
-    ],
-    "headers": [
-        {
-            "source": "/api/(.*)",
-            "headers": [
-                {
-                    "key": "Cache-Control",
-                    "value": "s-maxage=0"
-                }
-            ]
-        }
-    ]
+    "buildCommand": null,
+    "outputDirectory": ".",
+    "installCommand": "npm install",
+    "framework": null
 }
