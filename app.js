@@ -89,7 +89,7 @@ window.openServiceDetail = function (serviceId) {
         <div id="serviceDetailModal" class="fixed inset-0 z-[80] flex items-center justify-center p-4" onclick="closeServiceDetail()">
             <div class="absolute inset-0 bg-stone-900/60 backdrop-blur-sm"></div>
             
-            <div class="relative bg-white w-full max-w-5xl max-h-[90vh] overflow-y-auto shadow-2xl animate-fade-in-up" onclick="event.stopPropagation()">
+            <div class="relative bg-white w-full max-w-5xl max-h-[90vh] shadow-2xl animate-fade-in-up overflow-hidden flex flex-col" onclick="event.stopPropagation()">
                 <button onclick="closeServiceDetail(); openPriceList();" class="absolute top-4 left-4 z-10 p-2 text-stone-400 hover:text-stone-900 transition-colors flex items-center gap-2 font-geist text-sm">
                     <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-arrow-left">
                         <path d="m12 19-7-7 7-7"></path>
@@ -103,6 +103,8 @@ window.openServiceDetail = function (serviceId) {
                         <path d="m6 6 12 12"></path>
                     </svg>
                 </button>
+                
+                <div class="overflow-y-auto flex-1" data-lenis-prevent>
                 
                 <!-- Image Gallery -->
                 <div class="w-full h-64 md:h-96 bg-stone-100 relative overflow-hidden">
@@ -201,19 +203,20 @@ window.openServiceDetail = function (serviceId) {
                         </button>
                     </div>
                 </div>
+                </div>
             </div>
         </div>
     `;
 
     document.body.insertAdjacentHTML('beforeend', modalHTML);
-    document.body.style.overflow = 'hidden';
+    // Lenis.stop() is called by openServiceDetail() context
 };
 
 window.closeServiceDetail = function () {
     const modal = document.getElementById('serviceDetailModal');
     if (modal) {
         modal.remove();
-        document.body.style.overflow = 'auto';
+        // Lenis.start() should be called by the context
     }
 };
 
@@ -269,60 +272,53 @@ window.bookPackage = function (serviceId, packageName, price) {
         priceListModal.classList.add('hidden');
     }
 
-    // Open booking modal
-    const bookingModal = document.getElementById('bookingModal');
-    if (bookingModal) {
-        bookingModal.classList.remove('hidden');
-        document.body.style.overflow = 'hidden';
+    // Find the service name
+    const service = servicesData.find(s => s.service_id === serviceId);
+    const serviceName = service ? service.category_name : '';
 
-        // Find the service name
-        const service = servicesData.find(s => s.service_id === serviceId);
-        const serviceName = service ? service.category_name : '';
-
-        // Format duration
-        let durationText = '';
-        if (duration) {
-            if (duration >= 60) {
-                const hours = Math.floor(duration / 60);
-                const mins = duration % 60;
-                if (mins > 0) {
-                    durationText = `${hours}h ${mins} min`;
-                } else {
-                    durationText = `${hours} ${hours === 1 ? 'hodina' : 'hodiny'}`;
-                }
+    // Format duration
+    let durationText = '';
+    if (duration) {
+        if (duration >= 60) {
+            const hours = Math.floor(duration / 60);
+            const mins = duration % 60;
+            if (mins > 0) {
+                durationText = `${hours}h ${mins} min`;
             } else {
-                durationText = `${duration} minut`;
+                durationText = `${hours} ${hours === 1 ? 'hodina' : 'hodiny'}`;
             }
+        } else {
+            durationText = `${duration} minut`;
         }
+    }
 
-        // Update step 1 to show selected package
-        const step1 = document.getElementById('booking-step-1');
-        if (step1) {
-            step1.innerHTML = `
-                <div class="mb-6 text-center">
-                    <p class="text-stone-500 font-light italic font-geist text-sm">
-                        Váš vybraný balíček
-                    </p>
+    // Update step 1 to show selected package
+    const step1 = document.getElementById('booking-step-1');
+    if (step1) {
+        step1.innerHTML = `
+            <div class="mb-6 text-center">
+                <p class="text-stone-500 font-light italic font-geist text-sm">
+                    Váš vybraný balíček
+                </p>
+            </div>
+            <div class="bg-stone-50 border border-stone-200 p-6">
+                <h3 class="text-xl font-geist font-medium text-stone-900 mb-4">Vybraný balíček</h3>
+                <div class="space-y-2">
+                    <p class="font-cormorant text-2xl text-stone-900">${serviceName}</p>
+                    <p class="font-geist text-stone-600">${packageName}</p>
+                    ${durationText ? `<p class="font-geist text-sm text-stone-500">${durationText}</p>` : ''}
+                    <p class="font-geist font-medium text-stone-900">${price} Kč</p>
                 </div>
-                <div class="bg-stone-50 border border-stone-200 p-6">
-                    <h3 class="text-xl font-geist font-medium text-stone-900 mb-4">Vybraný balíček</h3>
-                    <div class="space-y-2">
-                        <p class="font-cormorant text-2xl text-stone-900">${serviceName}</p>
-                        <p class="font-geist text-stone-600">${packageName}</p>
-                        ${durationText ? `<p class="font-geist text-sm text-stone-500">${durationText}</p>` : ''}
-                        <p class="font-geist font-medium text-stone-900">${price} Kč</p>
-                    </div>
-                    <button onclick="resetBookingToStepOne()" class="mt-4 text-xs uppercase tracking-widest text-stone-500 hover:text-stone-900 transition-colors font-geist">
-                        Změnit výběr
-                    </button>
-                </div>
-            `;
-        }
+                <button onclick="resetBookingToStepOne()" class="mt-4 text-xs uppercase tracking-widest text-stone-500 hover:text-stone-900 transition-colors font-geist">
+                    Změnit výběr
+                </button>
+            </div>
+        `;
+    }
 
-        // Initialize on step 1 but with pre-selected package
-        if (typeof resetBooking === 'function') {
-            resetBooking();
-        }
+    // Use the global openBookingModal function that handles Lenis properly
+    if (typeof openBookingModal === 'function') {
+        openBookingModal();
     }
 };
 
@@ -429,6 +425,9 @@ function setupScrollImageSwitch() {
     let currentImageIndex = 0;
 
     function handleMouseMove(e) {
+        // Don't change images if any modal is open
+        if (window.isModalOpen) return;
+
         // Throttle to ~60fps for performance
         if (throttleTimer) return;
 
@@ -509,7 +508,7 @@ function renderPriceList() {
 
     // Create filter buttons
     const filterHTML = `
-        <div class="sticky top-0 bg-white/95 backdrop-blur-sm z-20 pt-6 pb-4 mb-6 border-b border-stone-200 shadow-sm">
+        <div class="sticky top-0 bg-white/95 backdrop-blur-sm z-20 pb-4 mb-6 border-b border-stone-200 shadow-sm">
             <div class="flex flex-wrap gap-2">
                 <button onclick="filterPriceList('all')" 
                         data-filter="all"
