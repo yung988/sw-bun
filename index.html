@@ -180,8 +180,35 @@
             <a href="#kontakt" onclick="toggleMobileMenu()"
                 class="text-3xl font-cormorant text-stone-900 hover:text-stone-500 transition-colors">Kontakt</a>
         </nav>
+
+        <!-- Quick Actions -->
+        <div class="mt-12 flex flex-col gap-3 w-full max-w-xs mx-auto">
+            <a href="https://maps.google.com/?q=U+Cihelny+1326/4,+695+01+Hodonín" target="_blank"
+                rel="noopener noreferrer"
+                class="flex items-center justify-center gap-3 border border-stone-300 text-stone-900 px-6 py-3 hover:border-stone-900 transition-all duration-300 font-geist text-sm">
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none"
+                    stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                    class="lucide lucide-map-pin">
+                    <path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"></path>
+                    <circle cx="12" cy="10" r="3"></circle>
+                </svg>
+                <span class="uppercase tracking-widest">Navigovat</span>
+            </a>
+            <a href="tel:+420776632498"
+                class="flex items-center justify-center gap-3 border border-stone-300 text-stone-900 px-6 py-3 hover:border-stone-900 transition-all duration-300 font-geist text-sm">
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none"
+                    stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                    class="lucide lucide-phone">
+                    <path
+                        d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z">
+                    </path>
+                </svg>
+                <span class="uppercase tracking-widest">Zavolat</span>
+            </a>
+        </div>
+
         <button onclick="openBookingModal()"
-            class="mt-12 border border-stone-900 text-stone-900 px-8 py-3 hover:bg-stone-900 hover:text-white transition-all duration-300 font-geist uppercase tracking-widest text-sm">
+            class="mt-6 border border-stone-900 text-stone-900 px-8 py-3 hover:bg-stone-900 hover:text-white transition-all duration-300 font-geist uppercase tracking-widest text-sm">
             Rezervovat termín
         </button>
     </div>
@@ -225,7 +252,7 @@
         <div class="max-w-screen-2xl mx-auto w-full flex flex-col lg:flex-row lg:items-center">
             <!-- Text Content -->
             <div
-                class="w-full lg:w-5/12 flex flex-col justify-center px-6 md:px-12 pt-12 pb-12 lg:py-0 order-2 lg:order-1">
+                class="w-full lg:w-5/12 flex flex-col justify-center px-6 md:px-16 lg:px-12 pt-12 pb-12 lg:py-0 order-2 lg:order-1">
 
                 <h1
                     class="text-5xl md:text-6xl xl:text-7xl leading-[1.1] font-medium text-stone-900 tracking-tighter font-cormorant mb-8">
@@ -244,15 +271,12 @@
 
             <!-- Image Content -->
             <div
-                class="w-full lg:w-7/12 h-[60vh] lg:h-auto relative order-1 lg:order-2 lg:py-12 md:pr-12 flex items-center justify-center">
+                class="w-full lg:w-7/12 h-[60vh] lg:h-auto relative order-1 lg:order-2 md:px-12 md:py-8 lg:py-16 lg:pr-16 flex items-center justify-center">
                 <div
-                    class="absolute inset-0 lg:relative lg:inset-auto lg:h-[80vh] lg:w-auto lg:aspect-[3/4] lg:shadow-2xl overflow-hidden">
+                    class="absolute inset-0 md:relative md:w-full md:h-full lg:h-[75vh] lg:aspect-[3/4] lg:shadow-2xl overflow-hidden">
                     <img src="https://hoirqrkdgbmvpwutwuwj.supabase.co/storage/v1/object/public/assets/assets/ff9ee43a-d206-44ef-851c-c74c3c8ed87b_3840w.jpg"
                         alt="SW Beauty Editorial Portrait"
                         class="w-full h-full object-cover object-center opacity-90 animate-fade-in-up">
-                </div>
-                <div
-                    class="absolute top-0 right-0 bottom-0 left-0 bg-gradient-to-l from-transparent to-cream-50/20 lg:hidden">
                 </div>
             </div>
         </div>
@@ -741,9 +765,161 @@
         </script>
     </section>
 
+    <!-- Instagram Feed Section -->
+    <section id="instagram" class="py-24 md:py-32 bg-white">
+        <div class="max-w-screen-2xl mx-auto px-6 md:px-12">
+            <!-- Header -->
+            <div class="text-center mb-16">
+                <span class="text-stone-400 uppercase tracking-widest text-xs mb-3 block font-geist">
+                    Sledujte nás
+                </span>
+                <h2 class="text-4xl md:text-5xl lg:text-6xl font-medium tracking-tight font-cormorant text-stone-900">
+                    @swbeautysalons
+                </h2>
+            </div>
+
+            <!-- Photo Grid - Single Row -->
+            <div class="max-w-screen-2xl mx-auto">
+                <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-3 md:gap-4">
+                    <!-- Instagram Photo 1 -->
+                    <a href="https://instagram.com/swbeautysalons" target="_blank" rel="noopener noreferrer"
+                        class="instagram-item group relative aspect-square overflow-hidden bg-stone-100 cursor-pointer">
+                        <img src="https://images.unsplash.com/photo-1560750588-73207b1ef5b8?w=800&q=80"
+                            alt="SW Beauty Instagram"
+                            class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110">
+                        <div
+                            class="absolute inset-0 bg-stone-900/0 group-hover:bg-stone-900/40 transition-all duration-500 flex items-center justify-center">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"
+                                fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                stroke-linejoin="round"
+                                class="lucide lucide-instagram text-white opacity-0 group-hover:opacity-100 transition-opacity duration-500">
+                                <rect width="20" height="20" x="2" y="2" rx="5" ry="5"></rect>
+                                <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path>
+                                <line x1="17.5" x2="17.51" y1="6.5" y2="6.5"></line>
+                            </svg>
+                        </div>
+                    </a>
+
+                    <!-- Instagram Photo 2 -->
+                    <a href="https://instagram.com/swbeautysalons" target="_blank" rel="noopener noreferrer"
+                        class="instagram-item group relative aspect-square overflow-hidden bg-stone-100 cursor-pointer">
+                        <img src="https://images.unsplash.com/photo-1515377905703-c4788e51af15?w=800&q=80"
+                            alt="SW Beauty Instagram"
+                            class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110">
+                        <div
+                            class="absolute inset-0 bg-stone-900/0 group-hover:bg-stone-900/40 transition-all duration-500 flex items-center justify-center">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"
+                                fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                stroke-linejoin="round"
+                                class="lucide lucide-instagram text-white opacity-0 group-hover:opacity-100 transition-opacity duration-500">
+                                <rect width="20" height="20" x="2" y="2" rx="5" ry="5"></rect>
+                                <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path>
+                                <line x1="17.5" x2="17.51" y1="6.5" y2="6.5"></line>
+                            </svg>
+                        </div>
+                    </a>
+
+                    <!-- Instagram Photo 3 -->
+                    <a href="https://instagram.com/swbeautysalons" target="_blank" rel="noopener noreferrer"
+                        class="instagram-item group relative aspect-square overflow-hidden bg-stone-100 cursor-pointer">
+                        <img src="https://images.unsplash.com/photo-1552693673-1bf958298935?w=800&q=80"
+                            alt="SW Beauty Instagram"
+                            class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110">
+                        <div
+                            class="absolute inset-0 bg-stone-900/0 group-hover:bg-stone-900/40 transition-all duration-500 flex items-center justify-center">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"
+                                fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                stroke-linejoin="round"
+                                class="lucide lucide-instagram text-white opacity-0 group-hover:opacity-100 transition-opacity duration-500">
+                                <rect width="20" height="20" x="2" y="2" rx="5" ry="5"></rect>
+                                <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path>
+                                <line x1="17.5" x2="17.51" y1="6.5" y2="6.5"></line>
+                            </svg>
+                        </div>
+                    </a>
+
+                    <!-- Instagram Photo 4 -->
+                    <a href="https://instagram.com/swbeautysalons" target="_blank" rel="noopener noreferrer"
+                        class="instagram-item group relative aspect-square overflow-hidden bg-stone-100 cursor-pointer">
+                        <img src="https://images.unsplash.com/photo-1570172619644-dfd03ed5d881?w=800&q=80"
+                            alt="SW Beauty Instagram"
+                            class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110">
+                        <div
+                            class="absolute inset-0 bg-stone-900/0 group-hover:bg-stone-900/40 transition-all duration-500 flex items-center justify-center">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"
+                                fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                stroke-linejoin="round"
+                                class="lucide lucide-instagram text-white opacity-0 group-hover:opacity-100 transition-opacity duration-500">
+                                <rect width="20" height="20" x="2" y="2" rx="5" ry="5"></rect>
+                                <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path>
+                                <line x1="17.5" x2="17.51" y1="6.5" y2="6.5"></line>
+                            </svg>
+                        </div>
+                    </a>
+
+                    <!-- Instagram Photo 5 -->
+                    <a href="https://instagram.com/swbeautysalons" target="_blank" rel="noopener noreferrer"
+                        class="instagram-item group relative aspect-square overflow-hidden bg-stone-100 cursor-pointer">
+                        <img src="https://images.unsplash.com/photo-1487412947147-5cebf100ffc2?w=800&q=80"
+                            alt="SW Beauty Instagram"
+                            class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110">
+                        <div
+                            class="absolute inset-0 bg-stone-900/0 group-hover:bg-stone-900/40 transition-all duration-500 flex items-center justify-center">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"
+                                fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                stroke-linejoin="round"
+                                class="lucide lucide-instagram text-white opacity-0 group-hover:opacity-100 transition-opacity duration-500">
+                                <rect width="20" height="20" x="2" y="2" rx="5" ry="5"></rect>
+                                <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path>
+                                <line x1="17.5" x2="17.51" y1="6.5" y2="6.5"></line>
+                            </svg>
+                        </div>
+                    </a>
+
+                    <!-- Instagram Photo 6 -->
+                    <a href="https://instagram.com/swbeautysalons" target="_blank" rel="noopener noreferrer"
+                        class="instagram-item group relative aspect-square overflow-hidden bg-stone-100 cursor-pointer">
+                        <img src="https://images.unsplash.com/photo-1522337360788-8b13dee7a37e?w=800&q=80"
+                            alt="SW Beauty Instagram"
+                            class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110">
+                        <div
+                            class="absolute inset-0 bg-stone-900/0 group-hover:bg-stone-900/40 transition-all duration-500 flex items-center justify-center">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"
+                                fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                stroke-linejoin="round"
+                                class="lucide lucide-instagram text-white opacity-0 group-hover:opacity-100 transition-opacity duration-500">
+                                <rect width="20" height="20" x="2" y="2" rx="5" ry="5"></rect>
+                                <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path>
+                                <line x1="17.5" x2="17.51" y1="6.5" y2="6.5"></line>
+                            </svg>
+                        </div>
+                    </a>
+
+
+                </div>
+            </div>
+
+            <!-- Follow Button -->
+            <div class="text-center mt-16">
+                <a href="https://instagram.com/swbeautysalons" target="_blank" rel="noopener noreferrer"
+                    class="inline-flex items-center gap-3 border border-stone-900 text-stone-900 px-8 py-4 hover:bg-stone-900 hover:text-white transition-all duration-300 font-geist uppercase tracking-widest text-sm">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none"
+                        stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                        class="lucide lucide-instagram">
+                        <rect width="20" height="20" x="2" y="2" rx="5" ry="5"></rect>
+                        <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path>
+                        <line x1="17.5" x2="17.51" y1="6.5" y2="6.5"></line>
+                    </svg>
+                    <span>Sledovat na Instagramu</span>
+                </a>
+            </div>
+        </div>
+    </section>
+
     <!-- Footer -->
-    <footer class="overflow-hidden text-stone-900 border-stone-100 border-t pt-24 pb-6 relative">
+    <footer class="overflow-hidden text-stone-900 border-stone-100 border-t pt-24 pb-6 md:pb-16 lg:pb-6 relative">
         <div class="max-w-screen-2xl mx-auto px-6 md:px-12 relative z-10">
+
             <div class="grid grid-cols-1 md:grid-cols-4 gap-12 mb-24 md:mb-48">
 
                 <!-- Služby Column -->
@@ -784,8 +960,25 @@
                     </ul>
                 </div>
 
-                <!-- Empty Column -->
-                <div class="md:col-span-1"></div>
+                <!-- Newsletter Column -->
+                <div class="md:col-span-1">
+                    <h3 class="font-cormorant text-2xl md:text-3xl mb-6 text-stone-900">Newsletter</h3>
+                    <p class="text-stone-500 font-geist font-light text-sm mb-4">
+                        Přihlaste se k odběru a získejte exkluzivní tipy.
+                    </p>
+
+                    <form id="newsletterForm" class="space-y-3">
+                        <input type="email" id="newsletterEmail" name="email" placeholder="Váš email" required
+                            class="w-full px-4 py-3 border border-stone-300 bg-white text-stone-900 font-geist text-sm focus:outline-none focus:border-stone-900 transition-colors" />
+                        <button type="submit"
+                            class="w-full bg-stone-900 text-white px-6 py-3 hover:bg-stone-800 transition-colors duration-300 font-geist uppercase tracking-widest text-xs">
+                            Odebírat
+                        </button>
+                    </form>
+
+                    <!-- Success/Error Message -->
+                    <div id="newsletterMessage" class="mt-3 text-xs font-geist hidden"></div>
+                </div>
             </div>
 
             <!-- Bottom Section with Giant Editorial Text & Copyright -->
@@ -800,7 +993,7 @@
                 <!-- Giant Brand Name -->
                 <div class="order-1 md:order-2 w-full md:w-auto text-right select-none pointer-events-none">
                     <div
-                        class="font-cormorant text-[20vw] md:text-[12rem] lg:text-[15rem] leading-[0.85] text-white tracking-tighter mix-blend-hard-light drop-shadow-sm lg:drop-shadow-none lg:text-[#EBE8E0]">
+                        class="font-cormorant text-[20vw] md:text-[15vw] lg:text-[12rem] xl:text-[15rem] leading-[0.85] text-white tracking-tighter mix-blend-hard-light drop-shadow-sm lg:drop-shadow-none lg:text-[#EBE8E0]">
                         <div class="block">SW</div>
                         <div class="block ml-[0.5em] md:ml-0">Beauty</div>
                     </div>

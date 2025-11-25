@@ -706,7 +706,94 @@ function renderBookingServices() {
     `).join('');
 }
 
+// Instagram Grid Floating Animations
+function initInstagramAnimations() {
+    const instagramItems = document.querySelectorAll('.instagram-item');
+    if (!instagramItems || instagramItems.length === 0) return;
+
+    gsap.from(instagramItems, {
+        scrollTrigger: {
+            trigger: '#instagram',
+            start: 'top 80%',
+            end: 'bottom 20%',
+            toggleActions: 'play none none reset'
+        },
+        y: 50,
+        opacity: 0,
+        duration: 0.8,
+        stagger: {
+            amount: 0.6,
+            from: 'start'
+        },
+        ease: 'power2.out'
+    });
+}
+
+// Newsletter Form Handling
+function initNewsletterForm() {
+    const form = document.getElementById('newsletterForm');
+    const emailInput = document.getElementById('newsletterEmail');
+    const messageDiv = document.getElementById('newsletterMessage');
+
+    if (!form) return;
+
+    form.addEventListener('submit', async (e) => {
+        e.preventDefault();
+
+        const email = emailInput.value.trim();
+
+        // Email validation
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        if (!email || !emailRegex.test(email)) {
+            showNewsletterMessage('Prosím zadejte platný email', 'error');
+            return;
+        }
+
+        // Show loading state
+        const submitButton = form.querySelector('button[type="submit"]');
+        const originalText = submitButton.textContent;
+        submitButton.disabled = true;
+        submitButton.textContent = 'Odesílám...';
+
+        try {
+            // TODO: Add backend API endpoint for newsletter subscription
+            // For now, simulate success after delay
+            await new Promise(resolve => setTimeout(resolve, 1000));
+
+            // Simulate success
+            showNewsletterMessage('✓ Děkujeme! Byli jste úspěšně přihlášeni k odběru newsletteru.', 'success');
+            emailInput.value = '';
+
+            // Log for now (until backend is ready)
+            console.log('Newsletter subscription:', email);
+
+        } catch (error) {
+            showNewsletterMessage('Něco se pokazilo. Zkuste to prosím znovu.', 'error');
+            console.error('Newsletter error:', error);
+        } finally {
+            submitButton.disabled = false;
+            submitButton.textContent = originalText;
+        }
+    });
+}
+
+function showNewsletterMessage(message, type) {
+    const messageDiv = document.getElementById('newsletterMessage');
+    if (!messageDiv) return;
+
+    messageDiv.textContent = message;
+    messageDiv.classList.remove('hidden', 'text-green-600', 'text-red-600');
+    messageDiv.classList.add(type === 'success' ? 'text-green-600' : 'text-red-600');
+
+    // Auto-hide after 5 seconds
+    setTimeout(() => {
+        messageDiv.classList.add('hidden');
+    }, 5000);
+}
+
 // Initialize on page load
 document.addEventListener('DOMContentLoaded', () => {
     loadData();
+    initInstagramAnimations();
+    initNewsletterForm();
 });
