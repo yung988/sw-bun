@@ -1445,8 +1445,6 @@
                                 id="step-indicator-3"></div>
                             <div class="h-1 w-12 bg-stone-200 rounded-full transition-all duration-300"
                                 id="step-indicator-4"></div>
-                            <div class="h-1 w-12 bg-stone-200 rounded-full transition-all duration-300"
-                                id="step-indicator-5"></div>
                         </div>
                     </div>
                     <button onclick="closeBookingModal()"
@@ -1652,7 +1650,7 @@
         }
 
         async function nextStep() {
-            // If on step 3 (last interactive step), submit booking
+            // If on step 3 (contact info - last interactive step), submit booking
             if (currentStep === 3) {
                 await submitBooking();
                 return;
@@ -1841,13 +1839,15 @@
         function selectTime(btn, time) {
             // Remove active class from all
             document.querySelectorAll('.time-slot').forEach(el => {
-                el.classList.remove('bg-stone-900', 'text-white');
+                el.classList.remove('bg-stone-900', 'text-white', 'active');
                 el.classList.add('hover:bg-stone-50');
+                delete el.dataset.time;
             });
 
-            // Add active class
+            // Add active class and store time
             btn.classList.remove('hover:bg-stone-50');
-            btn.classList.add('bg-stone-900', 'text-white');
+            btn.classList.add('bg-stone-900', 'text-white', 'active');
+            btn.dataset.time = time;
         }
     </script>
 
