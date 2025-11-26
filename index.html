@@ -1369,6 +1369,39 @@
             previewNote.textContent = val;
         }
 
+        function resetGiftCard() {
+            // Reset form
+            const form = document.querySelector('#giftModal form');
+            if (form) form.reset();
+
+            // Reset to cash type (default)
+            currentType = 'cash';
+            cashInput.classList.remove('hidden');
+            serviceInput.classList.add('hidden');
+
+            // Reset range to default value (2000)
+            const rangeInput = document.querySelector('input[type="range"]');
+            if (rangeInput) {
+                rangeInput.value = '2000';
+                updateAmount('2000');
+            }
+
+            // Reset preview to defaults
+            previewName.textContent = 'Vaše Jméno';
+            previewNote.textContent = '';
+
+            // Clear input fields explicitly
+            const recipientName = document.getElementById('recipientName');
+            const giftMessage = document.getElementById('giftMessage');
+            const buyerEmail = document.getElementById('buyerEmail');
+            const buyerPhone = document.getElementById('buyerPhone');
+
+            if (recipientName) recipientName.value = '';
+            if (giftMessage) giftMessage.value = '';
+            if (buyerEmail) buyerEmail.value = '';
+            if (buyerPhone) buyerPhone.value = '';
+        }
+
         async function submitForm() {
             const btn = document.querySelector('form button[type=submit]');
             const originalText = btn.textContent;
@@ -1412,7 +1445,7 @@
                 if (response.ok) {
                     alert('Děkujeme za objednávku! Brzy se vám ozveme s podklady k platbě.');
                     closeModal();
-                    document.querySelector('form').reset();
+                    resetGiftCard();
                 } else {
                     alert('Něco se pokazilo. Zkuste to prosím znovu.');
                 }
@@ -1651,8 +1684,33 @@
         const totalSteps = 4;
 
         function resetBooking() {
+            // Reset step
             currentStep = 1;
             updateSteps();
+
+            // Clear all form fields
+            const dateInput = document.getElementById('bookingDate');
+            const nameInput = document.getElementById('bookingName');
+            const emailInput = document.getElementById('bookingEmail');
+            const phoneInput = document.getElementById('bookingPhone');
+            const noteInput = document.getElementById('bookingNote');
+
+            if (dateInput) dateInput.value = '';
+            if (nameInput) nameInput.value = '';
+            if (emailInput) emailInput.value = '';
+            if (phoneInput) phoneInput.value = '';
+            if (noteInput) noteInput.value = '';
+
+            // Clear time selection
+            document.querySelectorAll('.time-slot').forEach(el => {
+                el.classList.remove('bg-stone-900', 'text-white', 'active');
+                el.classList.add('hover:bg-stone-50');
+                delete el.dataset.time;
+            });
+
+            // Clear selected package
+            window.selectedPackage = null;
+            window.selectedService = null;
         }
 
         async function nextStep() {
@@ -1898,6 +1956,7 @@
             modal.classList.add('hidden');
             window.isModalOpen = false;
             lenis.start();
+            resetGiftCard(); // Reset modal to initial state
         }
 
         function openBookingModal() {
@@ -1915,6 +1974,7 @@
             modal.classList.add('hidden');
             window.isModalOpen = false;
             lenis.start();
+            resetBooking(); // Reset modal to initial state
         }
 
         function openPriceList() {
