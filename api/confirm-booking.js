@@ -1,5 +1,50 @@
 import { resend, generateHash } from '../lib/utils/email-templates.js';
-import { bookingClientConfirmedEmailTemplate } from '../lib/utils/booking-templates.js';
+import { bookingClientConfirmedEmailTemplate, bookingOwnerConfirmedEmailTemplate } from '../lib/utils/booking-templates.js';
+
+// Generování ICS souboru pro kalendář
+function generateICS(service, packageName, date, time, clientName, clientPhone, isOwner = false) {
+  // Parsování data a času
+  const [year, month, day] = date.split('-').map(Number);
+  const [hours, minutes] = time.split(':').map(Number);
+  
+  // Vytvoření UTC času (předpokládáme CET/CEST - zjednodušeně)
+  const startDate = new Date(year, month - 1, day, hours, minutes);
+  const endDate = new Date(startDate.getTime() + 60 * 60 * 1000); // +1 hodina
+  
+  // Formátování pro ICS (YYYYMMDDTHHmmss)
+  const formatICSDate = (d) => {
+    const pad = (n) => n.toString().padStart(2, '0');
+    return `${d.getFullYear()}${pad(d.getMonth() + 1)}${pad(d.getDate())}T${pad(d.getHours())}${pad(d.getMinutes())}00`;
+  };
+  
+  const uid = `${Date.now()}-${Math.random().toString(36).substr(2, 9)}@swbeauty.cz`;
+  const now = formatICSDate(new Date());
+  
+  const title = packageName 
+    ? `${service} - ${packageName}` 
+    : service;
+  
+  const description = isOwner
+    ? `Klient: ${clientName}\\nTelefon: ${clientPhone}\\n\\nSW Beauty`
+    : `Vaše rezervace v SW Beauty\\n\\nSlužba: ${title}\\n\\nTěšíme se na Vás!`;
+  
+  return `BEGIN:VCALENDAR
+VERSION:2.0
+PRODID:-//SW Beauty//Booking System//CS
+CALSCALE:GREGORIAN
+METHOD:PUBLISH
+BEGIN:VEVENT
+UID:${uid}
+DTSTAMP:${now}
+DTSTART:${formatICSDate(startDate)}
+DTEND:${formatICSDate(endDate)}
+SUMMARY:${isOwner ? `${clientName} - ${title}` : `${title} - SW Beauty`}
+DESCRIPTION:${description}
+LOCATION:U Cihelny 1326/4, 695 01 Hodonín
+STATUS:CONFIRMED
+END:VEVENT
+END:VCALENDAR`;
+}
 
 export default async function handler(req, res) {
   const { service, date, time, name, email, phone, key } = req.query;
@@ -226,7 +271,7 @@ export default async function handler(req, res) {
                     <div style="max-width: 600px; margin: 100px auto; text-align: center; padding: 40px;">
                       <h1 style="font-size: 48px; margin: 0 0 20px; color: #15803d;">✓</h1>
                       <h2 style="font-size: 24px; margin: 0 0 10px; color: #1c1917;">Rezervace potvrzena</h2>
-                      <p style="color: #78716c;">Email s potvrzením byl odeslán klientovi.</p>
+                      <p style="color: #78716c;">Email s potvrzením byl odeslán klientovi i vám.</p>
                     </div>
                   \`;
                 } else {
@@ -246,7 +291,7 @@ export default async function handler(req, res) {
     `);
   }
 
-  // For POST request, send confirmation email to client
+  // For POST request, send confirmation email to client AND owner
   if (req.method === 'POST') {
     try {
       const body = req.body;
@@ -259,7 +304,28 @@ export default async function handler(req, res) {
         return res.status(403).json({ error: 'Invalid key' });
       }
 
-      // Send confirmation email to client with final date/time
+      // Generování ICS souborů
+      const clientICS = generateICS(
+        body.service, 
+        body.packageName, 
+        finalDate, 
+        finalTime, 
+        body.name, 
+        body.phone,
+        false // pro klienta
+      );
+      
+      const ownerICS = generateICS(
+        body.service, 
+        body.packageName, 
+        finalDate, 
+        finalTime, 
+        body.name, 
+        body.phone,
+        true // pro majitelku
+      );
+
+      // Send confirmation email to client with ICS attachment
       await resend.emails.send({
         from: 'SW Beauty <noreply@swbeauty.cz>',
         to: body.email,
@@ -270,7 +336,37 @@ export default async function handler(req, res) {
           body.packageName,
           finalDate,
           finalTime
-        )
+        ),
+        attachments: [
+          {
+            filename: 'rezervace-sw-beauty.ics',
+            content: Buffer.from(clientICS).toString('base64'),
+            type: 'text/calendar'
+          }
+        ]
+      });
+
+      // Send confirmation email to owner with ICS attachment
+      await resend.emails.send({
+        from: 'SW Beauty <noreply@swbeauty.cz>',
+        to: 'info@swbeauty.cz',
+        subject: `Potvrzeno: ${body.name} - ${body.service} (${finalDate} ${finalTime})`,
+        html: bookingOwnerConfirmedEmailTemplate(
+          body.name,
+          body.email,
+          body.phone,
+          body.service,
+          body.packageName,
+          finalDate,
+          finalTime
+        ),
+        attachments: [
+          {
+            filename: 'rezervace.ics',
+            content: Buffer.from(ownerICS).toString('base64'),
+            type: 'text/calendar'
+          }
+        ]
       });
 
       return res.status(200).json({ success: true });
