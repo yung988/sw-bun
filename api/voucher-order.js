@@ -1,4 +1,4 @@
-import { resend, generateHash, ownerEmailTemplate } from '../lib/utils/email-templates.js';
+import { resend, generateHash, ownerEmailTemplate, customerPaymentInstructionsTemplate, customerCashConfirmationTemplate } from '../lib/utils/email-templates.js';
 
 export default async function handler(req, res) {
     if (req.method !== 'POST') {
@@ -6,10 +6,10 @@ export default async function handler(req, res) {
     }
 
     try {
-        const { recipientName, recipientEmail, message, voucherType, amount, service } = req.body;
+        const { recipientName, recipientEmail, recipientPhone, message, voucherType, amount, service, packageName, paymentMethod } = req.body;
 
         // Validate required fields
-        if (!recipientName || !recipientEmail || !voucherType) {
+        if (!recipientName || !recipientEmail || !voucherType || !paymentMethod) {
             return res.status(400).json({ error: 'Missing required fields' });
         }
 
@@ -42,6 +42,37 @@ export default async function handler(req, res) {
 
         const confirmUrl = `https://swbeauty.cz/api/confirm-payment?${params.toString()}`;
 
+        // Send email to customer based on payment method
+        if (paymentMethod === 'transfer') {
+            // Send payment instructions to customer
+            await resend.emails.send({
+                from: 'SW Beauty <noreply@swbeauty.cz>',
+                to: recipientEmail,
+                subject: 'Platební pokyny - Dárkový poukaz SW Beauty',
+                html: customerPaymentInstructionsTemplate(
+                    recipientName,
+                    voucherType,
+                    amount || '',
+                    service || '',
+                    packageName || ''
+                )
+            });
+        } else {
+            // Send cash confirmation to customer
+            await resend.emails.send({
+                from: 'SW Beauty <noreply@swbeauty.cz>',
+                to: recipientEmail,
+                subject: 'Potvrzení objednávky - Dárkový poukaz SW Beauty',
+                html: customerCashConfirmationTemplate(
+                    recipientName,
+                    voucherType,
+                    amount || '',
+                    service || '',
+                    packageName || ''
+                )
+            });
+        }
+
         // Send email to owner with confirmation link
         await resend.emails.send({
             from: 'SW Beauty <noreply@swbeauty.cz>',
@@ -50,10 +81,13 @@ export default async function handler(req, res) {
             html: ownerEmailTemplate(
                 recipientName,
                 recipientEmail,
+                recipientPhone || '',
                 voucherType,
                 amount || '',
                 service || '',
+                packageName || '',
                 message || '',
+                paymentMethod,
                 confirmUrl
             )
         });

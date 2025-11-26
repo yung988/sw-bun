@@ -617,7 +617,7 @@
                         Nejkrásnějším dárkem je čas a péče.
                     </p>
 
-                    <button onclick="openModal()"
+                    <button onclick="showComingSoonMessage()"
                         class="inline-flex items-center gap-3 bg-stone-900 text-white px-8 py-4 hover:bg-stone-800 transition-all duration-300 tracking-widest text-sm uppercase font-geist font-medium">
                         <span>Vytvořit poukaz</span>
                         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
@@ -1152,31 +1152,29 @@
                                 <!-- Service Select (Service) - Hidden by default -->
                                 <div id="serviceInput" class="hidden">
                                     <label
-                                        class="block text-xs uppercase tracking-widest text-stone-500 mb-2 font-geist">
-                                        Vyberte proceduru
+                                        class="block text-xs uppercase tracking-widest text-stone-500 mb-3 font-geist">
+                                        Vyberte službu
                                     </label>
-                                    <div class="relative">
-                                        <select onchange="updateService(this.value)"
-                                            class="w-full appearance-none bg-stone-50 border border-stone-200 p-3 text-stone-800 text-sm focus:outline-none focus:border-stone-500 rounded-none">
-                                            <option value="Endosphere Therapy - Tělo" class="font-geist">
-                                                Endosphere Therapy - Tělo
-                                            </option>
-                                            <option value="Endosphere Therapy - Obličej" class="font-geist">
-                                                Endosphere Therapy - Obličej
-                                            </option>
-                                            <option value="HIFU Lifting - Celý obličej" class="font-geist">
-                                                HIFU Lifting - Celý obličej
-                                            </option>
-                                            <option value="Konzultace + Vstupní ošetření" class="font-geist">
-                                                Konzultace + Vstupní ošetření
-                                            </option>
-                                        </select>
-                                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
-                                            viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
-                                            stroke-linecap="round" stroke-linejoin="round" data-lucide="chevron-down"
-                                            class="lucide lucide-chevron-down absolute right-3 top-3.5 w-4 h-4 text-stone-400 pointer-events-none">
-                                            <path d="m6 9 6 6 6-6"></path>
-                                        </svg>
+                                    <div id="giftCardServicesGrid" class="grid grid-cols-1 gap-3 mb-4">
+                                        <!-- Will be populated by renderGiftCardServices() -->
+                                    </div>
+
+                                    <!-- Package Selection - Shows after service is selected -->
+                                    <div id="giftCardPackagesContainer" class="hidden">
+                                        <div
+                                            class="flex items-center justify-between mb-3 pt-4 border-t border-stone-100">
+                                            <label
+                                                class="block text-xs uppercase tracking-widest text-stone-500 font-geist">
+                                                Vyberte balíček
+                                            </label>
+                                            <button onclick="resetGiftCardServiceSelection()" type="button"
+                                                class="text-xs uppercase tracking-widest text-stone-500 hover:text-stone-900 transition-colors font-geist">
+                                                ← Změnit službu
+                                            </button>
+                                        </div>
+                                        <div id="giftCardPackagesGrid" class="grid grid-cols-1 gap-3">
+                                            <!-- Will be populated dynamically -->
+                                        </div>
                                     </div>
                                 </div>
 
@@ -1230,6 +1228,38 @@
                                     </div>
                                 </div>
 
+                                <!-- Payment Method -->
+                                <div class="pt-4 border-t border-stone-100">
+                                    <label
+                                        class="block text-xs uppercase tracking-widest text-stone-500 mb-3 font-geist">
+                                        Způsob platby
+                                    </label>
+                                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                        <label class="cursor-pointer">
+                                            <input type="radio" name="paymentMethod" value="transfer"
+                                                class="peer sr-only" checked=""
+                                                onchange="updatePaymentMethod('transfer')">
+                                            <div
+                                                class="p-4 border border-stone-200 text-sm hover:border-stone-400 peer-checked:bg-stone-900 peer-checked:text-white peer-checked:border-stone-900 transition-all font-geist">
+                                                <div class="font-medium mb-1">Bankovní převod</div>
+                                                <div class="text-xs opacity-75">Obdržíte platební pokyny</div>
+                                            </div>
+                                        </label>
+                                        <label class="cursor-pointer">
+                                            <input type="radio" name="paymentMethod" value="cash" class="peer sr-only"
+                                                onchange="updatePaymentMethod('cash')">
+                                            <div
+                                                class="p-4 border border-stone-200 text-sm hover:border-stone-400 peer-checked:bg-stone-900 peer-checked:text-white peer-checked:border-stone-900 transition-all font-geist">
+                                                <div class="font-medium mb-1">Hotově v salonu</div>
+                                                <div class="text-xs opacity-75">Zaplaťte při vyzvednutí</div>
+                                            </div>
+                                        </label>
+                                    </div>
+                                    <p class="text-xs text-stone-400 mt-3 font-geist" id="paymentMethodNote">
+                                        Platební pokyny vám zašleme na email. Poukaz obdržíte po připsání platby.
+                                    </p>
+                                </div>
+
                                 <!-- Submit -->
                                 <div class="pt-6">
                                     <button type="submit"
@@ -1259,6 +1289,50 @@
     <script>
         // Initialize Lucide Icons
         lucide.createIcons();
+
+        // Coming soon message for gift cards (temporary)
+        function showComingSoonMessage() {
+            const overlay = document.createElement('div');
+            overlay.className = 'fixed inset-0 z-[100] flex items-center justify-center p-4';
+            overlay.style.backgroundColor = 'rgba(28, 25, 23, 0.8)';
+            overlay.style.backdropFilter = 'blur(8px)';
+
+            overlay.innerHTML = `
+                <div class="bg-white p-12 max-w-md text-center shadow-2xl animate-fade-in-up">
+                    <div class="w-16 h-16 bg-stone-100 rounded-full flex items-center justify-center mx-auto mb-6">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-stone-600">
+                            <path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path>
+                        </svg>
+                    </div>
+                    <h2 class="text-3xl font-cormorant font-medium text-stone-900 mb-4">Připravujeme</h2>
+                    <p class="text-stone-600 font-geist mb-8">
+                        Pracujeme na vylepšení systému dárkových poukazů. Brzy bude k dispozici!
+                    </p>
+                    <p class="text-sm text-stone-500 font-geist mb-6">
+                        Mezitím nás můžete kontaktovat přímo pro objednání poukazu.
+                    </p>
+                    <div class="flex flex-col gap-3">
+                        <a href="tel:+420776632498" class="inline-flex items-center justify-center gap-2 bg-stone-900 text-white px-6 py-3 hover:bg-stone-800 transition-colors font-geist text-sm uppercase tracking-widest">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path>
+                            </svg>
+                            Zavolat
+                        </a>
+                        <button onclick="this.closest('.fixed').remove()" class="border border-stone-300 text-stone-600 px-6 py-3 hover:border-stone-900 hover:text-stone-900 transition-colors font-geist text-sm uppercase tracking-widest">
+                            Zavřít
+                        </button>
+                    </div>
+                </div>
+            `;
+
+            overlay.onclick = (e) => {
+                if (e.target === overlay) {
+                    overlay.remove();
+                }
+            };
+
+            document.body.appendChild(overlay);
+        }
 
         // Mobile Menu Logic
         function toggleMobileMenu() {
@@ -1358,7 +1432,23 @@
         }
 
         function updateService(val) {
+            // This function is deprecated - services are now selected via buttons
             previewValue.textContent = val;
+        }
+
+        // New: Track selected payment method
+        let selectedPaymentMethod = 'transfer'; // default
+
+        function updatePaymentMethod(method) {
+            selectedPaymentMethod = method;
+            const note = document.getElementById('paymentMethodNote');
+            if (note) {
+                if (method === 'transfer') {
+                    note.textContent = 'Platební pokyny vám zašleme na email. Poukaz obdržíte po připsání platby.';
+                } else {
+                    note.textContent = 'Poukaz obdržíte po zaplacení v salonu.';
+                }
+            }
         }
 
         function updateName(val) {
@@ -1400,6 +1490,23 @@
             if (giftMessage) giftMessage.value = '';
             if (buyerEmail) buyerEmail.value = '';
             if (buyerPhone) buyerPhone.value = '';
+
+            // Reset payment method to default (transfer)
+            selectedPaymentMethod = 'transfer';
+            const transferRadio = document.querySelector('input[name="paymentMethod"][value="transfer"]');
+            if (transferRadio) transferRadio.checked = true;
+            updatePaymentMethod('transfer');
+
+            // Reset service/package selection
+            window.selectedGiftPackage = null;
+
+            // Reset services grid
+            const servicesGrid = document.getElementById('giftCardServicesGrid');
+            if (servicesGrid) servicesGrid.innerHTML = '';
+
+            // Hide packages container
+            const packagesContainer = document.getElementById('giftCardPackagesContainer');
+            if (packagesContainer) packagesContainer.classList.add('hidden');
         }
 
         async function submitForm() {
@@ -1412,14 +1519,24 @@
             const message = document.getElementById('giftMessage').value;
             const buyerEmail = document.getElementById('buyerEmail').value;
             const buyerPhone = document.getElementById('buyerPhone').value;
+            const paymentMethod = selectedPaymentMethod;
 
             let amount = '';
             let service = '';
+            let packageName = '';
 
             if (voucherType === 'cash') {
                 amount = document.querySelector('input[type="range"]').value;
             } else {
-                service = document.querySelector('#serviceInput select').value;
+                // Get selected package info
+                if (window.selectedGiftPackage) {
+                    service = window.selectedGiftPackage.serviceName;
+                    packageName = window.selectedGiftPackage.packageName;
+                    amount = window.selectedGiftPackage.price;
+                } else {
+                    alert('Prosím vyberte balíček.');
+                    return;
+                }
             }
 
             btn.textContent = "Odesílám...";
@@ -1435,15 +1552,22 @@
                     body: JSON.stringify({
                         recipientName,
                         recipientEmail: buyerEmail,
+                        recipientPhone: buyerPhone,
                         message,
                         voucherType,
                         amount,
-                        service
+                        service,
+                        packageName,
+                        paymentMethod
                     })
                 });
 
                 if (response.ok) {
-                    alert('Děkujeme za objednávku! Brzy se vám ozveme s podklady k platbě.');
+                    if (paymentMethod === 'transfer') {
+                        alert('Děkujeme za objednávku! Na váš email jsme zaslali platební pokyny. Poukaz obdržíte po připsání platby.');
+                    } else {
+                        alert('Děkujeme za objednávku! Poukaz obdržíte po zaplacení v salonu.');
+                    }
                     closeModal();
                     resetGiftCard();
                 } else {
