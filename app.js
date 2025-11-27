@@ -528,23 +528,34 @@ function setupScrollImageSwitch() {
         // Get Y position of cursor relative to viewport
         const mouseY = e.clientY;
 
-        // Calculate which service "zone" the cursor is in based on Y position
-        let targetIndex = 0;
-        let minDistance = Infinity;
+        // Find which service the mouse is currently over
+        let targetIndex = -1;
 
         serviceItems.forEach((item, index) => {
             const rect = item.getBoundingClientRect();
-            const itemCenterY = rect.top + rect.height / 2;
-            const distance = Math.abs(mouseY - itemCenterY);
-
-            if (distance < minDistance) {
-                minDistance = distance;
+            // Check if mouse Y is within this service item's vertical bounds
+            if (mouseY >= rect.top && mouseY <= rect.bottom) {
                 targetIndex = index;
             }
         });
 
+        // If mouse isn't over any service, find the closest one
+        if (targetIndex === -1) {
+            let minDistance = Infinity;
+            serviceItems.forEach((item, index) => {
+                const rect = item.getBoundingClientRect();
+                const itemCenterY = rect.top + rect.height / 2;
+                const distance = Math.abs(mouseY - itemCenterY);
+
+                if (distance < minDistance) {
+                    minDistance = distance;
+                    targetIndex = index;
+                }
+            });
+        }
+
         // Only update if index changed (avoid unnecessary DOM manipulation)
-        if (targetIndex !== currentImageIndex) {
+        if (targetIndex !== -1 && targetIndex !== currentImageIndex) {
             currentImageIndex = targetIndex;
             changeServiceImageByIndex(targetIndex);
         }

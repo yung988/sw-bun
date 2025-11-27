@@ -2175,9 +2175,9 @@
         const philosophyContainer = document.querySelector('#filozofie .aspect-\\[4\\/5\\]');
 
         if (philosophyImage && philosophyContainer) {
-            // Parallax scroll
+            // Parallax scroll (up direction to prevent gray bar)
             scroll(animate(philosophyImage, {
-                transform: ["translateY(0%)", "translateY(15%)"]
+                transform: ["translateY(0%)", "translateY(-15%)"]
             }), {
                 target: document.querySelector("#filozofie"),
                 offset: ["start end", "end start"]
@@ -2191,9 +2191,9 @@
         const founderContainer = document.querySelector('#majitelka .aspect-\\[3\\/4\\]');
 
         if (founderImage && founderContainer) {
-            // Parallax scroll
+            // Parallax scroll (up direction to prevent gray bar)
             scroll(animate(founderImage, {
-                transform: ["translateY(0%)", "translateY(15%)"]
+                transform: ["translateY(0%)", "translateY(-15%)"]
             }), {
                 target: document.querySelector("#majitelka"),
                 offset: ["start end", "end start"]
@@ -2226,10 +2226,10 @@
             });
         });
 
-        // Services sticky image - parallax
-        const servicesImage = document.querySelector('#sluzby .sticky');
-        if (servicesImage) {
-            scroll(animate(servicesImage, {
+        // Services sticky container - parallax (same as original GSAP)
+        const servicesSticky = document.querySelector('#sluzby .sticky');
+        if (servicesSticky) {
+            scroll(animate(servicesSticky, {
                 y: [0, -50]
             }), {
                 target: document.querySelector("#sluzby"),
@@ -2257,9 +2257,9 @@
         const giftCardContainer = document.querySelector('#poukazy .sticky');
 
         if (giftCardImage && giftCardContainer) {
-            // Parallax
+            // Parallax (up direction to prevent gray bar)
             scroll(animate(giftCardImage, {
-                transform: ["translateY(0%)", "translateY(15%)"]
+                transform: ["translateY(0%)", "translateY(-15%)"]
             }), {
                 target: document.querySelector("#poukazy"),
                 offset: ["start end", "end start"]
