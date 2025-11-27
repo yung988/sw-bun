@@ -2153,21 +2153,11 @@
         document.addEventListener('DOMContentLoaded', () => {
 
             // ====================
-            // CONTINUOUS FLOATING ANIMATIONS
+            // HERO IMAGE - Parallax Only
             // ====================
 
-            // Hero image - slow zoom + float
             const heroImage = document.querySelector('header img');
             if (heroImage) {
-                // Continuous slow zoom (breathe effect)
-                gsap.to(heroImage, {
-                    scale: 1.05,
-                    duration: 8,
-                    ease: "sine.inOut",
-                    yoyo: true,
-                    repeat: -1
-                });
-
                 // Parallax on scroll
                 gsap.to(heroImage, {
                     yPercent: 20,
@@ -2182,110 +2172,68 @@
             }
 
             // ====================
-            // PHILOSOPHY IMAGE - Slow Zoom + 3D Tilt
+            // PHILOSOPHY IMAGE - Parallax Only
             // ====================
-
-            const philosophyImageContainer = document.querySelector('#filozofie .aspect-\\[4\\/5\\]');
-            if (philosophyImageContainer) {
-                philosophyImageContainer.style.overflow = 'hidden';
-                philosophyImageContainer.style.perspective = '1000px';
-            }
 
             const philosophyImage = document.querySelector('#filozofie img');
             if (philosophyImage) {
-                // Continuous slow zoom
+                // Parallax on scroll
                 gsap.to(philosophyImage, {
-                    scale: 1.08,
-                    duration: 10,
-                    ease: "sine.inOut",
-                    yoyo: true,
-                    repeat: -1
-                });
-
-                // 3D tilt on scroll
-                gsap.to(philosophyImage, {
-                    rotateY: 5,
-                    rotateX: -3,
+                    yPercent: 15,
                     scrollTrigger: {
                         trigger: "#filozofie",
                         start: "top bottom",
                         end: "bottom top",
-                        scrub: 2
+                        scrub: 1
                     }
                 });
             }
 
             // ====================
-            // FOUNDER IMAGE - Slow Zoom + Float
+            // FOUNDER IMAGE - Parallax Only
             // ====================
 
             const founderImage = document.querySelector('#majitelka .aspect-\\[3\\/4\\] img');
             if (founderImage) {
-                // Container overflow
-                const founderContainer = document.querySelector('#majitelka .aspect-\\[3\\/4\\]');
-                if (founderContainer) {
-                    founderContainer.style.overflow = 'hidden';
-                }
-
-                // Continuous slow zoom
+                // Parallax on scroll
                 gsap.to(founderImage, {
-                    scale: 1.06,
-                    duration: 9,
-                    ease: "sine.inOut",
-                    yoyo: true,
-                    repeat: -1,
-                    delay: 0.5 // Offset from other zooms
-                });
-
-                // Float effect
-                gsap.to(founderImage, {
-                    y: -10,
-                    duration: 4,
-                    ease: "sine.inOut",
-                    yoyo: true,
-                    repeat: -1
+                    yPercent: 15,
+                    scrollTrigger: {
+                        trigger: "#majitelka",
+                        start: "top bottom",
+                        end: "bottom top",
+                        scrub: 1
+                    }
                 });
             }
 
             // ====================
-            // SERVICES - Floating Cards
+            // SERVICES - Simple Hover Effects
             // ====================
 
             const serviceItems = document.querySelectorAll('#sluzby .space-y-6 > div');
-            serviceItems.forEach((item, index) => {
-                // Floating animation with offset
-                gsap.to(item, {
-                    y: -15,
-                    duration: 3 + (index * 0.2),
-                    ease: "sine.inOut",
-                    yoyo: true,
-                    repeat: -1,
-                    delay: index * 0.3
-                });
-
-                // Hover effect - lift up
+            serviceItems.forEach((item) => {
+                // Simple hover effect - lift up
                 item.addEventListener('mouseenter', () => {
                     gsap.to(item, {
-                        y: -25,
-                        scale: 1.02,
+                        y: -10,
+                        scale: 1.01,
                         duration: 0.4,
-                        ease: "power2.out",
-                        overwrite: 'auto'
+                        ease: "power2.out"
                     });
                 });
 
                 item.addEventListener('mouseleave', () => {
                     gsap.to(item, {
-                        y: -15,
+                        y: 0,
                         scale: 1,
-                        duration: 0.6,
-                        ease: "elastic.out(1, 0.5)",
-                        overwrite: 'auto'
+                        duration: 0.4,
+                        ease: "power2.out"
                     });
                 });
             });
 
-            // Services sticky image - multi-layer parallax
+            // Services sticky image - parallax
             const servicesImage = document.querySelector('#sluzby .sticky');
             if (servicesImage) {
                 gsap.to(servicesImage, {
@@ -2300,43 +2248,31 @@
             }
 
             // ====================
-            // FAQ - Wave Effect (Optimized)
+            // FAQ - Simple Fade-in
             // ====================
 
             const faqItems = document.querySelectorAll('#faq details');
-            faqItems.forEach((item, index) => {
-                // Subtle wave float effect with reduced intensity
-                gsap.to(item, {
-                    x: Math.sin(index) * 5,
-                    y: Math.cos(index) * 4,
-                    duration: 6 + (index * 0.5),
-                    ease: "sine.inOut",
-                    yoyo: true,
-                    repeat: -1,
-                    delay: index * 0.3
+            if (faqItems.length > 0) {
+                gsap.from(faqItems, {
+                    opacity: 0,
+                    y: 20,
+                    stagger: 0.1,
+                    duration: 0.8,
+                    ease: "power2.out",
+                    scrollTrigger: {
+                        trigger: "#faq",
+                        start: "top 70%",
+                        once: true
+                    }
                 });
-            });
+            }
 
             // ====================
-            // GIFT CARDS - Parallax Layers
+            // GIFT CARDS - Parallax Only
             // ====================
 
             const giftCardImage = document.querySelector('#poukazy .sticky img');
             if (giftCardImage) {
-                const giftContainer = document.querySelector('#poukazy .sticky');
-                if (giftContainer) {
-                    giftContainer.style.overflow = 'hidden';
-                }
-
-                // Slow zoom
-                gsap.to(giftCardImage, {
-                    scale: 1.07,
-                    duration: 12,
-                    ease: "sine.inOut",
-                    yoyo: true,
-                    repeat: -1
-                });
-
                 // Parallax
                 gsap.to(giftCardImage, {
                     yPercent: 15,
@@ -2344,7 +2280,7 @@
                         trigger: "#poukazy",
                         start: "top bottom",
                         end: "bottom top",
-                        scrub: 2
+                        scrub: 1
                     }
                 });
             }
@@ -2366,18 +2302,21 @@
             }
 
             // ====================
-            // REVIEWS - Floating Container
+            // REVIEWS - Simple Fade-in
             // ====================
 
             const reviewsCarousel = document.querySelector('#reviews .relative.min-h-\\[500px\\]');
             if (reviewsCarousel) {
-                // Gentle float
-                gsap.to(reviewsCarousel, {
-                    y: -20,
-                    duration: 6,
-                    ease: "sine.inOut",
-                    yoyo: true,
-                    repeat: -1
+                gsap.from(reviewsCarousel, {
+                    opacity: 0,
+                    y: 30,
+                    duration: 1,
+                    ease: "power2.out",
+                    scrollTrigger: {
+                        trigger: "#reviews",
+                        start: "top 70%",
+                        once: true
+                    }
                 });
             }
 
