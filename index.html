@@ -2284,9 +2284,9 @@
         const philosophyContainer = document.querySelector('#filozofie .aspect-\\[4\\/5\\]');
 
         if (philosophyImage && philosophyContainer) {
-            // Parallax scroll (up direction to prevent gray bar)
+            // Parallax scroll (down direction to prevent gray bar at top)
             scroll(animate(philosophyImage, {
-                transform: ["translateY(0%)", "translateY(-15%)"]
+                transform: ["translateY(-10%)", "translateY(10%)"]
             }), {
                 target: document.querySelector("#filozofie"),
                 offset: ["start end", "end start"]
@@ -2300,9 +2300,9 @@
         const founderContainer = document.querySelector('#majitelka .aspect-\\[3\\/4\\]');
 
         if (founderImage && founderContainer) {
-            // Parallax scroll (up direction to prevent gray bar)
+            // Parallax scroll (down direction to prevent gray bar at top)
             scroll(animate(founderImage, {
-                transform: ["translateY(0%)", "translateY(-15%)"]
+                transform: ["translateY(-10%)", "translateY(10%)"]
             }), {
                 target: document.querySelector("#majitelka"),
                 offset: ["start end", "end start"]
@@ -2366,9 +2366,9 @@
         const giftCardContainer = document.querySelector('#poukazy .sticky');
 
         if (giftCardImage && giftCardContainer) {
-            // Parallax (up direction to prevent gray bar)
+            // Parallax (down direction to prevent gray bar at top)
             scroll(animate(giftCardImage, {
-                transform: ["translateY(0%)", "translateY(-15%)"]
+                transform: ["translateY(-10%)", "translateY(10%)"]
             }), {
                 target: document.querySelector("#poukazy"),
                 offset: ["start end", "end start"]
