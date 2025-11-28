@@ -1,4 +1,5 @@
 import { resend, generateHash, ownerEmailTemplate, customerPaymentInstructionsTemplate, customerCashConfirmationTemplate } from '../lib/utils/email-templates.js';
+import { rateLimit } from './lib/rate-limiter.js';
 
 export default async function handler(req, res) {
     if (req.method !== 'POST') {
@@ -6,6 +7,10 @@ export default async function handler(req, res) {
     }
 
     try {
+        // Rate limiting: 3 requests per 5 minutes per IP
+        const clientIp = req.headers['x-forwarded-for'] || req.headers['x-real-ip'] || req.socket.remoteAddress;
+        rateLimit(clientIp, 3, 300000);
+
         const { recipientName, recipientEmail, recipientPhone, message, voucherType, amount, service, packageName, paymentMethod } = req.body;
 
         // Validate required fields
@@ -96,6 +101,11 @@ export default async function handler(req, res) {
 
     } catch (error) {
         console.error('Error processing voucher order:', error);
+
+        if (error.statusCode === 429) {
+            return res.status(429).json({ error: error.message });
+        }
+
         return res.status(500).json({ error: 'Internal server error' });
     }
 }
