@@ -506,8 +506,10 @@ function renderServices() {
 
 // Setup viewport-wide cursor tracking for service images
 function setupScrollImageSwitch() {
-    // Only run on desktop (lg breakpoint = 1024px)
-    if (window.innerWidth <= 1024) return;
+    // Only run on desktop (lg breakpoint = 1024px + no touch device)
+    if (window.innerWidth <= 1024 || 'ontouchstart' in window || navigator.maxTouchPoints > 0) {
+        return;
+    }
 
     const servicesList = document.getElementById('servicesList');
     const serviceItems = servicesList?.querySelectorAll('.service-item');

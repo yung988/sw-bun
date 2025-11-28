@@ -459,9 +459,8 @@
             </div>
 
             <!-- Right Side: Floating Sticky Image -->
-            <div
-                class="hidden lg:block w-1/2 relative">
-                <div class="sticky top-1/2 -translate-y-1/2 flex items-center justify-center h-screen pointer-events-none">
+            <div class="hidden lg:block w-1/2 h-screen sticky top-0 z-0">
+                <div class="flex items-center justify-center h-full px-12 pointer-events-none">
                 <!-- Image Card -->
                 <div class="relative w-[400px] aspect-[3/4] overflow-hidden shadow-2xl bg-stone-100">
                     <div id="serviceImages" class="w-full h-full relative">
@@ -516,7 +515,6 @@
                         <!-- Overlay Gradient (Optional, lighter for this design) -->
                         <div class="absolute inset-0 bg-stone-900/5 pointer-events-none"></div>
                     </div>
-                </div>
                 </div>
             </div>
         </div>
@@ -2127,90 +2125,6 @@
     <!-- GSAP Libraries -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
-
-    <!-- GSAP ScrollTrigger for Services -->
-    <script>
-        // Services Section - Full GSAP Animations
-        document.addEventListener('DOMContentLoaded', () => {
-            // Wait for Lenis and GSAP to be ready
-            setTimeout(() => {
-                // Register GSAP ScrollTrigger plugin
-                if (typeof gsap !== 'undefined' && typeof ScrollTrigger !== 'undefined') {
-                    gsap.registerPlugin(ScrollTrigger);
-
-                    // Integrate with Lenis - only update ScrollTrigger on scroll
-                    if (typeof lenis !== 'undefined') {
-                        lenis.on('scroll', ScrollTrigger.update);
-                    }
-                }
-
-                // ====================
-                // SERVICES - Floating Cards & Image Switching
-                // ====================
-
-                const serviceItems = document.querySelectorAll('#servicesList .service-item');
-                const serviceImages = document.querySelectorAll('#serviceImages img');
-
-                // Scroll-based image switching
-                if (serviceItems.length > 0 && serviceImages.length > 0) {
-                    serviceItems.forEach((item, index) => {
-                        ScrollTrigger.create({
-                            trigger: item,
-                            start: 'top center',
-                            end: 'bottom center',
-                            onEnter: () => changeServiceImageByIndex(index),
-                            onEnterBack: () => changeServiceImageByIndex(index)
-                        });
-
-                        // Floating animation with offset
-                        gsap.to(item, {
-                            y: -15,
-                            duration: 3 + (index * 0.2),
-                            ease: "sine.inOut",
-                            yoyo: true,
-                            repeat: -1,
-                            delay: index * 0.3
-                        });
-
-                        // Hover effect - lift up
-                        item.addEventListener('mouseenter', () => {
-                            gsap.to(item, {
-                                y: -25,
-                                scale: 1.02,
-                                duration: 0.4,
-                                ease: "power2.out",
-                                overwrite: 'auto'
-                            });
-                        });
-
-                        item.addEventListener('mouseleave', () => {
-                            gsap.to(item, {
-                                y: -15,
-                                scale: 1,
-                                duration: 0.6,
-                                ease: "elastic.out(1, 0.5)",
-                                overwrite: 'auto'
-                            });
-                        });
-                    });
-                }
-
-                // Services sticky image - parallax
-                const servicesImage = document.querySelector('#sluzby .sticky');
-                if (servicesImage) {
-                    gsap.to(servicesImage, {
-                        y: -50,
-                        scrollTrigger: {
-                            trigger: "#sluzby",
-                            start: "top bottom",
-                            end: "bottom top",
-                            scrub: 1.5
-                        }
-                    });
-                }
-            }, 100);
-        });
-    </script>
     <script>
         // Initialize Lenis smooth scrolling with optimized settings
         const lenis = new Lenis({
