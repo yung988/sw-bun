@@ -506,6 +506,9 @@ function renderServices() {
 
 // Setup viewport-wide cursor tracking for service images
 function setupScrollImageSwitch() {
+    // Only run on desktop (lg breakpoint = 1024px)
+    if (window.innerWidth <= 1024) return;
+
     const servicesList = document.getElementById('servicesList');
     const serviceItems = servicesList?.querySelectorAll('.service-item');
 
@@ -552,6 +555,9 @@ function setupScrollImageSwitch() {
 
     // Listen to mousemove on the entire window for viewport-wide tracking
     window.addEventListener('mousemove', handleMouseMove);
+
+    // Initialize first image as active
+    changeServiceImageByIndex(0);
 }
 
 // Change service image by index AND highlight the active service name
@@ -920,89 +926,6 @@ function showNewsletterMessage(message, type) {
     setTimeout(() => {
         messageDiv.classList.add('hidden');
     }, 5000);
-}
-
-// Setup viewport-wide cursor tracking for service images
-function setupScrollImageSwitch() {
-    const servicesList = document.getElementById('servicesList');
-    const serviceItems = servicesList?.querySelectorAll('.service-item');
-
-    if (!serviceItems || serviceItems.length === 0) return;
-
-    let throttleTimer = null;
-    let currentImageIndex = 0;
-
-    function handleMouseMove(e) {
-        // Don't change images if any modal is open
-        if (window.isModalOpen) return;
-
-        // Throttle to ~60fps for performance
-        if (throttleTimer) return;
-
-        throttleTimer = setTimeout(() => {
-            throttleTimer = null;
-        }, 16);
-
-        // Get Y position of cursor relative to viewport
-        const mouseY = e.clientY;
-
-        // Calculate which service "zone" the cursor is in based on Y position
-        let targetIndex = 0;
-        let minDistance = Infinity;
-
-        serviceItems.forEach((item, index) => {
-            const rect = item.getBoundingClientRect();
-            const itemCenterY = rect.top + rect.height / 2;
-            const distance = Math.abs(mouseY - itemCenterY);
-
-            if (distance < minDistance) {
-                minDistance = distance;
-                targetIndex = index;
-            }
-        });
-
-        // Only update if the target index changed
-        if (targetIndex !== currentImageIndex) {
-            currentImageIndex = targetIndex;
-            changeServiceImageByIndex(currentImageIndex);
-        }
-    }
-
-    // Add listener on window for full viewport tracking
-    window.addEventListener('mousemove', handleMouseMove);
-}
-
-// Change service image by index AND highlight the active service name
-function changeServiceImageByIndex(index) {
-    const images = document.querySelectorAll('#serviceImages img');
-    const serviceItems = document.querySelectorAll('#servicesList .service-item');
-
-    // Change images
-    images.forEach((img, i) => {
-        if (i === index) {
-            img.classList.remove('opacity-0');
-            img.classList.add('opacity-100');
-        } else {
-            img.classList.remove('opacity-100');
-            img.classList.add('opacity-0');
-        }
-    });
-
-    // Highlight active service name
-    serviceItems.forEach((item, i) => {
-        const h3 = item.querySelector('h3');
-        if (!h3) return;
-
-        if (i === index) {
-            // Active state - dark text
-            h3.classList.remove('text-stone-200');
-            h3.classList.add('text-stone-900');
-        } else {
-            // Inactive state - light text
-            h3.classList.remove('text-stone-900');
-            h3.classList.add('text-stone-200');
-        }
-    });
 }
 
 // Initialize on page load
