@@ -464,6 +464,61 @@ async function loadData() {
     }
 }
 
+// Render mobile service cards
+function renderMobileServicesCards() {
+    const mobileCardsContainer = document.getElementById('mobileServicesCards');
+    if (!mobileCardsContainer) return;
+
+    mobileCardsContainer.innerHTML = servicesData.map(service => {
+        // Get first image from service
+        const images = service.image.split(';').filter(img => img.trim());
+        const firstImage = images[0] || '';
+
+        // Find lowest price for this service
+        const servicePrices = pricesData.filter(p => p.service_id === service.service_id);
+        const lowestPrice = servicePrices.length > 0
+            ? Math.min(...servicePrices.map(p => parseInt(p.price_in_czk)))
+            : null;
+
+        return `
+            <div class="relative w-full h-96 overflow-hidden group cursor-pointer bg-stone-100"
+                 onclick="openServiceDetail('${service.service_id}')">
+                <!-- Image -->
+                <img src="${getImageUrl(firstImage)}" 
+                     alt="${service.category_name}"
+                     class="w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-105">
+                
+                <!-- Gradient Overlay -->
+                <div class="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent"></div>
+                
+                <!-- Content -->
+                <div class="absolute inset-0 flex flex-col justify-end p-6 md:p-8">
+                    <!-- Service Name -->
+                    <h3 class="text-4xl md:text-5xl font-medium font-cormorant text-white mb-3 drop-shadow-lg">
+                        ${service.category_name}
+                    </h3>
+                    
+                    <!-- Bottom Row: Price + CTA -->
+                    <div class="flex items-end justify-between">
+                        ${lowestPrice ? `
+                            <span class="text-xs md:text-sm uppercase tracking-widest font-geist text-white/80">
+                                od ${lowestPrice} Kč
+                            </span>
+                        ` : ''}
+                        <span class="flex items-center gap-2 text-xs md:text-sm uppercase tracking-widest font-geist text-white group-hover:gap-3 transition-all">
+                            Zobrazit detail
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-arrow-right">
+                                <path d="M5 12h14"></path>
+                                <path d="m12 5 7 7-7 7"></path>
+                            </svg>
+                        </span>
+                    </div>
+                </div>
+            </div>
+        `;
+    }).join('');
+}
+
 // Render services section
 function renderServices() {
     const servicesList = document.getElementById('servicesList');
@@ -499,6 +554,9 @@ function renderServices() {
             `;
         }).join('') + `<div class="absolute inset-0 bg-stone-900/5 pointer-events-none"></div>`;
     }
+
+    // Render mobile cards
+    renderMobileServicesCards();
 
     // Setup scroll-based image switching
     setupScrollImageSwitch();
