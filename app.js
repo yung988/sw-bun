@@ -472,7 +472,7 @@ function renderServices() {
     servicesList.innerHTML = servicesData.map((service, index) => {
         const imageId = `img-${service.service_id}`;
         return `
-            <div class="service-item group cursor-pointer" 
+            <div class="service-item group cursor-pointer"
                  data-service-index="${index}"
                  data-image-id="${imageId}"
                  onclick="openServiceDetail('${service.service_id}')">
@@ -528,34 +528,23 @@ function setupScrollImageSwitch() {
         // Get Y position of cursor relative to viewport
         const mouseY = e.clientY;
 
-        // Find which service the mouse is currently over
-        let targetIndex = -1;
+        // Calculate which service "zone" the cursor is in based on Y position
+        let targetIndex = 0;
+        let minDistance = Infinity;
 
         serviceItems.forEach((item, index) => {
             const rect = item.getBoundingClientRect();
-            // Check if mouse Y is within this service item's vertical bounds
-            if (mouseY >= rect.top && mouseY <= rect.bottom) {
+            const itemCenterY = rect.top + rect.height / 2;
+            const distance = Math.abs(mouseY - itemCenterY);
+
+            if (distance < minDistance) {
+                minDistance = distance;
                 targetIndex = index;
             }
         });
 
-        // If mouse isn't over any service, find the closest one
-        if (targetIndex === -1) {
-            let minDistance = Infinity;
-            serviceItems.forEach((item, index) => {
-                const rect = item.getBoundingClientRect();
-                const itemCenterY = rect.top + rect.height / 2;
-                const distance = Math.abs(mouseY - itemCenterY);
-
-                if (distance < minDistance) {
-                    minDistance = distance;
-                    targetIndex = index;
-                }
-            });
-        }
-
         // Only update if index changed (avoid unnecessary DOM manipulation)
-        if (targetIndex !== -1 && targetIndex !== currentImageIndex) {
+        if (targetIndex !== currentImageIndex) {
             currentImageIndex = targetIndex;
             changeServiceImageByIndex(targetIndex);
         }

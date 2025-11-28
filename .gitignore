@@ -10,3 +10,9 @@ node_modules/
 
 # OS files
 .DS_Store
+
+# Archive (old versions and temporary files)
+archive/
+
+# Claude Code
+.claude/

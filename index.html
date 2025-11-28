@@ -18,6 +18,9 @@
         rel="stylesheet">
     <!-- Lucide Icons -->
     <script src="https://unpkg.com/lucide@latest"></script>
+    <!-- GSAP Core + ScrollTrigger -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
     <style>
         /* Lenis smooth scroll */
         html.lenis,
@@ -195,6 +198,8 @@
                 class="text-3xl font-cormorant text-stone-900 hover:text-stone-500 transition-colors">Poukazy</a>
             <a href="#kontakt" onclick="toggleMobileMenu()"
                 class="text-3xl font-cormorant text-stone-900 hover:text-stone-500 transition-colors">Kontakt</a>
+            <button onclick="openPriceList(); toggleMobileMenu();"
+                class="text-3xl font-cormorant text-stone-900 hover:text-stone-500 transition-colors">Ceník</button>
         </nav>
 
         <!-- Quick Actions -->
@@ -231,10 +236,9 @@
 
     <!-- Navigation -->
     <nav class="fixed w-full top-0 left-0 z-40 bg-transparent transition-transform duration-300" id="navbar">
-        <div class="max-w-screen-2xl mx-auto flex items-center justify-between px-6 md:px-12 py-5" id="navbarContainer">
-            <a href="#" id="navbarLogo"
-                class="text-5xl text-stone-900 tracking-tight font-medium font-cormorant relative z-50 origin-left">
-                SW Beauty.
+        <div class="max-w-screen-2xl mx-auto flex items-center justify-between px-6 md:px-12 py-3" id="navbarContainer">
+            <a href="#" id="navbarLogo" class="relative z-50 origin-left flex items-center">
+                <img src="logo.svg" alt="SW Beauty" class="h-12 md:h-16 w-auto">
             </a>
 
             <div
@@ -290,8 +294,7 @@
             <div
                 class="w-full lg:w-7/12 h-[60vh] lg:h-auto relative order-1 lg:order-2 flex items-center justify-center lg:py-32 lg:pr-16">
                 <div class="w-full max-w-md lg:max-w-md aspect-[2/3] lg:shadow-2xl overflow-hidden">
-                    <img src="https://hoirqrkdgbmvpwutwuwj.supabase.co/storage/v1/object/public/assets/assets/ff9ee43a-d206-44ef-851c-c74c3c8ed87b_3840w.jpg"
-                        alt="SW Beauty Editorial Portrait"
+                    <img src="images/hero-image.jpg" alt="SW Beauty Editorial Portrait"
                         class="w-full h-full object-cover object-center opacity-90 animate-fade-in-up">
                 </div>
             </div>
@@ -319,6 +322,9 @@
                             class="text-5xl md:text-6xl lg:text-7xl font-medium font-cormorant text-stone-200 group-hover:text-stone-900 transition-colors duration-500">
                             Endosphere Therapy Tělo
                         </h3>
+                        <img src="https://hoirqrkdgbmvpwutwuwj.supabase.co/storage/v1/object/public/assets/assets/917d6f93-fb36-439a-8c48-884b67b35381_1600w.jpg"
+                            alt="Endosphere Therapy Tělo"
+                            class="w-full aspect-[4/3] object-cover mt-4 lg:hidden grayscale-[10%]">
                     </div>
 
                     <!-- Service 2 -->
@@ -327,6 +333,9 @@
                             class="text-5xl md:text-6xl lg:text-7xl font-medium font-cormorant text-stone-200 group-hover:text-stone-900 transition-colors duration-500">
                             Endosphere Therapy Obličej
                         </h3>
+                        <img src="https://hoirqrkdgbmvpwutwuwj.supabase.co/storage/v1/object/public/assets/assets/917d6f93-fb36-439a-8c48-884b67b35381_1600w.jpg"
+                            alt="Endosphere Therapy Obličej"
+                            class="w-full aspect-[4/3] object-cover mt-4 lg:hidden grayscale-[10%]">
                     </div>
 
                     <!-- Service 3 -->
@@ -335,6 +344,8 @@
                             class="text-5xl md:text-6xl lg:text-7xl font-medium font-cormorant text-stone-200 group-hover:text-stone-900 transition-colors duration-500">
                             HIFU Lifting
                         </h3>
+                        <img src="https://images.unsplash.com/photo-1616394584738-fc6e612e71b9?q=80&w=2070&auto=format&fit=crop"
+                            alt="HIFU Lifting" class="w-full aspect-[4/3] object-cover mt-4 lg:hidden grayscale-[10%]">
                     </div>
 
                     <!-- Service 4 -->
@@ -343,6 +354,9 @@
                             class="text-5xl md:text-6xl lg:text-7xl font-medium font-cormorant text-stone-200 group-hover:text-stone-900 transition-colors duration-500">
                             Vlasová mezoterapie
                         </h3>
+                        <img src="https://hoirqrkdgbmvpwutwuwj.supabase.co/storage/v1/object/public/assets/assets/4734259a-bad7-422f-981e-ce01e79184f2_1600w.jpg"
+                            alt="Vlasová mezoterapie"
+                            class="w-full aspect-[4/3] object-cover mt-4 lg:hidden grayscale-[10%]">
                     </div>
 
                     <!-- Service 5 -->
@@ -351,6 +365,9 @@
                             class="text-5xl md:text-6xl lg:text-7xl font-medium font-cormorant text-stone-200 group-hover:text-stone-900 transition-colors duration-500">
                             Prodlužování vlasů
                         </h3>
+                        <img src="https://hoirqrkdgbmvpwutwuwj.supabase.co/storage/v1/object/public/assets/assets/4734259a-bad7-422f-981e-ce01e79184f2_1600w.jpg"
+                            alt="Prodlužování vlasů"
+                            class="w-full aspect-[4/3] object-cover mt-4 lg:hidden grayscale-[10%]">
                     </div>
 
                     <!-- Service 6 -->
@@ -359,6 +376,9 @@
                             class="text-5xl md:text-6xl lg:text-7xl font-medium font-cormorant text-stone-200 group-hover:text-stone-900 transition-colors duration-500">
                             Lash Lift & Tint
                         </h3>
+                        <img src="https://images.unsplash.com/photo-1587776536548-2287c2a78482?q=80&w=1974&auto=format&fit=crop"
+                            alt="Lash Lift & Tint"
+                            class="w-full aspect-[4/3] object-cover mt-4 lg:hidden grayscale-[10%]">
                     </div>
 
                     <!-- Service 7 -->
@@ -367,6 +387,9 @@
                             class="text-5xl md:text-6xl lg:text-7xl font-medium font-cormorant text-stone-200 group-hover:text-stone-900 transition-colors duration-500">
                             Brow Lamination
                         </h3>
+                        <img src="https://images.unsplash.com/photo-1587776536548-2287c2a78482?q=80&w=1974&auto=format&fit=crop"
+                            alt="Brow Lamination"
+                            class="w-full aspect-[4/3] object-cover mt-4 lg:hidden grayscale-[10%]">
                     </div>
 
                     <!-- Service 8 -->
@@ -375,6 +398,8 @@
                             class="text-5xl md:text-6xl lg:text-7xl font-medium font-cormorant text-stone-200 group-hover:text-stone-900 transition-colors duration-500">
                             Konzultace
                         </h3>
+                        <img src="https://hoirqrkdgbmvpwutwuwj.supabase.co/storage/v1/object/public/assets/assets/eab40de0-94a4-45eb-b924-345850d0201b_800w.jpg"
+                            alt="Konzultace" class="w-full aspect-[4/3] object-cover mt-4 lg:hidden grayscale-[10%]">
                     </div>
                 </div>
 
@@ -388,7 +413,7 @@
 
             <!-- Right Side: Floating Sticky Image -->
             <div
-                class="hidden lg:flex w-1/2 h-screen sticky top-1/2 -translate-y-1/2 right-0 items-center justify-center pointer-events-none">
+                class="hidden lg:flex w-1/2 h-screen sticky top-0 right-0 items-center justify-center pointer-events-none">
                 <!-- Image Card -->
                 <div class="relative w-[400px] aspect-[3/4] overflow-hidden shadow-2xl bg-stone-100">
                     <div id="serviceImages" class="w-full h-full relative">
@@ -1006,13 +1031,9 @@
                         práva vyhrazena.</p>
                 </div>
 
-                <!-- Giant Brand Name -->
-                <div class="order-1 md:order-2 w-full md:w-auto text-right select-none pointer-events-none">
-                    <div
-                        class="font-cormorant text-[20vw] md:text-[15vw] lg:text-[12rem] xl:text-[15rem] leading-[0.85] text-white tracking-tighter mix-blend-hard-light drop-shadow-sm lg:drop-shadow-none lg:text-[#EBE8E0]">
-                        <div class="block">SW</div>
-                        <div class="block ml-[0.5em] md:ml-0">Beauty</div>
-                    </div>
+                <!-- Brand Logo -->
+                <div class="order-1 md:order-2 w-full md:w-auto flex justify-end">
+                    <img src="logo.svg" alt="SW Beauty" class="h-32 md:h-40 lg:h-48 w-auto opacity-20">
                 </div>
             </div>
         </div>
@@ -2053,6 +2074,94 @@
     <script src="app.js"></script>
     <!-- Lenis Smooth Scroll -->
     <script src="https://unpkg.com/lenis@1.3.15/dist/lenis.min.js"></script>
+
+    <!-- GSAP Libraries -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+
+    <!-- GSAP ScrollTrigger for Services -->
+    <script>
+        // Services Section - Full GSAP Animations
+        document.addEventListener('DOMContentLoaded', () => {
+            // Wait for Lenis and GSAP to be ready
+            setTimeout(() => {
+                // Register GSAP ScrollTrigger plugin
+                if (typeof gsap !== 'undefined' && typeof ScrollTrigger !== 'undefined') {
+                    gsap.registerPlugin(ScrollTrigger);
+
+                    // Integrate with Lenis - only update ScrollTrigger on scroll
+                    if (typeof lenis !== 'undefined') {
+                        lenis.on('scroll', ScrollTrigger.update);
+                    }
+                }
+
+                // ====================
+                // SERVICES - Floating Cards & Image Switching
+                // ====================
+
+                const serviceItems = document.querySelectorAll('#servicesList .service-item');
+                const serviceImages = document.querySelectorAll('#serviceImages img');
+
+                // Scroll-based image switching
+                if (serviceItems.length > 0 && serviceImages.length > 0) {
+                    serviceItems.forEach((item, index) => {
+                        ScrollTrigger.create({
+                            trigger: item,
+                            start: 'top center',
+                            end: 'bottom center',
+                            onEnter: () => changeServiceImageByIndex(index),
+                            onEnterBack: () => changeServiceImageByIndex(index)
+                        });
+
+                        // Floating animation with offset
+                        gsap.to(item, {
+                            y: -15,
+                            duration: 3 + (index * 0.2),
+                            ease: "sine.inOut",
+                            yoyo: true,
+                            repeat: -1,
+                            delay: index * 0.3
+                        });
+
+                        // Hover effect - lift up
+                        item.addEventListener('mouseenter', () => {
+                            gsap.to(item, {
+                                y: -25,
+                                scale: 1.02,
+                                duration: 0.4,
+                                ease: "power2.out",
+                                overwrite: 'auto'
+                            });
+                        });
+
+                        item.addEventListener('mouseleave', () => {
+                            gsap.to(item, {
+                                y: -15,
+                                scale: 1,
+                                duration: 0.6,
+                                ease: "elastic.out(1, 0.5)",
+                                overwrite: 'auto'
+                            });
+                        });
+                    });
+                }
+
+                // Services sticky image - parallax
+                const servicesImage = document.querySelector('#sluzby .sticky');
+                if (servicesImage) {
+                    gsap.to(servicesImage, {
+                        y: -50,
+                        scrollTrigger: {
+                            trigger: "#sluzby",
+                            start: "top bottom",
+                            end: "bottom top",
+                            scrub: 1.5
+                        }
+                    });
+                }
+            }, 100);
+        });
+    </script>
     <script>
         // Initialize Lenis smooth scrolling with optimized settings
         const lenis = new Lenis({
