@@ -1,0 +1,76 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Custom base styles */
+@layer base {
+  body {
+    @apply bg-[#FDFBF7] text-stone-900 font-geist;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    @apply font-cormorant;
+  }
+}
+
+/* Component styles */
+@layer components {
+  /* Service item hover effect - místo GSAP */
+  .service-item {
+    @apply transition-transform duration-300 ease-out;
+  }
+
+  .service-item:hover {
+    @apply -translate-y-2;
+  }
+
+  /* Modal backdrop */
+  .modal-backdrop {
+    @apply fixed inset-0 bg-black/50 backdrop-blur-sm z-40;
+  }
+
+  /* Fade in animation - místo Motion.js */
+  .fade-in {
+    animation: fadeIn 0.8s ease-out forwards;
+  }
+
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+      transform: translateY(20px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  /* Slide up animation */
+  .slide-up {
+    animation: slideUp 0.6s ease-out forwards;
+  }
+
+  @keyframes slideUp {
+    from {
+      opacity: 0;
+      transform: translateY(40px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  /* Smooth transitions for all interactive elements */
+  .transition-default {
+    @apply transition-all duration-300 ease-in-out;
+  }
+}
+
+/* Utilities */
+@layer utilities {
+  /* Sticky service image positioning */
+  .sticky-service-image {
+    @apply sticky top-0 h-screen flex items-center justify-center;
+  }
+}
