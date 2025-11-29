@@ -457,66 +457,10 @@ async function loadData() {
         renderServices();
         renderPriceList();
         renderBookingServices();
-        renderGiftCardServices();
 
     } catch (error) {
         console.error('Error loading data:', error);
     }
-}
-
-// Render mobile service cards
-function renderMobileServicesCards() {
-    const mobileCardsContainer = document.getElementById('mobileServicesCards');
-    if (!mobileCardsContainer) return;
-
-    mobileCardsContainer.innerHTML = servicesData.map(service => {
-        // Get first image from service
-        const images = service.image.split(';').filter(img => img.trim());
-        const firstImage = images[0] || '';
-
-        // Find lowest price for this service
-        const servicePrices = pricesData.filter(p => p.service_id === service.service_id);
-        const lowestPrice = servicePrices.length > 0
-            ? Math.min(...servicePrices.map(p => parseInt(p.price_in_czk)))
-            : null;
-
-        return `
-            <div class="relative w-full h-96 overflow-hidden group cursor-pointer bg-stone-100"
-                 onclick="openServiceDetail('${service.service_id}')">
-                <!-- Image -->
-                <img src="${getImageUrl(firstImage)}" 
-                     alt="${service.category_name}"
-                     class="w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-105">
-                
-                <!-- Gradient Overlay -->
-                <div class="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent"></div>
-                
-                <!-- Content -->
-                <div class="absolute inset-0 flex flex-col justify-end p-6 md:p-8">
-                    <!-- Service Name -->
-                    <h3 class="text-4xl md:text-5xl font-medium font-cormorant text-white mb-3 drop-shadow-lg">
-                        ${service.category_name}
-                    </h3>
-                    
-                    <!-- Bottom Row: Price + CTA -->
-                    <div class="flex items-end justify-between">
-                        ${lowestPrice ? `
-                            <span class="text-xs md:text-sm uppercase tracking-widest font-geist text-white/80">
-                                od ${lowestPrice} Kč
-                            </span>
-                        ` : ''}
-                        <span class="flex items-center gap-2 text-xs md:text-sm uppercase tracking-widest font-geist text-white group-hover:gap-3 transition-all">
-                            Zobrazit detail
-                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-arrow-right">
-                                <path d="M5 12h14"></path>
-                                <path d="m12 5 7 7-7 7"></path>
-                            </svg>
-                        </span>
-                    </div>
-                </div>
-            </div>
-        `;
-    }).join('');
 }
 
 // Render services section
@@ -527,7 +471,7 @@ function renderServices() {
     servicesList.innerHTML = servicesData.map((service, index) => {
         const imageId = `img-${service.service_id}`;
         return `
-            <div class="service-item group cursor-pointer"
+            <div class="service-item group cursor-pointer" 
                  data-service-index="${index}"
                  data-image-id="${imageId}"
                  onclick="openServiceDetail('${service.service_id}')">
@@ -554,9 +498,6 @@ function renderServices() {
             `;
         }).join('') + `<div class="absolute inset-0 bg-stone-900/5 pointer-events-none"></div>`;
     }
-
-    // Render mobile cards
-    renderMobileServicesCards();
 
     // Setup scroll-based image switching
     setupScrollImageSwitch();
@@ -765,136 +706,6 @@ function renderBookingServices() {
     `).join('');
 }
 
-// Render gift card services
-function renderGiftCardServices() {
-    const servicesGrid = document.getElementById('giftCardServicesGrid');
-    if (!servicesGrid) return;
-
-    // Group prices by service for display
-    const serviceOptions = servicesData.map(service => {
-        const servicePrices = pricesData.filter(p => p.service_id === service.service_id);
-        const priceRange = servicePrices.length > 0
-            ? `od ${Math.min(...servicePrices.map(p => parseInt(p.price_in_czk)))} Kč`
-            : 'Cena na dotaz';
-
-        return {
-            id: service.service_id,
-            name: service.category_name,
-            description: service.short_description,
-            priceRange: priceRange
-        };
-    });
-
-    servicesGrid.innerHTML = serviceOptions.map(service => `
-        <button onclick="selectGiftCardService('${service.id}', '${service.name.replace(/'/g, "\\'")}')" type="button"
-                class="text-left p-4 border border-stone-200 hover:border-stone-900 hover:bg-stone-50 transition-all group">
-            <span class="block font-geist text-sm font-medium mb-1 text-stone-900">${service.name}</span>
-            <span class="block font-geist text-xs uppercase tracking-widest text-stone-400 group-hover:text-stone-900">
-                ${service.priceRange}
-            </span>
-        </button>
-    `).join('');
-}
-
-// Select a service in gift card modal and show its packages
-window.selectGiftCardService = function (serviceId, serviceName) {
-    const service = servicesData.find(s => s.service_id === serviceId);
-    if (!service) return;
-
-    // Find all packages for this service
-    const packages = pricesData.filter(p => p.service_id === serviceId);
-
-    // Update packages grid
-    const packagesGrid = document.getElementById('giftCardPackagesGrid');
-    const packagesContainer = document.getElementById('giftCardPackagesContainer');
-    if (!packagesGrid || !packagesContainer) return;
-
-    if (packages.length === 0) {
-        packagesGrid.innerHTML = '<p class="text-stone-500 text-center text-sm">Žádné balíčky nejsou k dispozici</p>';
-        packagesContainer.classList.remove('hidden');
-        return;
-    }
-
-    packagesGrid.innerHTML = packages.map(pkg => {
-        const duration = pkg.duration_in_minutes
-            ? `${pkg.duration_in_minutes} min`
-            : '';
-        const sessions = pkg.session > 1
-            ? `${pkg.session}x ošetření`
-            : '1x ošetření';
-
-        return `
-            <button onclick="selectGiftCardPackage('${serviceId}', '${serviceName.replace(/'/g, "\\'")}', '${pkg.name.replace(/'/g, "\\'")}', '${pkg.price_in_czk}')" type="button"
-                    class="text-left p-4 border border-stone-200 hover:border-stone-900 hover:bg-stone-50 transition-all group">
-                <div class="flex justify-between items-start mb-2">
-                    <span class="block font-geist text-sm font-medium text-stone-900">${pkg.name}</span>
-                    <span class="block font-geist font-medium text-stone-900">${pkg.price_in_czk} Kč</span>
-                </div>
-                <div class="flex gap-3 text-xs text-stone-500">
-                    ${duration ? `<span>⏱ ${duration}</span>` : ''}
-                    ${sessions ? `<span>📦 ${sessions}</span>` : ''}
-                </div>
-            </button>
-        `;
-    }).join('');
-
-    packagesContainer.classList.remove('hidden');
-};
-
-// Select a package in gift card modal
-window.selectGiftCardPackage = function (serviceId, serviceName, packageName, price) {
-    // Store selected package info
-    window.selectedGiftPackage = {
-        serviceId: serviceId,
-        serviceName: serviceName,
-        packageName: packageName,
-        price: price
-    };
-
-    // Update preview with package name
-    const previewValue = document.getElementById('previewValue');
-    if (previewValue) {
-        previewValue.textContent = packageName;
-    }
-
-    // Visual feedback - highlight selected package
-    const packagesGrid = document.getElementById('giftCardPackagesGrid');
-    if (packagesGrid) {
-        packagesGrid.querySelectorAll('button').forEach(btn => {
-            btn.classList.remove('bg-stone-900', 'text-white');
-            btn.classList.add('hover:bg-stone-50');
-        });
-        event.target.closest('button').classList.add('bg-stone-900', 'text-white');
-        event.target.closest('button').classList.remove('hover:bg-stone-50');
-    }
-};
-
-// Reset gift card service selection
-window.resetGiftCardServiceSelection = function () {
-    window.selectedGiftPackage = null;
-
-    // Hide packages container
-    const packagesContainer = document.getElementById('giftCardPackagesContainer');
-    if (packagesContainer) {
-        packagesContainer.classList.add('hidden');
-    }
-
-    // Clear packages grid
-    const packagesGrid = document.getElementById('giftCardPackagesGrid');
-    if (packagesGrid) {
-        packagesGrid.innerHTML = '';
-    }
-
-    // Reset preview
-    const previewValue = document.getElementById('previewValue');
-    if (previewValue && document.querySelector('input[name="type"]:checked')?.value === 'service') {
-        previewValue.textContent = 'Vyberte službu';
-    }
-
-    // Re-render services if needed
-    renderGiftCardServices();
-};
-
 // Instagram Grid Floating Animations
 function initInstagramAnimations() {
     const instagramItems = document.querySelectorAll('.instagram-item');
@@ -985,5 +796,4 @@ document.addEventListener('DOMContentLoaded', () => {
     loadData();
     initInstagramAnimations();
     initNewsletterForm();
-    setupScrollImageSwitch();
 });

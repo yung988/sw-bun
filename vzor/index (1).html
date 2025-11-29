@@ -3,33 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SW Beauty Hodonín | HIFU, Endospheres, Kosmetika | Luxusní péče</title>
-    <meta name="description"
-        content="Luxusní kosmetický salon v Hodoníně. HIFU 7D lifting, Endospheres terapie, Hydrafacial, prodlužování vlasů. Online rezervace termínů. U Cihelny 1326/4.">
-    <meta name="keywords"
-        content="kosmetika Hodonín, HIFU lifting, Endospheres, Hydrafacial, prodlužování vlasů, kosmetický salon, laminace obočí, lifting řas">
-    <link rel="canonical" href="https://swbeauty.cz">
-
-    <!-- Open Graph / Facebook -->
-    <meta property="og:type" content="website">
-    <meta property="og:url" content="https://swbeauty.cz">
-    <meta property="og:title" content="SW Beauty Hodonín | HIFU, Endospheres, Kosmetika">
-    <meta property="og:description"
-        content="Luxusní kosmetický salon v Hodoníně. HIFU 7D lifting, Endospheres terapie, profesionální kosmetika. Rezervujte termín online.">
-    <meta property="og:image" content="https://swbeauty.cz/images/hero-image.jpg">
-    <meta property="og:locale" content="cs_CZ">
-
-    <!-- Twitter -->
-    <meta property="twitter:card" content="summary_large_image">
-    <meta property="twitter:url" content="https://swbeauty.cz">
-    <meta property="twitter:title" content="SW Beauty Hodonín | HIFU, Endospheres, Kosmetika">
-    <meta property="twitter:description"
-        content="Luxusní kosmetický salon v Hodoníně. HIFU 7D lifting, Endospheres terapie, profesionální kosmetika.">
-    <meta property="twitter:image" content="https://swbeauty.cz/images/hero-image.jpg">
-
-    <!-- Favicon -->
-    <link rel="icon" type="image/png" href="/favicon.png">
-
+    <title>SW Beauty | Luxusní péče a sebevědomí</title>
     <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
     <!-- Fonts -->
@@ -40,6 +14,9 @@
         rel="stylesheet">
     <!-- Lucide Icons -->
     <script src="https://unpkg.com/lucide@latest"></script>
+    <!-- GSAP Core + ScrollTrigger -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
     <style>
         /* Lenis smooth scroll */
         html.lenis,
@@ -150,15 +127,6 @@
                 transform: translateY(0)
             }
         }
-
-        /* Fix parallax overflow - prevent gray bars */
-        header>div>div:has(img),
-        section>div:has(img),
-        #filozofie>div:has(img),
-        #majitelka>div:has(img),
-        #poukazy .sticky {
-            overflow: hidden !important;
-        }
     </style>
     <style id="aura-editor-visibility-style">
         .invisible {
@@ -190,35 +158,6 @@
         }
     </style>
     <link rel="stylesheet" href="https://unpkg.com/lenis@1.3.15/dist/lenis.css">
-
-    <!-- Schema.org Local Business Markup -->
-    <script type="application/ld+json">
-    {
-      "@context": "https://schema.org",
-      "@type": "BeautySalon",
-      "name": "SW Beauty",
-      "image": "https://swbeauty.cz/logo.svg",
-      "address": {
-        "@type": "PostalAddress",
-        "streetAddress": "U Cihelny 1326/4",
-        "addressLocality": "Hodonín",
-        "postalCode": "695 01",
-        "addressCountry": "CZ"
-      },
-      "geo": {
-        "@type": "GeoCoordinates",
-        "latitude": 48.8485,
-        "longitude": 17.1325
-      },
-      "telephone": "+420776632498",
-      "url": "https://swbeauty.cz",
-      "priceRange": "$$",
-      "openingHours": "Na objednávku",
-      "sameAs": [
-        "https://www.instagram.com/sw.beauty.hod"
-      ]
-    }
-    </script>
 </head>
 
 <body class="antialiased selection:bg-stone-200 selection:text-stone-900 text-stone-800 relative">
@@ -246,8 +185,6 @@
                 class="text-3xl font-cormorant text-stone-900 hover:text-stone-500 transition-colors">Poukazy</a>
             <a href="#kontakt" onclick="toggleMobileMenu()"
                 class="text-3xl font-cormorant text-stone-900 hover:text-stone-500 transition-colors">Kontakt</a>
-            <button onclick="openPriceList(); toggleMobileMenu();"
-                class="text-3xl font-cormorant text-stone-900 hover:text-stone-500 transition-colors">Ceník</button>
         </nav>
 
         <!-- Quick Actions -->
@@ -284,9 +221,10 @@
 
     <!-- Navigation -->
     <nav class="fixed w-full top-0 left-0 z-40 bg-transparent transition-transform duration-300" id="navbar">
-        <div class="max-w-screen-2xl mx-auto flex items-center justify-between px-6 md:px-12 py-3" id="navbarContainer">
-            <a href="#" id="navbarLogo" class="relative z-50 origin-left flex items-center">
-                <img src="logo.svg" alt="SW Beauty" class="h-12 md:h-16 w-auto">
+        <div class="max-w-screen-2xl mx-auto flex items-center justify-between px-6 md:px-12 py-5" id="navbarContainer">
+            <a href="#" id="navbarLogo"
+                class="text-5xl text-stone-900 tracking-tight font-medium font-cormorant relative z-50 origin-left">
+                SW Beauty.
             </a>
 
             <div
@@ -342,62 +280,158 @@
             <div
                 class="w-full lg:w-7/12 h-[60vh] lg:h-auto relative order-1 lg:order-2 flex items-center justify-center lg:py-32 lg:pr-16">
                 <div class="w-full max-w-md lg:max-w-md aspect-[2/3] lg:shadow-2xl overflow-hidden">
-                    <img src="images/hero-image.jpg" alt="SW Beauty Editorial Portrait"
+                    <img src="https://hoirqrkdgbmvpwutwuwj.supabase.co/storage/v1/object/public/assets/assets/ff9ee43a-d206-44ef-851c-c74c3c8ed87b_3840w.jpg"
+                        alt="SW Beauty Editorial Portrait"
                         class="w-full h-full object-cover object-center opacity-90 animate-fade-in-up">
                 </div>
             </div>
         </div>
     </header>
 
-    <!-- Sticky Scroll Services Section (Hybrid: Mobile Cards + Desktop Luxus) -->
+    <!-- Sticky Scroll Services Section (Airy & Floating Variant) -->
     <section id="sluzby" class="relative bg-white">
-
-        <!-- MOBILE VERZE (nech tak jak je) -->
-        <div class="lg:hidden">
-            <!-- Header -->
-            <div class="py-16 px-6 md:px-12 text-center bg-white">
-                <span class="text-stone-400 uppercase tracking-widest text-xs mb-3 block font-geist">Naše péče</span>
-                <h2 class="text-3xl md:text-4xl font-medium tracking-tight font-cormorant text-stone-900">
-                    Služby
-                </h2>
-            </div>
-
-            <!-- Mobile Service Cards Container (dynamically generated) -->
-            <div id="mobileServicesCards" class="space-y-4 px-4">
-                <!-- Cards will be generated by renderMobileServicesCards() -->
-            </div>
-
-            <!-- CTA Button -->
-            <div class="py-16 px-6 md:px-12 text-center bg-white">
-                <button onclick="openPriceList()"
-                    class="inline-block border-b border-stone-900 text-stone-900 pb-1 font-geist text-sm uppercase tracking-widest hover:text-stone-600 hover:border-stone-600 transition-colors">
-                    Zobrazit ceník
-                </button>
-            </div>
-        </div>
-
-        <!-- DESKTOP VERZE -->
-        <div class="hidden lg:flex flex-col lg:flex-row">
-            <!-- LEVÁ STRANA - SLUŽBY -->
-            <div class="w-full lg:w-1/2 py-40 md:py-48 px-6 md:px-12 lg:pl-24 xl:pl-32 z-10 bg-white">
-                <div class="mb-32">
-                    <span class="text-stone-400 uppercase tracking-widest text-xs mb-3 block font-geist">Naše péče</span>
-                    <h2 class="text-2xl md:text-3xl font-medium tracking-tight font-cormorant text-stone-500">Služby</h2>
+        <div class="flex flex-col lg:flex-row min-h-screen">
+            <!-- Left Side: Content -->
+            <div
+                class="w-full lg:w-1/2 py-32 px-6 md:px-12 lg:pl-24 xl:pl-32 z-10 bg-white flex flex-col justify-center">
+                <div class="mb-24">
+                    <span class="text-stone-400 uppercase tracking-widest text-xs mb-3 block font-geist">Naše
+                        péče</span>
+                    <h2 class="text-2xl md:text-3xl font-medium tracking-tight font-cormorant text-stone-500">
+                        Služby
+                    </h2>
                 </div>
 
-                <!-- Seznam služeb (generuje app.js) -->
-                <div class="space-y-16 md:space-y-20" id="servicesList"></div>
+                <div class="space-y-12" id="servicesList">
+                    <!-- Service 1 -->
+                    <div class="service-item group cursor-pointer" data-service-index="0">
+                        <h3
+                            class="text-5xl md:text-6xl lg:text-7xl font-medium font-cormorant text-stone-200 group-hover:text-stone-900 transition-colors duration-500">
+                            Endosphere Therapy Tělo
+                        </h3>
+                    </div>
 
-                <div class="mt-32 md:mt-40">
-                    <button onclick="openPriceList()" class="inline-block border-b border-stone-900 text-stone-900 pb-1 font-geist text-sm uppercase tracking-widest hover:text-stone-600 hover:border-stone-600 transition-colors">Zobrazit ceník</button>
+                    <!-- Service 2 -->
+                    <div class="service-item group cursor-pointer" data-service-index="1">
+                        <h3
+                            class="text-5xl md:text-6xl lg:text-7xl font-medium font-cormorant text-stone-200 group-hover:text-stone-900 transition-colors duration-500">
+                            Endosphere Therapy Obličej
+                        </h3>
+                    </div>
+
+                    <!-- Service 3 -->
+                    <div class="service-item group cursor-pointer" data-service-index="2">
+                        <h3
+                            class="text-5xl md:text-6xl lg:text-7xl font-medium font-cormorant text-stone-200 group-hover:text-stone-900 transition-colors duration-500">
+                            HIFU Lifting
+                        </h3>
+                    </div>
+
+                    <!-- Service 4 -->
+                    <div class="service-item group cursor-pointer" data-service-index="3">
+                        <h3
+                            class="text-5xl md:text-6xl lg:text-7xl font-medium font-cormorant text-stone-200 group-hover:text-stone-900 transition-colors duration-500">
+                            Vlasová mezoterapie
+                        </h3>
+                    </div>
+
+                    <!-- Service 5 -->
+                    <div class="service-item group cursor-pointer" data-service-index="4">
+                        <h3
+                            class="text-5xl md:text-6xl lg:text-7xl font-medium font-cormorant text-stone-200 group-hover:text-stone-900 transition-colors duration-500">
+                            Prodlužování vlasů
+                        </h3>
+                    </div>
+
+                    <!-- Service 6 -->
+                    <div class="service-item group cursor-pointer" data-service-index="5">
+                        <h3
+                            class="text-5xl md:text-6xl lg:text-7xl font-medium font-cormorant text-stone-200 group-hover:text-stone-900 transition-colors duration-500">
+                            Lash Lift & Tint
+                        </h3>
+                    </div>
+
+                    <!-- Service 7 -->
+                    <div class="service-item group cursor-pointer" data-service-index="6">
+                        <h3
+                            class="text-5xl md:text-6xl lg:text-7xl font-medium font-cormorant text-stone-200 group-hover:text-stone-900 transition-colors duration-500">
+                            Brow Lamination
+                        </h3>
+                    </div>
+
+                    <!-- Service 8 -->
+                    <div class="service-item group cursor-pointer" data-service-index="7">
+                        <h3
+                            class="text-5xl md:text-6xl lg:text-7xl font-medium font-cormorant text-stone-200 group-hover:text-stone-900 transition-colors duration-500">
+                            Konzultace
+                        </h3>
+                    </div>
+                </div>
+
+                <div class="mt-24">
+                    <button onclick="openPriceList()"
+                        class="inline-block border-b border-stone-900 text-stone-900 pb-1 font-geist text-sm uppercase tracking-widest hover:text-stone-600 hover:border-stone-600 transition-colors">
+                        Zobrazit ceník
+                    </button>
                 </div>
             </div>
 
-            <!-- PRAVÁ STRANA - OBRÁZEK (CSS sticky!) -->
-            <div class="hidden lg:flex w-1/2 h-screen sticky top-0 items-center justify-center pointer-events-none">
-                <div id="serviceImageCard" class="relative w-[460px] aspect-[3/4] overflow-hidden shadow-2xl bg-stone-100 will-change-transform">
+            <!-- Right Side: Floating Sticky Image -->
+            <div
+                class="hidden lg:flex w-1/2 h-screen sticky top-0 right-0 items-center justify-center pointer-events-none">
+                <!-- Image Card -->
+                <div class="relative w-[400px] aspect-[3/4] overflow-hidden shadow-2xl bg-stone-100">
                     <div id="serviceImages" class="w-full h-full relative">
-                        <!-- Obrázky generuje app.js -->
+                        <!-- Endosphere Body -->
+                        <img id="img-endosphere-body"
+                            src="https://hoirqrkdgbmvpwutwuwj.supabase.co/storage/v1/object/public/assets/assets/917d6f93-fb36-439a-8c48-884b67b35381_1600w.jpg"
+                            class="absolute inset-0 w-full h-full object-cover transition-opacity duration-700 opacity-100"
+                            alt="Endosphere Body">
+
+                        <!-- Endosphere Face -->
+                        <img id="img-endosphere-face"
+                            src="https://hoirqrkdgbmvpwutwuwj.supabase.co/storage/v1/object/public/assets/assets/917d6f93-fb36-439a-8c48-884b67b35381_1600w.jpg"
+                            class="absolute inset-0 w-full h-full object-cover transition-opacity duration-700 opacity-0"
+                            alt="Endosphere Face">
+
+                        <!-- HIFU Image -->
+                        <img id="img-hifu"
+                            src="https://images.unsplash.com/photo-1616394584738-fc6e612e71b9?q=80&w=2070&auto=format&fit=crop"
+                            class="absolute inset-0 w-full h-full object-cover transition-opacity duration-700 opacity-0"
+                            alt="HIFU">
+
+                        <!-- Hair Meso -->
+                        <img id="img-hair-meso"
+                            src="https://hoirqrkdgbmvpwutwuwj.supabase.co/storage/v1/object/public/assets/assets/4734259a-bad7-422f-981e-ce01e79184f2_1600w.jpg"
+                            class="absolute inset-0 w-full h-full object-cover transition-opacity duration-700 opacity-0"
+                            alt="Hair Meso">
+
+                        <!-- Hair Ext -->
+                        <img id="img-hair-ext"
+                            src="https://hoirqrkdgbmvpwutwuwj.supabase.co/storage/v1/object/public/assets/assets/4734259a-bad7-422f-981e-ce01e79184f2_1600w.jpg"
+                            class="absolute inset-0 w-full h-full object-cover transition-opacity duration-700 opacity-0"
+                            alt="Hair Ext">
+
+                        <!-- Lashes -->
+                        <img id="img-lashes"
+                            src="https://images.unsplash.com/photo-1587776536548-2287c2a78482?q=80&w=1974&auto=format&fit=crop"
+                            class="absolute inset-0 w-full h-full object-cover transition-opacity duration-700 opacity-0"
+                            alt="Lashes">
+
+                        <!-- Brows -->
+                        <img id="img-brows"
+                            src="https://images.unsplash.com/photo-1587776536548-2287c2a78482?q=80&w=1974&auto=format&fit=crop"
+                            class="absolute inset-0 w-full h-full object-cover transition-opacity duration-700 opacity-0"
+                            alt="Brows">
+
+                        <!-- Consultation Image -->
+                        <img id="img-consultation"
+                            src="https://hoirqrkdgbmvpwutwuwj.supabase.co/storage/v1/object/public/assets/assets/eab40de0-94a4-45eb-b924-345850d0201b_800w.jpg"
+                            class="absolute inset-0 w-full h-full object-cover transition-opacity duration-700 opacity-0 grayscale-[20%]"
+                            alt="Consultation">
+
+                        <!-- Overlay Gradient (Optional, lighter for this design) -->
+                        <div class="absolute inset-0 bg-stone-900/5 pointer-events-none"></div>
                     </div>
                 </div>
             </div>
@@ -962,9 +996,13 @@
                         práva vyhrazena.</p>
                 </div>
 
-                <!-- Brand Logo -->
-                <div class="order-1 md:order-2 w-full md:w-auto flex justify-end">
-                    <img src="logo.svg" alt="SW Beauty" class="h-32 md:h-40 lg:h-48 w-auto opacity-20">
+                <!-- Giant Brand Name -->
+                <div class="order-1 md:order-2 w-full md:w-auto text-right select-none pointer-events-none">
+                    <div
+                        class="font-cormorant text-[20vw] md:text-[15vw] lg:text-[12rem] xl:text-[15rem] leading-[0.85] text-white tracking-tighter mix-blend-hard-light drop-shadow-sm lg:drop-shadow-none lg:text-[#EBE8E0]">
+                        <div class="block">SW</div>
+                        <div class="block ml-[0.5em] md:ml-0">Beauty</div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -1114,29 +1152,31 @@
                                 <!-- Service Select (Service) - Hidden by default -->
                                 <div id="serviceInput" class="hidden">
                                     <label
-                                        class="block text-xs uppercase tracking-widest text-stone-500 mb-3 font-geist">
-                                        Vyberte službu
+                                        class="block text-xs uppercase tracking-widest text-stone-500 mb-2 font-geist">
+                                        Vyberte proceduru
                                     </label>
-                                    <div id="giftCardServicesGrid" class="grid grid-cols-1 gap-3 mb-4">
-                                        <!-- Will be populated by renderGiftCardServices() -->
-                                    </div>
-
-                                    <!-- Package Selection - Shows after service is selected -->
-                                    <div id="giftCardPackagesContainer" class="hidden">
-                                        <div
-                                            class="flex items-center justify-between mb-3 pt-4 border-t border-stone-100">
-                                            <label
-                                                class="block text-xs uppercase tracking-widest text-stone-500 font-geist">
-                                                Vyberte balíček
-                                            </label>
-                                            <button onclick="resetGiftCardServiceSelection()" type="button"
-                                                class="text-xs uppercase tracking-widest text-stone-500 hover:text-stone-900 transition-colors font-geist">
-                                                ← Změnit službu
-                                            </button>
-                                        </div>
-                                        <div id="giftCardPackagesGrid" class="grid grid-cols-1 gap-3">
-                                            <!-- Will be populated dynamically -->
-                                        </div>
+                                    <div class="relative">
+                                        <select onchange="updateService(this.value)"
+                                            class="w-full appearance-none bg-stone-50 border border-stone-200 p-3 text-stone-800 text-sm focus:outline-none focus:border-stone-500 rounded-none">
+                                            <option value="Endosphere Therapy - Tělo" class="font-geist">
+                                                Endosphere Therapy - Tělo
+                                            </option>
+                                            <option value="Endosphere Therapy - Obličej" class="font-geist">
+                                                Endosphere Therapy - Obličej
+                                            </option>
+                                            <option value="HIFU Lifting - Celý obličej" class="font-geist">
+                                                HIFU Lifting - Celý obličej
+                                            </option>
+                                            <option value="Konzultace + Vstupní ošetření" class="font-geist">
+                                                Konzultace + Vstupní ošetření
+                                            </option>
+                                        </select>
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                                            viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                                            stroke-linecap="round" stroke-linejoin="round" data-lucide="chevron-down"
+                                            class="lucide lucide-chevron-down absolute right-3 top-3.5 w-4 h-4 text-stone-400 pointer-events-none">
+                                            <path d="m6 9 6 6 6-6"></path>
+                                        </svg>
                                     </div>
                                 </div>
 
@@ -1190,38 +1230,6 @@
                                     </div>
                                 </div>
 
-                                <!-- Payment Method -->
-                                <div class="pt-4 border-t border-stone-100">
-                                    <label
-                                        class="block text-xs uppercase tracking-widest text-stone-500 mb-3 font-geist">
-                                        Způsob platby
-                                    </label>
-                                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                                        <label class="cursor-pointer">
-                                            <input type="radio" name="paymentMethod" value="transfer"
-                                                class="peer sr-only" checked=""
-                                                onchange="updatePaymentMethod('transfer')">
-                                            <div
-                                                class="p-4 border border-stone-200 text-sm hover:border-stone-400 peer-checked:bg-stone-900 peer-checked:text-white peer-checked:border-stone-900 transition-all font-geist">
-                                                <div class="font-medium mb-1">Bankovní převod</div>
-                                                <div class="text-xs opacity-75">Obdržíte platební pokyny</div>
-                                            </div>
-                                        </label>
-                                        <label class="cursor-pointer">
-                                            <input type="radio" name="paymentMethod" value="cash" class="peer sr-only"
-                                                onchange="updatePaymentMethod('cash')">
-                                            <div
-                                                class="p-4 border border-stone-200 text-sm hover:border-stone-400 peer-checked:bg-stone-900 peer-checked:text-white peer-checked:border-stone-900 transition-all font-geist">
-                                                <div class="font-medium mb-1">Hotově v salonu</div>
-                                                <div class="text-xs opacity-75">Zaplaťte při vyzvednutí</div>
-                                            </div>
-                                        </label>
-                                    </div>
-                                    <p class="text-xs text-stone-400 mt-3 font-geist" id="paymentMethodNote">
-                                        Platební pokyny vám zašleme na email. Poukaz obdržíte po připsání platby.
-                                    </p>
-                                </div>
-
                                 <!-- Submit -->
                                 <div class="pt-6">
                                     <button type="submit"
@@ -1251,50 +1259,6 @@
     <script>
         // Initialize Lucide Icons
         lucide.createIcons();
-
-        // Coming soon message for gift cards (temporary)
-        function showComingSoonMessage() {
-            const overlay = document.createElement('div');
-            overlay.className = 'fixed inset-0 z-[100] flex items-center justify-center p-4';
-            overlay.style.backgroundColor = 'rgba(28, 25, 23, 0.8)';
-            overlay.style.backdropFilter = 'blur(8px)';
-
-            overlay.innerHTML = `
-                <div class="bg-white p-12 max-w-md text-center shadow-2xl animate-fade-in-up">
-                    <div class="w-16 h-16 bg-stone-100 rounded-full flex items-center justify-center mx-auto mb-6">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-stone-600">
-                            <path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path>
-                        </svg>
-                    </div>
-                    <h2 class="text-3xl font-cormorant font-medium text-stone-900 mb-4">Připravujeme</h2>
-                    <p class="text-stone-600 font-geist mb-8">
-                        Pracujeme na vylepšení systému dárkových poukazů. Brzy bude k dispozici!
-                    </p>
-                    <p class="text-sm text-stone-500 font-geist mb-6">
-                        Mezitím nás můžete kontaktovat přímo pro objednání poukazu.
-                    </p>
-                    <div class="flex flex-col gap-3">
-                        <a href="tel:+420776632498" class="inline-flex items-center justify-center gap-2 bg-stone-900 text-white px-6 py-3 hover:bg-stone-800 transition-colors font-geist text-sm uppercase tracking-widest">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                                <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path>
-                            </svg>
-                            Zavolat
-                        </a>
-                        <button onclick="this.closest('.fixed').remove()" class="border border-stone-300 text-stone-600 px-6 py-3 hover:border-stone-900 hover:text-stone-900 transition-colors font-geist text-sm uppercase tracking-widest">
-                            Zavřít
-                        </button>
-                    </div>
-                </div>
-            `;
-
-            overlay.onclick = (e) => {
-                if (e.target === overlay) {
-                    overlay.remove();
-                }
-            };
-
-            document.body.appendChild(overlay);
-        }
 
         // Mobile Menu Logic
         function toggleMobileMenu() {
@@ -1394,23 +1358,7 @@
         }
 
         function updateService(val) {
-            // This function is deprecated - services are now selected via buttons
             previewValue.textContent = val;
-        }
-
-        // New: Track selected payment method
-        let selectedPaymentMethod = 'transfer'; // default
-
-        function updatePaymentMethod(method) {
-            selectedPaymentMethod = method;
-            const note = document.getElementById('paymentMethodNote');
-            if (note) {
-                if (method === 'transfer') {
-                    note.textContent = 'Platební pokyny vám zašleme na email. Poukaz obdržíte po připsání platby.';
-                } else {
-                    note.textContent = 'Poukaz obdržíte po zaplacení v salonu.';
-                }
-            }
         }
 
         function updateName(val) {
@@ -1452,23 +1400,6 @@
             if (giftMessage) giftMessage.value = '';
             if (buyerEmail) buyerEmail.value = '';
             if (buyerPhone) buyerPhone.value = '';
-
-            // Reset payment method to default (transfer)
-            selectedPaymentMethod = 'transfer';
-            const transferRadio = document.querySelector('input[name="paymentMethod"][value="transfer"]');
-            if (transferRadio) transferRadio.checked = true;
-            updatePaymentMethod('transfer');
-
-            // Reset service/package selection
-            window.selectedGiftPackage = null;
-
-            // Reset services grid
-            const servicesGrid = document.getElementById('giftCardServicesGrid');
-            if (servicesGrid) servicesGrid.innerHTML = '';
-
-            // Hide packages container
-            const packagesContainer = document.getElementById('giftCardPackagesContainer');
-            if (packagesContainer) packagesContainer.classList.add('hidden');
         }
 
         async function submitForm() {
@@ -1481,24 +1412,14 @@
             const message = document.getElementById('giftMessage').value;
             const buyerEmail = document.getElementById('buyerEmail').value;
             const buyerPhone = document.getElementById('buyerPhone').value;
-            const paymentMethod = selectedPaymentMethod;
 
             let amount = '';
             let service = '';
-            let packageName = '';
 
             if (voucherType === 'cash') {
                 amount = document.querySelector('input[type="range"]').value;
             } else {
-                // Get selected package info
-                if (window.selectedGiftPackage) {
-                    service = window.selectedGiftPackage.serviceName;
-                    packageName = window.selectedGiftPackage.packageName;
-                    amount = window.selectedGiftPackage.price;
-                } else {
-                    alert('Prosím vyberte balíček.');
-                    return;
-                }
+                service = document.querySelector('#serviceInput select').value;
             }
 
             btn.textContent = "Odesílám...";
@@ -1514,22 +1435,15 @@
                     body: JSON.stringify({
                         recipientName,
                         recipientEmail: buyerEmail,
-                        recipientPhone: buyerPhone,
                         message,
                         voucherType,
                         amount,
-                        service,
-                        packageName,
-                        paymentMethod
+                        service
                     })
                 });
 
                 if (response.ok) {
-                    if (paymentMethod === 'transfer') {
-                        alert('Děkujeme za objednávku! Na váš email jsme zaslali platební pokyny. Poukaz obdržíte po připsání platby.');
-                    } else {
-                        alert('Děkujeme za objednávku! Poukaz obdržíte po zaplacení v salonu.');
-                    }
+                    alert('Děkujeme za objednávku! Brzy se vám ozveme s podklady k platbě.');
                     closeModal();
                     resetGiftCard();
                 } else {
@@ -2001,15 +1915,10 @@
         }
     </script>
 
+    <!-- Data Loading Script -->
+    <script src="app.js"></script>
     <!-- Lenis Smooth Scroll -->
     <script src="https://unpkg.com/lenis@1.3.15/dist/lenis.min.js"></script>
-
-    <!-- GSAP Libraries (must load BEFORE app.js) -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
-
-    <!-- Data Loading Script (loads AFTER GSAP) -->
-    <script src="app.js"></script>
     <script>
         // Initialize Lenis smooth scrolling with optimized settings
         const lenis = new Lenis({
@@ -2100,7 +2009,7 @@
         };
 
         // ====================
-        // GSAP + SCROLLTRIGGER SETUP
+        // LUXURY CONTINUOUS ANIMATIONS
         // ====================
 
         // Register ScrollTrigger plugin
@@ -2112,190 +2021,295 @@
         // Disable lag smoothing for smoother performance
         gsap.ticker.lagSmoothing(0);
 
-        // ====================
-        // MOTION ANIMATIONS
-        // ====================
-    </script>
+        // Wait for DOM to load before initializing animations
+        document.addEventListener('DOMContentLoaded', () => {
 
-    <!-- Motion -->
-    <script src="https://cdn.jsdelivr.net/npm/motion@latest/dist/motion.js"></script>
-    <script>
-        const { animate, scroll, stagger, inView } = Motion
+            // ====================
+            // CONTINUOUS FLOATING ANIMATIONS
+            // ====================
 
-        // ====================
-        // HERO IMAGE - Parallax
-        // ====================
-        const heroImage = document.querySelector('header img');
-        const heroContainer = document.querySelector('header .aspect-\\[2\\/3\\]');
+            // Hero image - slow zoom + float
+            const heroImage = document.querySelector('header img');
+            if (heroImage) {
+                // Continuous slow zoom (breathe effect)
+                gsap.to(heroImage, {
+                    scale: 1.05,
+                    duration: 8,
+                    ease: "sine.inOut",
+                    yoyo: true,
+                    repeat: -1
+                });
 
-        if (heroImage && heroContainer) {
-            // Parallax scroll
-            scroll(animate(heroImage, {
-                transform: ["translateY(0%)", "translateY(20%)"]
-            }), {
-                target: document.querySelector("header"),
-                offset: ["start start", "end start"]
-            });
-        }
+                // Parallax on scroll
+                gsap.to(heroImage, {
+                    yPercent: 20,
+                    ease: "none",
+                    scrollTrigger: {
+                        trigger: "header",
+                        start: "top top",
+                        end: "bottom top",
+                        scrub: 1
+                    }
+                });
+            }
 
-        // ====================
-        // PHILOSOPHY IMAGE - Parallax
-        // ====================
-        const philosophyImage = document.querySelector('#filozofie img');
-        const philosophyContainer = document.querySelector('#filozofie .aspect-\\[4\\/5\\]');
+            // ====================
+            // PHILOSOPHY IMAGE - Slow Zoom + 3D Tilt
+            // ====================
 
-        if (philosophyImage && philosophyContainer) {
-            // Parallax scroll (down direction to prevent gray bar at top)
-            scroll(animate(philosophyImage, {
-                transform: ["translateY(-10%)", "translateY(10%)"]
-            }), {
-                target: document.querySelector("#filozofie"),
-                offset: ["start end", "end start"]
-            });
-        }
+            const philosophyImageContainer = document.querySelector('#filozofie .aspect-\\[4\\/5\\]');
+            if (philosophyImageContainer) {
+                philosophyImageContainer.style.overflow = 'hidden';
+                philosophyImageContainer.style.perspective = '1000px';
+            }
 
-        // ====================
-        // FOUNDER IMAGE - Parallax
-        // ====================
-        const founderImage = document.querySelector('#majitelka .aspect-\\[3\\/4\\] img');
-        const founderContainer = document.querySelector('#majitelka .aspect-\\[3\\/4\\]');
+            const philosophyImage = document.querySelector('#filozofie img');
+            if (philosophyImage) {
+                // Continuous slow zoom
+                gsap.to(philosophyImage, {
+                    scale: 1.08,
+                    duration: 10,
+                    ease: "sine.inOut",
+                    yoyo: true,
+                    repeat: -1
+                });
 
-        if (founderImage && founderContainer) {
-            // Parallax scroll (down direction to prevent gray bar at top)
-            scroll(animate(founderImage, {
-                transform: ["translateY(-10%)", "translateY(10%)"]
-            }), {
-                target: document.querySelector("#majitelka"),
-                offset: ["start end", "end start"]
-            });
-        }
+                // 3D tilt on scroll
+                gsap.to(philosophyImage, {
+                    rotateY: 5,
+                    rotateX: -3,
+                    scrollTrigger: {
+                        trigger: "#filozofie",
+                        start: "top bottom",
+                        end: "bottom top",
+                        scrub: 2
+                    }
+                });
+            }
 
-        // ====================
-        // SERVICES - Hover Effects & Parallax
-        // ====================
-        const serviceItems = document.querySelectorAll('#sluzby .space-y-6 > div');
-        serviceItems.forEach((item) => {
-            item.addEventListener('mouseenter', () => {
-                animate(item, {
+            // ====================
+            // FOUNDER IMAGE - Slow Zoom + Float
+            // ====================
+
+            const founderImage = document.querySelector('#majitelka .aspect-\\[3\\/4\\] img');
+            if (founderImage) {
+                // Container overflow
+                const founderContainer = document.querySelector('#majitelka .aspect-\\[3\\/4\\]');
+                if (founderContainer) {
+                    founderContainer.style.overflow = 'hidden';
+                }
+
+                // Continuous slow zoom
+                gsap.to(founderImage, {
+                    scale: 1.06,
+                    duration: 9,
+                    ease: "sine.inOut",
+                    yoyo: true,
+                    repeat: -1,
+                    delay: 0.5 // Offset from other zooms
+                });
+
+                // Float effect
+                gsap.to(founderImage, {
                     y: -10,
-                    scale: 1.01
-                }, {
-                    duration: 0.4,
-                    easing: "ease-out"
+                    duration: 4,
+                    ease: "sine.inOut",
+                    yoyo: true,
+                    repeat: -1
+                });
+            }
+
+            // ====================
+            // SERVICES - Floating Cards
+            // ====================
+
+            const serviceItems = document.querySelectorAll('#sluzby .space-y-6 > div');
+            serviceItems.forEach((item, index) => {
+                // Floating animation with offset
+                gsap.to(item, {
+                    y: -15,
+                    duration: 3 + (index * 0.2),
+                    ease: "sine.inOut",
+                    yoyo: true,
+                    repeat: -1,
+                    delay: index * 0.3
+                });
+
+                // Hover effect - lift up
+                item.addEventListener('mouseenter', () => {
+                    gsap.to(item, {
+                        y: -25,
+                        scale: 1.02,
+                        duration: 0.4,
+                        ease: "power2.out",
+                        overwrite: 'auto'
+                    });
+                });
+
+                item.addEventListener('mouseleave', () => {
+                    gsap.to(item, {
+                        y: -15,
+                        scale: 1,
+                        duration: 0.6,
+                        ease: "elastic.out(1, 0.5)",
+                        overwrite: 'auto'
+                    });
                 });
             });
 
-            item.addEventListener('mouseleave', () => {
-                animate(item, {
-                    y: 0,
-                    scale: 1
-                }, {
-                    duration: 0.4,
-                    easing: "ease-out"
+            // Services sticky image - multi-layer parallax
+            const servicesImage = document.querySelector('#sluzby .sticky');
+            if (servicesImage) {
+                gsap.to(servicesImage, {
+                    y: -50,
+                    scrollTrigger: {
+                        trigger: "#sluzby",
+                        start: "top bottom",
+                        end: "bottom top",
+                        scrub: 1.5
+                    }
+                });
+            }
+
+            // ====================
+            // FAQ - Wave Effect (Optimized)
+            // ====================
+
+            const faqItems = document.querySelectorAll('#faq details');
+            faqItems.forEach((item, index) => {
+                // Subtle wave float effect with reduced intensity
+                gsap.to(item, {
+                    x: Math.sin(index) * 5,
+                    y: Math.cos(index) * 4,
+                    duration: 6 + (index * 0.5),
+                    ease: "sine.inOut",
+                    yoyo: true,
+                    repeat: -1,
+                    delay: index * 0.3
                 });
             });
+
+            // ====================
+            // GIFT CARDS - Parallax Layers
+            // ====================
+
+            const giftCardImage = document.querySelector('#poukazy .sticky img');
+            if (giftCardImage) {
+                const giftContainer = document.querySelector('#poukazy .sticky');
+                if (giftContainer) {
+                    giftContainer.style.overflow = 'hidden';
+                }
+
+                // Slow zoom
+                gsap.to(giftCardImage, {
+                    scale: 1.07,
+                    duration: 12,
+                    ease: "sine.inOut",
+                    yoyo: true,
+                    repeat: -1
+                });
+
+                // Parallax
+                gsap.to(giftCardImage, {
+                    yPercent: 15,
+                    scrollTrigger: {
+                        trigger: "#poukazy",
+                        start: "top bottom",
+                        end: "bottom top",
+                        scrub: 2
+                    }
+                });
+            }
+
+            // Gift card content - subtle fade in on scroll
+            const giftCardContent = document.querySelector('#poukazy .lg\\:w-1\\/2.py-32');
+            if (giftCardContent) {
+                gsap.from(giftCardContent.children, {
+                    opacity: 0,
+                    y: 30,
+                    stagger: 0.2,
+                    duration: 1,
+                    scrollTrigger: {
+                        trigger: "#poukazy",
+                        start: "top 70%",
+                        once: true
+                    }
+                });
+            }
+
+            // ====================
+            // REVIEWS - Floating Container
+            // ====================
+
+            const reviewsCarousel = document.querySelector('#reviews .relative.min-h-\\[500px\\]');
+            if (reviewsCarousel) {
+                // Gentle float
+                gsap.to(reviewsCarousel, {
+                    y: -20,
+                    duration: 6,
+                    ease: "sine.inOut",
+                    yoyo: true,
+                    repeat: -1
+                });
+            }
+
+            // ====================
+            // TEXT ANIMATIONS - Fade in on scroll (subtle)
+            // ====================
+
+            // Philosophy text
+            const philosophyText = document.querySelector('#filozofie .lg\\:w-1\\/2:last-child');
+            if (philosophyText) {
+                gsap.from(philosophyText.children, {
+                    opacity: 0,
+                    y: 40,
+                    stagger: 0.15,
+                    duration: 1,
+                    ease: "power2.out",
+                    scrollTrigger: {
+                        trigger: "#filozofie",
+                        start: "top 60%",
+                        once: true
+                    }
+                });
+            }
+
+            // Founder text
+            const founderText = document.querySelector('#majitelka .md\\:w-7\\/12');
+            if (founderText) {
+                gsap.from(founderText.children, {
+                    opacity: 0,
+                    y: 40,
+                    stagger: 0.15,
+                    duration: 1,
+                    ease: "power2.out",
+                    scrollTrigger: {
+                        trigger: "#majitelka",
+                        start: "top 60%",
+                        once: true
+                    }
+                });
+            }
+
+            // ====================
+            // NAVBAR - Blur on scroll
+            // ====================
+
+            const navbar = document.getElementById('navbar');
+            if (navbar) {
+                ScrollTrigger.create({
+                    start: 0,
+                    end: 'max',
+                    onUpdate: (self) => {
+                        const progress = self.progress;
+                        const blur = Math.min(progress * 10, 8);
+                        navbar.style.backdropFilter = `blur(${blur}px)`;
+                    }
+                });
+            }
+
+            console.log('✨ Luxury continuous animations initialized');
         });
-
-        // Services image - CSS sticky positioning (no GSAP needed)
-        // Fotka se automaticky přilepí pomocí CSS `sticky top-0`
-        // a zůstane na konci sekce #sluzby
-
-        // ====================
-        // FAQ - Fade-in on view
-        // ====================
-        const faqItems = document.querySelectorAll('#faq details');
-        if (faqItems.length > 0) {
-            inView('#faq', () => {
-                animate(faqItems,
-                    { opacity: [0, 1], y: [20, 0] },
-                    { duration: 0.8, delay: stagger(0.1), easing: "ease-out" }
-                );
-            }, { amount: 0.3 });
-        }
-
-        // ====================
-        // GIFT CARDS - Parallax
-        // ====================
-        const giftCardImage = document.querySelector('#poukazy .sticky img');
-        const giftCardContainer = document.querySelector('#poukazy .sticky');
-
-        if (giftCardImage && giftCardContainer) {
-            // Parallax (down direction to prevent gray bar at top)
-            scroll(animate(giftCardImage, {
-                transform: ["translateY(-10%)", "translateY(10%)"]
-            }), {
-                target: document.querySelector("#poukazy"),
-                offset: ["start end", "end start"]
-            });
-        }
-
-        // Gift card content - fade in
-        const giftCardContent = document.querySelector('#poukazy .lg\\:w-1\\/2.py-32');
-        if (giftCardContent) {
-            inView('#poukazy', () => {
-                animate(giftCardContent.children,
-                    { opacity: [0, 1], y: [30, 0] },
-                    { duration: 1, delay: stagger(0.2), easing: "ease-out" }
-                );
-            }, { amount: 0.3 });
-        }
-
-        // ====================
-        // REVIEWS - Fade-in
-        // ====================
-        const reviewsCarousel = document.querySelector('#reviews .relative.min-h-\\[500px\\]');
-        if (reviewsCarousel) {
-            inView('#reviews', () => {
-                animate(reviewsCarousel,
-                    { opacity: [0, 1], y: [30, 0] },
-                    { duration: 1, easing: "ease-out" }
-                );
-            }, { amount: 0.3 });
-        }
-
-        // ====================
-        // TEXT ANIMATIONS - Fade in
-        // ====================
-
-        // Philosophy text
-        const philosophyText = document.querySelector('#filozofie .lg\\:w-1\\/2:last-child');
-        if (philosophyText) {
-            inView('#filozofie', () => {
-                animate(philosophyText.children,
-                    { opacity: [0, 1], y: [40, 0] },
-                    { duration: 1, delay: stagger(0.15), easing: "ease-out" }
-                );
-            }, { amount: 0.4 });
-        }
-
-        // Founder text
-        const founderText = document.querySelector('#majitelka .md\\:w-7\\/12');
-        if (founderText) {
-            inView('#majitelka', () => {
-                animate(founderText.children,
-                    { opacity: [0, 1], y: [40, 0] },
-                    { duration: 1, delay: stagger(0.15), easing: "ease-out" }
-                );
-            }, { amount: 0.4 });
-        }
-
-        // ====================
-        // NAVBAR - Blur on scroll
-        // ====================
-        const navbar = document.getElementById('navbar');
-        if (navbar) {
-            // Simple scroll-based navbar blur
-            window.addEventListener('scroll', () => {
-                const scrolled = window.scrollY;
-                const progress = Math.min(scrolled / 150, 1);
-                const blur = Math.min(progress * 10, 8);
-                navbar.style.backdropFilter = `blur(${blur}px)`;
-                navbar.style.backgroundColor = `rgba(255, 255, 255, ${0.9 * progress})`;
-            });
-        }
-
-
-        console.log('✨ Motion animations initialized');
     </script>
 </body>
 
