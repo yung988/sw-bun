@@ -43,3 +43,5 @@ src/assets/images/
 # !public/vite.svg
 # !src/assets/logo.svg
 
+
+!public/logo.svg
