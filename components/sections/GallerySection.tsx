@@ -11,44 +11,32 @@ const galleryItems = [
     },
     {
         type: 'image' as const,
-        src: 'https://omf77i7evqckneoq.public.blob.vercel-storage.com/endos-1-O0CFvysc1NoMHUAvDrc594UMWmC0rJ.jpg',
-        alt: 'Endospheres ošetření',
+        src: 'https://omf77i7evqckneoq.public.blob.vercel-storage.com/salon_room1.png',
+        alt: 'Místnost salonu',
         span: ''
     },
     {
         type: 'image' as const,
-        src: 'https://omf77i7evqckneoq.public.blob.vercel-storage.com/hifu-1-A8WNU27cpN1qnPzmKlvxMcNPst8QXa.jpg',
-        alt: 'HIFU ošetření',
+        src: 'https://omf77i7evqckneoq.public.blob.vercel-storage.com/recepce.jpg',
+        alt: 'Recepce',
         span: ''
     },
     {
         type: 'image' as const,
-        src: 'https://omf77i7evqckneoq.public.blob.vercel-storage.com/skin-calming-with-propolis1-xs6afe6pbJMQIjlUeOZoSZ5zgXYByq.jpg',
-        alt: 'Kosmetické ošetření',
+        src: 'https://omf77i7evqckneoq.public.blob.vercel-storage.com/kreslomistnostnaprocedury.jpg',
+        alt: 'Místnost na procedury',
         span: 'col-span-2'
     },
     {
         type: 'image' as const,
-        src: 'https://omf77i7evqckneoq.public.blob.vercel-storage.com/hydrafacial.jpeg',
-        alt: 'Hydrafacial ošetření',
+        src: 'https://omf77i7evqckneoq.public.blob.vercel-storage.com/nehtyroom.jpg',
+        alt: 'Místnost na nehty',
         span: ''
     },
     {
         type: 'image' as const,
-        src: 'https://omf77i7evqckneoq.public.blob.vercel-storage.com/ems1-VpCDM1SgM1hDblovHAEmAGacvEhuBW.jpg',
-        alt: 'EMS budování svalů',
-        span: ''
-    },
-    {
-        type: 'image' as const,
-        src: 'https://omf77i7evqckneoq.public.blob.vercel-storage.com/kavitace-1-xUsBxaeiu6grsA4NCFR9fNr67vw41E.jpg',
-        alt: 'Kavitace ošetření',
-        span: ''
-    },
-    {
-        type: 'image' as const,
-        src: 'https://omf77i7evqckneoq.public.blob.vercel-storage.com/lpg-1-JlUl9IXLuZB6FeCVhyk9pnq9bmy3zL.jpg',
-        alt: 'LPG endermologie',
+        src: 'https://omf77i7evqckneoq.public.blob.vercel-storage.com/stul_detail.jpg',
+        alt: 'Detail interiéru',
         span: ''
     }
 ];
