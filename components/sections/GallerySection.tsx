@@ -76,7 +76,7 @@ export default function GallerySection() {
 
     return (
         <>
-            <section id="galerie" className="py-24 md:py-32 px-6 md:px-12 bg-stone-50">
+            <section id="galerie" className="py-24 md:py-32 px-6 md:px-12 bg-white">
                 <div className="max-w-7xl mx-auto">
                     <div className="text-center mb-16">
                         <span className="text-xs uppercase tracking-widest text-stone-400 font-geist mb-4 block">Náš salon</span>

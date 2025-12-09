@@ -28,7 +28,7 @@ export default function ReviewsSection() {
   }, []);
 
   return (
-    <section id="reviews" className="py-24 md:py-32 bg-stone-50 relative overflow-hidden min-h-[80vh] md:min-h-screen flex items-center">
+    <section id="reviews" className="py-24 md:py-32 bg-white relative overflow-hidden min-h-[80vh] md:min-h-screen flex items-center">
       <div className="max-w-3xl mx-auto px-6 md:px-12 text-center relative z-10 w-full">
         <h2 className="sr-only">Reference klientů</h2>
 

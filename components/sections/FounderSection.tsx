@@ -2,7 +2,7 @@ import Image from 'next/image';
 
 export default function FounderSection() {
   return (
-    <section id="majitelka" className="py-24 md:py-32 px-6 md:px-12 bg-stone-50 min-h-screen flex items-center">
+    <section id="majitelka" className="py-24 md:py-32 px-6 md:px-12 bg-white min-h-screen flex items-center">
       <div className="max-w-5xl mx-auto">
         <div className="flex flex-col md:flex-row gap-12 items-center">
           <div className="w-full md:w-5/12">

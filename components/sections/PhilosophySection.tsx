@@ -2,7 +2,7 @@ import Image from 'next/image';
 
 export default function PhilosophySection() {
   return (
-    <section id="filozofie" className="bg-white py-24 md:py-32 min-h-screen flex items-center">
+    <section id="filozofie" className="bg-stone-50 py-24 md:py-32 min-h-screen flex items-center">
       <div className="max-w-screen-2xl mx-auto px-6 md:px-12 flex flex-col lg:flex-row items-center gap-16 lg:gap-24">
         <div className="w-full lg:w-1/2 relative">
           <div className="aspect-[4/5] bg-stone-100 overflow-hidden">
