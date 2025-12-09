@@ -24,6 +24,23 @@ export default function ServiceDetailModal({ serviceId, onClose }: ServiceDetail
       setServicePrices(foundPrices);
     };
     load();
+
+    // Lock body scroll
+    const scrollY = window.scrollY;
+    document.body.style.position = 'fixed';
+    document.body.style.top = `-${scrollY}px`;
+    document.body.style.left = '0';
+    document.body.style.right = '0';
+    document.body.style.overflow = 'hidden';
+
+    return () => {
+      document.body.style.position = '';
+      document.body.style.top = '';
+      document.body.style.left = '';
+      document.body.style.right = '';
+      document.body.style.overflow = '';
+      window.scrollTo(0, scrollY);
+    };
   }, [serviceId]);
 
   if (!service) return null;
@@ -34,9 +51,17 @@ export default function ServiceDetailModal({ serviceId, onClose }: ServiceDetail
   const images = service.image.split(';').filter(img => img.trim());
 
   return (
-    <div className="fixed inset-0 z-[80] flex items-center justify-center p-4" onClick={onClose}>
-      <div className="absolute inset-0 bg-stone-900/60 backdrop-blur-sm"></div>
-      <div className="bg-white w-full max-w-5xl max-h-[90vh] shadow-2xl flex flex-col relative animate-fade-in-up overflow-hidden" onClick={(e) => e.stopPropagation()}>
+    <div
+      className="fixed inset-0 z-[80] flex items-center justify-center p-4 isolate"
+      onClick={onClose}
+      onTouchMove={(e) => e.stopPropagation()}
+    >
+      <div className="absolute inset-0 bg-stone-900/60 backdrop-blur-sm" />
+      <div
+        className="bg-white w-full max-w-5xl max-h-[90vh] shadow-2xl flex flex-col relative animate-fade-in-up overflow-hidden"
+        onClick={(e) => e.stopPropagation()}
+        onTouchMove={(e) => e.stopPropagation()}
+      >
         <button onClick={onClose} className="absolute top-4 right-4 z-10 p-2 text-stone-400 hover:text-stone-900 transition-colors">
           <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
             <path d="M18 6 6 18" />
@@ -44,7 +69,11 @@ export default function ServiceDetailModal({ serviceId, onClose }: ServiceDetail
           </svg>
         </button>
 
-        <div className="overflow-y-auto flex-1" data-lenis-prevent>
+        <div
+          className="overflow-y-auto flex-1 overscroll-contain touch-pan-y"
+          style={{ WebkitOverflowScrolling: 'touch' }}
+          data-lenis-prevent
+        >
           <div className="w-full h-64 md:h-96 bg-stone-100 relative overflow-hidden">
             {images.length > 0 && (
               <Image

@@ -21,6 +21,23 @@ export default function PriceListModal({ onClose }: PriceListModalProps) {
       setPrices(prices);
     };
     load();
+
+    // Lock body scroll
+    const scrollY = window.scrollY;
+    document.body.style.position = 'fixed';
+    document.body.style.top = `-${scrollY}px`;
+    document.body.style.left = '0';
+    document.body.style.right = '0';
+    document.body.style.overflow = 'hidden';
+
+    return () => {
+      document.body.style.position = '';
+      document.body.style.top = '';
+      document.body.style.left = '';
+      document.body.style.right = '';
+      document.body.style.overflow = '';
+      window.scrollTo(0, scrollY);
+    };
   }, []);
 
   const filterPriceList = (category: string) => {
@@ -34,9 +51,17 @@ export default function PriceListModal({ onClose }: PriceListModalProps) {
   }, {});
 
   return (
-    <div className="fixed inset-0 z-[70] flex items-center justify-center p-0 md:p-4" onClick={onClose}>
-      <div className="absolute inset-0 bg-stone-900/60 backdrop-blur-sm"></div>
-      <div className="bg-white w-full h-full md:h-auto md:max-h-[85vh] md:max-w-3xl shadow-2xl flex flex-col relative animate-fade-in-up overflow-hidden" onClick={(e) => e.stopPropagation()}>
+    <div
+      className="fixed inset-0 z-[70] flex items-center justify-center p-0 md:p-4 isolate"
+      onClick={onClose}
+      onTouchMove={(e) => e.stopPropagation()}
+    >
+      <div className="absolute inset-0 bg-stone-900/60 backdrop-blur-sm" />
+      <div
+        className="bg-white w-full h-full md:h-auto md:max-h-[85vh] md:max-w-3xl shadow-2xl flex flex-col relative animate-fade-in-up overflow-hidden"
+        onClick={(e) => e.stopPropagation()}
+        onTouchMove={(e) => e.stopPropagation()}
+      >
         <div className="px-6 md:px-8 py-4 md:py-6 border-b border-stone-100 flex justify-between items-center bg-white z-10">
           <h2 className="text-2xl md:text-3xl font-cormorant text-stone-900">Ceník služeb</h2>
           <button onClick={onClose} className="p-2 text-stone-400 hover:text-stone-900 transition-colors">
@@ -47,7 +72,11 @@ export default function PriceListModal({ onClose }: PriceListModalProps) {
           </button>
         </div>
 
-        <div className="flex-1 overflow-y-auto px-6 md:px-8 lg:px-12 pb-6 md:pb-8 lg:pb-12" data-lenis-prevent>
+        <div
+          className="flex-1 overflow-y-auto overscroll-contain touch-pan-y px-6 md:px-8 lg:px-12 pb-6 md:pb-8 lg:pb-12"
+          style={{ WebkitOverflowScrolling: 'touch' }}
+          data-lenis-prevent
+        >
           {/* Filter buttons */}
           <div className="sticky top-0 bg-white/95 backdrop-blur-sm z-20 pb-4 mb-6 border-b border-stone-200 shadow-sm">
             <div className="flex flex-wrap gap-2">
