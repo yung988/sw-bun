@@ -1,0 +1,170 @@
+'use client';
+
+import { useState } from 'react';
+
+const galleryItems = [
+    {
+        type: 'image' as const,
+        src: 'https://omf77i7evqckneoq.public.blob.vercel-storage.com/salon_cekarna.png',
+        alt: 'Čekárna salonu SW Beauty',
+        span: 'col-span-2 row-span-2' // Větší položka
+    },
+    {
+        type: 'image' as const,
+        src: 'https://omf77i7evqckneoq.public.blob.vercel-storage.com/endos-1-O0CFvysc1NoMHUAvDrc594UMWmC0rJ.jpg',
+        alt: 'Endospheres ošetření',
+        span: ''
+    },
+    {
+        type: 'image' as const,
+        src: 'https://omf77i7evqckneoq.public.blob.vercel-storage.com/hifu-1-A8WNU27cpN1qnPzmKlvxMcNPst8QXa.jpg',
+        alt: 'HIFU ošetření',
+        span: ''
+    },
+    {
+        type: 'image' as const,
+        src: 'https://omf77i7evqckneoq.public.blob.vercel-storage.com/skin-calming-with-propolis1-xs6afe6pbJMQIjlUeOZoSZ5zgXYByq.jpg',
+        alt: 'Kosmetické ošetření',
+        span: 'col-span-2'
+    },
+    {
+        type: 'image' as const,
+        src: 'https://omf77i7evqckneoq.public.blob.vercel-storage.com/hydrafacial.jpeg',
+        alt: 'Hydrafacial ošetření',
+        span: ''
+    },
+    {
+        type: 'image' as const,
+        src: 'https://omf77i7evqckneoq.public.blob.vercel-storage.com/ems1-VpCDM1SgM1hDblovHAEmAGacvEhuBW.jpg',
+        alt: 'EMS budování svalů',
+        span: ''
+    },
+    {
+        type: 'image' as const,
+        src: 'https://omf77i7evqckneoq.public.blob.vercel-storage.com/kavitace-1-xUsBxaeiu6grsA4NCFR9fNr67vw41E.jpg',
+        alt: 'Kavitace ošetření',
+        span: ''
+    },
+    {
+        type: 'image' as const,
+        src: 'https://omf77i7evqckneoq.public.blob.vercel-storage.com/lpg-1-JlUl9IXLuZB6FeCVhyk9pnq9bmy3zL.jpg',
+        alt: 'LPG endermologie',
+        span: ''
+    }
+];
+
+export default function GallerySection() {
+    const [lightboxOpen, setLightboxOpen] = useState(false);
+    const [activeIndex, setActiveIndex] = useState(0);
+
+    const openLightbox = (index: number) => {
+        setActiveIndex(index);
+        setLightboxOpen(true);
+    };
+
+    const closeLightbox = () => {
+        setLightboxOpen(false);
+    };
+
+    const nextImage = () => {
+        setActiveIndex((prev) => (prev + 1) % galleryItems.length);
+    };
+
+    const prevImage = () => {
+        setActiveIndex((prev) => (prev - 1 + galleryItems.length) % galleryItems.length);
+    };
+
+    return (
+        <>
+            <section id="galerie" className="py-24 md:py-32 px-6 md:px-12 bg-stone-50">
+                <div className="max-w-7xl mx-auto">
+                    <div className="text-center mb-16">
+                        <span className="text-xs uppercase tracking-widest text-stone-400 font-geist mb-4 block">Náš salon</span>
+                        <h2 className="text-4xl md:text-5xl font-medium tracking-tight font-cormorant mb-4">Galerie</h2>
+                        <p className="text-stone-500 font-light font-geist max-w-2xl mx-auto">
+                            Nahlédněte do prostředí, kde se staráme o vaši krásu a pohodu.
+                        </p>
+                    </div>
+
+                    {/* Masonry Grid */}
+                    <div className="grid grid-cols-2 md:grid-cols-4 gap-4 auto-rows-[200px] md:auto-rows-[250px]">
+                        {galleryItems.map((item, index) => (
+                            <div
+                                key={index}
+                                className={`relative overflow-hidden cursor-pointer group ${item.span}`}
+                                onClick={() => openLightbox(index)}
+                            >
+                                <img
+                                    src={item.src}
+                                    alt={item.alt}
+                                    className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+                                />
+                                <div className="absolute inset-0 bg-black/0 group-hover:bg-black/20 transition-colors duration-300" />
+                                <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="1.5">
+                                        <circle cx="11" cy="11" r="8" />
+                                        <path d="m21 21-4.3-4.3" />
+                                        <path d="M11 8v6" />
+                                        <path d="M8 11h6" />
+                                    </svg>
+                                </div>
+                            </div>
+                        ))}
+                    </div>
+                </div>
+            </section>
+
+            {/* Lightbox */}
+            {lightboxOpen && (
+                <div
+                    className="fixed inset-0 bg-black/95 z-50 flex items-center justify-center"
+                    onClick={closeLightbox}
+                >
+                    {/* Close button */}
+                    <button
+                        className="absolute top-6 right-6 text-white/80 hover:text-white transition-colors"
+                        onClick={closeLightbox}
+                    >
+                        <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
+                            <path d="M18 6 6 18" />
+                            <path d="m6 6 12 12" />
+                        </svg>
+                    </button>
+
+                    {/* Previous button */}
+                    <button
+                        className="absolute left-6 text-white/80 hover:text-white transition-colors p-2"
+                        onClick={(e) => { e.stopPropagation(); prevImage(); }}
+                    >
+                        <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
+                            <path d="m15 18-6-6 6-6" />
+                        </svg>
+                    </button>
+
+                    {/* Image */}
+                    <img
+                        src={galleryItems[activeIndex].src}
+                        alt={galleryItems[activeIndex].alt}
+                        className="max-w-[90vw] max-h-[85vh] object-contain"
+                        onClick={(e) => e.stopPropagation()}
+                    />
+
+                    {/* Next button */}
+                    <button
+                        className="absolute right-6 text-white/80 hover:text-white transition-colors p-2"
+                        onClick={(e) => { e.stopPropagation(); nextImage(); }}
+                    >
+                        <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
+                            <path d="m9 18 6-6-6-6" />
+                        </svg>
+                    </button>
+
+                    {/* Image counter */}
+                    <div className="absolute bottom-6 text-white/60 font-geist text-sm">
+                        {activeIndex + 1} / {galleryItems.length}
+                    </div>
+                </div>
+            )}
+        </>
+    );
+}
