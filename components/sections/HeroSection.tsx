@@ -2,11 +2,14 @@
 
 export default function HeroSection({ onOpenBooking }: { onOpenBooking: () => void }) {
   return (
-    <header className="relative w-full h-[100dvh] flex flex-col lg:flex-row pt-24 lg:pt-0 lg:items-center overflow-hidden">
-      <div className="max-w-screen-2xl mx-auto w-full h-full flex flex-col lg:flex-row lg:items-center">
-        {/* Video Content - on mobile limited height to ensure buttons visible */}
-        <div className="w-full lg:w-7/12 flex-1 lg:flex-none relative order-1 lg:order-2 flex items-center justify-center lg:py-32 lg:pr-16 px-6 lg:px-0 max-h-[50vh] lg:max-h-none overflow-hidden">
-          <div className="w-full h-full lg:max-w-md lg:aspect-[2/3] lg:shadow-2xl overflow-hidden">
+    <header
+      className="relative w-full flex flex-col lg:flex-row pt-20 lg:pt-0 lg:items-center overflow-hidden"
+      style={{ minHeight: '100svh', paddingBottom: 'env(safe-area-inset-bottom, 0px)' }}
+    >
+      <div className="max-w-screen-2xl mx-auto w-full h-full flex flex-col lg:flex-row lg:items-center flex-1">
+        {/* Video Content */}
+        <div className="w-full lg:w-7/12 flex-1 lg:flex-none relative order-1 lg:order-2 flex items-center justify-center lg:py-32 lg:pr-16 px-6 lg:px-0">
+          <div className="w-full h-full max-h-[55vh] lg:max-h-none lg:max-w-md lg:aspect-[2/3] lg:shadow-2xl overflow-hidden">
             <video
               src="https://omf77i7evqckneoq.public.blob.vercel-storage.com/hero_1.mp4"
               autoPlay
@@ -18,9 +21,9 @@ export default function HeroSection({ onOpenBooking }: { onOpenBooking: () => vo
           </div>
         </div>
 
-        {/* Text Content - fixed height on mobile */}
-        <div className="w-full lg:w-5/12 flex flex-col justify-end lg:justify-center px-6 md:px-16 lg:px-12 pb-8 lg:py-0 order-2 lg:order-1">
-          <h1 className="w-full text-center lg:text-left text-4xl md:text-6xl xl:text-7xl leading-[1.1] font-medium text-stone-900 tracking-tighter font-cormorant mb-5 lg:mb-8">
+        {/* Text Content */}
+        <div className="w-full lg:w-5/12 flex flex-col justify-end lg:justify-center px-6 md:px-16 lg:px-12 pb-6 lg:py-0 order-2 lg:order-1">
+          <h1 className="w-full text-center lg:text-left text-5xl md:text-6xl xl:text-7xl leading-[1.1] font-medium text-stone-900 tracking-tighter font-cormorant mb-4 lg:mb-8">
             Místo kde se vnější a vnitřní krása propojí.
           </h1>
 
