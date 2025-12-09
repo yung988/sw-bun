@@ -20,9 +20,10 @@ interface FormData {
 
 // Live voucher preview component
 function VoucherPreview({ formData }: { formData: FormData }) {
+  // Pro proceduru zobrazujeme jen kategorii služby, ne celý název balíčku
   const voucherValue = formData.voucherType === 'cash'
     ? `${formData.amount.toLocaleString()} Kč`
-    : formData.selectedPackage?.name || formData.selectedService?.category_name || '—';
+    : formData.selectedService?.category_name || '—';
 
   const validUntil = new Date();
   validUntil.setFullYear(validUntil.getFullYear() + 1);
@@ -78,7 +79,7 @@ function VoucherPreview({ formData }: { formData: FormData }) {
             <span className="text-[9px] uppercase tracking-[0.2em] text-stone-400 font-geist block mb-2">
               {formData.voucherType === 'cash' ? 'V hodnotě' : 'Na proceduru'}
             </span>
-            <span className="text-xl lg:text-2xl font-cormorant font-medium text-stone-900 whitespace-nowrap">
+            <span className="text-lg lg:text-xl font-cormorant font-medium text-stone-900 leading-tight block px-2">
               {voucherValue}
             </span>
           </div>
