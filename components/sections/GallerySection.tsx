@@ -7,7 +7,7 @@ const galleryItems = [
         type: 'image' as const,
         src: 'https://omf77i7evqckneoq.public.blob.vercel-storage.com/salon_cekarna.png',
         alt: 'Čekárna salonu SW Beauty',
-        span: 'col-span-2 row-span-2' // Větší položka
+        span: 'col-span-2 row-span-2'
     },
     {
         type: 'image' as const,
@@ -37,6 +37,18 @@ const galleryItems = [
         type: 'image' as const,
         src: 'https://omf77i7evqckneoq.public.blob.vercel-storage.com/stul_detail.jpg',
         alt: 'Detail interiéru',
+        span: ''
+    },
+    {
+        type: 'image' as const,
+        src: 'https://omf77i7evqckneoq.public.blob.vercel-storage.com/towel-dELH4lXpwFGmX8cPHlIdOFyDXpbr54.jpg',
+        alt: 'Detail salonu',
+        span: ''
+    },
+    {
+        type: 'image' as const,
+        src: 'https://omf77i7evqckneoq.public.blob.vercel-storage.com/kreslomistnostnaprocedury-Or3w2ym6LwLpwoK36G8BtVhrmbtpbZ.jpg',
+        alt: 'Křeslo v místnosti',
         span: ''
     }
 ];
