@@ -183,21 +183,23 @@ export default function BookingModal({ initialData }: BookingModalProps) {
                     <button
                       key={pkg.name}
                       onClick={() => setSelectedPackage(pkg)}
-                      className={`w-full p-4 border flex justify-between items-center transition-all cursor-pointer hover:border-stone-400 text-left ${isSelected ? 'border-stone-900 bg-stone-50' : 'border-stone-200'}`}
+                      className={`w-full p-4 border transition-all cursor-pointer hover:border-stone-400 text-left ${isSelected ? 'border-stone-900 bg-stone-50' : 'border-stone-200'}`}
                     >
-                      <div className="flex-1 min-w-0 pr-4">
-                        <span className="text-stone-900">{pkg.name}</span>
-                        {pkg.duration_in_minutes && (
-                          <span className="text-stone-400 text-sm ml-2">({pkg.duration_in_minutes} min)</span>
-                        )}
-                      </div>
-                      <div className="flex items-center gap-4 flex-shrink-0">
-                        <span className="text-stone-900 font-medium whitespace-nowrap">{parseInt(pkg.price_in_czk).toLocaleString()} Kč</span>
-                        <span
-                          className={`text-xs uppercase tracking-wider font-geist whitespace-nowrap ${isSelected ? 'text-stone-900 font-medium' : 'text-stone-500'}`}
-                        >
-                          {isSelected ? '✓ Vybráno' : 'Vybrat'}
-                        </span>
+                      <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center gap-2">
+                        <div className="flex-1 min-w-0">
+                          <span className="text-stone-900 block sm:inline">{pkg.name}</span>
+                          {pkg.duration_in_minutes && (
+                            <span className="text-stone-400 text-sm ml-0 sm:ml-2 block sm:inline">({pkg.duration_in_minutes} min)</span>
+                          )}
+                        </div>
+                        <div className="flex items-center justify-between sm:justify-end gap-4 flex-shrink-0">
+                          <span className="text-stone-900 font-medium whitespace-nowrap">{parseInt(pkg.price_in_czk).toLocaleString()} Kč</span>
+                          <span
+                            className={`text-xs uppercase tracking-wider font-geist whitespace-nowrap ${isSelected ? 'text-stone-900 font-medium' : 'text-stone-500'}`}
+                          >
+                            {isSelected ? '✓ Vybráno' : 'Vybrat'}
+                          </span>
+                        </div>
                       </div>
                     </button>
                   );
