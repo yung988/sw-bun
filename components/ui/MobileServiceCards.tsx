@@ -46,8 +46,8 @@ export default function MobileServiceCards({ services, prices, onOpenServiceDeta
                 <span className="flex items-center gap-2 text-xs md:text-sm uppercase tracking-widest font-geist text-white group-hover:gap-3 transition-all">
                   Zobrazit detail
                   <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                    <path d="M12 19-7-7 7-7" />
-                    <path d="M19 12H5" />
+                    <path d="M5 12h14" />
+                    <path d="m12 5 7 7-7 7" />
                   </svg>
                 </span>
               </div>
