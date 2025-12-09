@@ -162,7 +162,7 @@ export default function Navbar() {
             </Link>
             <button
               onClick={() => openModal('price-list')}
-              className="hover:text-stone-900 transition-colors"
+              className="hover:text-stone-900 transition-colors uppercase"
             >
               Ceník
             </button>
