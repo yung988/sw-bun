@@ -195,6 +195,32 @@ export default function BookingModal({ initialData }: BookingModalProps) {
           {currentStep === 3 && (
             <div>
               <p className="text-sm text-stone-500 text-center mb-6 font-geist">Vyberte termín, který vám vyhovuje</p>
+
+              {/* Zobrazení vybrané služby a balíčku */}
+              {selectedService && selectedPackage && (
+                <div className="mb-6 p-4 bg-stone-50 border border-stone-200">
+                  <div className="flex justify-between items-start">
+                    <div>
+                      <span className="text-xs uppercase tracking-widest text-stone-400 font-geist">Vybraná služba</span>
+                      <h4 className="text-lg font-cormorant text-stone-900 mt-1">{selectedService.category_name}</h4>
+                      <p className="text-sm text-stone-600 font-geist">{selectedPackage.name}</p>
+                      {selectedPackage.duration_in_minutes && (
+                        <span className="text-xs text-stone-400">({selectedPackage.duration_in_minutes} min)</span>
+                      )}
+                    </div>
+                    <div className="text-right">
+                      <span className="text-lg font-medium text-stone-900">{parseInt(selectedPackage.price_in_czk).toLocaleString()} Kč</span>
+                    </div>
+                  </div>
+                  <button
+                    onClick={() => setCurrentStep(1)}
+                    className="mt-3 text-xs text-stone-500 hover:text-stone-900 font-geist uppercase tracking-wider"
+                  >
+                    ← Změnit službu
+                  </button>
+                </div>
+              )}
+
               <h3 className="text-lg font-medium text-stone-900 mb-4">Vyberte termín</h3>
               <div className="grid grid-cols-2 gap-6">
                 <div>
