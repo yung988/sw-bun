@@ -47,8 +47,8 @@ const galleryItems = [
     },
     {
         type: 'image' as const,
-        src: 'https://omf77i7evqckneoq.public.blob.vercel-storage.com/kreslomistnostnaprocedury-Or3w2ym6LwLpwoK36G8BtVhrmbtpbZ.jpg',
-        alt: 'Křeslo v místnosti',
+        src: 'https://omf77i7evqckneoq.public.blob.vercel-storage.com/logojinabarevnost.jpg',
+        alt: 'Logo SW Beauty',
         span: ''
     }
 ];
