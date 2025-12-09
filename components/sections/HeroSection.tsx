@@ -4,9 +4,9 @@ export default function HeroSection({ onOpenBooking }: { onOpenBooking: () => vo
   return (
     <header className="relative w-full h-[100dvh] flex flex-col lg:flex-row pt-24 lg:pt-0 lg:items-center overflow-hidden">
       <div className="max-w-screen-2xl mx-auto w-full h-full flex flex-col lg:flex-row lg:items-center">
-        {/* Video Content - on mobile takes remaining space */}
-        <div className="w-full lg:w-7/12 flex-1 lg:flex-none relative order-1 lg:order-2 flex items-center justify-center lg:py-32 lg:pr-16 px-6 lg:px-0">
-          <div className="w-full lg:max-w-md aspect-[2/3] lg:shadow-2xl overflow-hidden">
+        {/* Video Content - on mobile limited height to ensure buttons visible */}
+        <div className="w-full lg:w-7/12 flex-1 lg:flex-none relative order-1 lg:order-2 flex items-center justify-center lg:py-32 lg:pr-16 px-6 lg:px-0 max-h-[50vh] lg:max-h-none overflow-hidden">
+          <div className="w-full h-full lg:max-w-md lg:aspect-[2/3] lg:shadow-2xl overflow-hidden">
             <video
               src="https://omf77i7evqckneoq.public.blob.vercel-storage.com/hero_1.mp4"
               autoPlay
