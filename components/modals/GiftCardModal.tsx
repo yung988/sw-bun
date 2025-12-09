@@ -29,8 +29,8 @@ function VoucherPreview({ formData }: { formData: FormData }) {
   const formattedDate = validUntil.toLocaleDateString('cs-CZ', { day: 'numeric', month: 'long', year: 'numeric' });
 
   return (
-    <div className="bg-stone-100 p-4 lg:p-6 flex items-center justify-center">
-      <div className="bg-white w-full aspect-[4/3] shadow-lg relative overflow-hidden scale-90 lg:scale-100">
+    <div className="bg-stone-100 p-4 lg:p-6 flex items-center justify-center w-full h-full">
+      <div className="bg-white w-full max-w-[280px] lg:max-w-[320px] shadow-lg relative overflow-visible scale-90 lg:scale-100">
         {/* Decorative corners */}
         <div className="absolute top-3 left-3 w-8 h-8 border-t-2 border-l-2 border-stone-300" />
         <div className="absolute top-3 right-3 w-8 h-8 border-t-2 border-r-2 border-stone-300" />
@@ -38,28 +38,28 @@ function VoucherPreview({ formData }: { formData: FormData }) {
         <div className="absolute bottom-3 right-3 w-8 h-8 border-b-2 border-r-2 border-stone-300" />
 
         {/* Content */}
-        <div className="h-full flex flex-col items-center justify-center px-6 py-4 text-center">
+        <div className="flex flex-col items-center justify-between px-6 py-6 text-center">
           {/* Logo */}
-          <div className="mb-2">
+          <div className="mb-3">
             <Image
               src="/logo.svg"
               alt="SW Beauty"
               width={60}
               height={60}
-              className="h-8 w-auto opacity-80"
+              className="h-10 w-auto opacity-80"
             />
           </div>
 
           {/* Title */}
-          <span className="text-[8px] uppercase tracking-[0.2em] text-stone-400 font-geist mb-3">
+          <span className="text-[9px] uppercase tracking-[0.2em] text-stone-400 font-geist mb-3">
             Dárkový poukaz
           </span>
 
           {/* Divider */}
-          <div className="w-10 h-px bg-stone-300 mb-3" />
+          <div className="w-12 h-px bg-stone-300 mb-4" />
 
           {/* For label + Recipient Name */}
-          <span className="text-[8px] uppercase tracking-[0.2em] text-stone-400 font-geist">
+          <span className="text-[9px] uppercase tracking-[0.2em] text-stone-400 font-geist">
             Pro
           </span>
           <h2 className="text-xl lg:text-2xl font-cormorant font-medium text-stone-900 mb-2 tracking-tight min-h-[1.5em]">
@@ -67,23 +67,25 @@ function VoucherPreview({ formData }: { formData: FormData }) {
           </h2>
 
           {/* Message */}
-          <p className="text-stone-500 font-geist font-light italic text-[10px] max-w-[80%] mb-2 min-h-[1em]">
-            {formData.giftMessage ? `„${formData.giftMessage}"` : ''}
-          </p>
+          {formData.giftMessage && (
+            <p className="text-stone-500 font-geist font-light italic text-[10px] max-w-[90%] mb-3">
+              „{formData.giftMessage}"
+            </p>
+          )}
 
           {/* Value */}
-          <div className="mt-2 pt-3 border-t border-stone-200 w-full max-w-[70%]">
-            <span className="text-[8px] uppercase tracking-[0.2em] text-stone-400 font-geist block mb-1">
+          <div className="mt-3 pt-4 border-t border-stone-200 w-full">
+            <span className="text-[9px] uppercase tracking-[0.2em] text-stone-400 font-geist block mb-2">
               {formData.voucherType === 'cash' ? 'V hodnotě' : 'Na proceduru'}
             </span>
-            <span className="text-lg lg:text-xl font-cormorant font-medium text-stone-900">
+            <span className="text-xl lg:text-2xl font-cormorant font-medium text-stone-900 whitespace-nowrap">
               {voucherValue}
             </span>
           </div>
 
           {/* Validity */}
-          <div className="mt-auto pt-3">
-            <span className="text-[7px] text-stone-400 font-geist">
+          <div className="mt-4 pt-3">
+            <span className="text-[8px] text-stone-400 font-geist">
               Platnost do {formattedDate} · swbeauty.cz
             </span>
           </div>
@@ -309,24 +311,24 @@ export default function GiftCardModal() {
                           {servicePrices.map(pkg => {
                             const isSelected = formData.selectedPackage?.name === pkg.name;
                             return (
-                              <div
+                              <button
                                 key={pkg.name}
-                                className={`p-3 border flex justify-between items-center transition-all ${isSelected ? 'border-stone-900 bg-stone-50' : 'border-stone-200'}`}
+                                onClick={() => updateFormData('selectedPackage', pkg)}
+                                className={`w-full p-3 border flex justify-between items-center transition-all cursor-pointer hover:border-stone-400 text-left ${isSelected ? 'border-stone-900 bg-stone-50' : 'border-stone-200'}`}
                               >
-                                <div>
+                                <div className="flex-1 min-w-0 pr-3">
                                   <span className="text-stone-900 text-sm">{pkg.name}</span>
                                   {pkg.duration_in_minutes && <span className="text-stone-400 text-xs ml-2">({pkg.duration_in_minutes} min)</span>}
                                 </div>
-                                <div className="flex items-center gap-3">
-                                  <span className="text-stone-900 font-medium text-sm">{parseInt(pkg.price_in_czk).toLocaleString()} Kč</span>
-                                  <button
-                                    onClick={() => updateFormData('selectedPackage', pkg)}
-                                    className={`text-xs uppercase tracking-wider font-geist ${isSelected ? 'text-stone-900 font-medium' : 'text-stone-500 hover:text-stone-900'}`}
+                                <div className="flex items-center gap-3 flex-shrink-0">
+                                  <span className="text-stone-900 font-medium text-sm whitespace-nowrap">{parseInt(pkg.price_in_czk).toLocaleString()} Kč</span>
+                                  <span
+                                    className={`text-xs uppercase tracking-wider font-geist whitespace-nowrap ${isSelected ? 'text-stone-900 font-medium' : 'text-stone-500'}`}
                                   >
                                     {isSelected ? '✓' : 'Vybrat'}
-                                  </button>
+                                  </span>
                                 </div>
-                              </div>
+                              </button>
                             );
                           })}
                         </div>

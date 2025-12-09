@@ -132,26 +132,26 @@ export default function BookingModal() {
                 {servicePrices.map(pkg => {
                   const isSelected = selectedPackage?.name === pkg.name;
                   return (
-                    <div
+                    <button
                       key={pkg.name}
-                      className={`p-4 border flex justify-between items-center transition-all ${isSelected ? 'border-stone-900 bg-stone-50' : 'border-stone-200'}`}
+                      onClick={() => setSelectedPackage(pkg)}
+                      className={`w-full p-4 border flex justify-between items-center transition-all cursor-pointer hover:border-stone-400 text-left ${isSelected ? 'border-stone-900 bg-stone-50' : 'border-stone-200'}`}
                     >
-                      <div>
+                      <div className="flex-1 min-w-0 pr-4">
                         <span className="text-stone-900">{pkg.name}</span>
                         {pkg.duration_in_minutes && (
                           <span className="text-stone-400 text-sm ml-2">({pkg.duration_in_minutes} min)</span>
                         )}
                       </div>
-                      <div className="flex items-center gap-4">
-                        <span className="text-stone-900 font-medium">{parseInt(pkg.price_in_czk).toLocaleString()} Kč</span>
-                        <button
-                          onClick={() => setSelectedPackage(pkg)}
-                          className={`text-xs uppercase tracking-wider font-geist ${isSelected ? 'text-stone-900 font-medium' : 'text-stone-500 hover:text-stone-900'}`}
+                      <div className="flex items-center gap-4 flex-shrink-0">
+                        <span className="text-stone-900 font-medium whitespace-nowrap">{parseInt(pkg.price_in_czk).toLocaleString()} Kč</span>
+                        <span
+                          className={`text-xs uppercase tracking-wider font-geist whitespace-nowrap ${isSelected ? 'text-stone-900 font-medium' : 'text-stone-500'}`}
                         >
                           {isSelected ? '✓ Vybráno' : 'Vybrat'}
-                        </button>
+                        </span>
                       </div>
-                    </div>
+                    </button>
                   );
                 })}
               </div>
