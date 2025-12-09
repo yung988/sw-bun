@@ -20,7 +20,7 @@ export default function HeroSection({ onOpenBooking }: { onOpenBooking: () => vo
 
         {/* Text Content - fixed height on mobile */}
         <div className="w-full lg:w-5/12 flex flex-col justify-end lg:justify-center px-6 md:px-16 lg:px-12 pb-8 lg:py-0 order-2 lg:order-1">
-          <h1 className="text-4xl md:text-6xl xl:text-7xl leading-[1.1] font-medium text-stone-900 tracking-tighter font-cormorant mb-5 lg:mb-8">
+          <h1 className="w-full text-center lg:text-left text-4xl md:text-6xl xl:text-7xl leading-[1.1] font-medium text-stone-900 tracking-tighter font-cormorant mb-5 lg:mb-8">
             Místo kde se vnější a vnitřní krása propojí.
           </h1>
 
