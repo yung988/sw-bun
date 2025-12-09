@@ -27,7 +27,7 @@ export default function ModalProvider({ children }: { children: ReactNode }) {
     <ModalContext.Provider value={{ openModal, closeModal }}>
       {children}
       {activeModal === 'gift-card' && <GiftCardModal />}
-      {activeModal === 'booking' && <BookingModal />}
+      {activeModal === 'booking' && <BookingModal initialData={modalData} />}
       {activeModal === 'price-list' && <PriceListModal onClose={closeModal} />}
       {activeModal === 'service-detail' && <ServiceDetailModal serviceId={modalData?.serviceId} onClose={closeModal} />}
     </ModalContext.Provider>

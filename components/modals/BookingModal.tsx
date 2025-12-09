@@ -4,11 +4,20 @@ import { useState, useEffect } from 'react';
 import { useModal } from '../providers/ModalProvider';
 import { Service, Price, loadData } from '@/lib/data';
 
-export default function BookingModal() {
+interface BookingModalProps {
+  initialData?: {
+    serviceId?: string;
+    packageName?: string;
+    price?: string;
+  };
+}
+
+export default function BookingModal({ initialData }: BookingModalProps) {
   const { closeModal } = useModal();
   const [currentStep, setCurrentStep] = useState(1);
   const [services, setServices] = useState<Service[]>([]);
   const [prices, setPrices] = useState<Price[]>([]);
+  const [isInitialized, setIsInitialized] = useState(false);
 
   const [selectedService, setSelectedService] = useState<Service | null>(null);
   const [selectedPackage, setSelectedPackage] = useState<Price | null>(null);
@@ -24,11 +33,26 @@ export default function BookingModal() {
       const { services, prices } = await loadData();
       setServices(services);
       setPrices(prices);
+
+      // Pokud přicházíme z ServiceDetailModal s předvybranými daty
+      if (initialData?.serviceId && initialData?.packageName && !isInitialized) {
+        const foundService = services.find(s => s.service_id === initialData.serviceId);
+        const foundPackage = prices.find(p =>
+          p.service_id === initialData.serviceId && p.name === initialData.packageName
+        );
+
+        if (foundService && foundPackage) {
+          setSelectedService(foundService);
+          setSelectedPackage(foundPackage);
+          setCurrentStep(3); // Přeskočit na výběr termínu
+        }
+        setIsInitialized(true);
+      }
     };
     load();
     document.body.style.overflow = 'hidden';
     return () => { document.body.style.overflow = ''; };
-  }, []);
+  }, [initialData, isInitialized]);
 
   const getTomorrowDate = (): string => {
     const tomorrow = new Date();
