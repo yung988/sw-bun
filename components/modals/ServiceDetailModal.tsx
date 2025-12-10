@@ -144,23 +144,26 @@ export default function ServiceDetailModal({ serviceId, onClose }: ServiceDetail
             {servicePrices.length > 0 && (
               <div>
                 <h3 className="text-2xl font-cormorant text-stone-900 mb-4">Ceník</h3>
-                <div className="space-y-3">
+                <div className="space-y-4">
                   {servicePrices.map(price => (
-                    <div key={price.name} className="flex justify-between items-center gap-4 border-b border-stone-100 pb-3">
-                      <div className="flex-1">
-                        <span className="font-geist text-stone-900">{price.name}</span>
-                        {price.duration_in_minutes && <span className="text-sm text-stone-400 ml-2">({price.duration_in_minutes} min)</span>}
-                        {price.session && <span className="text-sm text-stone-400 ml-2">• {price.session}x</span>}
+                    <div key={price.name} className="flex flex-col md:flex-row md:justify-between md:items-center gap-3 md:gap-4 border-b border-stone-100 pb-4">
+                      <div>
+                        <p className="font-geist text-stone-900 text-base">{price.name}</p>
+                        <p className="text-sm text-stone-400 mt-1">
+                          {price.duration_in_minutes && <span>{price.duration_in_minutes} min</span>}
+                          {price.duration_in_minutes && price.session && <span> • </span>}
+                          {price.session && <span>{price.session}x ošetření</span>}
+                        </p>
                       </div>
-                      <div className="flex items-center gap-3 flex-shrink-0">
-                        <span className="font-geist font-medium text-stone-900 whitespace-nowrap">{price.price_in_czk} Kč</span>
+                      <div className="flex items-center justify-between md:justify-end gap-4">
+                        <span className="font-geist font-medium text-stone-900 text-lg md:text-base whitespace-nowrap">{price.price_in_czk} Kč</span>
                         <button
                           onClick={(e) => {
                             e.stopPropagation();
                             onClose();
                             openModal('booking', { serviceId, packageName: price.name, price: price.price_in_czk });
                           }}
-                          className="px-3 py-1.5 text-xs uppercase tracking-widest font-geist border border-stone-300 text-stone-600 hover:border-stone-900 hover:bg-stone-900 hover:text-white transition-all"
+                          className="px-4 py-2 text-xs uppercase tracking-widest font-geist border border-stone-300 text-stone-600 hover:border-stone-900 hover:bg-stone-900 hover:text-white transition-all"
                         >
                           Rezervovat
                         </button>
