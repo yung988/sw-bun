@@ -9,14 +9,14 @@ export default function HeroSection({ onOpenBooking }: { onOpenBooking: () => vo
       {/* Mobile Layout */}
       <div className="flex flex-col w-full h-full flex-1 lg:hidden">
         {/* Video Content - Mobile */}
-        <div className="w-full px-6 pt-2">
+        <div className="w-full px-6 pt-6 flex justify-center">
           <video
             src="https://omf77i7evqckneoq.public.blob.vercel-storage.com/hero_1.mp4"
             autoPlay
             muted
             loop
             playsInline
-            className="w-full h-auto opacity-90 animate-fade-in-up"
+            className="w-auto h-auto max-h-[55vh] opacity-90 animate-fade-in-up"
           />
         </div>
 
