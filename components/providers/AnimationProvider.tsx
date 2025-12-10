@@ -4,7 +4,7 @@ import { useEffect, useRef } from 'react';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import Lenis from 'lenis';
-import { animate, inView, scroll } from 'motion';
+import { animate, scroll } from 'motion';
 
 export default function AnimationProvider({ children }: { children: React.ReactNode }) {
   const initialized = useRef(false);
@@ -104,14 +104,6 @@ export default function AnimationProvider({ children }: { children: React.ReactN
         offset: ["start end", "end start"]
       });
     }
-
-    // Fade-in animations for text elements on scroll
-    const fadeInElements = document.querySelectorAll('h2, section p, .max-w-lg');
-    fadeInElements.forEach(element => {
-      inView(element, () => {
-        animate(element, { opacity: [0, 1], transform: ["translateY(20px)", "translateY(0)"] }, { duration: 0.6, easing: "ease-out" });
-      }, { margin: "-100px" });
-    });
 
     // Other animations...
     return () => {
