@@ -168,7 +168,13 @@ export default function Navbar() {
           }}
         >
           <Link href="#" id="navbarLogo" className="relative z-50 origin-left flex items-center" style={logoStyle}>
-            <Image src="/logo.svg" alt="SW Beauty" width={64} height={64} className="h-12 md:h-16 w-auto" />
+            <Image
+              src="/logo.svg"
+              alt="SW Beauty"
+              width={64}
+              height={64}
+              className="h-12 md:h-16 w-auto [filter:invert(1)_brightness(2)] md:filter-none"
+            />
           </Link>
 
           <div className="hidden md:flex gap-8 lg:gap-10 items-center text-xs lg:text-sm uppercase tracking-widest text-stone-600 font-light font-geist">
@@ -198,7 +204,7 @@ export default function Navbar() {
             </button>
           </div>
 
-          <button onClick={toggleMobileMenu} className="md:hidden text-stone-900 p-2 -mr-2">
+          <button onClick={toggleMobileMenu} className="md:hidden text-white p-2 -mr-2">
             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
               <path d="M4 5h16" />
               <path d="M4 12h16" />

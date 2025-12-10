@@ -4,7 +4,7 @@
   left: 0;
   width: 100vw;
   height: 100vh;
-  background: linear-gradient(135deg, #faf9f7 0%, #f5f3f0 100%);
+  background: #ffffff;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -47,14 +47,37 @@
   animation: drawLetter 1.8s ease-out forwards, fillIn 0.4s ease-out 1.4s forwards;
 }
 
-.letter1 { animation-delay: 0s, 1.4s; }
-.letter2 { animation-delay: 0.08s, 1.48s; }
-.letter3 { animation-delay: 0.16s, 1.56s; }
-.letter4 { animation-delay: 0.24s, 1.64s; }
-.letter5 { animation-delay: 0.32s, 1.72s; }
-.letter6 { animation-delay: 0.40s, 1.80s; }
-.letter7 { animation-delay: 0.48s, 1.88s; }
-.letter8 { animation-delay: 0.56s, 1.96s; }
+.letter1 {
+  animation-delay: 0s, 1.4s;
+}
+
+.letter2 {
+  animation-delay: 0.08s, 1.48s;
+}
+
+.letter3 {
+  animation-delay: 0.16s, 1.56s;
+}
+
+.letter4 {
+  animation-delay: 0.24s, 1.64s;
+}
+
+.letter5 {
+  animation-delay: 0.32s, 1.72s;
+}
+
+.letter6 {
+  animation-delay: 0.40s, 1.80s;
+}
+
+.letter7 {
+  animation-delay: 0.48s, 1.88s;
+}
+
+.letter8 {
+  animation-delay: 0.56s, 1.96s;
+}
 
 .decorative {
   animation-delay: 0.64s, 2.04s;
@@ -83,6 +106,7 @@
     fill: transparent;
     stroke: currentColor;
   }
+
   to {
     fill: currentColor;
     stroke: transparent;
@@ -107,10 +131,13 @@
 }
 
 @keyframes pulse {
-  0%, 100% {
+
+  0%,
+  100% {
     transform: scale(0.9);
     opacity: 0.3;
   }
+
   50% {
     transform: scale(1.1);
     opacity: 0.1;
@@ -129,9 +156,12 @@
 }
 
 @keyframes fadeInOut {
-  0%, 100% {
+
+  0%,
+  100% {
     opacity: 0.4;
   }
+
   50% {
     opacity: 1;
   }
@@ -146,17 +176,17 @@
     stroke: transparent;
     animation: none;
   }
-  
+
   .pulseRing {
     animation: none;
     opacity: 0.2;
   }
-  
+
   .loadingText {
     animation: none;
     opacity: 0.7;
   }
-  
+
   .loadingScreen.fadeOut {
     transition: opacity 0.3s ease-out, visibility 0.3s ease-out;
   }

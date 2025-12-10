@@ -8,6 +8,12 @@ export default function LoadingScreen() {
     const [isFadingOut, setIsFadingOut] = useState(false);
 
     useEffect(() => {
+        // Block scrolling while loading
+        document.body.style.overflow = 'hidden';
+        document.body.style.position = 'fixed';
+        document.body.style.width = '100%';
+        document.body.style.height = '100%';
+
         // Minimum display time for the loader (for brand impression)
         const minDisplayTime = 1500;
         const startTime = Date.now();
@@ -21,6 +27,11 @@ export default function LoadingScreen() {
                 // Wait for fade out animation to complete
                 setTimeout(() => {
                     setIsLoading(false);
+                    // Re-enable scrolling
+                    document.body.style.overflow = '';
+                    document.body.style.position = '';
+                    document.body.style.width = '';
+                    document.body.style.height = '';
                 }, 600);
             }, remainingTime);
         };
@@ -36,6 +47,11 @@ export default function LoadingScreen() {
             return () => {
                 window.removeEventListener('load', handleLoad);
                 clearTimeout(fallbackTimeout);
+                // Ensure scrolling is re-enabled if component unmounts before loading completes
+                document.body.style.overflow = '';
+                document.body.style.position = '';
+                document.body.style.width = '';
+                document.body.style.height = '';
             };
         }
     }, []);
