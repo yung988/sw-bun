@@ -3,6 +3,7 @@
 import { useState, useEffect } from 'react';
 import { useModal } from '../providers/ModalProvider';
 import { Service, Price, loadData } from '@/lib/data';
+import PhoneInput from '../ui/PhoneInput';
 
 interface BookingModalProps {
   initialData?: {
@@ -298,12 +299,9 @@ export default function BookingModal({ initialData }: BookingModalProps) {
                   </div>
                   <div>
                     <label className="block text-xs uppercase tracking-widest text-stone-500 mb-2 font-geist">Telefon</label>
-                    <input
-                      type="tel"
+                    <PhoneInput
                       value={phone}
-                      onChange={(e) => setPhone(e.target.value)}
-                      placeholder="+420 777 123 456"
-                      className="w-full p-3 border border-stone-200 font-geist focus:outline-none focus:border-stone-900 transition-colors"
+                      onChange={setPhone}
                     />
                   </div>
                 </div>

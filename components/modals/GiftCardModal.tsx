@@ -4,6 +4,7 @@ import { useState, useEffect } from 'react';
 import { useModal } from '../providers/ModalContext';
 import { Service, Price, loadData } from '@/lib/data';
 import Image from 'next/image';
+import PhoneInput from '../ui/PhoneInput';
 
 interface FormData {
   voucherType: 'cash' | 'service';
@@ -416,12 +417,9 @@ export default function GiftCardModal() {
                     </div>
                     <div>
                       <label className="block text-xs uppercase tracking-widest text-stone-500 mb-2 font-geist">Váš telefon *</label>
-                      <input
-                        type="tel"
+                      <PhoneInput
                         value={formData.buyerPhone}
-                        onChange={(e) => updateFormData('buyerPhone', e.target.value)}
-                        placeholder="+420 777 123 456"
-                        className="w-full p-3 border border-stone-200 font-geist focus:outline-none focus:border-stone-900 transition-colors"
+                        onChange={(val) => updateFormData('buyerPhone', val)}
                       />
                     </div>
                   </div>
