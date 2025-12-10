@@ -25,9 +25,7 @@ export default function HeroSection({ onOpenBooking }: { onOpenBooking: () => vo
           style={{ paddingBottom: "max(6rem, calc(env(safe-area-inset-bottom, 0px) + 6rem))" }}
         >
           <h1 className="text-5xl leading-[1.1] font-medium text-white tracking-tighter font-cormorant mb-6">
-            Místo, kde se vnější krása
-            <br />
-            spojí s <em className="italic">vnitřní</em>.
+            Místo, kde se vnější krása spojí s <em className="italic">vnitřní</em>.
           </h1>
 
           <button

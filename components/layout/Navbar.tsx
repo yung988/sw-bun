@@ -11,6 +11,7 @@ export default function Navbar() {
   const [scrolled, setScrolled] = useState(false);
   const [logoScale, setLogoScale] = useState(1);
   const [containerPadding, setContainerPadding] = useState({ top: '1.25rem', bottom: '1.25rem' });
+  const [isPastHero, setIsPastHero] = useState(false); // Nový state pro sledování pozice
 
   const { openModal } = useModal();
   const lastScrollY = useRef(0);
@@ -24,6 +25,10 @@ export default function Navbar() {
       window.requestAnimationFrame(() => {
         const currentScrollY = window.scrollY;
         const scrollProgress = Math.min(currentScrollY / 150, 1);
+        const viewportHeight = window.innerHeight;
+
+        // Zjistit jestli jsme scrollovali za hero sekci (80vh)
+        setIsPastHero(currentScrollY > viewportHeight * 0.8);
 
         // Zjistit směr scrollování
         if (currentScrollY > lastScrollY.current && currentScrollY > 100) {
@@ -37,7 +42,7 @@ export default function Navbar() {
         // Aktualizovat poslední pozici
         lastScrollY.current = currentScrollY;
 
-        // Změna pozadí a velikosti loga po určitém scrollu
+        // Změna velikosti loga po určitém scrollu
         if (scrollProgress > 0.1) {
           setScrolled(true);
           setLogoScale(1 - (scrollProgress * 0.5));
@@ -63,8 +68,8 @@ export default function Navbar() {
 
   const navbarStyle = {
     transform: hidden ? 'translateY(-100%)' : 'translateY(0)',
-    backgroundColor: scrolled ? 'rgba(255, 255, 255, 0.9)' : 'transparent',
-    backdropFilter: scrolled ? 'blur(12px)' as any : 'none',
+    backgroundColor: 'transparent',
+    backdropFilter: 'none',
   };
 
   const logoStyle = {
@@ -173,7 +178,10 @@ export default function Navbar() {
               alt="SW Beauty"
               width={64}
               height={64}
-              className="h-12 md:h-16 w-auto [filter:invert(1)_brightness(2)] md:filter-none"
+              className={`h-12 md:h-16 w-auto transition-all duration-300 ${isPastHero
+                  ? 'md:filter-none'
+                  : '[filter:invert(1)_brightness(2)] md:filter-none'
+                }`}
             />
           </Link>
 
@@ -204,7 +212,11 @@ export default function Navbar() {
             </button>
           </div>
 
-          <button onClick={toggleMobileMenu} className="md:hidden text-white p-2 -mr-2">
+          <button
+            onClick={toggleMobileMenu}
+            className={`md:hidden p-2 -mr-2 transition-colors duration-300 ${isPastHero ? 'text-stone-900' : 'text-white'
+              }`}
+          >
             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
               <path d="M4 5h16" />
               <path d="M4 12h16" />
