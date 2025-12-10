@@ -200,14 +200,12 @@ export default function GiftCardModal() {
     <div
       className="fixed inset-0 z-[60] flex items-center justify-center p-4 isolate"
       onClick={closeModal}
-      onTouchMove={(e) => e.stopPropagation()}
     >
       <div className="absolute inset-0 bg-stone-900/60 backdrop-blur-sm" />
 
       <div
         className="bg-white w-full max-w-4xl max-h-[90vh] shadow-2xl relative animate-fade-in-up overflow-hidden flex flex-col lg:flex-row"
         onClick={(e) => e.stopPropagation()}
-        onTouchMove={(e) => e.stopPropagation()}
       >
         {/* Desktop: Voucher Preview (left side) */}
         <div className="hidden lg:flex lg:w-1/2 bg-stone-100 border-r border-stone-200">
@@ -257,7 +255,7 @@ export default function GiftCardModal() {
           <div
             className="flex-1 overflow-y-auto overscroll-contain p-6 touch-pan-y"
             style={{ WebkitOverflowScrolling: 'touch' }}
-            onTouchMove={(e) => e.stopPropagation()}
+            data-lenis-prevent
           >
 
             {/* Step 1: Typ poukazu */}

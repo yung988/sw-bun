@@ -102,14 +102,12 @@ export default function BookingModal({ initialData }: BookingModalProps) {
     <div
       className="fixed inset-0 z-[60] flex items-center justify-center p-4 isolate"
       onClick={closeModal}
-      onTouchMove={(e) => e.stopPropagation()}
     >
       <div className="absolute inset-0 bg-stone-900/60 backdrop-blur-sm" />
 
       <div
         className="bg-white w-full max-w-2xl max-h-[90vh] shadow-2xl relative animate-fade-in-up overflow-hidden flex flex-col"
         onClick={(e) => e.stopPropagation()}
-        onTouchMove={(e) => e.stopPropagation()}
       >
         {/* Header */}
         <div className="flex-shrink-0 p-6 pb-4 border-b border-stone-100">
@@ -133,7 +131,7 @@ export default function BookingModal({ initialData }: BookingModalProps) {
         <div
           className="flex-1 overflow-y-auto overscroll-contain p-6 touch-pan-y"
           style={{ WebkitOverflowScrolling: 'touch' }}
-          onTouchMove={(e) => e.stopPropagation()}
+          data-lenis-prevent
         >
 
           {/* Step 1: Služby */}
