@@ -4,6 +4,7 @@ import { useEffect, useState } from 'react';
 import AnimationProvider from '@/components/providers/AnimationProvider';
 import ModalProvider from '@/components/providers/ModalProvider';
 import { useModal } from '@/components/providers/ModalContext';
+import LoadingScreen from '@/components/ui/LoadingScreen';
 import Navbar from '@/components/layout/Navbar';
 import HeroSection from '@/components/sections/HeroSection';
 import ServicesSection from '@/components/sections/ServicesSection';
@@ -48,6 +49,7 @@ export default function HomePage() {
   return (
     <AnimationProvider>
       <ModalProvider>
+        <LoadingScreen />
         <HomeContent />
       </ModalProvider>
     </AnimationProvider>
