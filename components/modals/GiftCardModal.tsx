@@ -307,29 +307,42 @@ export default function GiftCardModal() {
                 {/* Service selection */}
                 {formData.voucherType === 'service' && (
                   <div className="space-y-4">
-                    <div className="grid grid-cols-2 gap-2">
-                      {services.map(service => {
-                        const svcPrices = prices.filter(p => p.service_id === service.service_id);
-                        const minPrice = svcPrices.length > 0 ? Math.min(...svcPrices.map(p => parseInt(p.price_in_czk))) : null;
-                        const isSelected = formData.selectedService?.service_id === service.service_id;
+                    {/* Pokud není vybraná služba, zobrazíme grid služeb */}
+                    {!formData.selectedService && (
+                      <>
+                        <h3 className="text-sm font-medium text-stone-700 mb-3">Vyberte službu</h3>
+                        <div className="grid grid-cols-2 gap-2">
+                          {services.map(service => {
+                            const svcPrices = prices.filter(p => p.service_id === service.service_id);
+                            const minPrice = svcPrices.length > 0 ? Math.min(...svcPrices.map(p => parseInt(p.price_in_czk))) : null;
 
-                        return (
+                            return (
+                              <button
+                                key={service.service_id}
+                                onClick={() => { updateFormData('selectedService', service); updateFormData('selectedPackage', null); }}
+                                className="p-3 text-left border transition-all border-stone-200 hover:border-stone-400"
+                              >
+                                <div className="font-medium text-stone-900 text-sm">{service.category_name}</div>
+                                {minPrice && <div className="text-xs text-stone-500">od {minPrice.toLocaleString()} Kč</div>}
+                              </button>
+                            );
+                          })}
+                        </div>
+                      </>
+                    )}
+
+                    {/* Pokud je vybraná služba, zobrazíme jen balíčky */}
+                    {formData.selectedService && (
+                      <>
+                        <div className="flex justify-between items-center mb-3">
+                          <h3 className="text-sm font-medium text-stone-700">{formData.selectedService.category_name}</h3>
                           <button
-                            key={service.service_id}
-                            onClick={() => { updateFormData('selectedService', service); updateFormData('selectedPackage', null); }}
-                            className={`p-3 text-left border transition-all ${isSelected ? 'border-stone-900 bg-stone-50' : 'border-stone-200 hover:border-stone-400'}`}
+                            onClick={() => { updateFormData('selectedService', null); updateFormData('selectedPackage', null); }}
+                            className="text-xs text-stone-500 hover:text-stone-900 font-geist uppercase tracking-wider"
                           >
-                            <div className="font-medium text-stone-900 text-sm">{service.category_name}</div>
-                            {minPrice && <div className="text-xs text-stone-500">od {minPrice.toLocaleString()} Kč</div>}
+                            ← Změnit službu
                           </button>
-                        );
-                      })}
-                    </div>
-
-                    {/* Packages */}
-                    {formData.selectedService && servicePrices.length > 0 && (
-                      <div className="border-t border-stone-200 pt-4">
-                        <label className="block text-xs uppercase tracking-widest text-stone-500 mb-3 font-geist">Vyberte balíček</label>
+                        </div>
                         <div className="space-y-2">
                           {servicePrices.map(pkg => {
                             const isSelected = formData.selectedPackage?.name === pkg.name;
@@ -355,7 +368,7 @@ export default function GiftCardModal() {
                             );
                           })}
                         </div>
-                      </div>
+                      </>
                     )}
                   </div>
                 )}
