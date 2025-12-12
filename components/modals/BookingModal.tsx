@@ -1,9 +1,15 @@
 'use client';
 
 import { useState, useEffect } from 'react';
+import { format } from 'date-fns';
+import { cs } from 'date-fns/locale';
+import { CalendarIcon } from 'lucide-react';
 import { useModal } from '../providers/ModalProvider';
 import { Service, Price, loadData } from '@/lib/data';
 import PhoneInput from '../ui/PhoneInput';
+import { Button } from '@/components/ui/button';
+import { Calendar } from '@/components/ui/calendar';
+import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover';
 
 interface BookingModalProps {
   initialData?: {
@@ -22,7 +28,7 @@ export default function BookingModal({ initialData }: BookingModalProps) {
 
   const [selectedService, setSelectedService] = useState<Service | null>(null);
   const [selectedPackage, setSelectedPackage] = useState<Price | null>(null);
-  const [selectedDate, setSelectedDate] = useState('');
+  const [selectedDate, setSelectedDate] = useState<Date | undefined>(undefined);
   const [selectedTime, setSelectedTime] = useState('');
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
@@ -70,10 +76,10 @@ export default function BookingModal({ initialData }: BookingModalProps) {
     };
   }, [initialData, isInitialized]);
 
-  const getTomorrowDate = (): string => {
+  const getTomorrowDate = (): Date => {
     const tomorrow = new Date();
     tomorrow.setDate(tomorrow.getDate() + 1);
-    return tomorrow.toISOString().split('T')[0];
+    return tomorrow;
   };
 
   const times = ['09:00', '10:00', '11:00', '12:00', '13:00', '14:00', '15:00', '16:00', '17:00'];
@@ -86,7 +92,7 @@ export default function BookingModal({ initialData }: BookingModalProps) {
         body: JSON.stringify({
           service: selectedService?.category_name,
           packageName: selectedPackage?.name,
-          date: selectedDate,
+          date: selectedDate ? format(selectedDate, 'yyyy-MM-dd') : '',
           time: selectedTime,
           name,
           email,
@@ -254,22 +260,37 @@ export default function BookingModal({ initialData }: BookingModalProps) {
               <div className="space-y-6">
                 <div>
                   <label className="block text-xs uppercase tracking-widest text-stone-500 mb-2 font-geist">Datum</label>
-                  <input
-                    type="date"
-                    value={selectedDate}
-                    min={getTomorrowDate()}
-                    onChange={(e) => setSelectedDate(e.target.value)}
-                    className="w-full p-3 border border-stone-200 font-geist focus:outline-none focus:border-stone-900 transition-colors"
-                  />
+                  <Popover>
+                    <PopoverTrigger asChild>
+                      <Button
+                        variant="outline"
+                        className={`w-full justify-start text-left font-geist h-12 px-4 border-stone-200 hover:border-stone-900 hover:bg-transparent ${
+                          !selectedDate ? 'text-stone-400' : 'text-stone-900'
+                        }`}
+                      >
+                        <CalendarIcon className="mr-3 h-4 w-4 text-stone-400" />
+                        {selectedDate ? format(selectedDate, 'd. M. yyyy', { locale: cs }) : 'Vyberte datum'}
+                      </Button>
+                    </PopoverTrigger>
+                    <PopoverContent className="w-auto p-0 bg-white border-stone-200" align="start">
+                      <Calendar
+                        mode="single"
+                        selected={selectedDate}
+                        onSelect={setSelectedDate}
+                        disabled={(date) => date < getTomorrowDate()}
+                        locale={cs}
+                      />
+                    </PopoverContent>
+                  </Popover>
                 </div>
                 <div>
                   <label className="block text-xs uppercase tracking-widest text-stone-500 mb-2 font-geist">Čas</label>
-                  <div className="grid grid-cols-3 sm:grid-cols-5 gap-2">
+                  <div className="flex flex-wrap gap-2">
                     {times.map(time => (
                       <button
                         key={time}
                         onClick={() => setSelectedTime(time)}
-                        className={`p-3 border text-sm font-geist transition-all ${selectedTime === time
+                        className={`px-4 py-2.5 border text-sm font-geist transition-all ${selectedTime === time
                           ? 'bg-stone-900 text-white border-stone-900'
                           : 'border-stone-200 hover:border-stone-900 text-stone-900'
                           }`}
