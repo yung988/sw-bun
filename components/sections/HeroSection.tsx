@@ -3,40 +3,40 @@
 export default function HeroSection({ onOpenBooking }: { onOpenBooking: () => void }) {
   return (
     <header
-      className="relative w-full flex flex-col pt-16 lg:pt-0 lg:flex-row lg:items-center overflow-hidden"
+      className="relative w-full flex flex-col pt-16 lg:pt-0 lg:flex-row lg:items-center overflow-hidden bg-transparent"
       style={{ minHeight: "100dvh" }}
     >
-      <div className="absolute inset-0 lg:hidden" style={{ minHeight: "100dvh" }}>
-        {/* Fullscreen Video Background */}
-        <video
-          src="https://omf77i7evqckneoq.public.blob.vercel-storage.com/hero_1.mp4"
-          autoPlay
-          muted
-          loop
-          playsInline
-          className="absolute inset-0 w-full h-full object-cover object-center"
-        />
+      {/* Mobile: Fullscreen Video Background - lowest z-index */}
+      <video
+        src="https://omf77i7evqckneoq.public.blob.vercel-storage.com/hero_1.mp4"
+        autoPlay
+        muted
+        loop
+        playsInline
+        className="absolute inset-0 w-full h-full object-cover object-center -z-10 lg:hidden"
+      />
 
-        {/* Dark overlay for better text readability */}
-        <div className="absolute inset-0 bg-black/30" />
+      {/* Mobile: Dark overlay */}
+      <div className="absolute inset-0 bg-black/30 -z-[5] lg:hidden" />
 
-        <div
-          className="absolute inset-x-0 bottom-0 z-10 flex flex-col px-6"
-          style={{ paddingBottom: "max(5rem, calc(env(safe-area-inset-bottom, 0px) + 5rem))" }}
+      {/* Mobile: Content wrapper - above video */}
+      <div
+        className="absolute inset-x-0 bottom-0 z-10 flex flex-col px-6 lg:hidden"
+        style={{ paddingBottom: "max(5rem, env(safe-area-inset-bottom, 5rem))" }}
+      >
+        <h1 className="text-5xl leading-[1.1] font-medium text-white tracking-tighter font-cormorant mb-6">
+          Místo, kde se vnější krása spojí s <em className="italic">vnitřní</em>.
+        </h1>
+
+        <button
+          onClick={onOpenBooking}
+          className="w-full text-center bg-white text-stone-900 px-4 py-4 hover:bg-stone-100 active:bg-stone-200 transition-colors duration-300 font-geist text-xs tracking-widest uppercase"
         >
-          <h1 className="text-5xl leading-[1.1] font-medium text-white tracking-tighter font-cormorant mb-6">
-            Místo, kde se vnější krása spojí s <em className="italic">vnitřní</em>.
-          </h1>
-
-          <button
-            onClick={onOpenBooking}
-            className="w-full text-center bg-white text-stone-900 px-4 py-4 hover:bg-stone-100 active:bg-stone-200 transition-colors duration-300 font-geist text-xs tracking-widest uppercase"
-          >
-            Rezervovat termín
-          </button>
-        </div>
+          Rezervovat termín
+        </button>
       </div>
 
+      {/* Mobile: Spacer for document flow */}
       <div className="lg:hidden w-full" style={{ minHeight: "100dvh" }} />
 
       {/* TABLET Layout (1024px - 1280px) */}
