@@ -3,10 +3,10 @@
 export default function HeroSection({ onOpenBooking }: { onOpenBooking: () => void }) {
   return (
     <header
-      className="relative w-full flex flex-col pt-16 lg:pt-0 lg:flex-row lg:items-center overflow-hidden bg-stone-800 lg:bg-transparent"
-      style={{ minHeight: "100svh", paddingBottom: "env(safe-area-inset-bottom, 0px)" }}
+      className="relative w-full flex flex-col pt-16 lg:pt-0 lg:flex-row lg:items-center overflow-hidden"
+      style={{ minHeight: "100dvh" }}
     >
-      <div className="absolute inset-0 lg:hidden">
+      <div className="absolute inset-0 lg:hidden" style={{ minHeight: "100dvh" }}>
         {/* Fullscreen Video Background */}
         <video
           src="https://omf77i7evqckneoq.public.blob.vercel-storage.com/hero_1.mp4"
@@ -37,7 +37,7 @@ export default function HeroSection({ onOpenBooking }: { onOpenBooking: () => vo
         </div>
       </div>
 
-      <div className="lg:hidden w-full" style={{ minHeight: "100svh" }} />
+      <div className="lg:hidden w-full" style={{ minHeight: "100dvh" }} />
 
       {/* TABLET Layout (1024px - 1280px) */}
       <div className="hidden lg:flex xl:hidden max-w-screen-xl mx-auto w-full h-full flex-row items-center flex-1">
