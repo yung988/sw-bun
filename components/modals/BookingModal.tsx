@@ -79,17 +79,30 @@ export default function BookingModal({ initialData }: BookingModalProps) {
   const times = ['09:00', '10:00', '11:00', '12:00', '13:00', '14:00', '15:00', '16:00', '17:00'];
 
   const handleSubmit = async () => {
-    const res = await fetch('/api/booking-request', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({
-        selectedService, selectedPackage, selectedDate, selectedTime,
-        name, email, phone, note
-      }),
-    });
-    if (res.ok) {
-      alert('Rezervace odeslána! Brzy vám zavoláme s potvrzením.');
-      closeModal();
+    try {
+      const res = await fetch('/api/booking-request', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          service: selectedService?.category_name,
+          packageName: selectedPackage?.name,
+          date: selectedDate,
+          time: selectedTime,
+          name,
+          email,
+          phone,
+          note
+        }),
+      });
+      if (res.ok) {
+        alert('Rezervace odeslána! Brzy vám zavoláme s potvrzením.');
+        closeModal();
+      } else {
+        const data = await res.json();
+        alert(data.error || 'Chyba při odesílání rezervace. Zkuste to prosím znovu.');
+      }
+    } catch (error) {
+      alert('Chyba při odesílání rezervace. Zkuste to prosím znovu.');
     }
   };
 
@@ -238,7 +251,7 @@ export default function BookingModal({ initialData }: BookingModalProps) {
               )}
 
               <h3 className="text-lg font-medium text-stone-900 mb-4">Vyberte termín</h3>
-              <div className="grid grid-cols-2 gap-6">
+              <div className="space-y-6">
                 <div>
                   <label className="block text-xs uppercase tracking-widest text-stone-500 mb-2 font-geist">Datum</label>
                   <input
@@ -251,12 +264,12 @@ export default function BookingModal({ initialData }: BookingModalProps) {
                 </div>
                 <div>
                   <label className="block text-xs uppercase tracking-widest text-stone-500 mb-2 font-geist">Čas</label>
-                  <div className="grid grid-cols-3 gap-2">
+                  <div className="grid grid-cols-3 sm:grid-cols-5 gap-2">
                     {times.map(time => (
                       <button
                         key={time}
                         onClick={() => setSelectedTime(time)}
-                        className={`p-2 border text-sm font-geist transition-all ${selectedTime === time
+                        className={`p-3 border text-sm font-geist transition-all ${selectedTime === time
                           ? 'bg-stone-900 text-white border-stone-900'
                           : 'border-stone-200 hover:border-stone-900 text-stone-900'
                           }`}
@@ -286,24 +299,22 @@ export default function BookingModal({ initialData }: BookingModalProps) {
                     className="w-full p-3 border border-stone-200 font-geist focus:outline-none focus:border-stone-900 transition-colors"
                   />
                 </div>
-                <div className="grid grid-cols-2 gap-4">
-                  <div>
-                    <label className="block text-xs uppercase tracking-widest text-stone-500 mb-2 font-geist">Email</label>
-                    <input
-                      type="email"
-                      value={email}
-                      onChange={(e) => setEmail(e.target.value)}
-                      placeholder="jana@example.com"
-                      className="w-full p-3 border border-stone-200 font-geist focus:outline-none focus:border-stone-900 transition-colors"
-                    />
-                  </div>
-                  <div>
-                    <label className="block text-xs uppercase tracking-widest text-stone-500 mb-2 font-geist">Telefon</label>
-                    <PhoneInput
-                      value={phone}
-                      onChange={setPhone}
-                    />
-                  </div>
+                <div>
+                  <label className="block text-xs uppercase tracking-widest text-stone-500 mb-2 font-geist">Email</label>
+                  <input
+                    type="email"
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
+                    placeholder="jana@example.com"
+                    className="w-full p-3 border border-stone-200 font-geist focus:outline-none focus:border-stone-900 transition-colors"
+                  />
+                </div>
+                <div>
+                  <label className="block text-xs uppercase tracking-widest text-stone-500 mb-2 font-geist">Telefon</label>
+                  <PhoneInput
+                    value={phone}
+                    onChange={setPhone}
+                  />
                 </div>
                 <div>
                   <label className="block text-xs uppercase tracking-widest text-stone-500 mb-2 font-geist">Poznámka (volitelné)</label>
@@ -320,7 +331,10 @@ export default function BookingModal({ initialData }: BookingModalProps) {
         </div>
 
         {/* Footer */}
-        <div className="flex-shrink-0 p-6 pt-4 border-t border-stone-100 flex justify-between items-center">
+        <div
+          className="flex-shrink-0 p-6 pt-4 border-t border-stone-100 flex justify-between items-center"
+          style={{ paddingBottom: "max(1.5rem, env(safe-area-inset-bottom, 1.5rem))" }}
+        >
           {currentStep > 1 ? (
             <button
               onClick={() => setCurrentStep(prev => prev - 1)}
