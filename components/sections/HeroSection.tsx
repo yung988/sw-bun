@@ -22,7 +22,7 @@ export default function HeroSection({ onOpenBooking }: { onOpenBooking: () => vo
 
         <div
           className="absolute inset-x-0 bottom-0 z-10 flex flex-col px-6"
-          style={{ paddingBottom: "max(1rem, calc(env(safe-area-inset-bottom, 0px) + 1rem))" }}
+          style={{ paddingBottom: "max(5rem, calc(env(safe-area-inset-bottom, 0px) + 5rem))" }}
         >
           <h1 className="text-5xl leading-[1.1] font-medium text-white tracking-tighter font-cormorant mb-6">
             Místo, kde se vnější krása spojí s <em className="italic">vnitřní</em>.
