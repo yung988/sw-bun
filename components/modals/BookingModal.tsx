@@ -3,13 +3,10 @@
 import { useState, useEffect } from 'react';
 import { format } from 'date-fns';
 import { cs } from 'date-fns/locale';
-import { CalendarIcon } from 'lucide-react';
 import { useModal } from '../providers/ModalProvider';
 import { Service, Price, loadData } from '@/lib/data';
 import PhoneInput from '../ui/PhoneInput';
-import { Button } from '@/components/ui/button';
 import { Calendar } from '@/components/ui/calendar';
-import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover';
 
 interface BookingModalProps {
   initialData?: {
@@ -229,76 +226,52 @@ export default function BookingModal({ initialData }: BookingModalProps) {
           {/* Step 3: Termín */}
           {currentStep === 3 && (
             <div>
-              <p className="text-sm text-stone-500 text-center mb-6 font-geist">Vyberte termín, který vám vyhovuje</p>
-
-              {/* Zobrazení vybrané služby a balíčku */}
+              {/* Kompaktní shrnutí vybrané služby */}
               {selectedService && selectedPackage && (
-                <div className="mb-6 p-4 bg-stone-50 border border-stone-200">
-                  <div className="flex justify-between items-start">
-                    <div>
-                      <span className="text-xs uppercase tracking-widest text-stone-400 font-geist">Vybraná služba</span>
-                      <h4 className="text-lg font-cormorant text-stone-900 mt-1">{selectedService.category_name}</h4>
-                      <p className="text-sm text-stone-600 font-geist">{selectedPackage.name}</p>
-                      {selectedPackage.duration_in_minutes && (
-                        <span className="text-xs text-stone-400">({selectedPackage.duration_in_minutes} min)</span>
-                      )}
-                    </div>
-                    <div className="text-right">
-                      <span className="text-lg font-medium text-stone-900">{parseInt(selectedPackage.price_in_czk).toLocaleString()} Kč</span>
-                    </div>
+                <div className="mb-4 pb-4 border-b border-stone-200 flex justify-between items-center">
+                  <div className="text-sm text-stone-600 font-geist">
+                    {selectedPackage.name}
+                    {selectedPackage.duration_in_minutes && <span className="text-stone-400"> ({selectedPackage.duration_in_minutes} min)</span>}
                   </div>
-                  <button
-                    onClick={() => setCurrentStep(1)}
-                    className="mt-3 text-xs text-stone-500 hover:text-stone-900 font-geist uppercase tracking-wider"
-                  >
-                    ← Změnit službu
-                  </button>
+                  <div className="text-sm font-medium text-stone-900">{parseInt(selectedPackage.price_in_czk).toLocaleString()} Kč</div>
                 </div>
               )}
 
-              <h3 className="text-lg font-medium text-stone-900 mb-4">Vyberte termín</h3>
-              <div className="space-y-6">
-                <div>
-                  <label className="block text-xs uppercase tracking-widest text-stone-500 mb-2 font-geist">Datum</label>
-                  <Popover>
-                    <PopoverTrigger asChild>
-                      <Button
-                        variant="outline"
-                        className={`w-full justify-start text-left font-geist h-12 px-4 border-stone-200 hover:border-stone-900 hover:bg-transparent ${
-                          !selectedDate ? 'text-stone-400' : 'text-stone-900'
-                        }`}
-                      >
-                        <CalendarIcon className="mr-3 h-4 w-4 text-stone-400" />
-                        {selectedDate ? format(selectedDate, 'd. M. yyyy', { locale: cs }) : 'Vyberte datum'}
-                      </Button>
-                    </PopoverTrigger>
-                    <PopoverContent className="w-auto p-0 bg-white border-stone-200" align="start">
-                      <Calendar
-                        mode="single"
-                        selected={selectedDate}
-                        onSelect={setSelectedDate}
-                        disabled={(date) => date < getTomorrowDate()}
-                        locale={cs}
-                      />
-                    </PopoverContent>
-                  </Popover>
+              {/* Kalendář přímo inline */}
+              <div className="flex justify-center mb-4">
+                <Calendar
+                  mode="single"
+                  selected={selectedDate}
+                  onSelect={setSelectedDate}
+                  disabled={(date) => date < getTomorrowDate()}
+                  locale={cs}
+                  className="border border-stone-200"
+                />
+              </div>
+
+              {/* Vybraný datum */}
+              {selectedDate && (
+                <div className="text-center text-sm text-stone-600 mb-4 font-geist">
+                  {format(selectedDate, 'd. MMMM yyyy', { locale: cs })}
                 </div>
-                <div>
-                  <label className="block text-xs uppercase tracking-widest text-stone-500 mb-2 font-geist">Čas</label>
-                  <div className="flex flex-wrap gap-2">
-                    {times.map(time => (
-                      <button
-                        key={time}
-                        onClick={() => setSelectedTime(time)}
-                        className={`px-4 py-2.5 border text-sm font-geist transition-all ${selectedTime === time
-                          ? 'bg-stone-900 text-white border-stone-900'
-                          : 'border-stone-200 hover:border-stone-900 text-stone-900'
-                          }`}
-                      >
-                        {time}
-                      </button>
-                    ))}
-                  </div>
+              )}
+
+              {/* Časy v kompaktním gridu */}
+              <div>
+                <label className="block text-xs uppercase tracking-widest text-stone-500 mb-2 font-geist text-center">Čas</label>
+                <div className="grid grid-cols-5 gap-1.5">
+                  {times.map(time => (
+                    <button
+                      key={time}
+                      onClick={() => setSelectedTime(time)}
+                      className={`py-2 border text-sm font-geist transition-all ${selectedTime === time
+                        ? 'bg-stone-900 text-white border-stone-900'
+                        : 'border-stone-200 hover:border-stone-900 text-stone-900'
+                        }`}
+                    >
+                      {time}
+                    </button>
+                  ))}
                 </div>
               </div>
             </div>
