@@ -237,41 +237,37 @@ export default function BookingModal({ initialData }: BookingModalProps) {
                 </div>
               )}
 
-              {/* Kalendář přímo inline */}
-              <div className="flex justify-center mb-4">
-                <Calendar
-                  mode="single"
-                  selected={selectedDate}
-                  onSelect={setSelectedDate}
-                  disabled={(date) => date < getTomorrowDate()}
-                  locale={cs}
-                  className="border border-stone-200"
-                />
-              </div>
-
-              {/* Vybraný datum */}
-              {selectedDate && (
-                <div className="text-center text-sm text-stone-600 mb-4 font-geist">
-                  {format(selectedDate, 'd. MMMM yyyy', { locale: cs })}
+              {/* Kalendář vlevo, časy vpravo */}
+              <div className="flex gap-4">
+                {/* Kalendář */}
+                <div className="flex-shrink-0">
+                  <Calendar
+                    mode="single"
+                    selected={selectedDate}
+                    onSelect={setSelectedDate}
+                    disabled={(date) => date < getTomorrowDate()}
+                    locale={cs}
+                    className="border border-stone-200 !p-2 [--cell-size:1.75rem]"
+                  />
                 </div>
-              )}
 
-              {/* Časy v kompaktním gridu */}
-              <div>
-                <label className="block text-xs uppercase tracking-widest text-stone-500 mb-2 font-geist text-center">Čas</label>
-                <div className="grid grid-cols-5 gap-1.5">
-                  {times.map(time => (
-                    <button
-                      key={time}
-                      onClick={() => setSelectedTime(time)}
-                      className={`py-2 border text-sm font-geist transition-all ${selectedTime === time
-                        ? 'bg-stone-900 text-white border-stone-900'
-                        : 'border-stone-200 hover:border-stone-900 text-stone-900'
-                        }`}
-                    >
-                      {time}
-                    </button>
-                  ))}
+                {/* Časy */}
+                <div className="flex-1 flex flex-col">
+                  <label className="block text-xs uppercase tracking-widest text-stone-500 mb-2 font-geist">Čas</label>
+                  <div className="grid grid-cols-2 gap-1.5 flex-1 content-start">
+                    {times.map(time => (
+                      <button
+                        key={time}
+                        onClick={() => setSelectedTime(time)}
+                        className={`py-2 border text-sm font-geist transition-all ${selectedTime === time
+                          ? 'bg-stone-900 text-white border-stone-900'
+                          : 'border-stone-200 hover:border-stone-900 text-stone-900'
+                          }`}
+                      >
+                        {time}
+                      </button>
+                    ))}
+                  </div>
                 </div>
               </div>
             </div>
