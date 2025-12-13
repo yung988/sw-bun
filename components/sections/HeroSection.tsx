@@ -8,13 +8,15 @@ export default function HeroSection({ onOpenBooking }: { onOpenBooking: () => vo
     >
       {/* Mobile: Fullscreen Video Background - lowest z-index */}
       <video
-        src="https://omf77i7evqckneoq.public.blob.vercel-storage.com/hero_1.mp4"
         autoPlay
         muted
         loop
         playsInline
+        preload="auto"
         className="absolute inset-0 w-full h-full object-cover object-center -z-10 lg:hidden"
-      />
+      >
+        <source src="https://omf77i7evqckneoq.public.blob.vercel-storage.com/hero_1.mp4" type="video/mp4" />
+      </video>
 
       {/* Mobile: Dark overlay */}
       <div className="absolute inset-0 bg-black/30 -z-[5] lg:hidden" />
@@ -67,13 +69,15 @@ export default function HeroSection({ onOpenBooking }: { onOpenBooking: () => vo
         <div className="w-1/2 flex items-center justify-center py-24 pr-8">
           <div className="max-w-sm aspect-[2/3] shadow-2xl overflow-hidden">
             <video
-              src="https://omf77i7evqckneoq.public.blob.vercel-storage.com/hero_1.mp4"
               autoPlay
               muted
               loop
               playsInline
+              preload="auto"
               className="w-full h-full object-cover object-center opacity-90 animate-fade-in-up"
-            />
+            >
+              <source src="https://omf77i7evqckneoq.public.blob.vercel-storage.com/hero_1.mp4" type="video/mp4" />
+            </video>
           </div>
         </div>
       </div>
@@ -106,13 +110,15 @@ export default function HeroSection({ onOpenBooking }: { onOpenBooking: () => vo
         <div className="w-7/12 flex items-center justify-center py-32 pr-16">
           <div className="max-w-md aspect-[2/3] shadow-2xl overflow-hidden">
             <video
-              src="https://omf77i7evqckneoq.public.blob.vercel-storage.com/hero_1.mp4"
               autoPlay
               muted
               loop
               playsInline
+              preload="auto"
               className="w-full h-full object-cover object-center opacity-90 animate-fade-in-up"
-            />
+            >
+              <source src="https://omf77i7evqckneoq.public.blob.vercel-storage.com/hero_1.mp4" type="video/mp4" />
+            </video>
           </div>
         </div>
       </div>
