@@ -117,36 +117,45 @@ export default function BookingModal({ initialData }: BookingModalProps) {
 
   return (
     <div
-      className="fixed inset-0 z-[60] flex items-center justify-center p-4 isolate"
+      className="fixed inset-0 z-[60] flex items-center justify-center md:p-4 isolate"
       onClick={closeModal}
     >
       <div className="absolute inset-0 bg-stone-900/60 backdrop-blur-sm" />
 
       <div
-        className="bg-white w-full max-w-2xl max-h-[90vh] shadow-2xl relative animate-fade-in-up overflow-hidden flex flex-col"
+        className="bg-white w-full h-full md:h-auto md:max-w-2xl md:max-h-[90vh] shadow-2xl relative animate-fade-in-up overflow-hidden flex flex-col"
         onClick={(e) => e.stopPropagation()}
       >
         {/* Header */}
-        <div className="flex-shrink-0 p-6 pb-4 border-b border-stone-100">
-          <div className="flex justify-between items-start mb-4">
-            <h2 className="text-xl font-cormorant text-stone-900">Rezervace termínu</h2>
-            <button onClick={closeModal} className="text-stone-400 hover:text-stone-900 transition-colors">
-              <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
+        <div className="flex-shrink-0 px-4 py-4 md:px-6 md:py-6 md:pb-4 border-b border-stone-100">
+          <div className="flex justify-between items-start mb-3 md:mb-4">
+            <h2 className="text-lg md:text-xl font-cormorant text-stone-900">Rezervace termínu</h2>
+            <button
+              onClick={closeModal}
+              className="text-stone-400 hover:text-stone-900 transition-colors p-1 -m-1"
+              aria-label="Zavřít"
+            >
+              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
                 <path d="M18 6 6 18" /><path d="m6 6 12 12" />
               </svg>
             </button>
           </div>
-          {/* Progress bar */}
-          <div className="flex gap-2">
-            {steps.map((_, i) => (
-              <div key={i} className={`h-1 flex-1 rounded-full transition-colors ${i < currentStep ? 'bg-stone-900' : 'bg-stone-200'}`} />
+          {/* Progress bar with labels */}
+          <div className="flex gap-1 md:gap-2">
+            {steps.map((step, i) => (
+              <div key={i} className="flex-1 flex flex-col gap-1">
+                <div className={`h-1 w-full transition-colors ${i < currentStep ? 'bg-stone-900' : 'bg-stone-200'}`} />
+                <div className={`text-[10px] md:text-xs uppercase tracking-wider font-geist transition-colors ${i < currentStep ? 'text-stone-900' : 'text-stone-400'}`}>
+                  {step}
+                </div>
+              </div>
             ))}
           </div>
         </div>
 
         {/* Content */}
         <div
-          className="flex-1 overflow-y-auto overscroll-contain p-6 touch-pan-y"
+          className="flex-1 overflow-y-auto overscroll-contain px-4 py-4 md:p-6 touch-pan-y"
           style={{ WebkitOverflowScrolling: 'touch' }}
           data-lenis-prevent
         >
@@ -154,9 +163,8 @@ export default function BookingModal({ initialData }: BookingModalProps) {
           {/* Step 1: Služby */}
           {currentStep === 1 && (
             <div>
-              <p className="text-sm text-stone-500 text-center mb-6 font-geist">Vyberte si službu, která odpovídá vašim požadavkům</p>
-              <h3 className="text-lg font-medium text-stone-900 mb-4">Vyberte službu</h3>
-              <div className="grid grid-cols-2 gap-3">
+              <p className="text-xs md:text-sm text-stone-500 text-center mb-4 md:mb-6 font-geist">Vyberte si službu, která odpovídá vašim požadavkům</p>
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-2 md:gap-3">
                 {services.map(service => {
                   const svcPrices = prices.filter(p => p.service_id === service.service_id);
                   const minPrice = svcPrices.length > 0 ? Math.min(...svcPrices.map(p => parseInt(p.price_in_czk))) : null;
@@ -166,10 +174,10 @@ export default function BookingModal({ initialData }: BookingModalProps) {
                     <button
                       key={service.service_id}
                       onClick={() => setSelectedService(service)}
-                      className={`p-4 text-left border transition-all ${isSelected ? 'border-stone-900 bg-stone-50' : 'border-stone-200 hover:border-stone-400'}`}
+                      className={`p-4 md:p-4 text-left border transition-all min-h-[80px] ${isSelected ? 'border-stone-900 bg-stone-50' : 'border-stone-200 hover:border-stone-400 active:border-stone-900'}`}
                     >
-                      <div className="font-medium text-stone-900 mb-1">{service.category_name}</div>
-                      <div className="text-xs text-stone-500 mb-2 line-clamp-1">{service.short_description}</div>
+                      <div className="font-medium text-stone-900 mb-1 text-base md:text-base">{service.category_name}</div>
+                      <div className="text-xs text-stone-500 mb-2 line-clamp-2">{service.short_description}</div>
                       {minPrice && <div className="text-xs text-stone-500">od {minPrice.toLocaleString()} Kč</div>}
                     </button>
                   );
@@ -181,14 +189,14 @@ export default function BookingModal({ initialData }: BookingModalProps) {
           {/* Step 2: Balíčky */}
           {currentStep === 2 && selectedService && (
             <div>
-              <p className="text-sm text-stone-500 text-center mb-6 font-geist">Vyberte balíček, který vám vyhovuje</p>
-              <div className="flex justify-between items-center mb-4">
-                <h3 className="text-lg font-medium text-stone-900">{selectedService.category_name}</h3>
+              <p className="text-xs md:text-sm text-stone-500 text-center mb-4 md:mb-6 font-geist">Vyberte balíček, který vám vyhovuje</p>
+              <div className="flex justify-between items-center mb-3 md:mb-4 pb-3 md:pb-4 border-b border-stone-200">
+                <h3 className="text-base md:text-lg font-medium text-stone-900">{selectedService.category_name}</h3>
                 <button
                   onClick={() => { setSelectedService(null); setSelectedPackage(null); setCurrentStep(1); }}
-                  className="text-xs text-stone-500 hover:text-stone-900 font-geist uppercase tracking-wider"
+                  className="text-[10px] md:text-xs text-stone-500 hover:text-stone-900 font-geist uppercase tracking-wider"
                 >
-                  ← Změnit službu
+                  ← Změnit
                 </button>
               </div>
               <div className="space-y-2">
@@ -198,22 +206,20 @@ export default function BookingModal({ initialData }: BookingModalProps) {
                     <button
                       key={pkg.name}
                       onClick={() => setSelectedPackage(pkg)}
-                      className={`w-full p-4 border transition-all cursor-pointer hover:border-stone-400 text-left ${isSelected ? 'border-stone-900 bg-stone-50' : 'border-stone-200'}`}
+                      className={`w-full p-3 md:p-4 border transition-all cursor-pointer active:border-stone-900 text-left min-h-[60px] ${isSelected ? 'border-stone-900 bg-stone-50' : 'border-stone-200 hover:border-stone-400'}`}
                     >
-                      <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center gap-2">
+                      <div className="flex justify-between items-start gap-3">
                         <div className="flex-1 min-w-0">
-                          <span className="text-stone-900 block sm:inline">{pkg.name}</span>
+                          <div className="text-stone-900 font-medium mb-0.5">{pkg.name}</div>
                           {pkg.duration_in_minutes && (
-                            <span className="text-stone-400 text-sm ml-0 sm:ml-2 block sm:inline">({pkg.duration_in_minutes} min)</span>
+                            <div className="text-stone-400 text-xs">({pkg.duration_in_minutes} min)</div>
                           )}
                         </div>
-                        <div className="flex items-center justify-between sm:justify-end gap-4 flex-shrink-0">
+                        <div className="flex flex-col items-end gap-1 flex-shrink-0">
                           <span className="text-stone-900 font-medium whitespace-nowrap">{parseInt(pkg.price_in_czk).toLocaleString()} Kč</span>
-                          <span
-                            className={`text-xs uppercase tracking-wider font-geist whitespace-nowrap ${isSelected ? 'text-stone-900 font-medium' : 'text-stone-500'}`}
-                          >
-                            {isSelected ? '✓ Vybráno' : 'Vybrat'}
-                          </span>
+                          {isSelected && (
+                            <span className="text-[10px] uppercase tracking-wider font-geist text-stone-900">✓ Vybráno</span>
+                          )}
                         </div>
                       </div>
                     </button>
@@ -228,40 +234,40 @@ export default function BookingModal({ initialData }: BookingModalProps) {
             <div>
               {/* Kompaktní shrnutí vybrané služby */}
               {selectedService && selectedPackage && (
-                <div className="mb-4 pb-4 border-b border-stone-200 flex justify-between items-center">
-                  <div className="text-sm text-stone-600 font-geist">
+                <div className="mb-3 md:mb-4 pb-3 md:pb-4 border-b border-stone-200 flex justify-between items-center">
+                  <div className="text-xs md:text-sm text-stone-600 font-geist">
                     {selectedPackage.name}
                     {selectedPackage.duration_in_minutes && <span className="text-stone-400"> ({selectedPackage.duration_in_minutes} min)</span>}
                   </div>
-                  <div className="text-sm font-medium text-stone-900">{parseInt(selectedPackage.price_in_czk).toLocaleString()} Kč</div>
+                  <div className="text-sm md:text-sm font-medium text-stone-900">{parseInt(selectedPackage.price_in_czk).toLocaleString()} Kč</div>
                 </div>
               )}
 
-              {/* Kalendář vlevo, časy vpravo */}
-              <div className="flex gap-4">
+              {/* Kalendář a časy - stack na mobilu, side-by-side na tabletu */}
+              <div className="flex flex-col md:flex-row gap-4">
                 {/* Kalendář */}
-                <div className="flex-shrink-0">
+                <div className="flex justify-center md:flex-shrink-0">
                   <Calendar
                     mode="single"
                     selected={selectedDate}
                     onSelect={setSelectedDate}
                     disabled={(date) => date < getTomorrowDate()}
                     locale={cs}
-                    className="border border-stone-200 !p-2 [--cell-size:1.75rem]"
+                    className="border border-stone-200 !p-2 [--cell-size:2.25rem] md:[--cell-size:1.75rem]"
                   />
                 </div>
 
                 {/* Časy */}
                 <div className="flex-1 flex flex-col">
-                  <label className="block text-xs uppercase tracking-widest text-stone-500 mb-2 font-geist">Čas</label>
-                  <div className="grid grid-cols-2 gap-1.5 flex-1 content-start">
+                  <label className="block text-xs uppercase tracking-widest text-stone-500 mb-2 font-geist text-center md:text-left">Čas</label>
+                  <div className="grid grid-cols-3 md:grid-cols-2 gap-2 md:gap-1.5 flex-1 content-start">
                     {times.map(time => (
                       <button
                         key={time}
                         onClick={() => setSelectedTime(time)}
-                        className={`py-2 border text-sm font-geist transition-all ${selectedTime === time
+                        className={`py-3 md:py-2 border text-sm font-geist transition-all min-h-[44px] md:min-h-0 ${selectedTime === time
                           ? 'bg-stone-900 text-white border-stone-900'
-                          : 'border-stone-200 hover:border-stone-900 text-stone-900'
+                          : 'border-stone-200 hover:border-stone-900 active:border-stone-900 text-stone-900'
                           }`}
                       >
                         {time}
@@ -320,17 +326,17 @@ export default function BookingModal({ initialData }: BookingModalProps) {
           )}
         </div>
 
-        {/* Footer */}
+        {/* Footer - sticky na mobilu */}
         <div
-          className="flex-shrink-0 p-6 pt-4 border-t border-stone-100 flex justify-between items-center"
-          style={{ paddingBottom: "max(1.5rem, env(safe-area-inset-bottom, 1.5rem))" }}
+          className="flex-shrink-0 px-4 py-3 md:px-6 md:py-4 border-t border-stone-100 flex justify-between items-center bg-white"
+          style={{ paddingBottom: "max(0.75rem, env(safe-area-inset-bottom, 0.75rem))" }}
         >
           {currentStep > 1 ? (
             <button
               onClick={() => setCurrentStep(prev => prev - 1)}
-              className="text-sm text-stone-500 hover:text-stone-900 font-geist uppercase tracking-wider"
+              className="text-xs md:text-sm text-stone-500 hover:text-stone-900 active:text-stone-900 font-geist uppercase tracking-wider py-2 px-3 -ml-3 min-h-[44px] flex items-center"
             >
-              Zpět
+              ← Zpět
             </button>
           ) : <div />}
 
@@ -342,7 +348,7 @@ export default function BookingModal({ initialData }: BookingModalProps) {
                 (currentStep === 2 && !selectedPackage) ||
                 (currentStep === 3 && (!selectedDate || !selectedTime))
               }
-              className="px-6 py-3 bg-stone-900 text-white font-geist uppercase tracking-wider text-sm hover:bg-stone-800 transition-colors disabled:bg-stone-300 disabled:cursor-not-allowed"
+              className="px-6 md:px-6 py-3 md:py-3 min-h-[44px] bg-stone-900 text-white font-geist uppercase tracking-wider text-xs md:text-sm hover:bg-stone-800 active:bg-stone-800 transition-colors disabled:bg-stone-300 disabled:cursor-not-allowed"
             >
               Pokračovat
             </button>
@@ -350,7 +356,7 @@ export default function BookingModal({ initialData }: BookingModalProps) {
             <button
               onClick={handleSubmit}
               disabled={!name || !email || !phone}
-              className="px-6 py-3 bg-stone-900 text-white font-geist uppercase tracking-wider text-sm hover:bg-stone-800 transition-colors disabled:bg-stone-300 disabled:cursor-not-allowed"
+              className="px-6 md:px-6 py-3 md:py-3 min-h-[44px] bg-stone-900 text-white font-geist uppercase tracking-wider text-xs md:text-sm hover:bg-stone-800 active:bg-stone-800 transition-colors disabled:bg-stone-300 disabled:cursor-not-allowed"
             >
               Odeslat rezervaci
             </button>
