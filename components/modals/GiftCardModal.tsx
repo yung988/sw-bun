@@ -199,13 +199,13 @@ export default function GiftCardModal() {
 
   return (
     <div
-      className="fixed inset-0 z-[60] flex items-center justify-center p-4 isolate"
+      className="fixed inset-0 z-[60] flex items-center justify-center md:p-4 isolate"
       onClick={closeModal}
     >
       <div className="absolute inset-0 bg-stone-900/60 backdrop-blur-sm" />
 
       <div
-        className="bg-white w-full max-w-4xl max-h-[90vh] shadow-2xl relative animate-fade-in-up overflow-hidden flex flex-col lg:flex-row"
+        className="bg-white w-full h-full md:h-auto md:max-w-4xl md:max-h-[90vh] shadow-2xl relative animate-fade-in-up overflow-hidden flex flex-col lg:flex-row"
         onClick={(e) => e.stopPropagation()}
       >
         {/* Desktop: Voucher Preview (left side) */}
@@ -216,7 +216,7 @@ export default function GiftCardModal() {
         {/* Mobile: Toggle preview button */}
         <button
           onClick={() => setShowPreview(!showPreview)}
-          className="lg:hidden flex items-center justify-center gap-2 py-3 bg-stone-100 text-stone-600 text-sm font-geist border-b border-stone-200"
+          className="lg:hidden flex items-center justify-center gap-2 py-3 bg-stone-100 text-stone-600 text-xs md:text-sm font-geist border-b border-stone-200 min-h-[44px]"
         >
           <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
             <path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7Z" />
@@ -227,34 +227,43 @@ export default function GiftCardModal() {
 
         {/* Mobile: Collapsible preview */}
         {showPreview && (
-          <div className="lg:hidden">
+          <div className="lg:hidden border-b border-stone-200">
             <VoucherPreview formData={formData} />
           </div>
         )}
 
         {/* Form section */}
-        <div className="flex-1 flex flex-col lg:w-1/2 max-h-[90vh] lg:max-h-none">
+        <div className="flex-1 flex flex-col lg:w-1/2">
           {/* Header */}
-          <div className="flex-shrink-0 p-6 pb-4 border-b border-stone-100">
-            <div className="flex justify-between items-start mb-4">
-              <h2 className="text-xl font-cormorant text-stone-900">Dárkový poukaz</h2>
-              <button onClick={closeModal} className="text-stone-400 hover:text-stone-900 transition-colors">
-                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
+          <div className="flex-shrink-0 px-4 py-4 md:px-6 md:py-6 md:pb-4 border-b border-stone-100">
+            <div className="flex justify-between items-start mb-3 md:mb-4">
+              <h2 className="text-lg md:text-xl font-cormorant text-stone-900">Dárkový poukaz</h2>
+              <button
+                onClick={closeModal}
+                className="text-stone-400 hover:text-stone-900 transition-colors p-1 -m-1"
+                aria-label="Zavřít"
+              >
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
                   <path d="M18 6 6 18" /><path d="m6 6 12 12" />
                 </svg>
               </button>
             </div>
-            {/* Progress bar */}
-            <div className="flex gap-2">
-              {steps.map((_, i) => (
-                <div key={i} className={`h-1 flex-1 rounded-full transition-colors ${i < currentStep ? 'bg-stone-900' : 'bg-stone-200'}`} />
+            {/* Progress bar with labels */}
+            <div className="flex gap-1 md:gap-2">
+              {steps.map((step, i) => (
+                <div key={i} className="flex-1 flex flex-col gap-1">
+                  <div className={`h-1 w-full transition-colors ${i < currentStep ? 'bg-stone-900' : 'bg-stone-200'}`} />
+                  <div className={`text-[10px] md:text-xs uppercase tracking-wider font-geist transition-colors ${i < currentStep ? 'text-stone-900' : 'text-stone-400'}`}>
+                    {step}
+                  </div>
+                </div>
               ))}
             </div>
           </div>
 
           {/* Content */}
           <div
-            className="flex-1 overflow-y-auto overscroll-contain p-6 touch-pan-y"
+            className="flex-1 overflow-y-auto overscroll-contain px-4 py-4 md:p-6 touch-pan-y"
             style={{ WebkitOverflowScrolling: 'touch' }}
             data-lenis-prevent
           >
@@ -262,20 +271,19 @@ export default function GiftCardModal() {
             {/* Step 1: Typ poukazu */}
             {currentStep === 1 && (
               <div>
-                <p className="text-sm text-stone-500 text-center mb-6 font-geist">Vyberte typ dárkového poukazu</p>
-                <h3 className="text-lg font-medium text-stone-900 mb-4">Typ poukazu</h3>
+                <p className="text-xs md:text-sm text-stone-500 text-center mb-4 md:mb-6 font-geist">Vyberte typ dárkového poukazu</p>
 
-                <div className="grid grid-cols-2 gap-3 mb-6">
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-2 md:gap-3 mb-4 md:mb-6">
                   <button
                     onClick={() => updateFormData('voucherType', 'cash')}
-                    className={`p-4 text-left border transition-all ${formData.voucherType === 'cash' ? 'border-stone-900 bg-stone-50' : 'border-stone-200 hover:border-stone-400'}`}
+                    className={`p-4 text-left border transition-all min-h-[80px] ${formData.voucherType === 'cash' ? 'border-stone-900 bg-stone-50' : 'border-stone-200 hover:border-stone-400 active:border-stone-900'}`}
                   >
                     <div className="font-medium text-stone-900 mb-1">💎 Na částku</div>
                     <div className="text-xs text-stone-500">Obdarovaný si vybere sám</div>
                   </button>
                   <button
                     onClick={() => updateFormData('voucherType', 'service')}
-                    className={`p-4 text-left border transition-all ${formData.voucherType === 'service' ? 'border-stone-900 bg-stone-50' : 'border-stone-200 hover:border-stone-400'}`}
+                    className={`p-4 text-left border transition-all min-h-[80px] ${formData.voucherType === 'service' ? 'border-stone-900 bg-stone-50' : 'border-stone-200 hover:border-stone-400 active:border-stone-900'}`}
                   >
                     <div className="font-medium text-stone-900 mb-1">✨ Na službu</div>
                     <div className="text-xs text-stone-500">Konkrétní procedura</div>
@@ -474,13 +482,16 @@ export default function GiftCardModal() {
           </div>
 
           {/* Footer */}
-          <div className="flex-shrink-0 p-6 pt-4 border-t border-stone-100 flex justify-between items-center">
+          <div
+            className="flex-shrink-0 px-4 py-3 md:px-6 md:py-4 border-t border-stone-100 flex justify-between items-center bg-white"
+            style={{ paddingBottom: "max(0.75rem, env(safe-area-inset-bottom, 0.75rem))" }}
+          >
             {currentStep > 1 ? (
               <button
                 onClick={() => setCurrentStep(prev => prev - 1)}
-                className="text-sm text-stone-500 hover:text-stone-900 font-geist uppercase tracking-wider"
+                className="text-xs md:text-sm text-stone-500 hover:text-stone-900 active:text-stone-900 font-geist uppercase tracking-wider py-2 px-3 -ml-3 min-h-[44px] flex items-center"
               >
-                Zpět
+                ← Zpět
               </button>
             ) : <div />}
 
@@ -488,7 +499,7 @@ export default function GiftCardModal() {
               <button
                 onClick={() => setCurrentStep(prev => prev + 1)}
                 disabled={!canProceed()}
-                className="px-6 py-3 bg-stone-900 text-white font-geist uppercase tracking-wider text-sm hover:bg-stone-800 transition-colors disabled:bg-stone-300 disabled:cursor-not-allowed"
+                className="px-6 py-3 min-h-[44px] bg-stone-900 text-white font-geist uppercase tracking-wider text-xs md:text-sm hover:bg-stone-800 active:bg-stone-800 transition-colors disabled:bg-stone-300 disabled:cursor-not-allowed"
               >
                 Pokračovat
               </button>
@@ -496,7 +507,7 @@ export default function GiftCardModal() {
               <button
                 onClick={handleSubmit}
                 disabled={!termsAccepted || isSubmitting}
-                className="px-6 py-3 bg-stone-900 text-white font-geist uppercase tracking-wider text-sm hover:bg-stone-800 transition-colors disabled:bg-stone-300 disabled:cursor-not-allowed"
+                className="px-6 py-3 min-h-[44px] bg-stone-900 text-white font-geist uppercase tracking-wider text-xs md:text-sm hover:bg-stone-800 active:bg-stone-800 transition-colors disabled:bg-stone-300 disabled:cursor-not-allowed"
               >
                 {isSubmitting ? 'Odesílám...' : 'Odeslat objednávku'}
               </button>
