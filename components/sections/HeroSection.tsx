@@ -13,10 +13,10 @@ export default function HeroSection({ onOpenBooking }: { onOpenBooking: () => vo
         loop
         playsInline
         preload="metadata"
-        poster="https://omf77i7evqckneoq.public.blob.vercel-storage.com/hero_original.jpg"
+        poster="/images/hero-image.jpg"
         className="absolute inset-0 w-full h-full object-cover object-center -z-10 lg:hidden"
       >
-        <source src="https://omf77i7evqckneoq.public.blob.vercel-storage.com/hero_1.mp4" type="video/mp4" />
+        <source src="/images/hero_1.mp4" type="video/mp4" />
         Váš prohlížeč nepodporuje video.
       </video>
 
@@ -76,10 +76,10 @@ export default function HeroSection({ onOpenBooking }: { onOpenBooking: () => vo
               loop
               playsInline
               preload="metadata"
-              poster="https://omf77i7evqckneoq.public.blob.vercel-storage.com/hero_original.jpg"
+              poster="/images/hero-image.jpg"
               className="w-full h-full object-cover object-center opacity-90 animate-fade-in-up"
             >
-              <source src="https://omf77i7evqckneoq.public.blob.vercel-storage.com/hero_1.mp4" type="video/mp4" />
+              <source src="/images/hero_1.mp4" type="video/mp4" />
               Váš prohlížeč nepodporuje video.
             </video>
           </div>
@@ -119,10 +119,10 @@ export default function HeroSection({ onOpenBooking }: { onOpenBooking: () => vo
               loop
               playsInline
               preload="metadata"
-              poster="https://omf77i7evqckneoq.public.blob.vercel-storage.com/hero_original.jpg"
+              poster="/images/hero-image.jpg"
               className="w-full h-full object-cover object-center opacity-90 animate-fade-in-up"
             >
-              <source src="https://omf77i7evqckneoq.public.blob.vercel-storage.com/hero_1.mp4" type="video/mp4" />
+              <source src="/images/hero_1.mp4" type="video/mp4" />
               Váš prohlížeč nepodporuje video.
             </video>
           </div>
