@@ -18,7 +18,7 @@ export default function GiftCardsSection({ onOpenGiftCard }: GiftCardsSectionPro
         <div className="hidden lg:flex w-1/2 h-screen sticky top-0 left-0 items-center justify-center bg-stone-50">
           <div className="relative w-[500px] aspect-[4/3] overflow-hidden shadow-2xl">
             <Image
-              src="https://omf77i7evqckneoq.public.blob.vercel-storage.com/gift-card-main-VclQf9J2kWgWa8o8t3F6V8YlsTRA2O.webp"
+              src="/images/gift-card-main.webp"
               alt="SW Beauty dárkový poukaz"
               fill
               sizes="500px"
@@ -37,7 +37,7 @@ export default function GiftCardsSection({ onOpenGiftCard }: GiftCardsSectionPro
           <div className="lg:hidden mb-12 -mx-6 md:-mx-12">
             <div className="relative aspect-[4/3] overflow-hidden">
               <Image
-                src="https://omf77i7evqckneoq.public.blob.vercel-storage.com/gift-card-main-VclQf9J2kWgWa8o8t3F6V8YlsTRA2O.webp"
+                src="/images/gift-card-main.webp"
                 alt="SW Beauty dárkový poukaz"
                 fill
                 sizes="100vw"

@@ -32,17 +32,28 @@ function VoucherPreview({ formData }: { formData: FormData }) {
 
   return (
     <div className="bg-stone-100 p-4 lg:p-6 flex items-center justify-center w-full h-full">
-      <div className="bg-white w-full max-w-[280px] lg:max-w-[320px] shadow-lg relative overflow-visible scale-90 lg:scale-100">
+      <div className="bg-white w-full max-w-[280px] lg:max-w-[320px] shadow-lg relative overflow-hidden scale-90 lg:scale-100 aspect-[3/4] flex flex-col">
+        {/* Background Image with Overlay */}
+        <div className="absolute inset-0 z-0">
+          <Image
+            src="/images/gift-card-main.webp"
+            alt=""
+            fill
+            className="object-cover opacity-20"
+          />
+          <div className="absolute inset-0 bg-white/40" />
+        </div>
+
         {/* Decorative corners */}
-        <div className="absolute top-3 left-3 w-8 h-8 border-t-2 border-l-2 border-stone-300" />
-        <div className="absolute top-3 right-3 w-8 h-8 border-t-2 border-r-2 border-stone-300" />
-        <div className="absolute bottom-3 left-3 w-8 h-8 border-b-2 border-l-2 border-stone-300" />
-        <div className="absolute bottom-3 right-3 w-8 h-8 border-b-2 border-r-2 border-stone-300" />
+        <div className="absolute top-3 left-3 w-8 h-8 border-t-2 border-l-2 border-stone-300 z-10" />
+        <div className="absolute top-3 right-3 w-8 h-8 border-t-2 border-r-2 border-stone-300 z-10" />
+        <div className="absolute bottom-3 left-3 w-8 h-8 border-b-2 border-l-2 border-stone-300 z-10" />
+        <div className="absolute bottom-3 right-3 w-8 h-8 border-b-2 border-r-2 border-stone-300 z-10" />
 
         {/* Content */}
-        <div className="flex flex-col items-center justify-between px-6 py-6 text-center">
+        <div className="relative z-10 flex-1 flex flex-col items-center justify-between px-6 py-8 text-center">
           {/* Logo */}
-          <div className="mb-3">
+          <div className="mb-2">
             <Image
               src="/logo.svg"
               alt="SW Beauty"
@@ -53,7 +64,7 @@ function VoucherPreview({ formData }: { formData: FormData }) {
           </div>
 
           {/* Title */}
-          <span className="text-[9px] uppercase tracking-[0.2em] text-stone-400 font-geist mb-3">
+          <span className="text-[9px] uppercase tracking-[0.2em] text-stone-400 font-geist mb-2">
             Dárkový poukaz
           </span>
 
@@ -61,23 +72,25 @@ function VoucherPreview({ formData }: { formData: FormData }) {
           <div className="w-12 h-px bg-stone-300 mb-4" />
 
           {/* For label + Recipient Name */}
-          <span className="text-[9px] uppercase tracking-[0.2em] text-stone-400 font-geist">
-            Pro
-          </span>
-          <h2 className="text-xl lg:text-2xl font-cormorant font-medium text-stone-900 mb-2 tracking-tight min-h-[1.5em]">
-            {formData.recipientName || 'Jméno příjemce'}
-          </h2>
+          <div className="flex-1 flex flex-col justify-center items-center w-full">
+            <span className="text-[9px] uppercase tracking-[0.2em] text-stone-400 font-geist">
+              Pro
+            </span>
+            <h2 className="text-xl lg:text-2xl font-cormorant font-medium text-stone-900 mb-2 tracking-tight line-clamp-2">
+              {formData.recipientName || 'Jméno příjemce'}
+            </h2>
 
-          {/* Message */}
-          {formData.giftMessage && (
-            <p className="text-stone-500 font-geist font-light italic text-[10px] max-w-[90%] mb-3">
-              „{formData.giftMessage}"
-            </p>
-          )}
+            {/* Message */}
+            {formData.giftMessage && (
+              <p className="text-stone-500 font-geist font-light italic text-[10px] max-w-[90%] mb-3 line-clamp-3">
+                „{formData.giftMessage}"
+              </p>
+            )}
+          </div>
 
           {/* Value */}
-          <div className="mt-3 pt-4 border-t border-stone-200 w-full">
-            <span className="text-[9px] uppercase tracking-[0.2em] text-stone-400 font-geist block mb-2">
+          <div className="mt-auto pt-4 border-t border-stone-200/50 w-full">
+            <span className="text-[9px] uppercase tracking-[0.2em] text-stone-400 font-geist block mb-1">
               {formData.voucherType === 'cash' ? 'V hodnotě' : 'Na proceduru'}
             </span>
             <span className="text-lg lg:text-xl font-cormorant font-medium text-stone-900 leading-tight block px-2">
@@ -86,7 +99,7 @@ function VoucherPreview({ formData }: { formData: FormData }) {
           </div>
 
           {/* Validity */}
-          <div className="mt-4 pt-3">
+          <div className="mt-4 pt-2">
             <span className="text-[8px] text-stone-400 font-geist">
               Platnost do {formattedDate} · swbeauty.cz
             </span>
