@@ -6,49 +6,49 @@ import Image from 'next/image';
 const galleryItems = [
     {
         type: 'image' as const,
-        src: 'https://omf77i7evqckneoq.public.blob.vercel-storage.com/salon_cekarna.png',
+        src: '/images/salon_cekarna.png',
         alt: 'Čekárna salonu SW Beauty',
         span: 'col-span-2 row-span-2'
     },
     {
         type: 'image' as const,
-        src: 'https://omf77i7evqckneoq.public.blob.vercel-storage.com/salon_room1.png',
+        src: '/images/salon_room1.png',
         alt: 'Místnost salonu',
         span: ''
     },
     {
         type: 'image' as const,
-        src: 'https://omf77i7evqckneoq.public.blob.vercel-storage.com/recepce.jpg',
+        src: '/images/hero-image.jpg',
         alt: 'Recepce',
         span: ''
     },
     {
         type: 'image' as const,
-        src: 'https://omf77i7evqckneoq.public.blob.vercel-storage.com/kreslomistnostnaprocedury.jpg',
+        src: '/images/kreslomistnostnaprocedury.jpg',
         alt: 'Místnost na procedury',
         span: 'col-span-2'
     },
     {
         type: 'image' as const,
-        src: 'https://omf77i7evqckneoq.public.blob.vercel-storage.com/nehtyroom.jpg',
+        src: '/images/rasy-1.jpg',
         alt: 'Místnost na nehty',
         span: ''
     },
     {
         type: 'image' as const,
-        src: 'https://omf77i7evqckneoq.public.blob.vercel-storage.com/stul_detail.jpg',
+        src: '/images/skin-calming-with-propolis1.jpg',
         alt: 'Detail interiéru',
         span: ''
     },
     {
         type: 'image' as const,
-        src: 'https://omf77i7evqckneoq.public.blob.vercel-storage.com/towel-dELH4lXpwFGmX8cPHlIdOFyDXpbr54.jpg',
+        src: '/images/towel.jpg',
         alt: 'Detail salonu',
         span: ''
     },
     {
         type: 'image' as const,
-        src: 'https://omf77i7evqckneoq.public.blob.vercel-storage.com/logojinabarevnost.jpg',
+        src: '/images/woman-about-sw.png',
         alt: 'Logo SW Beauty',
         span: ''
     }
