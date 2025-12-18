@@ -74,7 +74,7 @@ export default function ServiceDetailModal({ serviceId, onClose }: ServiceDetail
           style={{ WebkitOverflowScrolling: 'touch' }}
           data-lenis-prevent
         >
-          <div className="w-full h-64 md:h-96 bg-stone-100 relative overflow-hidden">
+          <div className="w-full h-48 md:h-96 bg-stone-100 relative overflow-hidden">
             {images.length > 0 && (
               <Image
                 src={getImageUrl(images[0])}
@@ -83,27 +83,27 @@ export default function ServiceDetailModal({ serviceId, onClose }: ServiceDetail
                 className="w-full h-full object-cover"
               />
             )}
-            <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/50 to-transparent p-6">
-              <h2 className="text-4xl md:text-5xl font-cormorant text-white font-medium">{service.category_name}</h2>
+            <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/50 to-transparent p-4 md:p-6">
+              <h2 className="text-3xl sm:text-4xl md:text-5xl font-cormorant text-white font-medium">{service.category_name}</h2>
             </div>
           </div>
 
-          <div className="p-8 md:p-12 space-y-8">
+          <div className="p-6 md:p-12 space-y-6 md:space-y-8">
             <div>
-              <p className="text-xl text-stone-600 font-light font-geist italic">{service.short_description}</p>
+              <p className="text-lg md:text-xl text-stone-600 font-light font-geist italic">{service.short_description}</p>
             </div>
 
             <div>
-              <h3 className="text-2xl font-cormorant text-stone-900 mb-4">O ošetření</h3>
-              <p className="text-stone-600 font-light font-geist leading-relaxed">{service.full_description}</p>
+              <h3 className="text-xl md:text-2xl font-cormorant text-stone-900 mb-3 md:mb-4">O ošetření</h3>
+              <p className="text-base md:text-base text-stone-600 font-light font-geist leading-relaxed">{service.full_description}</p>
             </div>
 
             {benefits.length > 0 && (
               <div>
-                <h3 className="text-2xl font-cormorant text-stone-900 mb-4">Přínosy</h3>
+                <h3 className="text-xl md:text-2xl font-cormorant text-stone-900 mb-3 md:mb-4">Přínosy</h3>
                 <ul className="grid grid-cols-1 md:grid-cols-2 gap-3">
                   {benefits.map(b => (
-                    <li key={b} className="flex items-start gap-2 text-stone-600 font-geist">
+                    <li key={b} className="flex items-start gap-2 text-base md:text-base text-stone-600 font-geist">
                       <svg className="w-5 h-5 text-stone-900 mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 13l4 4L19 7" />
                       </svg>
@@ -116,21 +116,21 @@ export default function ServiceDetailModal({ serviceId, onClose }: ServiceDetail
 
             {indications.length > 0 && (
               <div>
-                <h3 className="text-2xl font-cormorant text-stone-900 mb-4">Vhodné pro</h3>
+                <h3 className="text-xl md:text-2xl font-cormorant text-stone-900 mb-3 md:mb-4">Vhodné pro</h3>
                 <div className="flex flex-wrap gap-2">
                   {indications.map(i => (
-                    <span key={i} className="px-3 py-1 bg-stone-100 text-stone-700 text-sm font-geist">{i.trim()}</span>
+                    <span key={i} className="px-3 py-2 bg-stone-100 text-stone-700 text-sm md:text-sm font-geist">{i.trim()}</span>
                   ))}
                 </div>
               </div>
             )}
 
             {contraindications.length > 0 && (
-              <div className="bg-amber-50 border border-amber-200 p-6">
-                <h3 className="text-xl font-cormorant text-amber-900 mb-3">Kontraindikace</h3>
+              <div className="bg-amber-50 border border-amber-200 p-4 md:p-6">
+                <h3 className="text-lg md:text-xl font-cormorant text-amber-900 mb-3">Kontraindikace</h3>
                 <ul className="space-y-2">
                   {contraindications.map(c => (
-                    <li key={c} className="flex items-start gap-2 text-amber-800 text-sm font-geist">
+                    <li key={c} className="flex items-start gap-2 text-amber-800 text-base md:text-sm font-geist">
                       <svg className="w-4 h-4 mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M6 18L18 6M6 6l12 12" />
                       </svg>
@@ -143,19 +143,19 @@ export default function ServiceDetailModal({ serviceId, onClose }: ServiceDetail
 
             {servicePrices.length > 0 && (
               <div>
-                <h3 className="text-2xl font-cormorant text-stone-900 mb-4">Ceník</h3>
+                <h3 className="text-xl md:text-2xl font-cormorant text-stone-900 mb-3 md:mb-4">Ceník</h3>
                 <div className="space-y-4">
                   {servicePrices.map(price => (
                     <div key={price.name} className="flex flex-col md:flex-row md:justify-between md:items-center gap-3 md:gap-4 border-b border-stone-100 pb-4">
                       <div>
-                        <p className="font-geist text-stone-900 text-base">{price.name}</p>
-                        <p className="text-sm text-stone-400 mt-1">
+                        <p className="font-geist text-stone-900 text-base md:text-base">{price.name}</p>
+                        <p className="text-sm md:text-sm text-stone-400 mt-1">
                           {price.duration_in_minutes && <span>{price.duration_in_minutes} min</span>}
                           {price.duration_in_minutes && price.session && <span> • </span>}
                           {price.session && <span>{price.session}x ošetření</span>}
                         </p>
                       </div>
-                      <div className="flex items-center justify-between md:justify-end gap-4">
+                      <div className="flex items-center justify-between md:justify-end gap-3 md:gap-4">
                         <span className="font-geist font-medium text-stone-900 text-lg md:text-base whitespace-nowrap">{price.price_in_czk} Kč</span>
                         <button
                           onClick={(e) => {
@@ -163,7 +163,7 @@ export default function ServiceDetailModal({ serviceId, onClose }: ServiceDetail
                             onClose();
                             openModal('booking', { serviceId, packageName: price.name, price: price.price_in_czk });
                           }}
-                          className="px-4 py-2 text-xs uppercase tracking-widest font-geist border border-stone-300 text-stone-600 hover:border-stone-900 hover:bg-stone-900 hover:text-white transition-all"
+                          className="px-4 py-3 md:py-2 text-sm md:text-xs min-h-[48px] md:min-h-0 uppercase tracking-widest font-geist border border-stone-300 text-stone-600 hover:border-stone-900 hover:bg-stone-900 hover:text-white transition-all"
                         >
                           Rezervovat
                         </button>
@@ -174,11 +174,11 @@ export default function ServiceDetailModal({ serviceId, onClose }: ServiceDetail
               </div>
             )}
 
-            <div className="pt-6 flex gap-4">
-              <button onClick={() => { onClose(); openModal('booking'); }} className="flex-1 bg-stone-900 text-white px-8 py-4 hover:bg-stone-800 transition-colors font-geist text-sm uppercase tracking-widest">
+            <div className="pt-4 md:pt-6 flex gap-3 md:gap-4">
+              <button onClick={() => { onClose(); openModal('booking'); }} className="flex-1 bg-stone-900 text-white px-6 md:px-8 py-4 hover:bg-stone-800 transition-colors font-geist text-base md:text-sm uppercase tracking-widest min-h-[52px]">
                 Rezervovat termín
               </button>
-              <button onClick={onClose} className="flex-1 border border-stone-300 text-stone-900 px-8 py-4 hover:border-stone-900 transition-colors font-geist text-sm uppercase tracking-widest">
+              <button onClick={onClose} className="flex-1 border border-stone-300 text-stone-900 px-6 md:px-8 py-4 hover:border-stone-900 transition-colors font-geist text-base md:text-sm uppercase tracking-widest min-h-[52px]">
                 Zavřít
               </button>
             </div>

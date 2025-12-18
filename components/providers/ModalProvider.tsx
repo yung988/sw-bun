@@ -1,11 +1,12 @@
 'use client';
 
-import { useState, ReactNode } from 'react';
+import { useState, ReactNode, lazy, Suspense } from 'react';
 import { ModalContext, useModal } from './ModalContext';
-import GiftCardModal from '../modals/GiftCardModal';
-import BookingModal from '../modals/BookingModal';
-import PriceListModal from '../modals/PriceListModal';
-import ServiceDetailModal from '../modals/ServiceDetailModal';
+
+const GiftCardModal = lazy(() => import('../modals/GiftCardModal'));
+const BookingModal = lazy(() => import('../modals/BookingModal'));
+const PriceListModal = lazy(() => import('../modals/PriceListModal'));
+const ServiceDetailModal = lazy(() => import('../modals/ServiceDetailModal'));
 
 type ModalType = 'gift-card' | 'booking' | 'price-list' | 'service-detail' | null;
 
@@ -26,10 +27,12 @@ export default function ModalProvider({ children }: { children: ReactNode }) {
   return (
     <ModalContext.Provider value={{ openModal, closeModal }}>
       {children}
-      {activeModal === 'gift-card' && <GiftCardModal />}
-      {activeModal === 'booking' && <BookingModal initialData={modalData} />}
-      {activeModal === 'price-list' && <PriceListModal onClose={closeModal} />}
-      {activeModal === 'service-detail' && <ServiceDetailModal serviceId={modalData?.serviceId} onClose={closeModal} />}
+      <Suspense fallback={<div className="fixed inset-0 bg-black/50 z-50" />}>
+        {activeModal === 'gift-card' && <GiftCardModal />}
+        {activeModal === 'booking' && <BookingModal initialData={modalData} />}
+        {activeModal === 'price-list' && <PriceListModal onClose={closeModal} />}
+        {activeModal === 'service-detail' && <ServiceDetailModal serviceId={modalData?.serviceId} onClose={closeModal} />}
+      </Suspense>
     </ModalContext.Provider>
   );
 }

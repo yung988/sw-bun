@@ -1,8 +1,6 @@
 'use client';
 
 import { useEffect, useRef } from 'react';
-import { gsap } from 'gsap';
-import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import Lenis from 'lenis';
 import { animate, scroll } from 'motion';
 
@@ -20,16 +18,15 @@ export default function AnimationProvider({ children }: { children: React.ReactN
       smoothWheel: true,
     });
 
+    // RAF with visibility pause
+    let rafId: number;
     function raf(time: number) {
-      lenis.raf(time);
-      requestAnimationFrame(raf);
+      if (!document.hidden) {
+        lenis.raf(time);
+      }
+      rafId = requestAnimationFrame(raf);
     }
-    requestAnimationFrame(raf);
-
-    // GSAP Setup
-    gsap.registerPlugin(ScrollTrigger);
-    lenis.on('scroll', ScrollTrigger.update);
-    gsap.ticker.lagSmoothing(0);
+    rafId = requestAnimationFrame(raf);
 
     // Hero parallax
     const heroVideo = document.querySelector('header video');
@@ -107,6 +104,7 @@ export default function AnimationProvider({ children }: { children: React.ReactN
 
     // Other animations...
     return () => {
+      cancelAnimationFrame(rafId);
       lenis.destroy();
     };
   }, []);

@@ -26,7 +26,7 @@ export default function ServicesSection({ onOpenPriceList, onOpenServiceDetail }
       {/* Mobile verze */}
       <div className="lg:hidden">
         <div className="py-16 px-6 md:px-12 text-center bg-white">
-          <span className="text-stone-400 uppercase tracking-widest text-xs mb-3 block font-geist">Naše péče</span>
+          <span className="text-stone-400 uppercase tracking-widest text-sm md:text-xs mb-3 block font-geist">Naše péče</span>
           <h2 className="text-3xl md:text-4xl font-medium tracking-tight font-cormorant text-stone-900">Služby</h2>
         </div>
         <div className="px-6 md:px-12 space-y-4 pb-4">
@@ -43,7 +43,7 @@ export default function ServicesSection({ onOpenPriceList, onOpenServiceDetail }
       <div className="hidden lg:flex flex-col lg:flex-row">
         <div className="w-full lg:w-1/2 py-40 md:py-48 px-6 md:px-12 lg:pl-24 xl:pl-32 z-10 bg-white">
           <div className="mb-32">
-            <span className="text-stone-400 uppercase tracking-widest text-xs mb-3 block font-geist">Naše péče</span>
+            <span className="text-stone-400 uppercase tracking-widest text-sm md:text-xs mb-3 block font-geist">Naše péče</span>
             <h2 className="text-2xl md:text-3xl font-medium tracking-tight font-cormorant text-stone-500">Služby</h2>
           </div>
           <div className="space-y-16 md:space-y-20" id="servicesList">

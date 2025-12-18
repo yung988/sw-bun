@@ -1,6 +1,7 @@
 'use client';
 
 import { useState } from 'react';
+import Image from 'next/image';
 
 const galleryItems = [
     {
@@ -79,7 +80,7 @@ export default function GallerySection() {
             <section id="galerie" className="py-24 md:py-32 px-6 md:px-12 bg-white">
                 <div className="max-w-7xl mx-auto">
                     <div className="text-center mb-16">
-                        <span className="text-xs uppercase tracking-widest text-stone-400 font-geist mb-4 block">Náš salon</span>
+                        <span className="text-sm md:text-xs uppercase tracking-widest text-stone-400 font-geist mb-4 block">Náš salon</span>
                         <h2 className="text-4xl md:text-5xl font-medium tracking-tight font-cormorant mb-4">Galerie</h2>
                         <p className="text-stone-500 font-light font-geist max-w-2xl mx-auto">
                             Nahlédněte do prostředí, kde se staráme o vaši krásu a pohodu.
@@ -94,10 +95,14 @@ export default function GallerySection() {
                                 className={`relative overflow-hidden cursor-pointer group ${item.span}`}
                                 onClick={() => openLightbox(index)}
                             >
-                                <img
+                                <Image
                                     src={item.src}
                                     alt={item.alt}
-                                    className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+                                    fill
+                                    sizes="(max-width: 768px) 50vw, (max-width: 1200px) 25vw, 350px"
+                                    className="object-cover transition-transform duration-500 group-hover:scale-105"
+                                    loading="lazy"
+                                    quality={80}
                                 />
                                 <div className="absolute inset-0 bg-black/0 group-hover:bg-black/20 transition-colors duration-300" />
                                 <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
@@ -142,12 +147,17 @@ export default function GallerySection() {
                     </button>
 
                     {/* Image */}
-                    <img
-                        src={galleryItems[activeIndex].src}
-                        alt={galleryItems[activeIndex].alt}
-                        className="max-w-[90vw] max-h-[85vh] object-contain"
-                        onClick={(e) => e.stopPropagation()}
-                    />
+                    <div className="relative max-w-[90vw] max-h-[85vh] w-[1200px] h-[800px]" onClick={(e) => e.stopPropagation()}>
+                        <Image
+                            src={galleryItems[activeIndex].src}
+                            alt={galleryItems[activeIndex].alt}
+                            fill
+                            className="object-contain"
+                            quality={90}
+                            priority
+                            sizes="90vw"
+                        />
+                    </div>
 
                     {/* Next button */}
                     <button

@@ -46,7 +46,6 @@ export default function RootLayout({
           href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700;900&display=swap"
           rel="stylesheet"
         />
-        <link rel="stylesheet" href="https://unpkg.com/lenis@1.3.15/dist/lenis.css" />
       </head>
       <body className="antialiased selection:bg-stone-200 selection:text-stone-900 text-stone-800 relative">
         {children}

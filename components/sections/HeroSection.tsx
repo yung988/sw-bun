@@ -12,7 +12,7 @@ export default function HeroSection({ onOpenBooking }: { onOpenBooking: () => vo
         muted
         loop
         playsInline
-        preload="auto"
+        preload="metadata"
         poster="https://omf77i7evqckneoq.public.blob.vercel-storage.com/hero_original.jpg"
         className="absolute inset-0 w-full h-full object-cover object-center -z-10 lg:hidden"
       >
@@ -34,7 +34,7 @@ export default function HeroSection({ onOpenBooking }: { onOpenBooking: () => vo
 
         <button
           onClick={onOpenBooking}
-          className="w-full text-center bg-white text-stone-900 px-4 py-4 hover:bg-stone-100 active:bg-stone-200 transition-colors duration-300 font-geist text-xs tracking-widest uppercase"
+          className="w-full text-center bg-white text-stone-900 px-4 py-4 hover:bg-stone-100 active:bg-stone-200 transition-colors duration-300 font-geist text-sm md:text-xs tracking-widest uppercase min-h-[52px]"
         >
           Rezervovat termín
         </button>
@@ -75,7 +75,7 @@ export default function HeroSection({ onOpenBooking }: { onOpenBooking: () => vo
               muted
               loop
               playsInline
-              preload="auto"
+              preload="metadata"
               poster="https://omf77i7evqckneoq.public.blob.vercel-storage.com/hero_original.jpg"
               className="w-full h-full object-cover object-center opacity-90 animate-fade-in-up"
             >
@@ -118,7 +118,7 @@ export default function HeroSection({ onOpenBooking }: { onOpenBooking: () => vo
               muted
               loop
               playsInline
-              preload="auto"
+              preload="metadata"
               poster="https://omf77i7evqckneoq.public.blob.vercel-storage.com/hero_original.jpg"
               className="w-full h-full object-cover object-center opacity-90 animate-fade-in-up"
             >

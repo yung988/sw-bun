@@ -14,7 +14,7 @@ export default function InstagramSection() {
     <section id="instagram" className="py-24 md:py-32 bg-stone-50">
       <div className="max-w-screen-2xl mx-auto px-6 md:px-12">
         <div className="text-center mb-16">
-          <span className="text-stone-400 uppercase tracking-widest text-xs mb-3 block font-geist">Sledujte nás</span>
+          <span className="text-stone-400 uppercase tracking-widest text-sm md:text-xs mb-3 block font-geist">Sledujte nás</span>
           <h2 className="text-4xl md:text-5xl lg:text-6xl font-medium tracking-tight font-cormorant text-stone-900">@swbeautysalons</h2>
         </div>
 

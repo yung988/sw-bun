@@ -1,5 +1,6 @@
 'use client';
 
+import Image from 'next/image';
 import { useModal } from '../providers/ModalProvider';
 
 interface GiftCardsSectionProps {
@@ -16,10 +17,14 @@ export default function GiftCardsSection({ onOpenGiftCard }: GiftCardsSectionPro
         {/* Left Side: Sticky Image */}
         <div className="hidden lg:flex w-1/2 h-screen sticky top-0 left-0 items-center justify-center bg-stone-50">
           <div className="relative w-[500px] aspect-[4/3] overflow-hidden shadow-2xl">
-            <img
+            <Image
               src="https://omf77i7evqckneoq.public.blob.vercel-storage.com/gift-card-main-VclQf9J2kWgWa8o8t3F6V8YlsTRA2O.webp"
               alt="SW Beauty dárkový poukaz"
-              className="w-full h-full object-cover"
+              fill
+              sizes="500px"
+              className="object-cover"
+              loading="lazy"
+              quality={80}
             />
             <div className="absolute inset-0 bg-gradient-to-tr from-stone-900/5 to-transparent"></div>
           </div>
@@ -31,16 +36,20 @@ export default function GiftCardsSection({ onOpenGiftCard }: GiftCardsSectionPro
           {/* Mobile Image */}
           <div className="lg:hidden mb-12 -mx-6 md:-mx-12">
             <div className="relative aspect-[4/3] overflow-hidden">
-              <img
+              <Image
                 src="https://omf77i7evqckneoq.public.blob.vercel-storage.com/gift-card-main-VclQf9J2kWgWa8o8t3F6V8YlsTRA2O.webp"
                 alt="SW Beauty dárkový poukaz"
-                className="w-full h-full object-cover"
+                fill
+                sizes="100vw"
+                className="object-cover"
+                loading="lazy"
+                quality={80}
               />
             </div>
           </div>
 
           <div className="max-w-lg">
-            <span className="text-stone-400 uppercase tracking-widest text-xs mb-6 block font-geist">
+            <span className="text-stone-400 uppercase tracking-widest text-sm md:text-xs mb-6 block font-geist">
               Dárkové poukazy
             </span>
 

@@ -1,6 +1,7 @@
 'use client';
 
 import { useEffect, useState } from 'react';
+import Image from 'next/image';
 import { getImageUrl, Service } from '@/lib/data';
 
 interface ServiceImagesProps {
@@ -54,14 +55,18 @@ export default function ServiceImages({ services }: ServiceImagesProps) {
         const imageId = `img-${service.service_id}`;
 
         return (
-          <img
+          <Image
             key={imageId}
             id={imageId}
             src={getImageUrl(firstImage)}
             alt={service.category_name}
-            className={`absolute inset-0 w-full h-full object-cover transition-opacity duration-700 ${
-              index === activeIndex ? 'opacity-100' : 'opacity-0'
-            }`}
+            fill
+            sizes="(max-width: 1024px) 100vw, 50vw"
+            className={`object-cover transition-opacity duration-700 ${index === activeIndex ? 'opacity-100' : 'opacity-0'
+              }`}
+            priority={index === 0}
+            loading={index === 0 ? 'eager' : 'lazy'}
+            quality={85}
           />
         );
       })}
