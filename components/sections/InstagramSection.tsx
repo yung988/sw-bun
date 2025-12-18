@@ -1,12 +1,12 @@
 import Image from 'next/image';
 
 const images = [
-  'https://omf77i7evqckneoq.public.blob.vercel-storage.com/rasy-2-AgJGRp9kpUIsYleekAI6K4DWweSk0P.jpg',
-  'https://omf77i7evqckneoq.public.blob.vercel-storage.com/skin-calming-with-propolis1-xs6afe6pbJMQIjlUeOZoSZ5zgXYByq.jpg',
-  'https://omf77i7evqckneoq.public.blob.vercel-storage.com/endos-2-dgtyicsefLl4Xhod9Hs0glKY7ih5XI.jpg',
-  'https://omf77i7evqckneoq.public.blob.vercel-storage.com/hair-bef%3Aafter2-EbbeqKZK8sm9uwt99bUXdlA9U46qAk.jpg',
-  'https://omf77i7evqckneoq.public.blob.vercel-storage.com/kavitace-2-ayT8umNr7uPl0OZdVOs7yYELVNyzVM.jpg',
-  'https://omf77i7evqckneoq.public.blob.vercel-storage.com/hifu-3-sYDJhEagJgSzLitKXiUMq7ggbLFgY0.jpg'
+  '/images/rasy-2.jpg',
+  '/images/skin-calming-with-propolis1.jpg',
+  '/images/endos-2.jpg',
+  '/images/hair-bef:after2.jpg',
+  '/images/kavitace-2.jpg',
+  '/images/hifu-3.jpg'
 ];
 
 export default function InstagramSection() {
