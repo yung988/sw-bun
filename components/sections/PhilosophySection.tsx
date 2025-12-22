@@ -7,7 +7,7 @@ export default function PhilosophySection() {
         <div className="w-full lg:w-1/2 relative">
           <div className="aspect-[4/5] bg-stone-100 overflow-hidden">
             <Image
-              src="https://omf77i7evqckneoq.public.blob.vercel-storage.com/salon_cekarna.png"
+              src="/images/woman-about-sw.png"
               alt="SW Beauty Interior"
               fill
               className="w-full h-full object-cover grayscale-[10%]"
