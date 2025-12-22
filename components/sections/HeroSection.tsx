@@ -1,24 +1,49 @@
 "use client"
 
+import { useEffect, useState } from 'react';
+import Image from 'next/image';
+
 export default function HeroSection({ onOpenBooking }: { onOpenBooking: () => void }) {
+  const [videoLoaded, setVideoLoaded] = useState(false);
+
+  useEffect(() => {
+    // Wait for page load, then load video
+    const timer = setTimeout(() => {
+      setVideoLoaded(true);
+    }, 100); // Small delay to ensure page renders first
+
+    return () => clearTimeout(timer);
+  }, []);
   return (
     <header
       className="relative w-full flex flex-col pt-16 lg:pt-0 lg:flex-row lg:items-center overflow-hidden bg-transparent"
       style={{ minHeight: "100dvh" }}
     >
-      {/* Mobile: Fullscreen Video Background - lowest z-index */}
-      <video
-        autoPlay
-        muted
-        loop
-        playsInline
-        preload="metadata"
-        poster="/images/hero-image.jpg"
-        className="absolute inset-0 w-full h-full object-cover object-center -z-10 lg:hidden"
-      >
-        <source src="/images/hero_1_mobile.mp4" type="video/mp4" />
-        Váš prohlížeč nepodporuje video.
-      </video>
+      {/* Mobile: Poster Image or Video */}
+      {!videoLoaded ? (
+        <div className="absolute inset-0 -z-10 lg:hidden">
+          <Image
+            src="/images/hero-image.jpg"
+            alt="SW Beauty"
+            fill
+            priority
+            quality={85}
+            className="object-cover object-center"
+          />
+        </div>
+      ) : (
+        <video
+          autoPlay
+          muted
+          loop
+          playsInline
+          poster="/images/hero-image.jpg"
+          className="absolute inset-0 w-full h-full object-cover object-center -z-10 lg:hidden"
+        >
+          <source src="/images/hero_1_mobile.mp4" type="video/mp4" />
+          Váš prohlížeč nepodporuje video.
+        </video>
+      )}
 
       {/* Mobile: Dark overlay */}
       <div className="absolute inset-0 bg-black/30 -z-[5] lg:hidden" />
