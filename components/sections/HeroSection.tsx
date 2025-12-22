@@ -12,11 +12,11 @@ export default function HeroSection({ onOpenBooking }: { onOpenBooking: () => vo
         muted
         loop
         playsInline
-        preload="auto"
+        preload="metadata"
         poster="/images/hero-image.jpg"
         className="absolute inset-0 w-full h-full object-cover object-center -z-10 lg:hidden"
       >
-        <source src="/images/hero_1.mp4" type="video/mp4" />
+        <source src="/images/hero_1_mobile.mp4" type="video/mp4" />
         Váš prohlížeč nepodporuje video.
       </video>
 
@@ -75,7 +75,7 @@ export default function HeroSection({ onOpenBooking }: { onOpenBooking: () => vo
               muted
               loop
               playsInline
-              preload="auto"
+              preload="metadata"
               poster="/images/hero-image.jpg"
               className="w-full h-full object-cover object-center opacity-90 animate-fade-in-up"
             >
@@ -118,7 +118,7 @@ export default function HeroSection({ onOpenBooking }: { onOpenBooking: () => vo
               muted
               loop
               playsInline
-              preload="auto"
+              preload="metadata"
               poster="/images/hero-image.jpg"
               className="w-full h-full object-cover object-center opacity-90 animate-fade-in-up"
             >
