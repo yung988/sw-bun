@@ -64,7 +64,7 @@ export default function PriceListModal({ onClose }: PriceListModalProps) {
       >
         <div className="px-6 md:px-8 py-4 md:py-6 border-b border-stone-100 flex justify-between items-center bg-white z-10">
           <h2 className="text-2xl md:text-3xl font-cormorant text-stone-900">Ceník služeb</h2>
-          <button onClick={onClose} className="p-2 text-stone-400 hover:text-stone-900 transition-colors">
+          <button onClick={onClose} className="p-2 text-stone-400 hover:text-stone-900 transition-colors" aria-label="Zavřít">
             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
               <path d="M18 6 6 18" />
               <path d="m6 6 12 12" />
