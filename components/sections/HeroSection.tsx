@@ -94,19 +94,27 @@ export default function HeroSection({ onOpenBooking }: { onOpenBooking: () => vo
 
         {/* Video Content - Tablet */}
         <div className="w-1/2 flex items-center justify-center py-24 pr-8">
-          <div className="max-w-sm aspect-[2/3] shadow-2xl overflow-hidden">
-            <video
-              autoPlay
-              muted
-              loop
-              playsInline
-              preload="metadata"
-              poster="/images/hero-image.jpg"
-              className="w-full h-full object-cover object-center opacity-90 animate-fade-in-up"
-            >
-              <source src="/images/hero_1.mp4" type="video/mp4" />
-              Váš prohlížeč nepodporuje video.
-            </video>
+          <div className="max-w-sm aspect-[2/3] shadow-2xl overflow-hidden bg-stone-100">
+            {videoLoaded ? (
+              <video
+                autoPlay
+                muted
+                loop
+                playsInline
+                poster="/images/hero-image.jpg"
+                className="w-full h-full object-cover object-center opacity-90 animate-fade-in-up"
+              >
+                <source src="/images/hero_1.mp4" type="video/mp4" />
+                Váš prohlížeč nepodporuje video.
+              </video>
+            ) : (
+              <Image
+                src="/images/hero-image.jpg"
+                alt="SW Beauty"
+                fill
+                className="object-cover object-center opacity-90"
+              />
+            )}
           </div>
         </div>
       </div>
@@ -137,19 +145,27 @@ export default function HeroSection({ onOpenBooking }: { onOpenBooking: () => vo
 
         {/* Video Content - Desktop */}
         <div className="w-7/12 flex items-center justify-center py-32 pr-16">
-          <div className="max-w-md aspect-[2/3] shadow-2xl overflow-hidden">
-            <video
-              autoPlay
-              muted
-              loop
-              playsInline
-              preload="metadata"
-              poster="/images/hero-image.jpg"
-              className="w-full h-full object-cover object-center opacity-90 animate-fade-in-up"
-            >
-              <source src="/images/hero_1.mp4" type="video/mp4" />
-              Váš prohlížeč nepodporuje video.
-            </video>
+          <div className="max-w-md aspect-[2/3] shadow-2xl overflow-hidden bg-stone-100">
+            {videoLoaded ? (
+              <video
+                autoPlay
+                muted
+                loop
+                playsInline
+                poster="/images/hero-image.jpg"
+                className="w-full h-full object-cover object-center opacity-90 animate-fade-in-up"
+              >
+                <source src="/images/hero_1.mp4" type="video/mp4" />
+                Váš prohlížeč nepodporuje video.
+              </video>
+            ) : (
+              <Image
+                src="/images/hero-image.jpg"
+                alt="SW Beauty"
+                fill
+                className="object-cover object-center opacity-90"
+              />
+            )}
           </div>
         </div>
       </div>
