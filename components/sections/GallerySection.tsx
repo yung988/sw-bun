@@ -6,13 +6,13 @@ import Image from 'next/image';
 const galleryItems = [
     {
         type: 'image' as const,
-        src: '/images/salon_cekarna.png',
+        src: '/images/salon_cekarna.jpg',
         alt: 'Čekárna salonu SW Beauty',
         span: 'col-span-2 row-span-2'
     },
     {
         type: 'image' as const,
-        src: '/images/salon_room1.png',
+        src: '/images/salon_room1.jpg',
         alt: 'Místnost salonu',
         span: ''
     },
