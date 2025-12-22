@@ -12,7 +12,7 @@ export default function HeroSection({ onOpenBooking }: { onOpenBooking: () => vo
         muted
         loop
         playsInline
-        preload="metadata"
+        preload="auto"
         poster="/images/hero-image.jpg"
         className="absolute inset-0 w-full h-full object-cover object-center -z-10 lg:hidden"
       >
@@ -75,7 +75,7 @@ export default function HeroSection({ onOpenBooking }: { onOpenBooking: () => vo
               muted
               loop
               playsInline
-              preload="metadata"
+              preload="auto"
               poster="/images/hero-image.jpg"
               className="w-full h-full object-cover object-center opacity-90 animate-fade-in-up"
             >
@@ -118,7 +118,7 @@ export default function HeroSection({ onOpenBooking }: { onOpenBooking: () => vo
               muted
               loop
               playsInline
-              preload="metadata"
+              preload="auto"
               poster="/images/hero-image.jpg"
               className="w-full h-full object-cover object-center opacity-90 animate-fade-in-up"
             >

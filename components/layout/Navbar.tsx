@@ -87,6 +87,7 @@ export default function Navbar() {
         <button
           onClick={toggleMobileMenu}
           className="absolute top-8 right-8 text-stone-900 p-2 hover:bg-stone-100 rounded-full transition-colors"
+          aria-label="Zavřít menu"
         >
           <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
             <path d="M18 6 6 18" />
@@ -179,8 +180,8 @@ export default function Navbar() {
               width={64}
               height={64}
               className={`h-12 md:h-16 w-auto transition-all duration-300 ${isPastHero
-                  ? 'md:filter-none'
-                  : '[filter:invert(1)_brightness(2)] md:filter-none'
+                ? 'md:filter-none'
+                : '[filter:invert(1)_brightness(2)] md:filter-none'
                 }`}
             />
           </Link>
@@ -216,6 +217,7 @@ export default function Navbar() {
             onClick={toggleMobileMenu}
             className={`md:hidden p-2 -mr-2 transition-colors duration-300 ${isPastHero ? 'text-stone-900' : 'text-white'
               }`}
+            aria-label="Otevřít menu"
           >
             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
               <path d="M4 5h16" />

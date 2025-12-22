@@ -11,6 +11,12 @@ export default function AnimationProvider({ children }: { children: React.ReactN
     if (initialized.current) return;
     initialized.current = true;
 
+    // Skip animations on mobile devices for better performance
+    const isMobile = window.innerWidth < 1024;
+    if (isMobile) {
+      return; // Exit early, no animations on mobile
+    }
+
     // Initialize Lenis
     const lenis = new Lenis({
       duration: 1.2,
