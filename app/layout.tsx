@@ -1,5 +1,32 @@
 import { Metadata } from 'next';
+import { Cormorant_Garamond, Geist, Playfair_Display } from 'next/font/google';
 import './globals.css';
+
+// Optimalizované fonty pomocí next/font/google
+const cormorant = Cormorant_Garamond({
+  weight: ['300', '400', '500', '600', '700'],
+  style: ['normal', 'italic'],
+  subsets: ['latin'],
+  display: 'swap',
+  variable: '--font-cormorant',
+  preload: true,
+});
+
+const geist = Geist({
+  weight: ['300', '400', '500', '600', '700'],
+  subsets: ['latin'],
+  display: 'swap',
+  variable: '--font-geist',
+  preload: true,
+});
+
+const playfair = Playfair_Display({
+  weight: ['400', '500', '600', '700', '900'],
+  subsets: ['latin'],
+  display: 'swap',
+  variable: '--font-playfair',
+  preload: true,
+});
 
 export const metadata: Metadata = {
   title: 'SW Beauty Hodonín | HIFU, Endospheres, Kosmetika | Luxusní péče',
@@ -33,19 +60,13 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="cs" suppressHydrationWarning>
+    <html
+      lang="cs"
+      suppressHydrationWarning
+      className={`${cormorant.variable} ${geist.variable} ${playfair.variable}`}
+    >
       <head>
         <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
-        <link rel="preconnect" href="https://fonts.googleapis.com" />
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="" />
-        <link
-          href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&family=Geist:wght@300;400;500;600;700&display=swap"
-          rel="stylesheet"
-        />
-        <link
-          href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700;900&display=swap"
-          rel="stylesheet"
-        />
       </head>
       <body className="antialiased selection:bg-stone-200 selection:text-stone-900 text-stone-800 relative">
         {children}

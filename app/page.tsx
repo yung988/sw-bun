@@ -28,18 +28,20 @@ function HomeContent() {
   return (
     <>
       <Navbar />
-      <HeroSection onOpenBooking={() => { setIsModalOpen(true); openModal('booking'); }} />
-      <ServicesSection
-        onOpenPriceList={() => { setIsModalOpen(true); openModal('price-list'); }}
-        onOpenServiceDetail={(id) => { setIsModalOpen(true); openModal('service-detail', { serviceId: id }); }}
-      />
-      <PhilosophySection />
-      <FounderSection />
-      <FAQSection />
-      <GallerySection />
-      <GiftCardsSection onOpenGiftCard={() => { setIsModalOpen(true); openModal('gift-card'); }} />
-      <ReviewsSection />
-      <InstagramSection />
+      <main>
+        <HeroSection onOpenBooking={() => { setIsModalOpen(true); openModal('booking'); }} />
+        <ServicesSection
+          onOpenPriceList={() => { setIsModalOpen(true); openModal('price-list'); }}
+          onOpenServiceDetail={(id) => { setIsModalOpen(true); openModal('service-detail', { serviceId: id }); }}
+        />
+        <PhilosophySection />
+        <FounderSection />
+        <FAQSection />
+        <GallerySection />
+        <GiftCardsSection onOpenGiftCard={() => { setIsModalOpen(true); openModal('gift-card'); }} />
+        <ReviewsSection />
+        <InstagramSection />
+      </main>
       <Footer />
     </>
   );
