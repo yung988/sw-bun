@@ -5,17 +5,17 @@ import dynamic from 'next/dynamic';
 import AnimationProvider from '@/components/providers/AnimationProvider';
 import { useModal } from '@/components/providers/ModalContext';
 import LoadingScreen from '@/components/ui/LoadingScreen';
-import Navbar from '@/components/layout/Navbar';
-import HeroSection from '@/components/sections/HeroSection';
-import ServicesSection from '@/components/sections/ServicesSection';
-import PhilosophySection from '@/components/sections/PhilosophySection';
-import FounderSection from '@/components/sections/FounderSection';
-import FAQSection from '@/components/sections/FAQSection';
-import GallerySection from '@/components/sections/GallerySection';
-import GiftCardsSection from '@/components/sections/GiftCardsSection';
-import ReviewsSection from '@/components/sections/ReviewsSection';
-import InstagramSection from '@/components/sections/InstagramSection';
-import Footer from '@/components/layout/Footer';
+const Navbar = dynamic(() => import('@/components/layout/Navbar'), { ssr: true });
+const HeroSection = dynamic(() => import('@/components/sections/HeroSection'), { ssr: true });
+const ServicesSection = dynamic(() => import('@/components/sections/ServicesSection'));
+const PhilosophySection = dynamic(() => import('@/components/sections/PhilosophySection'));
+const FounderSection = dynamic(() => import('@/components/sections/FounderSection'));
+const FAQSection = dynamic(() => import('@/components/sections/FAQSection'));
+const GallerySection = dynamic(() => import('@/components/sections/GallerySection'));
+const GiftCardsSection = dynamic(() => import('@/components/sections/GiftCardsSection'));
+const ReviewsSection = dynamic(() => import('@/components/sections/ReviewsSection'));
+const InstagramSection = dynamic(() => import('@/components/sections/InstagramSection'));
+const Footer = dynamic(() => import('@/components/layout/Footer'));
 
 // Dynamic import for ModalProvider to reduce initial bundle
 const ModalProvider = dynamic(() => import('@/components/providers/ModalProvider'), {
