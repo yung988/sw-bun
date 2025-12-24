@@ -94,20 +94,20 @@ export default function Navbar() {
             <path d="m6 6 12 12" />
           </svg>
         </button>
-        <nav className="flex flex-col gap-8 text-center mt-24">
-          <Link href="#sluzby" onClick={toggleMobileMenu} className="text-3xl font-cormorant text-stone-900 hover:text-stone-500 transition-colors">
+        <nav className="flex flex-col text-center mt-24">
+          <Link href="#sluzby" onClick={toggleMobileMenu} className="text-3xl font-cormorant text-stone-900 hover:text-stone-500 transition-colors py-4">
             Služby
           </Link>
-          <Link href="#galerie" onClick={toggleMobileMenu} className="text-3xl font-cormorant text-stone-900 hover:text-stone-500 transition-colors">
+          <Link href="#galerie" onClick={toggleMobileMenu} className="text-3xl font-cormorant text-stone-900 hover:text-stone-500 transition-colors py-4">
             Galerie
           </Link>
-          <Link href="#poukazy" onClick={toggleMobileMenu} className="text-3xl font-cormorant text-stone-900 hover:text-stone-500 transition-colors">
+          <Link href="#poukazy" onClick={toggleMobileMenu} className="text-3xl font-cormorant text-stone-900 hover:text-stone-500 transition-colors py-4">
             Poukazy
           </Link>
-          <Link href="#reviews" onClick={toggleMobileMenu} className="text-3xl font-cormorant text-stone-900 hover:text-stone-500 transition-colors">
+          <Link href="#reviews" onClick={toggleMobileMenu} className="text-3xl font-cormorant text-stone-900 hover:text-stone-500 transition-colors py-4">
             Recenze
           </Link>
-          <Link href="#kontakt" onClick={toggleMobileMenu} className="text-3xl font-cormorant text-stone-900 hover:text-stone-500 transition-colors">
+          <Link href="#kontakt" onClick={toggleMobileMenu} className="text-3xl font-cormorant text-stone-900 hover:text-stone-500 transition-colors py-4">
             Kontakt
           </Link>
           <button
@@ -115,7 +115,7 @@ export default function Navbar() {
               toggleMobileMenu();
               openModal('price-list');
             }}
-            className="text-3xl font-cormorant text-stone-900 hover:text-stone-500 transition-colors"
+            className="text-3xl font-cormorant text-stone-900 hover:text-stone-500 transition-colors py-4"
           >
             Ceník
           </button>

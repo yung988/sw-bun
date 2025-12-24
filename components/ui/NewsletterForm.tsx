@@ -26,6 +26,7 @@ export default function NewsletterForm() {
         value={email}
         onChange={(e) => setEmail(e.target.value)}
         placeholder="Váš email"
+        aria-label="Váš email pro odběr newsletteru"
         required
         suppressHydrationWarning
         className="w-full px-4 py-3 border border-stone-300 bg-white text-stone-900 font-geist text-sm focus:outline-none focus:border-stone-900 transition-colors"

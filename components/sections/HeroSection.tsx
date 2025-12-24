@@ -53,7 +53,7 @@ export default function HeroSection({ onOpenBooking }: { onOpenBooking: () => vo
             />
           )}
 
-          <div className="absolute inset-0 bg-black/30 -z-[5]" />
+          <div className="absolute inset-0 bg-black/45 -z-[5]" />
 
           <div
             className="absolute inset-x-0 bottom-0 z-10 flex flex-col px-6 pb-20"

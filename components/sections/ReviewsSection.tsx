@@ -52,14 +52,16 @@ export default function ReviewsSection() {
           ))}
         </div>
 
-        <div className="flex justify-center gap-3 md:gap-4 mt-8 z-20 relative">
+        <div className="flex justify-center gap-1 mt-8 z-20 relative">
           {reviews.map((_, index) => (
             <button
               key={index}
               onClick={() => setCurrentReview(index)}
-              className={`w-2 h-2 rounded-full transition-all duration-300 hover:scale-125 ${index === currentReview ? 'bg-stone-800' : 'bg-stone-300'}`}
-              aria-label={`Review ${index + 1}`}
-            />
+              className="p-4 flex items-center justify-center group"
+              aria-label={`Zobrazit recenzi ${index + 1}`}
+            >
+              <div className={`w-2.5 h-2.5 rounded-full transition-all duration-300 group-hover:scale-125 ${index === currentReview ? 'bg-stone-800' : 'bg-stone-300'}`} />
+            </button>
           ))}
         </div>
       </div>
