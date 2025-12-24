@@ -34,7 +34,7 @@ export default function HeroSection({ onOpenBooking }: { onOpenBooking: () => vo
             className="object-cover object-center"
           />
         </div>
-      ) : (
+      ) : isMobileState ? (
         <video
           autoPlay
           muted
@@ -47,7 +47,7 @@ export default function HeroSection({ onOpenBooking }: { onOpenBooking: () => vo
           <source src="/images/hero_1_mobile.mp4" type="video/mp4" />
           Váš prohlížeč nepodporuje video.
         </video>
-      )}
+      ) : null}
 
       {/* Mobile: Dark overlay */}
       <div className="absolute inset-0 bg-black/30 -z-[5] lg:hidden" />
