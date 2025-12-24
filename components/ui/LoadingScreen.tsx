@@ -44,7 +44,9 @@ export default function LoadingScreen() {
         } else {
             window.addEventListener('load', handleLoad);
             // Fallback timeout in case load event doesn't fire
-            const fallbackTimeout = setTimeout(handleLoad, 4000);
+            // Reduced to 1500ms for mobile to prevent high SI on slow 4G
+            const fallbackTime = isMobile ? 1500 : 3000;
+            const fallbackTimeout = setTimeout(handleLoad, fallbackTime);
 
             return () => {
                 window.removeEventListener('load', handleLoad);

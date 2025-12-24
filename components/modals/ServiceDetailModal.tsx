@@ -62,7 +62,7 @@ export default function ServiceDetailModal({ serviceId, onClose }: ServiceDetail
         onClick={(e) => e.stopPropagation()}
         onTouchMove={(e) => e.stopPropagation()}
       >
-        <button onClick={onClose} className="absolute top-2 right-2 z-10 p-4 text-stone-600 hover:text-stone-900 transition-colors" aria-label="Zavřít">
+        <button onClick={onClose} className="absolute top-2 right-2 z-10 p-4 text-stone-700 hover:text-stone-900 transition-colors" aria-label="Zavřít">
           <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
             <path d="M18 6 6 18" />
             <path d="m6 6 12 12" />
@@ -90,12 +90,12 @@ export default function ServiceDetailModal({ serviceId, onClose }: ServiceDetail
 
           <div className="p-6 md:p-12 space-y-6 md:space-y-8">
             <div>
-              <p className="text-lg md:text-xl text-stone-600 font-light font-geist italic">{service.short_description}</p>
+              <p className="text-lg md:text-xl text-stone-700 font-normal font-geist italic">{service.short_description}</p>
             </div>
 
             <div>
               <h3 className="text-xl md:text-2xl font-cormorant text-stone-900 mb-3 md:mb-4">O ošetření</h3>
-              <p className="text-base md:text-base text-stone-600 font-light font-geist leading-relaxed">{service.full_description}</p>
+              <p className="text-base md:text-base text-stone-700 font-normal font-geist leading-relaxed">{service.full_description}</p>
             </div>
 
             {benefits.length > 0 && (
@@ -103,11 +103,11 @@ export default function ServiceDetailModal({ serviceId, onClose }: ServiceDetail
                 <h3 className="text-xl md:text-2xl font-cormorant text-stone-900 mb-3 md:mb-4">Přínosy</h3>
                 <ul className="grid grid-cols-1 md:grid-cols-2 gap-3">
                   {benefits.map(b => (
-                    <li key={b} className="flex items-start gap-2 text-base md:text-base text-stone-600 font-geist">
+                    <li key={b} className="flex items-start gap-2 text-base md:text-base text-stone-700 font-geist">
                       <svg className="w-5 h-5 text-stone-900 mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 13l4 4L19 7" />
                       </svg>
-                      <span>{b.trim()}</span>
+                      <span className="font-normal">{b.trim()}</span>
                     </li>
                   ))}
                 </ul>
@@ -149,7 +149,7 @@ export default function ServiceDetailModal({ serviceId, onClose }: ServiceDetail
                     <div key={price.name} className="flex flex-col md:flex-row md:justify-between md:items-center gap-3 md:gap-4 border-b border-stone-100 pb-4">
                       <div>
                         <p className="font-geist text-stone-900 text-base md:text-base">{price.name}</p>
-                        <p className="text-sm md:text-sm text-stone-400 mt-1">
+                        <p className="text-sm md:text-sm text-stone-600 font-medium mt-1">
                           {price.duration_in_minutes && <span>{price.duration_in_minutes} min</span>}
                           {price.duration_in_minutes && price.session && <span> • </span>}
                           {price.session && <span>{price.session}x ošetření</span>}
@@ -163,7 +163,7 @@ export default function ServiceDetailModal({ serviceId, onClose }: ServiceDetail
                             onClose();
                             openModal('booking', { serviceId, packageName: price.name, price: price.price_in_czk });
                           }}
-                          className="px-4 py-3 md:py-2 text-sm md:text-xs min-h-[48px] md:min-h-0 uppercase tracking-widest font-geist border border-stone-300 text-stone-600 hover:border-stone-900 hover:bg-stone-900 hover:text-white transition-all"
+                          className="px-4 py-3 md:py-2 text-sm md:text-xs min-h-[48px] md:min-h-0 uppercase tracking-widest font-geist border border-stone-300 text-stone-700 font-medium hover:border-stone-900 hover:bg-stone-900 hover:text-white transition-all"
                         >
                           Rezervovat
                         </button>

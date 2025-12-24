@@ -80,7 +80,7 @@ export default function PhoneInput({ value, onChange, placeholder, className }: 
     return (
         <div className="relative">
             {/* +420 prefix - vždy zobrazený */}
-            <span className="absolute left-3 top-1/2 -translate-y-1/2 text-stone-500 font-geist pointer-events-none select-none">
+            <span className="absolute left-3 top-1/2 -translate-y-1/2 text-stone-700 font-geist font-medium pointer-events-none select-none">
                 +420
             </span>
             <input
