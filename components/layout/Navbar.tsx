@@ -186,28 +186,28 @@ export default function Navbar() {
             />
           </Link>
 
-          <div className="hidden md:flex gap-8 lg:gap-10 items-center text-xs lg:text-sm uppercase tracking-widest text-stone-600 font-light font-geist">
-            <Link href="#sluzby" className="hover:text-stone-900 transition-colors">
+          <div className="hidden md:flex gap-8 lg:gap-10 items-center text-xs lg:text-sm uppercase tracking-widest text-stone-800 font-medium font-geist">
+            <Link href="#sluzby" className="hover:text-stone-900 transition-colors py-2">
               Služby
             </Link>
             <button
               onClick={() => openModal('price-list')}
-              className="hover:text-stone-900 transition-colors uppercase"
+              className="hover:text-stone-900 transition-colors uppercase py-2"
             >
               Ceník
             </button>
-            <Link href="#poukazy" className="hover:text-stone-900 transition-colors">
+            <Link href="#poukazy" className="hover:text-stone-900 transition-colors py-2">
               Poukazy
             </Link>
-            <Link href="#galerie" className="hover:text-stone-900 transition-colors">
+            <Link href="#galerie" className="hover:text-stone-900 transition-colors py-2">
               Galerie
             </Link>
-            <Link href="#kontakt" className="hover:text-stone-900 transition-colors">
+            <Link href="#kontakt" className="hover:text-stone-900 transition-colors py-2">
               Kontakt
             </Link>
             <button
               onClick={() => openModal('booking')}
-              className="border border-stone-900 text-stone-900 px-6 py-2 hover:bg-stone-900 hover:text-white transition-all duration-300 uppercase font-light"
+              className="border border-stone-900 text-stone-900 px-6 py-2.5 hover:bg-stone-900 hover:text-white transition-all duration-300 uppercase font-medium"
             >
               Rezervace
             </button>
@@ -215,11 +215,11 @@ export default function Navbar() {
 
           <button
             onClick={toggleMobileMenu}
-            className={`md:hidden p-2 -mr-2 transition-colors duration-300 ${isPastHero ? 'text-stone-900' : 'text-white'
+            className={`md:hidden p-4 -mr-4 transition-colors duration-300 ${isPastHero ? 'text-stone-900' : 'text-white'
               }`}
             aria-label="Otevřít menu"
           >
-            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
+            <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
               <path d="M4 5h16" />
               <path d="M4 12h16" />
               <path d="M4 19h16" />

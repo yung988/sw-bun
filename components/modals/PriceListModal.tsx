@@ -64,8 +64,8 @@ export default function PriceListModal({ onClose }: PriceListModalProps) {
       >
         <div className="px-6 md:px-8 py-4 md:py-6 border-b border-stone-100 flex justify-between items-center bg-white z-10">
           <h2 className="text-2xl md:text-3xl font-cormorant text-stone-900">Ceník služeb</h2>
-          <button onClick={onClose} className="p-2 text-stone-400 hover:text-stone-900 transition-colors" aria-label="Zavřít">
-            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+          <button onClick={onClose} className="p-4 -mr-2 text-stone-600 hover:text-stone-900 transition-colors" aria-label="Zavřít">
+            <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
               <path d="M18 6 6 18" />
               <path d="m6 6 12 12" />
             </svg>
@@ -80,14 +80,14 @@ export default function PriceListModal({ onClose }: PriceListModalProps) {
           {/* Filter buttons */}
           <div className="sticky top-0 bg-white/95 backdrop-blur-sm z-20 pb-4 mb-6 border-b border-stone-200 shadow-sm">
             <div className="flex flex-wrap gap-2">
-              <button onClick={() => filterPriceList('all')} className={`px-4 py-2 text-xs uppercase tracking-widest font-geist border transition-colors ${selectedCategory === 'all' ? 'bg-stone-900 text-white border-stone-900' : 'border-stone-200 hover:border-stone-900'}`}>
+              <button onClick={() => filterPriceList('all')} className={`px-5 py-3 text-xs uppercase tracking-widest font-geist border transition-colors ${selectedCategory === 'all' ? 'bg-stone-900 text-white border-stone-900' : 'border-stone-200 text-stone-700 hover:border-stone-900'}`}>
                 Vše
               </button>
               {services.map(service => (
                 <button
                   key={service.service_id}
                   onClick={() => filterPriceList(service.service_id)}
-                  className={`px-4 py-2 text-xs uppercase tracking-widest font-geist border transition-colors ${selectedCategory === service.service_id ? 'bg-stone-900 text-white border-stone-900' : 'border-stone-200 hover:border-stone-900'}`}
+                  className={`px-5 py-3 text-xs uppercase tracking-widest font-geist border transition-colors ${selectedCategory === service.service_id ? 'bg-stone-900 text-white border-stone-900' : 'border-stone-200 text-stone-700 hover:border-stone-900'}`}
                 >
                   {service.category_name}
                 </button>

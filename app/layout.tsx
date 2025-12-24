@@ -1,5 +1,5 @@
 import { Metadata } from 'next';
-import { Cormorant_Garamond, Geist, Playfair_Display } from 'next/font/google';
+import { Cormorant_Garamond, Geist } from 'next/font/google';
 import './globals.css';
 
 // Optimalizované fonty pomocí next/font/google
@@ -17,14 +17,6 @@ const geist = Geist({
   subsets: ['latin'],
   display: 'swap',
   variable: '--font-geist',
-  preload: true,
-});
-
-const playfair = Playfair_Display({
-  weight: ['400', '500', '600', '700', '900'],
-  subsets: ['latin'],
-  display: 'swap',
-  variable: '--font-playfair',
   preload: true,
 });
 
@@ -54,6 +46,14 @@ export const metadata: Metadata = {
   },
 };
 
+import type { Viewport } from 'next';
+
+export const viewport: Viewport = {
+  width: 'device-width',
+  initialScale: 1,
+  viewportFit: 'cover',
+};
+
 export default function RootLayout({
   children,
 }: {
@@ -63,11 +63,8 @@ export default function RootLayout({
     <html
       lang="cs"
       suppressHydrationWarning
-      className={`${cormorant.variable} ${geist.variable} ${playfair.variable}`}
+      className={`${cormorant.variable} ${geist.variable}`}
     >
-      <head>
-        <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
-      </head>
       <body className="antialiased selection:bg-stone-200 selection:text-stone-900 text-stone-800 relative">
         {children}
       </body>

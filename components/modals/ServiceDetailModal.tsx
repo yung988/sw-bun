@@ -62,8 +62,8 @@ export default function ServiceDetailModal({ serviceId, onClose }: ServiceDetail
         onClick={(e) => e.stopPropagation()}
         onTouchMove={(e) => e.stopPropagation()}
       >
-        <button onClick={onClose} className="absolute top-4 right-4 z-10 p-2 text-stone-400 hover:text-stone-900 transition-colors" aria-label="Zavřít">
-          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+        <button onClick={onClose} className="absolute top-2 right-2 z-10 p-4 text-stone-600 hover:text-stone-900 transition-colors" aria-label="Zavřít">
+          <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
             <path d="M18 6 6 18" />
             <path d="m6 6 12 12" />
           </svg>

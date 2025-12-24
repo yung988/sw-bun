@@ -80,9 +80,9 @@ export default function GallerySection() {
             <section id="galerie" className="py-24 md:py-32 px-6 md:px-12 bg-white">
                 <div className="max-w-7xl mx-auto">
                     <div className="text-center mb-16">
-                        <span className="text-sm md:text-xs uppercase tracking-widest text-stone-400 font-geist mb-4 block">Náš salon</span>
-                        <h2 className="text-4xl md:text-5xl font-medium tracking-tight font-cormorant mb-4">Galerie</h2>
-                        <p className="text-stone-500 font-light font-geist max-w-2xl mx-auto">
+                        <span className="text-sm md:text-xs uppercase tracking-widest text-stone-600 font-medium font-geist mb-4 block">Náš salon</span>
+                        <h2 className="text-4xl md:text-5xl font-medium tracking-tight font-cormorant mb-4 text-stone-900">Galerie</h2>
+                        <p className="text-stone-700 font-normal font-geist max-w-2xl mx-auto leading-relaxed">
                             Nahlédněte do prostředí, kde se staráme o vaši krásu a pohodu.
                         </p>
                     </div>
