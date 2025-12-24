@@ -10,7 +10,7 @@ export default function HeroSection({ onOpenBooking }: { onOpenBooking: () => vo
     // Wait for page load, then load video
     const timer = setTimeout(() => {
       setVideoLoaded(true);
-    }, 100); // Small delay to ensure page renders first
+    }, 500); // Delay video load to prioritize initial paint
 
     return () => clearTimeout(timer);
   }, []);
@@ -37,6 +37,7 @@ export default function HeroSection({ onOpenBooking }: { onOpenBooking: () => vo
           muted
           loop
           playsInline
+          preload="none"
           poster="/images/hero-image.jpg"
           className="absolute inset-0 w-full h-full object-cover object-center -z-10 lg:hidden"
         >
@@ -94,13 +95,14 @@ export default function HeroSection({ onOpenBooking }: { onOpenBooking: () => vo
 
         {/* Video Content - Tablet */}
         <div className="w-1/2 flex items-center justify-center py-24 pr-8">
-          <div className="max-w-sm aspect-[2/3] shadow-2xl overflow-hidden bg-stone-100">
+          <div className="w-full max-w-sm aspect-[2/3] shadow-2xl overflow-hidden bg-stone-100">
             {videoLoaded ? (
               <video
                 autoPlay
                 muted
                 loop
                 playsInline
+                preload="none"
                 poster="/images/hero-image.jpg"
                 className="w-full h-full object-cover object-center opacity-90 animate-fade-in-up"
               >
@@ -145,13 +147,14 @@ export default function HeroSection({ onOpenBooking }: { onOpenBooking: () => vo
 
         {/* Video Content - Desktop */}
         <div className="w-7/12 flex items-center justify-center py-32 pr-16">
-          <div className="max-w-md aspect-[2/3] shadow-2xl overflow-hidden bg-stone-100">
+          <div className="w-full max-w-md aspect-[2/3] shadow-2xl overflow-hidden bg-stone-100">
             {videoLoaded ? (
               <video
                 autoPlay
                 muted
                 loop
                 playsInline
+                preload="none"
                 poster="/images/hero-image.jpg"
                 className="w-full h-full object-cover object-center opacity-90 animate-fade-in-up"
               >
