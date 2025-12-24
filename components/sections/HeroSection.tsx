@@ -9,7 +9,7 @@ export default function HeroSection({ onOpenBooking }: { onOpenBooking: () => vo
   useEffect(() => {
     // Responsive video loading: faster for mobile, slower for desktop
     const isMobile = window.innerWidth < 1024;
-    const delay = isMobile ? 50 : 400; // Mobile: 50ms, Desktop: 400ms
+    const delay = isMobile ? 0 : 300; // Mobile: 0ms for better SI, Desktop: 300ms for CLS
 
     const timer = setTimeout(() => {
       setVideoLoaded(true);
