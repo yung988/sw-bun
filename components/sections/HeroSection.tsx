@@ -7,10 +7,13 @@ export default function HeroSection({ onOpenBooking }: { onOpenBooking: () => vo
   const [videoLoaded, setVideoLoaded] = useState(false);
 
   useEffect(() => {
-    // Wait for page load, then load video
+    // Responsive video loading: faster for mobile, slower for desktop
+    const isMobile = window.innerWidth < 1024;
+    const delay = isMobile ? 50 : 400; // Mobile: 50ms, Desktop: 400ms
+
     const timer = setTimeout(() => {
       setVideoLoaded(true);
-    }, 500); // Delay video load to prioritize initial paint
+    }, delay);
 
     return () => clearTimeout(timer);
   }, []);
@@ -114,6 +117,7 @@ export default function HeroSection({ onOpenBooking }: { onOpenBooking: () => vo
                 src="/images/hero-image.jpg"
                 alt="SW Beauty"
                 fill
+                priority
                 className="object-cover object-center opacity-90"
               />
             )}
@@ -166,6 +170,7 @@ export default function HeroSection({ onOpenBooking }: { onOpenBooking: () => vo
                 src="/images/hero-image.jpg"
                 alt="SW Beauty"
                 fill
+                priority
                 className="object-cover object-center opacity-90"
               />
             )}
