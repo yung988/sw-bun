@@ -127,8 +127,9 @@ export default function GallerySection() {
                 >
                     {/* Close button */}
                     <button
-                        className="absolute top-6 right-6 text-white/80 hover:text-white transition-colors"
+                        className="absolute top-6 right-6 text-white/80 hover:text-white transition-colors p-4 min-h-[48px] min-w-[48px] flex items-center justify-center"
                         onClick={closeLightbox}
+                        aria-label="Zavřít galerii"
                     >
                         <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
                             <path d="M18 6 6 18" />
@@ -138,8 +139,9 @@ export default function GallerySection() {
 
                     {/* Previous button */}
                     <button
-                        className="absolute left-6 text-white/80 hover:text-white transition-colors p-2"
+                        className="absolute left-6 text-white/80 hover:text-white transition-colors p-4 min-h-[48px] min-w-[48px] flex items-center justify-center bg-black/20 rounded-full"
                         onClick={(e) => { e.stopPropagation(); prevImage(); }}
+                        aria-label="Předchozí obrázek"
                     >
                         <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
                             <path d="m15 18-6-6 6-6" />
@@ -161,8 +163,9 @@ export default function GallerySection() {
 
                     {/* Next button */}
                     <button
-                        className="absolute right-6 text-white/80 hover:text-white transition-colors p-2"
+                        className="absolute right-6 text-white/80 hover:text-white transition-colors p-4 min-h-[48px] min-w-[48px] flex items-center justify-center bg-black/20 rounded-full"
                         onClick={(e) => { e.stopPropagation(); nextImage(); }}
+                        aria-label="Následující obrázek"
                     >
                         <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
                             <path d="m9 18 6-6-6-6" />
