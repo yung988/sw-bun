@@ -42,6 +42,7 @@ export default function HeroSection({ onOpenBooking }: { onOpenBooking: () => vo
           playsInline
           preload="none"
           poster="/images/hero-image.jpg"
+          aria-label="Video pozadí salonu"
           className="absolute inset-0 w-full h-full object-cover object-center -z-10 lg:hidden"
         >
           <source src="/images/hero_1_mobile.mp4" type="video/mp4" />
