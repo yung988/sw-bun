@@ -49,7 +49,7 @@ export default function GiftCardsSection({ onOpenGiftCard }: GiftCardsSectionPro
           </div>
 
           <div className="max-w-lg">
-            <span className="text-stone-400 uppercase tracking-widest text-sm md:text-xs mb-6 block font-geist">
+            <span className="text-stone-600 uppercase tracking-widest text-sm md:text-xs mb-6 block font-geist font-medium">
               Dárkové poukazy
             </span>
 

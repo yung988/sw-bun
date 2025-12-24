@@ -41,7 +41,7 @@ export default function FAQSection() {
                   </svg>
                 </span>
               </summary>
-              <p className="text-stone-500 font-light font-geist mt-2 leading-relaxed pb-4">
+              <p className="text-stone-700 font-normal font-geist mt-2 leading-relaxed pb-4">
                 {faq.answer}
               </p>
             </details>

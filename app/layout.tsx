@@ -4,7 +4,7 @@ import './globals.css';
 
 // Optimalizované fonty pomocí next/font/google
 const cormorant = Cormorant_Garamond({
-  weight: ['300', '400', '500', '600', '700'],
+  weight: ['300', '400', '500'],
   style: ['normal', 'italic'],
   subsets: ['latin'],
   display: 'swap',
@@ -13,7 +13,7 @@ const cormorant = Cormorant_Garamond({
 });
 
 const geist = Geist({
-  weight: ['300', '400', '500', '600', '700'],
+  weight: ['300', '400', '500', '600'],
   subsets: ['latin'],
   display: 'swap',
   variable: '--font-geist',

@@ -17,7 +17,7 @@ export default function PhilosophySection() {
         </div>
 
         <div className="w-full lg:w-1/2 lg:pr-12">
-          <span className="text-stone-400 uppercase tracking-widest text-sm md:text-xs mb-6 block font-geist">O SW Beauty</span>
+          <span className="text-stone-600 uppercase tracking-widest text-sm md:text-xs mb-6 block font-geist font-medium">O SW Beauty</span>
           <h2 className="text-4xl md:text-5xl lg:text-6xl tracking-tight mb-8 leading-tight font-medium font-cormorant">
             Každá žena si zaslouží cítit se <span className="text-stone-600 italic">výjimečně</span>.
           </h2>

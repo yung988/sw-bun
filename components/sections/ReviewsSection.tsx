@@ -45,7 +45,7 @@ export default function ReviewsSection() {
                 </p>
               </blockquote>
               <cite className="not-italic">
-                <span className="block text-[10px] md:text-xs font-geist uppercase tracking-[0.2em] text-stone-400 mb-2">Klientka</span>
+                <span className="block text-[10px] md:text-xs font-geist uppercase tracking-[0.2em] text-stone-600 font-medium mb-2">Klientka</span>
                 <span className="block text-base md:text-lg font-cormorant text-stone-900">{review.author}</span>
               </cite>
             </div>
