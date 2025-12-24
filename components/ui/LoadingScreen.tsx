@@ -15,7 +15,9 @@ export default function LoadingScreen() {
         document.body.style.height = '100%';
 
         // Minimum display time for the loader (for brand impression)
-        const minDisplayTime = 1500;
+        // Aggressively reduced for Speed Index optimization
+        const isMobile = window.innerWidth < 1024;
+        const minDisplayTime = isMobile ? 0 : 300;
         const startTime = Date.now();
 
         const handleLoad = () => {
@@ -24,7 +26,7 @@ export default function LoadingScreen() {
 
             setTimeout(() => {
                 setIsFadingOut(true);
-                // Wait for fade out animation to complete
+                // Faster fade out for performance
                 setTimeout(() => {
                     setIsLoading(false);
                     // Re-enable scrolling
@@ -32,7 +34,7 @@ export default function LoadingScreen() {
                     document.body.style.position = '';
                     document.body.style.width = '';
                     document.body.style.height = '';
-                }, 600);
+                }, 300);
             }, remainingTime);
         };
 

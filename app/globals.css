@@ -79,6 +79,7 @@ input[type=range]::-webkit-slider-runnable-track {
 
 .animate-fade-in-up {
   animation: fade-in-up 0.4s ease-out forwards;
+  will-change: transform, opacity;
 }
 
 /* Accordion */
