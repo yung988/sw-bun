@@ -2,7 +2,7 @@ import { NextResponse } from 'next/server';
 import type { NextRequest } from 'next/server';
 
 // ⚠️ MAINTENANCE MODE - nastav na true pro pozastavení webu
-const MAINTENANCE_MODE = true;
+const MAINTENANCE_MODE = false;
 
 export function middleware(request: NextRequest) {
     // Pokud je maintenance mode zapnutý
